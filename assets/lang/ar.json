@@ -21,5 +21,23 @@
   "imageUpload":{
     "useCamera":"استخدم الكاميرا",
     "useGallery":"تحميل صورة من المعرض"
-  }
+  },
+  
+      "filter":{
+        "filter":"فلتر",
+        "city":"مدينة",
+        "sections":"الاقسام",
+        "apply":"تطبيق",
+        "close":"اغلاق",
+        "cairo":"القاهرة",
+        "giza":"الجيزة",
+        "luxor":"الاقصر",
+        "aswan":"اسوان",
+        "archaeologicalAreas":"المناطق الاثرية",
+        "temples":"المعابد",
+        "mosques":"المساجد",
+        "churches":"الكنائس",
+        "museums":"المتاحف",
+        "touristAttractions":"المعالم السياحية"
+      }
 }

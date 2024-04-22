@@ -21,5 +21,22 @@
     "imageUpload":{
         "useCamera":"Use camera",
         "useGallery":"Upload from gallery"
+      },
+      "filter":{
+        "filter":"Filter",
+        "city":"City",
+        "sections":"Sections",
+        "apply":"Apply",
+        "close":"Close",
+        "cairo":"Cairo",
+        "giza":"Giza",
+        "luxor":"Luxor",
+        "aswan":"Aswan",
+        "archaeologicalAreas":"Archaeological Areas",
+        "temples":"Temples",
+        "mosques":"Mosques",
+        "churches":"Churches",
+        "museums":"Museums",
+        "touristAttractions":"Tourist Attractions"
       }
 }
