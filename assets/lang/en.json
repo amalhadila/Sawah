@@ -1,0 +1,25 @@
+{
+    "onBoarding":{
+        "learnMore":"Learn more about Egyptian civilization",
+        "scan":"Scan to know",
+        "enjoy":"Enjoy...",
+        "sawah":"Sawah",
+        "skip":"Skip",
+        "done":"Done"
+    },
+    "home":{
+        "welcome":"Welcome to Egypt",
+        "mostVisited":"Most Visited",
+        "search":"Search"
+    },
+    "drawer":{
+        "share":"Share with friends",
+        "contact":"Contact us",
+        "rate":"Rate the app",
+        "language":"Language"
+    },
+    "imageUpload":{
+        "useCamera":"Use camera",
+        "useGallery":"Upload from gallery"
+      }
+}
