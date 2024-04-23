@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return CustomAlertDialog();
+                            return SingleChildScrollView(child: CustomAlertDialog());
                           },
                         );
                       },

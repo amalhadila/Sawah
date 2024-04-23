@@ -30,7 +30,7 @@ class locationtionwidget extends StatelessWidget {
             children: [
               const Icon(
                 Icons.location_on,
-                color: kmaincolor,
+                color: klocicon,
                 size: 14,
               ),
               const SizedBox(width: 7),
