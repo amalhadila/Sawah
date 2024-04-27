@@ -8,13 +8,22 @@ part 'categories_cubit_state.dart';
 class CategoriesCubitCubit extends Cubit<CategoriesCubitState> {
   CategoriesCubitCubit(this.catrepo) : super(CategoriesCubitInitial());
   final CategoriesRepo catrepo;
+  bool _closed = false;
+
+  @override
+  Future<void> close() async {
+    _closed = true;
+    return super.close();
+  }
+
   Future<void> fetchCategories() async {
+    if (_closed) return;
     emit(CategoriesCubitLoading());
     var result = await catrepo.fetchCategories();
     result.fold((Failure) {
-      emit(CategoriesCubitFailure(Failure.message));
+      if (!_closed) emit(CategoriesCubitFailure(Failure.message));
     }, (categories) {
-      emit(CategoriesCubitSuccess(categories));
+      if (!_closed) emit(CategoriesCubitSuccess(categories));
     });
   }
 }

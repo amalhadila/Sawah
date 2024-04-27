@@ -8,15 +8,22 @@ part 'most_visited_state.dart';
 class MostVisitedCubit extends Cubit<MostVisitedState> {
   MostVisitedCubit(this.mostvisitedrepo) : super(MostVisitedInitial());
   final CategoriesRepo mostvisitedrepo;
+  bool _closed = false;
+
+  @override
+  Future<void> close() async {
+    _closed = true;
+    return super.close();
+  }
+
   Future<void> fetchmostvisited() async {
+    if (_closed) return;
     emit(MostVisitedLoading());
     var result = await mostvisitedrepo.fetchmostvisited();
     result.fold((Failure) {
-      emit(MostVisitedFailure(Failure.message));
+      if (!_closed) emit(MostVisitedFailure(Failure.message));
     }, (mostvisited) {
-      emit(MostVisitedSuccess(mostvisited));
+      if (!_closed) emit(MostVisitedSuccess(mostvisited));
     });
   }
 }
-
-

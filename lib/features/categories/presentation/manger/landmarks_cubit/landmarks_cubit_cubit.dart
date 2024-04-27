@@ -8,13 +8,22 @@ part 'landmarks_cubit_state.dart';
 class LandmarksCubitCubit extends Cubit<LandmarksCubitState> {
   LandmarksCubitCubit(this.landmarkrepo) : super(LandmarksCubitInitial());
   final CategoriesRepo landmarkrepo;
+  bool _closed = false;
+
+  @override
+  Future<void> close() async {
+    _closed = true;
+    return super.close();
+  }
+
   Future<void> fetchlandmarks({required String categoryId}) async {
+    if (_closed) return;
     emit(LandmarksCubitLoading());
     var result = await landmarkrepo.fetchlandmarks(categoryId: categoryId);
     result.fold((Failure) {
-      emit(LandmarksCubitFailure(Failure.message));
+      if (!_closed) emit(LandmarksCubitFailure(Failure.message));
     }, (lamdmarks) {
-      emit(LandmarksCubitSuccess(lamdmarks));
+      if (!_closed) emit(LandmarksCubitSuccess(lamdmarks));
     });
   }
 }
