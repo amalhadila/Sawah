@@ -18,7 +18,7 @@ class landmarkGrid extends StatelessWidget {
       builder: (context, state) {
         if (state is LandmarksCubitSuccess) {
           return Padding(
-              padding: const EdgeInsets.only(left: 11, right: 17),
+              padding: const EdgeInsets.only(left: 11, right: 17,top: 20,bottom: 15),
               child: GridView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.Landmarklist.length,

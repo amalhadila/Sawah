@@ -16,7 +16,7 @@ class CategoriesGrid extends StatelessWidget {
       builder: (context, state) {
         if (state is CategoriesCubitSuccess) {
           return  Padding(
-              padding: const EdgeInsets.only(left: 11, right: 17),
+              padding: const EdgeInsets.only(left: 11, right: 17,top: 20,bottom: 15),
               child: GridView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.categorieslist.length,
