@@ -12,19 +12,19 @@ class IntroductionScreenViewBody extends StatelessWidget {
 final List<PageViewModel> pages = [
   PageViewModel(
     decoration: const PageDecoration(pageColor:abarcolor,titleTextStyle: Textstyle.textStyle25), 
-    image: Image.asset('assets/egypt-pyramid_8330589.png'),
+    image: Image.asset('assets/egypt-pyramid_8330589.png',width: 230,height: 230,fit: BoxFit.fill,),
     title:'onBoarding.learnMore'.tr(),
     body: '',
   ),
   PageViewModel(
     decoration: const PageDecoration(pageColor:abarcolor,titleTextStyle: Textstyle.textStyle25), 
-    image: Image.asset('assets/qr-scan_11815469.png'),
+    image: Image.asset('assets/qr-scan_11815469.png',width: 230,height: 230,fit: BoxFit.fill,),
     title:'onBoarding.scan'.tr(),
     body: '',
   ),
   PageViewModel(
     decoration: const PageDecoration(pageColor:abarcolor,titleTextStyle: Textstyle.textStyle25), 
-    image: Image.asset('assets/sphinx_760052.png'),
+    image: Image.asset('assets/sphinx_760052.png',width: 230,height: 230,fit: BoxFit.fill,),
     title:'onBoarding.enjoy'.tr(),
     body: '',
   ),

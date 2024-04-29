@@ -5,6 +5,7 @@ import 'package:graduation/features/categories/data/model/landmark_on_cat_model/
 import 'package:graduation/features/categories/presentation/views/Landmarks_view.dart';
 import 'package:graduation/features/categories/presentation/views/categories_view.dart';
 import 'package:graduation/features/categories/presentation/views/info_view.dart';
+import 'package:graduation/features/contact_us.dart/contact_us_view.dart';
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 import 'package:graduation/features/home/pres/views/homeview.dart';
 import 'package:graduation/features/introduction_screen/presentation/views/introduction_screen_view.dart';
@@ -38,7 +39,10 @@ abstract class AppRouter {
       }),
             GoRoute(path: '/SplashView', builder: (context, state)=>  SplashView()),
                         GoRoute(path: '/homepage', builder: (context, state)=>  Homepage()),
-
+       
+      GoRoute(
+          path: '/contactus',
+          builder: (context, state) => const ContactUsView()),  
 
       GoRoute(
           path: '/CategoriesView',
