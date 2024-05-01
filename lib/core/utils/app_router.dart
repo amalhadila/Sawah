@@ -29,10 +29,10 @@ abstract class AppRouter {
           future: loadShowOnboarding(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return LoadingWidget();
+              return const LoadingWidget();
             } else {
               bool showOnboarding = snapshot.data ?? true;
-              return showOnboarding ? IntroductionScreenView() : BottomNavigation();
+              return showOnboarding ? const IntroductionScreenView() : const BottomNavigation();
             }
           },
         );

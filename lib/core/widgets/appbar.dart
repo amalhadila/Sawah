@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       FontAwesomeIcons.search,
                       size: 20,
                       color: Colors.orange,
@@ -41,16 +41,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           },
                         );
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.menu,
                         color: Colors.orange,
                       ),
                     ),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                     hintText: 'home.search'.tr(),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 15,
                       color: Color.fromARGB(255, 107, 99, 99),
                     ),
