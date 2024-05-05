@@ -2,6 +2,9 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/features/categories/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
+import 'package:graduation/features/search/data/repos/search_repo.dart';
+import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
+import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import '../../core/utils/assets.dart';
 import '../../core/widgets/appbar.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
@@ -45,6 +48,11 @@ class _BottomNavigationExampleState extends State {
         create: (context) =>
             CategoriesCubitCubit(CategoriesRepoImpl(ApiService(Dio())))
               ..fetchCategories(),
+      ),
+         BlocProvider(
+        create: (context) =>
+            SearchCubit(SearchRepoImp( ApiService(Dio())))
+            
       ),
       
       ],

@@ -69,7 +69,7 @@ class CustomCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Padding(
                       padding:  EdgeInsets.only(bottom: 8),
