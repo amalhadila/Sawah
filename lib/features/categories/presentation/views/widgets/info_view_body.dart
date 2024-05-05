@@ -21,8 +21,9 @@ class InfViewBody extends StatelessWidget {
         child: Column(
           children: [
             infoimg(
-              imagelink:
-                  'assets/img/landmarks/${(landmarkoncatModel?.imageCover ?? mostVisitedModel?.imageCover)!}',
+              imageslink:
+                  (landmarkoncatModel?.images ?? mostVisitedModel?.images)!,
+              imagecoverlink: (landmarkoncatModel?.imageCover ?? mostVisitedModel?.imageCover)!,    
             ),
             locationtionwidget(
              name: (landmarkoncatModel?.name ?? mostVisitedModel?.name)!,

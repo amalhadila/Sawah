@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -45,12 +46,14 @@ class CustomDrawer extends StatelessWidget {
                 //   // Add functionality to share the app
                 // },
               ),
-              _buildDrawerItem(
-                icon: Icons.phone,
-                text: 'drawer.contact'.tr(),
-                // onTap: () {
-                //   // Add functionality to share the app
-                // },
+              InkWell(
+                onTap: ()  => GoRouter.of(context)
+                        .push('/contactus'),
+                child: _buildDrawerItem(
+                  icon: Icons.phone,
+                  text: 'drawer.contact'.tr(),
+                   
+                ),
               ),
             ],
           )

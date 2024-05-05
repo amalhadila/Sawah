@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:graduation/features/splachview/preslayer/views/splachviewBody.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 bool show = true;
 
