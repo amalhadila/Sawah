@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/widgets/custom_textfield.dart';
 import 'package:graduation/features/home/pres/views/widget/app_filter.dart';
+import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -27,6 +31,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               height: 36,
               child: Center(
                 child: TextField(
+                  onSubmitted: (value){
+                      log('search');
+            BlocProvider.of<SearchCubit>(context)
+                .fetchSearchResult(name: value);
+                  },
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,

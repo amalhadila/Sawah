@@ -1,3 +1,7 @@
+
+
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,17 +24,13 @@ class CustomTextField extends StatelessWidget {
       child: Center(
         child: TextFormField(
           controller: searchController,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'please enter your search words, must not be empty';
-          //   }
-          //   return null;
-          // },
+        
           onChanged: (value) {
-         
+            log('search');
             BlocProvider.of<SearchCubit>(context)
                 .fetchSearchResult(name: value);
-           Navigator.push(context,MaterialPageRoute(builder: (context)=> SearhResultGrid()));
+           
+            //  Navigator.push(context,MaterialPageRoute(builder: (context)=> SearhResultGrid()));
           },
           decoration: InputDecoration(
             filled: true,

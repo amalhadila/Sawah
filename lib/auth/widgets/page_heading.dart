@@ -10,6 +10,7 @@ class PageHeading extends StatelessWidget {
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 25),
       child: Text(
+        textAlign: TextAlign.center,
         title,
         style: const TextStyle(
           color: Colors.orange,

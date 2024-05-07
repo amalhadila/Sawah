@@ -30,72 +30,70 @@ ScaffoldMessenger.of(context)
       builder: (context, state) {
         return Scaffold(
           backgroundColor: const Color(0xffEEF1F3),
-          body: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height * .25,
-              ),
-              Expanded(
-                child: Container(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height * .25,
+                ),
+                Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(20),
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: context.read<UserCubit>().signInFormKey,
-                      child: Column(
-                        children: [
-                          const PageHeading(title: 'Sign-in'),
-                          //!Email
-                          CustomInputField(
-                            labelText: 'Email',
-                            hintText: 'Your email',
-                            controller: context.read<UserCubit>().signInEmail,
-                          ),
-                          const SizedBox(height: 16),
-                          //!Password
-                          CustomInputField(
-                            labelText: 'Password',
-                            hintText: 'Your password',
-                            obscureText: true,
-                            suffixIcon: true,
-                            controller:
-                                context.read<UserCubit>().signInPassword,
-                          ),
-                          const SizedBox(height: 16),
-                          //! Forget password?
-                          ForgetPasswordWidget(size: size),
-                          const SizedBox(height: 20),
-                          //!Sign In Button
-                          state is signinloading
-                              ? CircularProgressIndicator()
-                              : CustomFormButton(
-                                  innerText: 'Sign In',
-                                  onPressed: () {
-                                    context.read<UserCubit>().SignIn();
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => const ProfileScreen(),
-                                    //   ),
-                                    // );
-                                  },
-                                ),
-                          const SizedBox(height: 18),
-                          //! Dont Have An Account ?
-                          DontHaveAnAccountWidget(size: size),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
+                  child: Form(
+                    key: context.read<UserCubit>().signInFormKey,
+                    child: Column(
+                      children: [
+                        const PageHeading(title: 'Sign-in'),
+                        //!Email
+                        CustomInputField(
+                          labelText: 'Email',
+                          hintText: 'Your email',
+                          controller: context.read<UserCubit>().signInEmail,
+                        ),
+                        const SizedBox(height: 16),
+                        //!Password
+                        CustomInputField(
+                          labelText: 'Password',
+                          hintText: 'Your password',
+                          obscureText: true,
+                          suffixIcon: true,
+                          controller:
+                              context.read<UserCubit>().signInPassword,
+                        ),
+                        const SizedBox(height: 16),
+                        //! Forget password?
+                        ForgetPasswordWidget(size: size),
+                        const SizedBox(height: 20),
+                        //!Sign In Button
+                        state is signinloading
+                            ? CircularProgressIndicator()
+                            : CustomFormButton(
+                                innerText: 'Sign In',
+                                onPressed: () {
+                                  context.read<UserCubit>().SignIn();
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const ProfileScreen(),
+                                  //   ),
+                                  // );
+                                },
+                              ),
+                        const SizedBox(height: 18),
+                        //! Dont Have An Account ?
+                        DontHaveAnAccountWidget(size: size),
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
