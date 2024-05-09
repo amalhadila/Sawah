@@ -16,7 +16,7 @@ import 'package:graduation/features/search/presentation/manager/searh_cubit.dart
 import 'package:graduation/features/search/presentation/views/notfound_page_view.dart';
 import 'package:graduation/features/search/presentation/views/widgets/gridsearchresult.dart';
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
-import 'package:graduation/features/splachview/preslayer/views/widget/splahview.dart';
+import 'package:graduation/features/search/splahview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
@@ -33,7 +33,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/',
+          path: '/homepage',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -49,8 +49,8 @@ abstract class AppRouter {
               },
             );
           }),
-      GoRoute(path: '/SplashView', builder: (context, state) => SplashView()),
-      GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
+      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      // GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
       GoRoute(
           path: '/contactus',
           builder: (context, state) => const ContactUsView()),
@@ -59,7 +59,7 @@ abstract class AppRouter {
           builder: (context, state) => BlocProvider(
                 create: (context) =>
                     SearchCubit(SearchRepoImp(ApiService(Dio()))),
-                child: const SearchViewBody(),
+                child:  SearchViewBody(name: state.extra as String,),
               )),
       GoRoute(
           path: '/notfound_page_view',
@@ -68,13 +68,13 @@ abstract class AppRouter {
                     SearchCubit(SearchRepoImp(ApiService(Dio()))),
                 child: const NotfoundPage(),
               )),
-      GoRoute(
-          path: '/gridsearchresult',
-          builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    SearchCubit(SearchRepoImp(ApiService(Dio()))),
-                child: const SearhResultGrid(),
-              )),
+      // GoRoute(
+      //     path: '/gridsearchresult',
+      //     builder: (context, state) => BlocProvider(
+      //           create: (context) =>
+      //               SearchCubit(SearchRepoImp(ApiService(Dio()))),
+      //           child: const SearchViewBody(),
+      //         )),
       GoRoute(
           path: '/CategoriesView',
           builder: (context, state) => const CategoriesView()),

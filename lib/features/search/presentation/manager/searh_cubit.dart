@@ -15,9 +15,9 @@ class SearchCubit extends Cubit<SearchStates> {
       emit(SearchFailure(failure.message));
       log(failure.message);
     }, (resualt) {
-      print(resualt);
+     // print(resualt.first);
       emit(SearchSuccess(resualt));
-      log(resualt.length.toString());
+    //  log(resualt.length.toString());
     });
   }
 }

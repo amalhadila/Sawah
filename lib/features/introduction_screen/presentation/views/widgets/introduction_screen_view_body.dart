@@ -67,6 +67,6 @@ final List<PageViewModel> pages = [
   void onDone(context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('ON_BOARDING', false);
-    GoRouter.of(context).push('/');
+    GoRouter.of(context).push('/homepage');
   }
 }

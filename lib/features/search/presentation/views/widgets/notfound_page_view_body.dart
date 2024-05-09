@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/core/widgets/appbar.dart';
 
 class NotfoundPageBody extends StatelessWidget {
   const NotfoundPageBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
+    return   Scaffold(
+       appBar: CustomAppBar(),
         backgroundColor: Colors.white,
-        body: Center(
+        body:const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,7 +34,6 @@ class NotfoundPageBody extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

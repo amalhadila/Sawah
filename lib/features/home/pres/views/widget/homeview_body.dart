@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/features/home/pres/views/widget/featuredlistview.dart';
-import 'package:graduation/features/splachview/preslayer/views/widget/slider.dart';
+import 'package:graduation/core/utils/slider.dart';
 
 class homeviewbody extends StatelessWidget {
   const homeviewbody({super.key});

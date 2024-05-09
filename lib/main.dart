@@ -75,11 +75,16 @@
 // //     );
 // //   }
 // // }
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
+import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
+import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 
 void main() {
   runApp(EasyLocalization(
@@ -88,15 +93,16 @@ void main() {
       startLocale: const Locale('en'),
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: const Sawah()));
+      child:  Sawah()));
 }
 
 class Sawah extends StatelessWidget {
-  const Sawah({super.key});
-
+   Sawah({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return BlocProvider(
+        create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
+        child: MaterialApp.router(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -105,6 +111,6 @@ class Sawah extends StatelessWidget {
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: kbackgroundcolor,
           textTheme: GoogleFonts.interTextTheme()),
-    );
+    ));
   }
 }

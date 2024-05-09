@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/core/errors/failures.dart';
@@ -15,10 +17,11 @@ class SearchRepoImp implements SearchRepo {
   Future<Either<Failure, List<LandmarkOnCatModel>>> fetchSearchResults(
       {required String name}) async {
     try {
-      var data = await apiService.get(endpoint: 'landmarks',search: name);
-      debugPrint(data['p']);
+      var data = await apiService.get(endpoint: 'landmarks', search: name);
+      log('test');
+      print(data);
       List<LandmarkOnCatModel> landmark = [];
-      for (var match in data['items']) {
+      for (var match in data['data']['landmarks']) {
         landmark.add(LandmarkOnCatModel.fromJson(match));
       }
       return right(landmark);

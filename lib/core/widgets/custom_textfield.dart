@@ -11,9 +11,7 @@ import '../../features/home/pres/views/widget/app_filter.dart';
 import '../../features/search/presentation/views/widgets/gridsearchresult.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-  });
+  const CustomTextField();
 
   @override
   Widget build(BuildContext context) {

@@ -13,12 +13,13 @@ class SearhResultGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchStates>
     (listener: (context, state) {
-      if (state is SearchFailure) {
+      if ((state is SearchSuccess && state.landmark.isEmpty) || state is SearchFailure) {
         GoRouter.of(context).push('/notfound_page_view');
       } 
     }, builder: (context, state) {
       if (state is SearchSuccess) {
         return GridView.builder(
+          itemCount: state.landmark.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: (MediaQuery.of(context).size.width * .431) /
                 (MediaQuery.of(context).size.height * .253),
@@ -36,7 +37,7 @@ itemBuilder: (context, x) {
                   .push('/Information', extra: state.landmark[x]),
             );
           },
-          itemCount: state.landmark.length,
+          
         );
       } else if (state is SearchLoading) {
         return const LoadingWidget();
