@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:graduation/features/splachview/preslayer/views/splachviewBody.dart';
+import 'package:graduation/features/splachview/preslayer/views/widget/splachviewBody.dart';
 
 bool show = true;
 

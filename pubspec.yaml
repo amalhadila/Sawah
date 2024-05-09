@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: '>=3.1.4 '
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  get_it: ^7.6.4
+  jwt_decoder: ^2.0.1
   another_carousel_pro: ^1.0.2
   carousel_slider: ^4.2.1
   convex_bottom_bar: ^3.2.0
@@ -48,7 +50,6 @@ dependencies:
   introduction_screen: ^3.1.14
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
-
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
