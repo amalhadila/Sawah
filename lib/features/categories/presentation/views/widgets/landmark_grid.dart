@@ -19,25 +19,28 @@ class landmarkGrid extends StatelessWidget {
         if (state is LandmarksCubitSuccess) {
           return Padding(
               padding: const EdgeInsets.only(left: 11, right: 17,top: 20,bottom: 15),
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: state.Landmarklist.length,
-                clipBehavior: Clip.none,                
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: (MediaQuery.of(context).size.width * .431) /
-                      (MediaQuery.of(context).size.height * .253),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 22,
-                  mainAxisSpacing: 15,
+              child: RefreshIndicator(
+                onRefresh: _refresh,
+                child: GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: state.Landmarklist.length,
+                  clipBehavior: Clip.none,                
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: (MediaQuery.of(context).size.width * .431) /
+                        (MediaQuery.of(context).size.height * .253),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 22,
+                    mainAxisSpacing: 15,
+                  ),
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      imglink:'assets/img/landmarks/${state.Landmarklist[index].imageCover!}',
+                
+                      text: state.Landmarklist[index].name!,
+                      onTap: () => GoRouter.of(context).push('/Information',extra:state.Landmarklist[index]),
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  return CustomCard(
-                    imglink:'assets/img/landmarks/${state.Landmarklist[index].imageCover!}',
-
-                    text: state.Landmarklist[index].name!,
-                    onTap: () => GoRouter.of(context).push('/Information',extra:state.Landmarklist[index]),
-                  );
-                },
               ),
             
           );
@@ -48,5 +51,11 @@ class landmarkGrid extends StatelessWidget {
         }
       },
     );
+  }
+   Future<void> _refresh() async {
+    // Simulate a delay to show the refresh indicator
+    await Future.delayed(Duration(seconds: 2))
+
+    ;
   }
 }

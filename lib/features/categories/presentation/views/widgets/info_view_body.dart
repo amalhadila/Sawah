@@ -16,26 +16,34 @@ class InfViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            infoimg(
-              imageslink:
-                  (landmarkoncatModel?.images ?? mostVisitedModel?.images)!,
-              imagecoverlink: (landmarkoncatModel?.imageCover ?? mostVisitedModel?.imageCover)!,    
-            ),
-            locationtionwidget(
-             name: (landmarkoncatModel?.name ?? mostVisitedModel?.name)!,
-              location:(landmarkoncatModel?.location?.governorate ??
-                  mostVisitedModel?.location?.governorate)!,
-            ),
-            Information(
-                text: (landmarkoncatModel?.description ??
-                    mostVisitedModel?.description)!),
-          ],
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              infoimg(
+                imageslink:
+                    (landmarkoncatModel?.images ?? mostVisitedModel?.images)!,
+                imagecoverlink: (landmarkoncatModel?.imageCover ?? mostVisitedModel?.imageCover)!,    
+              ),
+              locationtionwidget(
+               name: (landmarkoncatModel?.name ?? mostVisitedModel?.name)!,
+                location:(landmarkoncatModel?.location?.governorate ??
+                    mostVisitedModel?.location?.governorate)!,
+              ),
+              Information(
+                  text: (landmarkoncatModel?.description ??
+                      mostVisitedModel?.description)!),
+            ],
+          ),
         ),
       )
     );
+  }
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 2))
+
+    ;
   }
 }
