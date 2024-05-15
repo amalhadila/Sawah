@@ -20,8 +20,7 @@ class SlidingText extends StatelessWidget {
             child: const Text(
               'welcome to egypt ...',
               textAlign: TextAlign.center,
-              style: TextStyle(color:Colors.brown ),
-              
+              style: TextStyle(color: Colors.brown),
             ),
           );
         });

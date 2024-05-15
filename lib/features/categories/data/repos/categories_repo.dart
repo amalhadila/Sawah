@@ -8,5 +8,5 @@ abstract class CategoriesRepo {
   Future<Either<Failure, List<CategoriesModel>>> fetchCategories();
   Future<Either<Failure, List<LandmarkOnCatModel>>> fetchlandmarks(
       {required String categoryId});
-  Future<Either<Failure, List<MostVisitedModel>>> fetchmostvisited();    
+  Future<Either<Failure, List<MostVisitedModel>>> fetchmostvisited();
 }

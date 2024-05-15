@@ -15,32 +15,33 @@ class CategoriesGrid extends StatelessWidget {
     return BlocBuilder<CategoriesCubitCubit, CategoriesCubitState>(
       builder: (context, state) {
         if (state is CategoriesCubitSuccess) {
-          return  Padding(
-              padding: const EdgeInsets.only(left: 11, right: 17,top: 20,bottom: 15),
-              child: RefreshIndicator(
-                onRefresh: _refresh,
-                child: GridView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: state.categorieslist.length,
-                  clipBehavior: Clip.none,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: (MediaQuery.of(context).size.width * .431) /
-                        (MediaQuery.of(context).size.height * .253),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 22,
-                    mainAxisSpacing: 15,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CustomCard(
-                       imglink: 'assets/img/categories/${state.categorieslist[index].imageCover!}',
-                      text: state.categorieslist[index].name!,
-                      onTap: () => GoRouter.of(context).push('/LandmarksBody',
-                          extra: state.categorieslist[index]),
-                    );
-                  },
+          return Padding(
+            padding:
+                const EdgeInsets.only(left: 11, right: 17, top: 20, bottom: 15),
+            child: RefreshIndicator(
+              onRefresh: _refresh,
+              child: GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: state.categorieslist.length,
+                clipBehavior: Clip.none,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: (MediaQuery.of(context).size.width * .431) /
+                      (MediaQuery.of(context).size.height * .253),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 22,
+                  mainAxisSpacing: 15,
                 ),
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    imglink:
+                        'assets/img/categories/${state.categorieslist[index].imageCover!}',
+                    text: state.categorieslist[index].name!,
+                    onTap: () => GoRouter.of(context).push('/LandmarksBody',
+                        extra: state.categorieslist[index]),
+                  );
+                },
               ),
-           
+            ),
           );
         } else if (state is CategoriesCubitFailure) {
           return CustomErrorWidget(errMessage: state.errMessage);
@@ -50,9 +51,8 @@ class CategoriesGrid extends StatelessWidget {
       },
     );
   }
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 2))
 
-    ;
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 2));
   }
 }

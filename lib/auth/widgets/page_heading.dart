@@ -13,11 +13,10 @@ class PageHeading extends StatelessWidget {
         textAlign: TextAlign.center,
         title,
         style: const TextStyle(
-          color: Colors.orange,
+            color: Colors.orange,
             fontSize: 30,
             fontWeight: FontWeight.bold,
-            fontFamily: 'NotoSerif'
-        ),
+            fontFamily: 'NotoSerif'),
       ),
     );
   }

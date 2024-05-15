@@ -28,8 +28,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  get_it: ^7.6.4
-  jwt_decoder: ^2.0.1
   another_carousel_pro: ^1.0.2
   carousel_slider: ^4.2.1
   convex_bottom_bar: ^3.2.0
@@ -44,10 +42,13 @@ dependencies:
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   geolocator: ^11.0.0
+  get_it: ^7.6.4
   go_router: ^13.2.2
   google_fonts: ^6.2.1
   image_picker: ^1.1.0
   introduction_screen: ^3.1.14
+  jwt_decoder: ^2.0.1
+  provider: ^6.1.2
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
 dev_dependencies:
@@ -67,6 +68,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/categories/
+    - assets/img/products/
     - assets/img/landmarks/
     - assets/img/image_upload/
     - assets/img/

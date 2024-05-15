@@ -15,7 +15,12 @@ abstract class Textstyle {
     height: 1.2632,
     letterSpacing: 0,
   );
-  static const textStyle25 =TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.w700,fontFamily: 'Inter',);
+  static const textStyle25 = TextStyle(
+    color: Colors.white,
+    fontSize: 25,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Inter',
+  );
   static const viewmoretext = TextStyle(
     color: Color(0xff00A2D5),
     fontFamily: 'Inter',

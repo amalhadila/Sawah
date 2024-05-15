@@ -47,12 +47,10 @@ class CustomDrawer extends StatelessWidget {
                 // },
               ),
               InkWell(
-                onTap: ()  => GoRouter.of(context)
-                        .push('/contactus'),
+                onTap: () => GoRouter.of(context).push('/contactus'),
                 child: _buildDrawerItem(
                   icon: Icons.phone,
                   text: 'drawer.contact'.tr(),
-                   
                 ),
               ),
             ],

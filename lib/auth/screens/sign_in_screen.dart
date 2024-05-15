@@ -21,10 +21,9 @@ class SignInScreen extends StatelessWidget {
         if (state is signinsucces) {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text('success')));
-        
-        }else if(state is signinfailure){
-ScaffoldMessenger.of(context)
-             .showSnackBar( SnackBar(content: Text('fail')));
+        } else if (state is signinfailure) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('fail')));
         }
       },
       builder: (context, state) {
@@ -62,8 +61,7 @@ ScaffoldMessenger.of(context)
                           hintText: 'Your password',
                           obscureText: true,
                           suffixIcon: true,
-                          controller:
-                              context.read<UserCubit>().signInPassword,
+                          controller: context.read<UserCubit>().signInPassword,
                         ),
                         const SizedBox(height: 16),
                         //! Forget password?

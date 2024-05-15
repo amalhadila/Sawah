@@ -85,6 +85,10 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
+import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 
 void main() {
   runApp(EasyLocalization(
@@ -93,24 +97,38 @@ void main() {
       startLocale: const Locale('en'),
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child:  Sawah()));
+      child: Sawah()));
 }
 
 class Sawah extends StatelessWidget {
-   Sawah({super.key});
+  Sawah({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+      create: (context) => DeleteitemCubit(ProcatRepoImple(ApiService(Dio())))),
+          BlocProvider(
+            create: (context) =>
+                AdditemCubit(ProcatRepoImple(ApiService(Dio()))),
+          ),
+          BlocProvider(
+            create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
+          ),
+          BlocProvider(
+              create: (context) =>
+                  GetcartitemsCubit(ProcatRepoImple(ApiService(Dio())))
+                    ..fetchcartitems()),
+        ],
         child: MaterialApp.router(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routerConfig: AppRouter.router,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: kbackgroundcolor,
-          textTheme: GoogleFonts.interTextTheme()),
-    ));
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routerConfig: AppRouter.router,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light().copyWith(
+              scaffoldBackgroundColor: kbackgroundcolor,
+              textTheme: GoogleFonts.interTextTheme()),
+        ));
   }
 }

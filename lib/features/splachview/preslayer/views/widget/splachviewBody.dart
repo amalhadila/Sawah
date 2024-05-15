@@ -18,21 +18,20 @@ class _splachviewbodyState extends State<splachviewbody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<Offset> slidingAnimation;
-   @override
+  @override
   void initState() {
     super.initState();
     initSlidingAnimation();
 
     navigateToHome();
   }
-    @override
+
+  @override
   void dispose() {
     super.dispose();
 
     animationController.dispose();
   }
-
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +46,13 @@ class _splachviewbodyState extends State<splachviewbody>
             )),
         SizedBox(
           height: 8,
-        ), 
+        ),
         // SlidingText(slidingAnimation: slidingAnimation),
-       
       ],
     ));
   }
-    void initSlidingAnimation() {
+
+  void initSlidingAnimation() {
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -65,14 +64,13 @@ class _splachviewbodyState extends State<splachviewbody>
 
     animationController.forward();
   }
-    void navigateToHome() {
+
+  void navigateToHome() {
     Future.delayed(
-      const Duration(milliseconds:1200),
+      const Duration(milliseconds: 1200),
       () {
         GoRouter.of(context).push('/homepage');
       },
     );
   }
-
-  
 }
