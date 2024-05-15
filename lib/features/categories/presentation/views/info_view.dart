@@ -6,7 +6,7 @@ import 'package:graduation/features/categories/presentation/views/widgets/info_v
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 
 class Infoview extends StatelessWidget {
-  const Infoview({super.key, this.landmaroncatkmodel, this.mostVisitedModel});
+  const Infoview({super.key,  this.landmaroncatkmodel, this.mostVisitedModel});
   final LandmarkOnCatModel? landmaroncatkmodel;
   final MostVisitedModel? mostVisitedModel;
 
@@ -15,10 +15,7 @@ class Infoview extends StatelessWidget {
     return BlocProvider(
       create: (context) => MoreInfoCubit(),
       child: Scaffold(
-        body: InfViewBody(
-          landmarkoncatModel: landmaroncatkmodel,
-          mostVisitedModel: mostVisitedModel,
-        ),
+        body: InfViewBody(landmarkoncatModel: landmaroncatkmodel,mostVisitedModel: mostVisitedModel,),
       ),
     );
   }

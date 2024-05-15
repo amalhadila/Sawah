@@ -9,7 +9,8 @@ class locationtionwidget extends StatelessWidget {
     required this.location,
   });
   final String name;
-  final String location;
+    final String location;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class locationtionwidget extends StatelessWidget {
               ),
               const SizedBox(width: 7),
               Text(
-                location,
+               location,
                 style: Textstyle.textStyle16,
               ),
             ],

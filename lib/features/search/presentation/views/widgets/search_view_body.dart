@@ -8,7 +8,7 @@ import 'package:graduation/features/search/presentation/manager/searh_cubit.dart
 import 'package:graduation/features/search/presentation/views/widgets/gridsearchresult.dart';
 
 class SearchViewBody extends StatelessWidget {
-  SearchViewBody({super.key, required this.name});
+   SearchViewBody({super.key,required this.name});
   String name;
 
   @override

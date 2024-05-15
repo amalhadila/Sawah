@@ -32,14 +32,15 @@ class UserCubit extends Cubit<UserState> {
   SignIn() async {
     try {
       emit(signinloading());
-      final response = await Dio().post(
-          'http://192.168.100.3:8000/api/v1/users/login',
-          data: {"email": signInEmail.text, "password": signInPassword.text});
+      final response = await Dio().post('http://192.168.100.3:8000/api/v1/users/login',
+          data: {"email": signInEmail.text,"password": signInPassword.text});
       print(response);
       emit(signinsucces());
+      
     } catch (e) {
-      log(e.toString());
+      log( e.toString());
       emit(signinfailure(erormesage: e.toString()));
+      
     }
   }
 }

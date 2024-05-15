@@ -20,7 +20,9 @@
     },
     "imageUpload":{
         "useCamera":"Use camera",
-        "useGallery":"Upload from gallery"
+        "useGallery":"Upload from gallery",
+        "process":"Processing"
+
       },
       "filter":{
         "filter":"Filter",

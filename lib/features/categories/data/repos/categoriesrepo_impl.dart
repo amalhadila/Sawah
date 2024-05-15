@@ -51,10 +51,11 @@ class CategoriesRepoImpl implements CategoriesRepo {
     }
   }
 
-  @override
+@override
   Future<Either<Failure, List<MostVisitedModel>>> fetchmostvisited() async {
     try {
-      var data = await apiService.get(endpoint: 'landmarks/most-visited');
+      var data = await apiService.get(
+          endpoint: 'landmarks/most-visited');
       print(data['data']['landmarks']);
 
       List<MostVisitedModel> mostvisiteddata = [];

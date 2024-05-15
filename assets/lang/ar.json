@@ -20,7 +20,8 @@
   },
   "imageUpload":{
     "useCamera":"استخدم الكاميرا",
-    "useGallery":"تحميل صورة من المعرض"
+    "useGallery":"تحميل صورة من المعرض",
+    "process":"جاري المعالجة"
   },
   
       "filter":{

@@ -1,3 +1,5 @@
+
+
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -20,11 +22,12 @@ class CustomTextField extends StatelessWidget {
       child: Center(
         child: TextFormField(
           controller: searchController,
+        
           onChanged: (value) {
             log('search');
             BlocProvider.of<SearchCubit>(context)
                 .fetchSearchResult(name: value);
-
+           
             //  Navigator.push(context,MaterialPageRoute(builder: (context)=> SearhResultGrid()));
           },
           decoration: InputDecoration(

@@ -6,6 +6,6 @@ class ContactUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ContactusViewBody();
+    return  ContactusViewBody();
   }
 }
