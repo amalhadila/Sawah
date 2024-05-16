@@ -16,9 +16,9 @@ class CategoriesRepoImpl implements CategoriesRepo {
   Future<Either<Failure, List<CategoriesModel>>> fetchCategories() async {
     try {
       var data = await apiService.get(endpoint: 'categories');
-      print(data['data']['categories']);
+      print(data['data']['docs']);
       List<CategoriesModel> categorydata = [];
-      for (var item in data['data']['categories']) {
+      for (var item in data['data']['docs']) {
         categorydata.add(CategoriesModel.fromJson(item));
       }
       return right(categorydata);
@@ -36,10 +36,10 @@ class CategoriesRepoImpl implements CategoriesRepo {
     try {
       var data = await apiService.get(
           endpoint: 'categories/$categoryId/landmarks?sort=rating');
-      print(data['data']['landmarks']);
+      print(data['data']['docs']);
 
       List<LandmarkOnCatModel> landmarkdata = [];
-      for (var item in data['data']['landmarks']) {
+      for (var item in data['data']['docs']) {
         landmarkdata.add(LandmarkOnCatModel.fromJson(item));
       }
       return right(landmarkdata);

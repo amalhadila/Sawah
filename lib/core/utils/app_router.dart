@@ -10,13 +10,16 @@ import 'package:graduation/features/categories/presentation/views/categories_vie
 import 'package:graduation/features/categories/presentation/views/info_view.dart';
 import 'package:graduation/features/contact_us.dart/contact_us_view.dart';
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
-import 'package:graduation/features/home/pres/views/homeview.dart';
 import 'package:graduation/features/introduction_screen/presentation/views/introduction_screen_view.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import 'package:graduation/features/search/presentation/views/notfound_page_view.dart';
-import 'package:graduation/features/search/presentation/views/widgets/gridsearchresult.dart';
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
-import 'package:graduation/features/search/splahview.dart';
+import 'package:graduation/features/store/data/products/products.dart';
+import 'package:graduation/features/store/presentation/views/product_info_view.dart';
+import 'package:graduation/features/store/presentation/views/store_view.dart';
+import 'package:graduation/features/store/presentation/views/widgets/card.dart';
+import 'package:graduation/features/store/presentation/views/widgets/cart_body.dart';
+import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
@@ -33,7 +36,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/homepage',
+          path: '/',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -49,8 +52,13 @@ abstract class AppRouter {
               },
             );
           }),
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
-      // GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
+      GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
+      GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
+      GoRoute(
+          path: '/productinfo',
+          builder: (context, state) => ProductInfoView(
+                products: state.extra as Products,
+              )),
       GoRoute(
           path: '/contactus',
           builder: (context, state) => const ContactUsView()),
@@ -59,7 +67,9 @@ abstract class AppRouter {
           builder: (context, state) => BlocProvider(
                 create: (context) =>
                     SearchCubit(SearchRepoImp(ApiService(Dio()))),
-                child:  SearchViewBody(name: state.extra as String,),
+                child: SearchViewBody(
+                  name: state.extra as String,
+                ),
               )),
       GoRoute(
           path: '/notfound_page_view',
@@ -68,16 +78,14 @@ abstract class AppRouter {
                     SearchCubit(SearchRepoImp(ApiService(Dio()))),
                 child: const NotfoundPage(),
               )),
-      // GoRoute(
-      //     path: '/gridsearchresult',
-      //     builder: (context, state) => BlocProvider(
-      //           create: (context) =>
-      //               SearchCubit(SearchRepoImp(ApiService(Dio()))),
-      //           child: const SearchViewBody(),
-      //         )),
       GoRoute(
           path: '/CategoriesView',
           builder: (context, state) => const CategoriesView()),
+      GoRoute(
+          path: '/pro',
+          builder: (context, state) => GrId(
+                categoryId: state.extra as String,
+              )),
       GoRoute(
           path: '/LandmarksBody',
           builder: (context, state) => Landmarks_view(

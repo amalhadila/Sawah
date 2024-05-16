@@ -2,7 +2,6 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/features/categories/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
-import 'package:graduation/features/search/data/repos/search_repo.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import '../../core/utils/assets.dart';
