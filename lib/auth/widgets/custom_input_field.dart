@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomInputField extends StatefulWidget {
-  final String labelText;
+  
   final String hintText;
   final bool suffixIcon;
   final bool? isDense;
@@ -10,7 +10,7 @@ class CustomInputField extends StatefulWidget {
 
   const CustomInputField(
       {Key? key,
-      required this.labelText,
+      
       required this.hintText,
       this.suffixIcon = false,
       this.isDense,
@@ -32,13 +32,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              widget.labelText,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.centerLeft,
+          //   child: Text(
+          //     widget.labelText,
+          //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
           TextFormField(
             obscureText: (widget.obscureText && _obscureText),
             decoration: InputDecoration(

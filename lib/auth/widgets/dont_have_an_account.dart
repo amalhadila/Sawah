@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/auth/screens/sign_up_screen.dart';
 
+
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({
     super.key,

@@ -20,16 +20,15 @@ class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationExampleState createState() =>
-      _BottomNavigationExampleState();
+  _BottomNavigationExampleState createState() => _BottomNavigationExampleState();
 }
 
-class _BottomNavigationExampleState extends State {
+class _BottomNavigationExampleState extends State<BottomNavigation> {
   int _selectedTab = 1;
 
-  List _pages = [CategoriesView(), Homepage(), ImagesUploadPage()];
+  final List _pages = [CategoriesView(), Homepage(), ImagesUploadPage()];
 
-  _changeTab(int index) {
+  void _changeTab(int index) {
     setState(() {
       _selectedTab = index;
     });
@@ -39,21 +38,17 @@ class _BottomNavigationExampleState extends State {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-         BlocProvider(
-      create: (context) =>
-          MostVisitedCubit(CategoriesRepoImpl(ApiService(Dio())))
-            ..fetchmostvisited()),
-            BlocProvider(
-        create: (context) =>
-            CategoriesCubitCubit(CategoriesRepoImpl(ApiService(Dio())))
-              ..fetchCategories(),
-      ),
-         BlocProvider(
-        create: (context) =>
-            SearchCubit(SearchRepoImp( ApiService(Dio())))
-            
-      ),
-      
+        BlocProvider(
+          create: (context) => MostVisitedCubit(CategoriesRepoImpl(ApiService(Dio())))
+            ..fetchmostvisited(),
+        ),
+        BlocProvider(
+          create: (context) => CategoriesCubitCubit(CategoriesRepoImpl(ApiService(Dio())))
+            ..fetchCategories(),
+        ),
+        BlocProvider(
+          create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
+        ),
       ],
       child: Scaffold(
         appBar: CustomAppBar(),

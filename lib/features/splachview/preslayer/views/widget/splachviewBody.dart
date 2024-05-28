@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/core/utils/app_router.dart';
-
 import 'package:graduation/core/utils/assets.dart';
-import 'package:graduation/features/home/pres/views/homeview.dart';
-
-import 'package:graduation/features/splachview/preslayer/views/widget/sliding.dart';
 
 class splachviewbody extends StatefulWidget {
   const splachviewbody({super.key});
@@ -18,21 +13,20 @@ class _splachviewbodyState extends State<splachviewbody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<Offset> slidingAnimation;
-   @override
+  @override
   void initState() {
     super.initState();
     initSlidingAnimation();
 
     navigateToHome();
   }
-    @override
+
+  @override
   void dispose() {
     super.dispose();
 
     animationController.dispose();
   }
-
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +41,13 @@ class _splachviewbodyState extends State<splachviewbody>
             )),
         SizedBox(
           height: 8,
-        ), 
+        ),
         // SlidingText(slidingAnimation: slidingAnimation),
-       
       ],
     ));
   }
-    void initSlidingAnimation() {
+
+  void initSlidingAnimation() {
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -65,14 +59,13 @@ class _splachviewbodyState extends State<splachviewbody>
 
     animationController.forward();
   }
-    void navigateToHome() {
+
+  void navigateToHome() {
     Future.delayed(
-      const Duration(milliseconds:1200),
+      const Duration(milliseconds: 1500),
       () {
-        GoRouter.of(context).push('/homepage');
+        GoRouter.of(context).push('/sign');
       },
     );
   }
-
-  
 }

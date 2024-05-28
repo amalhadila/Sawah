@@ -1,19 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:graduation/main.dart';
 
 void main() {
+  // This is necessary for EasyLocalization to work in tests
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Create a Dio instance for testing
+  final Dio dio = Dio();
+
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget( Sawah());
+    // Initialize the localization
+    await EasyLocalization.ensureInitialized();
+
+    // Build our app and trigger a frame with localization
+    await tester.pumpWidget(
+      EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        saveLocale: false,
+        path: 'assets/lang',
+        fallbackLocale: const Locale('en'),
+        child: Sawah(dio: dio),
+      ),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
