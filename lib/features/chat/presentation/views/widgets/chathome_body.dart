@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
@@ -22,52 +21,52 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           FireData().creatRoom();
-        //   showBottomSheet(
-        //     context: context,
-        //     builder: (context) {
-        //       return Container(
-        //         padding: EdgeInsets.all(20),
-        //         child: Column(
-        //           mainAxisSize: MainAxisSize.min,
-        //           children: [
-        //             Row(
-        //               children: [
-        //                 Text(
-        //                   "Enter Friend Email",
-        //                   style: Theme.of(context).textTheme.bodyLarge,
-        //                 ),
-        //                 Spacer(),
-        //                 IconButton.filled(
-        //                   onPressed: () {},
-        //                   icon: Icon(Iconsax.scan_barcode),
-        //                 )
-        //               ],
-        //             ),
-        //             CustomField(
-        //               controller: emailCon,
-        //               icon: Iconsax.direct,
-        //               lable: "Email",
-        //             ),
-        //             SizedBox(
-        //               height: 16,
-        //             ),
-        //             ElevatedButton(
-        //                 style: ElevatedButton.styleFrom(
-        //                     padding: EdgeInsets.all(16),
-        //                     shape: RoundedRectangleBorder(
-        //                         borderRadius: BorderRadius.circular(12)),
-        //                     backgroundColor:
-        //                         Theme.of(context).colorScheme.primaryContainer),
-        //                 onPressed: () {},
-        //                 child: Center(
-        //                   child: Text("Create Chat"),
-        //                 ))
-        //           ],
-        //         ),
-        //       );
-        //     },
-        //   );
-         },
+          //   showBottomSheet(
+          //     context: context,
+          //     builder: (context) {
+          //       return Container(
+          //         padding: EdgeInsets.all(20),
+          //         child: Column(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             Row(
+          //               children: [
+          //                 Text(
+          //                   "Enter Friend Email",
+          //                   style: Theme.of(context).textTheme.bodyLarge,
+          //                 ),
+          //                 Spacer(),
+          //                 IconButton.filled(
+          //                   onPressed: () {},
+          //                   icon: Icon(Iconsax.scan_barcode),
+          //                 )
+          //               ],
+          //             ),
+          //             CustomField(
+          //               controller: emailCon,
+          //               icon: Iconsax.direct,
+          //               lable: "Email",
+          //             ),
+          //             SizedBox(
+          //               height: 16,
+          //             ),
+          //             ElevatedButton(
+          //                 style: ElevatedButton.styleFrom(
+          //                     padding: EdgeInsets.all(16),
+          //                     shape: RoundedRectangleBorder(
+          //                         borderRadius: BorderRadius.circular(12)),
+          //                     backgroundColor:
+          //                         Theme.of(context).colorScheme.primaryContainer),
+          //                 onPressed: () {},
+          //                 child: Center(
+          //                   child: Text("Create Chat"),
+          //                 ))
+          //           ],
+          //         ),
+          //       );
+          //     },
+          //   );
+        },
         child: const Icon(Iconsax.message_add),
       ),
       appBar: AppBar(
@@ -79,19 +78,28 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
           children: [
             Expanded(
               child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('rooms').where('members',arrayContains: myUid).snapshots(),
-                builder: (context, snapshot) {
-                  if(snapshot.hasData){
-                    List<ChatRoom> chatrooms= snapshot.data!.docs.map((e) => ChatRoom.fromJson(e.data())).toList()..sort((a,b) => a.lastMessageTime!.compareTo(b.lastMessageTime!));
-                  return ListView.builder(
-                      itemCount: chatrooms.length,
-                      itemBuilder: (context, index) {
-                        return ChatCard(chatroom:  chatrooms[index],);
-                      });
-                } else{
-                  return const Center(child:  CircularProgressIndicator());
-                }}
-              ),
+                  stream: FirebaseFirestore.instance
+                      .collection('rooms')
+                      .where('members', arrayContains: myUid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<ChatRoom> chatrooms = snapshot.data!.docs
+                          .map((e) => ChatRoom.fromJson(e.data()))
+                          .toList()
+                        ..sort((a, b) =>
+                            a.lastMessageTime!.compareTo(b.lastMessageTime!));
+                      return ListView.builder(
+                          itemCount: chatrooms.length,
+                          itemBuilder: (context, index) {
+                            return ChatCard(
+                              chatroom: chatrooms[index],
+                            );
+                          });
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  }),
             ),
           ],
         ),

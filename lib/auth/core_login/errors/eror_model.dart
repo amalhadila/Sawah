@@ -1,6 +1,5 @@
 import 'package:graduation/auth/core_login/api/end_point.dart';
 
-
 class ErorModel {
   final int status;
   final String erorMessage;

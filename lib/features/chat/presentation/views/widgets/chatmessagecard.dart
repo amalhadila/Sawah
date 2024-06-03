@@ -10,7 +10,7 @@ class ChatMessageCard extends StatelessWidget {
   final bool isMe;
   String roomid;
 
-   ChatMessageCard({
+  ChatMessageCard({
     super.key,
     required this.message,
     required this.roomid,
@@ -20,7 +20,7 @@ class ChatMessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!isMe && !message.read!) {
-      FireData().markMessageAsRead(roomid,message.id!);
+      FireData().markMessageAsRead(roomid, message.id!);
     }
 
     return Row(
@@ -56,15 +56,16 @@ class ChatMessageCard extends StatelessWidget {
                         return const CircularProgressIndicator();
                       },
                     ),
-                  if (message.msg != null)
-                    Text(message.msg!),
+                  if (message.msg != null) Text(message.msg!),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       if (isMe)
                         Icon(
                           Iconsax.tick_circle,
-                          color: message.read == true ? Colors.blueAccent : Colors.grey,
+                          color: message.read == true
+                              ? Colors.blueAccent
+                              : Colors.grey,
                           size: 18,
                         ),
                       Text(

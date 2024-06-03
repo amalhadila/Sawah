@@ -16,7 +16,8 @@ class LocationWidget extends StatefulWidget {
   State<LocationWidget> createState() => _LocationWidgetState();
 }
 
-class _LocationWidgetState extends State<LocationWidget> with SingleTickerProviderStateMixin {
+class _LocationWidgetState extends State<LocationWidget>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int index = 0;
 
@@ -34,74 +35,70 @@ class _LocationWidgetState extends State<LocationWidget> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        children: [
-           TabBar(
-          controller: _tabController,
-          indicatorWeight: 1,
-          dividerColor: kbackgroundcolor,
+    return Column(children: [
+      TabBar(
+        controller: _tabController,
+        indicatorWeight: 1,
+        dividerColor: kbackgroundcolor,
         //  labelPadding: const EdgeInsets.only(bottom: 12, right: 25),
-          indicatorColor: kmaincolor,
-          isScrollable: true,
-          onTap: (value) {
-            setState(() {
-              index = value;
-            });
-          },
-          tabs: const [
-            Tab(text: 'Information'),
-            Tab(text: 'Reviews'),
+        indicatorColor: kmaincolor,
+        isScrollable: true,
+        onTap: (value) {
+          setState(() {
+            index = value;
+          });
+        },
+        tabs: const [
+          Tab(text: 'Information'),
+          Tab(text: 'Reviews'),
+        ],
+      ),
+      Container(
+        height: 40,
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15, left: 15, right: 47),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            widget.name,
+                            style: Textstyle.textStyle16,
+                            softWrap: true,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              color: klocicon,
+                              size: 14,
+                            ),
+                            const SizedBox(width: 7),
+                            Text(
+                              widget.location,
+                              style: Textstyle.textStyle16,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Center(
+              child: Text('Reviews will be here'),
+            ),
           ],
         ),
-         Container(
-          height: 40,
-           child: TabBarView(
-                controller: _tabController,
-                children: [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 15, right: 47),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  widget.name,
-                                  style: Textstyle.textStyle16,
-                                  softWrap: true,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.location_on,
-                                    color: klocicon,
-                                    size: 14,
-                                  ),
-                                  const SizedBox(width: 7),
-                                  Text(
-                                    widget.location,
-                                    style: Textstyle.textStyle16,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text('Reviews will be here'),
-                  ),
-                ],
-              ),
-         ),
-         
-        ]
-    );
+      ),
+    ]);
   }
 }

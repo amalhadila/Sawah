@@ -18,7 +18,6 @@ class UserCubit extends Cubit<UserState> {
   final TextEditingController signUpPassword = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
-
   Future<void> signIn() async {
     emit(SignInLoading());
     final response = await userRepository.signIn(
@@ -28,11 +27,9 @@ class UserCubit extends Cubit<UserState> {
     response.fold(
       (errorMessage) {
         emit(SignInFailure(errorMessage));
-        
       },
       (signInModel) {
         emit(SignInSuccess());
-       
       },
     );
   }
@@ -48,11 +45,9 @@ class UserCubit extends Cubit<UserState> {
     response.fold(
       (errorMessage) {
         emit(SignUpFailure(errorMessage));
-       
       },
       (signUpModel) {
         emit(SignUpSuccess());
-        
       },
     );
   }
@@ -63,11 +58,9 @@ class UserCubit extends Cubit<UserState> {
     response.fold(
       (errorMessage) {
         emit(GetUserFailure(errorMessage));
-        
       },
       (user) {
         emit(GetUserSuccess(user));
-       
       },
     );
   }

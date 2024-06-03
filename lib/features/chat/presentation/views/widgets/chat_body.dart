@@ -10,15 +10,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-   ChatScreen({super.key,required this.roomid});
-    String roomid;
+  ChatScreen({super.key, required this.roomid});
+  String roomid;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
- final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
 
@@ -30,13 +30,19 @@ class _ChatScreenState extends State<ChatScreen> {
       if (_imageFile != null) {
         File imageFile = File(_imageFile!.path);
         try {
-          String messageId = await FireData().sendMessage(roomid: widget.roomid, toId: userId, msg: message);
+          String messageId = await FireData()
+              .sendMessage(roomid: widget.roomid, toId: userId, msg: message);
           print('Message ID: $messageId');
 
           imageUrl = await FireStorage().sendImage(imageFile, messageId);
           print('Image URL: $imageUrl');
 
-          await FirebaseFirestore.instance.collection('rooms').doc(widget.roomid).collection('messages').doc(messageId).update({
+          await FirebaseFirestore.instance
+              .collection('rooms')
+              .doc(widget.roomid)
+              .collection('messages')
+              .doc(messageId)
+              .update({
             'msg': message,
             'imageUrl': imageUrl,
           });
@@ -47,7 +53,8 @@ class _ChatScreenState extends State<ChatScreen> {
           _imageFile = null; // Clear the selected image after upload
         });
       } else {
-        await FireData().sendMessage(roomid: widget.roomid, toId: userId, msg: message);
+        await FireData()
+            .sendMessage(roomid: widget.roomid, toId: userId, msg: message);
       }
 
       _messageController.clear();
@@ -62,8 +69,6 @@ class _ChatScreenState extends State<ChatScreen> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +101,9 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('rooms').doc(widget.roomid)
+                stream: FirebaseFirestore.instance
+                    .collection('rooms')
+                    .doc(widget.roomid)
                     .collection('messages')
                     .orderBy('created_at', descending: true)
                     .snapshots(),
@@ -120,7 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       final isMe = message.fromId == myUid;
 
                       return ChatMessageCard(
-                        roomid:widget.roomid,
+                        roomid: widget.roomid,
                         message: message,
                         isMe: isMe,
                       );
@@ -154,7 +161,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               icon: const Icon(Iconsax.emoji_happy),
                             ),
                             IconButton(
-                              onPressed: _pickImage, // Call the pick image function
+                              onPressed:
+                                  _pickImage, // Call the pick image function
                               icon: const Icon(Iconsax.camera),
                             ),
                           ],
@@ -166,7 +174,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           vertical: 10,
                         ),
                       ),
-                   ),
+                    ),
                   ),
                 ),
                 IconButton(

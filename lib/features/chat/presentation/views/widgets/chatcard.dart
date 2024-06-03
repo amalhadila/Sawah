@@ -3,7 +3,7 @@ import 'package:graduation/features/chat/presentation/models/romemodel.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chat_body.dart';
 
 class ChatCard extends StatelessWidget {
-   ChatCard({
+  ChatCard({
     required this.chatroom,
     super.key,
   });
@@ -15,7 +15,9 @@ class ChatCard extends StatelessWidget {
           onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChatScreen(roomid: chatroom.id!,),
+                  builder: (context) => ChatScreen(
+                    roomid: chatroom.id!,
+                  ),
                 ),
               ),
           leading: const CircleAvatar(),

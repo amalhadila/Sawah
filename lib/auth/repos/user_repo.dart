@@ -39,8 +39,8 @@ class UserRepository {
   }
 
   Future<Either<String, SignUpModel>> signUp({
-   required String password,
-   required String name,
+    required String password,
+    required String name,
     required String confirmPassword,
     required String email,
   }) async {
@@ -48,7 +48,7 @@ class UserRepository {
       final response = await diocosumer.post(
         endPoint.signup,
         data: {
-          apikey.name:name,
+          apikey.name: name,
           apikey.password: password,
           apikey.confrimpassword: confirmPassword,
           apikey.email: email,
@@ -60,7 +60,8 @@ class UserRepository {
       return Left(e.toString());
     }
   }
-   Future<Either<String, userModel>> getUserProfile() async {
+
+  Future<Either<String, userModel>> getUserProfile() async {
     try {
       final response = await diocosumer.get(
         endPoint.getUserDataEndPoint(

@@ -4,7 +4,6 @@ abstract class UserState {}
 
 class UserInitial extends UserState {}
 
-
 class SignInLoading extends UserState {}
 
 class SignInSuccess extends UserState {}
@@ -13,7 +12,8 @@ class SignInFailure extends UserState {
   final String errorMessage;
   SignInFailure(this.errorMessage);
 }
-class  LoadingStopped extends UserState {}
+
+class LoadingStopped extends UserState {}
 
 class SignUpLoading extends UserState {}
 

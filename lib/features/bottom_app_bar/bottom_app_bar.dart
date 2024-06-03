@@ -55,8 +55,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                 ..fetchCategories(),
         ),
         BlocProvider(
-          create: (context) =>
-              SearchCubit(SearchRepoImp(ApiService(Dio()))),
+          create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
         ),
       ],
       child: Scaffold(
@@ -78,7 +77,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 3,  // Changed to 3 to match the number of pages
+            itemCount: 3, // Changed to 3 to match the number of pages
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(

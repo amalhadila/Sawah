@@ -21,19 +21,19 @@ class SignInScreen extends StatelessWidget {
       if (state is SignInSuccess) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('success')));
-            context.read<UserCubit>().getUserProfile();
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BottomNavigation (),),
-            );
-
+        context.read<UserCubit>().getUserProfile();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomNavigation(),
+          ),
+        );
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('fail')));
       }
     }, builder: (context, State) {
-      return Scaffold(   
+      return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -48,23 +48,21 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const PageHeading(title: 'Welcome Back !'),
-                    SizedBox(height: MediaQuery.of(context).size.height*.03),
+                    SizedBox(height: MediaQuery.of(context).size.height * .03),
                     //!Email
                     CustomInputField(
-                      
                       hintText: 'Your email',
                       controller: context.read<UserCubit>().signInEmail,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*.04),
+                    SizedBox(height: MediaQuery.of(context).size.height * .04),
                     //!Password
                     CustomInputField(
-                     
                       hintText: 'Your password',
                       obscureText: true,
                       suffixIcon: true,
                       controller: context.read<UserCubit>().signInPassword,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*.04),
+                    SizedBox(height: MediaQuery.of(context).size.height * .04),
                     //! Forget password?
                     ForgetPasswordWidget(size: size),
                     const SizedBox(height: 20),
@@ -92,7 +90,6 @@ class SignInScreen extends StatelessWidget {
           ),
         ),
       );
-    }
-    );
+    });
   }
 }

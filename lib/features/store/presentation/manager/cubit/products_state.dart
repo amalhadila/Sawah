@@ -18,7 +18,7 @@ class ProductFailure extends ProductsState {
 }
 
 class ProductSuccess extends ProductsState {
-  final List<Products> product_list;
+  final List<Product> product_list;
 
   const ProductSuccess(this.product_list);
 }

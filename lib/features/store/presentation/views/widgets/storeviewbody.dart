@@ -16,7 +16,7 @@ class Storeviewbody extends StatelessWidget {
                 GoRouter.of(context).push('/CartScreen');
               },
               child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18,vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                 child: Row(
                   children: [
                     Icon(
@@ -24,11 +24,13 @@ class Storeviewbody extends StatelessWidget {
                       color: kmaincolor,
                       size: 28,
                     ),
-                    SizedBox(width: 15,),
-                    Icon(FontAwesomeIcons.heart,
-                                color:  kmaincolor,
-                             
-                            ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      FontAwesomeIcons.heart,
+                      color: kmaincolor,
+                    ),
                   ],
                 ),
               ))
@@ -44,24 +46,27 @@ class Storeviewbody extends StatelessWidget {
               child: Container(
                 height: 35,
                 width: 180,
-                              margin: EdgeInsets.only(top: 4),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start
-                                ,children: [
-                                Expanded(
-                                    child: TextFormField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.search,size: 20,),
-                                      hintText: "Find Product",
-                                      hintStyle: TextStyle(fontSize: 14),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.circular(10)),
-                                      filled: true,
-                                      fillColor: Color.fromARGB(255, 255, 248, 241),),
-                                )),
-                                                       ]),
-                            ),
+                margin: EdgeInsets.only(top: 4),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Expanded(
+                      child: TextFormField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 20,
+                      ),
+                      hintText: "Find Product",
+                      hintStyle: TextStyle(fontSize: 14),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(10)),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 255, 248, 241),
+                    ),
+                  )),
+                ]),
+              ),
             ),
           ],
         ),

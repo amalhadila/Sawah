@@ -1,5 +1,5 @@
 class endPoint {
-  static String BaseUrl = 'http://192.168.100.3:8000/api/v1/';
+  static String BaseUrl = 'http://192.168.0.4:8000/api/v1/';
   static String signin = 'users/login';
   static String signup = 'users/signup';
 
@@ -8,10 +8,10 @@ class endPoint {
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }
-
 }
-class apikey{
- static String status = "statusCode";
+
+class apikey {
+  static String status = "statusCode";
   static String email = "email";
   static String name = "name";
   static String photo = "photo";
@@ -20,5 +20,4 @@ class apikey{
   static String token = "token";
   static String message = "message";
   static String id = "id";
-
-} 
+}

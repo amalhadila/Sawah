@@ -4,7 +4,7 @@ import 'package:graduation/core/errors/failures.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/cart_item/product.dart';
 import 'package:graduation/features/store/data/pro_cat.dart';
-import 'package:graduation/features/store/data/products/products.dart';
+import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
 
 class ProcatRepoImple implements proCategoriesRepo {
@@ -15,10 +15,10 @@ class ProcatRepoImple implements proCategoriesRepo {
   @override
   Future<Either<Failure, List<ProCat>>> fetchProductCat() async {
     try {
-      var data = await apiService.get(endpoint: 'categories');
-      print(data['data']['data']);
+      var data = await apiService.get(endpoint: 'tourCategories');
+      print(data['data']['docs']);
       List<ProCat> categorydata = [];
-      for (var item in data['data']['data']) {
+      for (var item in data['data']['docs']) {
         categorydata.add(ProCat.fromJson(item));
       }
       return right(categorydata);
@@ -31,16 +31,16 @@ class ProcatRepoImple implements proCategoriesRepo {
   }
 
   @override
-  Future<Either<Failure, List<Products>>> fetchProducts(
+  Future<Either<Failure, List<Product>>> fetchProducts(
       {required String categoryId}) async {
     try {
       var data =
-          await apiService.get(endpoint: 'products?category=$categoryId');
-      print(data['data']['data']);
+          await apiService.get(endpoint: 'tours?category=$categoryId');
+      print(data['data']['docs']);
 
-      List<Products> landmarkdata = [];
-      for (var item in data['data']['data']) {
-        landmarkdata.add(Products.fromJson(item));
+      List<Product> landmarkdata = [];
+      for (var item in data['data']['docs']) {
+        landmarkdata.add(Product.fromJson(item));
       }
       return right(landmarkdata);
     } on Exception catch (e) {
@@ -51,7 +51,7 @@ class ProcatRepoImple implements proCategoriesRepo {
     }
   }
 
-  Future<Either<Failure, List<Product>>> fetchcartitems() async {
+  Future<Either<Failure, List<cartProduct>>> fetchcartitems() async {
     try {
       var data = await apiService.get(
         endpoint: 'carts',
@@ -62,14 +62,12 @@ class ProcatRepoImple implements proCategoriesRepo {
           },
         ),
       );
-     var productsData = data['data']['cart']['cartItems'];
+      var productsData = data['data']['cart']['cartItems'];
 
-List<Product> cartItems = [];
-for (var item in productsData) {
-  cartItems.add(Product.fromJson(item['product']));
-}
-
-      
+      List<cartProduct> cartItems = [];
+      for (var item in productsData) {
+        cartItems.add(cartProduct.fromJson(item['product']));
+      }
 
       return right(cartItems);
     } on Exception catch (e) {
@@ -80,8 +78,7 @@ for (var item in productsData) {
     }
   }
 
-  Future<void> addproduct(
-      {required var id, required var quantity}) async {
+  Future<void> addproduct({required var id, required var quantity}) async {
     try {
       var data = await apiService.post(
         endpoint: 'carts',
@@ -89,15 +86,15 @@ for (var item in productsData) {
           headers: <String, String>{
             'Authorization':
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxNTU1NTA4MCwiZXhwIjoxNzIzMzMxMDgwfQ.7KcMqIu-UNoV5qBqm71cyWH8ZBzpKBMjSXq-hmgjxWg',
-         
-         'Content-Type':'application/json' },
+            'Content-Type': 'application/json'
+          },
         ),
-        body:{
+        body: {
           'productId': id,
           'quantity': quantity,
-        },       
+        },
       );
-       print(data);
+      print(data);
     } catch (e) {
       if (e is DioException) {
         print('DioException: ${e.toString()}');
@@ -109,19 +106,17 @@ for (var item in productsData) {
     }
   }
 
-  Future<void> deleteitem(
-      {required var Id}) async {
+  Future<void> deleteitem({required var Id}) async {
     try {
       var data = await apiService.delete(
-        endpoint: 'carts/$id',
-        Headers: Options(
-          headers: <String, String>{
-           'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxNTU1NTA4MCwiZXhwIjoxNzIzMzMxMDgwfQ.7KcMqIu-UNoV5qBqm71cyWH8ZBzpKBMjSXq-hmgjxWg',
-         },
-        )      
-      );
-       print(data);
+          endpoint: 'carts/$id',
+          Headers: Options(
+            headers: <String, String>{
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxNTU1NTA4MCwiZXhwIjoxNzIzMzMxMDgwfQ.7KcMqIu-UNoV5qBqm71cyWH8ZBzpKBMjSXq-hmgjxWg',
+            },
+          ));
+      print(data);
     } catch (e) {
       if (e is DioException) {
         print('DioException: ${e.toString()}');

@@ -18,7 +18,7 @@ class ProductFailure extends GetcartitemsState {
 }
 
 class ProductSuccess extends GetcartitemsState {
-  final List<Product> cartitems_list;
+  final List<cartProduct> cartitems_list;
 
   const ProductSuccess(this.cartitems_list);
 }

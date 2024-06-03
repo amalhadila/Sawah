@@ -1,4 +1,3 @@
-
 class SignInModel {
   final String name;
   final String token;

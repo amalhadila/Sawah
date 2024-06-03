@@ -98,14 +98,15 @@ import 'package:graduation/features/store/presentation/manager/cubit/additem_cub
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-await CacheHelper().init();
-  final Dio dio = Dio(); 
-  runApp(EasyLocalization(
+  );
+  await CacheHelper().init();
+  final Dio dio = Dio();
+  runApp(
+    EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       saveLocale: true,
       startLocale: const Locale('en'),
@@ -126,7 +127,8 @@ class Sawah extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => DeleteitemCubit(ProcatRepoImple(ApiService(dio))),
+          create: (context) =>
+              DeleteitemCubit(ProcatRepoImple(ApiService(dio))),
         ),
         BlocProvider(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(dio))),
@@ -135,11 +137,13 @@ class Sawah extends StatelessWidget {
           create: (context) => SearchCubit(SearchRepoImp(ApiService(dio))),
         ),
         BlocProvider(
-          create: (context) => GetcartitemsCubit(ProcatRepoImple(ApiService(dio)))
-            ..fetchcartitems(),
+          create: (context) =>
+              GetcartitemsCubit(ProcatRepoImple(ApiService(dio)))
+                ..fetchcartitems(),
         ),
         BlocProvider(
-          create: (context) => UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),
+          create: (context) =>
+              UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),
         ),
       ],
       child: MaterialApp.router(
@@ -165,9 +169,6 @@ class Sawah extends StatelessWidget {
 // import 'package:graduation/auth/repos/user_repo.dart';
 // import 'package:graduation/auth/screens/sign_in_screen.dart';
 
-
-
-
 // void main() {
 //    WidgetsFlutterBinding.ensureInitialized();
 //   CacheHelper().init();
@@ -179,9 +180,6 @@ class Sawah extends StatelessWidget {
 //     ),
 //   );
 // }
-
-
-
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({Key? key}) : super(key: key);

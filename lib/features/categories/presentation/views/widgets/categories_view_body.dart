@@ -5,9 +5,6 @@ class CategoriesViewBody extends StatelessWidget {
   const CategoriesViewBody({Key? key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
-      body: CategoriesGrid()
-    );
+    return Scaffold(body: CategoriesGrid());
   }
 }

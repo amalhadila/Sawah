@@ -6,7 +6,6 @@ import 'package:graduation/features/chat/presentation/models/messagemodel.dart';
 import 'package:graduation/features/chat/presentation/models/romemodel.dart';
 import 'package:uuid/uuid.dart';
 
-
 class FireData {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -25,16 +24,18 @@ class FireData {
         lastMessageTime: DateTime.now().toString(),
         members: members,
       );
-      await firestore.collection('rooms').doc(members.toString()).set(chatroom.toJson());
+      await firestore
+          .collection('rooms')
+          .doc(members.toString())
+          .set(chatroom.toJson());
     }
   }
 
-  Future<String> sendMessage({
-    required String toId,
-    required String msg,
-    String? imageUrl,
-    required String roomid
-  }) async {
+  Future<String> sendMessage(
+      {required String toId,
+      required String msg,
+      String? imageUrl,
+      required String roomid}) async {
     String msgid = Uuid().v1();
     final message = Message(
       toId: toId,
@@ -47,7 +48,11 @@ class FireData {
     );
 
     try {
-      DocumentReference docRef = await firestore.collection('rooms').doc(roomid).collection('messages').add(message.toJson());
+      DocumentReference docRef = await firestore
+          .collection('rooms')
+          .doc(roomid)
+          .collection('messages')
+          .add(message.toJson());
       await docRef.update({'id': docRef.id});
       return docRef.id;
     } catch (e) {
@@ -58,7 +63,12 @@ class FireData {
 
   Future<void> markMessageAsRead(String roomId, String messageId) async {
     try {
-      await firestore.collection('rooms').doc(roomId).collection('messages').doc(messageId).update({'read': true});
+      await firestore
+          .collection('rooms')
+          .doc(roomId)
+          .collection('messages')
+          .doc(messageId)
+          .update({'read': true});
     } catch (e) {
       print('Error marking message as read: $e');
       rethrow;

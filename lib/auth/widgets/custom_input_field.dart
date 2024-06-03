@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomInputField extends StatefulWidget {
-  
   final String hintText;
   final bool suffixIcon;
   final bool? isDense;
@@ -10,7 +9,6 @@ class CustomInputField extends StatefulWidget {
 
   const CustomInputField(
       {Key? key,
-      
       required this.hintText,
       this.suffixIcon = false,
       this.isDense,

@@ -12,10 +12,7 @@ class AdditemCubit extends Cubit<AdditemState> {
     emit(AdditemLoading());
 
     try {
-      await procategoriesRepo.addproduct(
-          id: id,
-          quantity:
-              quantity); 
+      await procategoriesRepo.addproduct(id: id, quantity: quantity);
       emit(AdditemSuccess());
     } catch (Failure) {
       emit(AdditemFailure(Failure.toString()));

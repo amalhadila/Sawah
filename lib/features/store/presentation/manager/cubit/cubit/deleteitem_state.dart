@@ -8,6 +8,7 @@ sealed class DeleteitemState extends Equatable {
 }
 
 final class DeleteitemInitial extends DeleteitemState {}
+
 class DeleteitemLoading extends DeleteitemState {}
 
 class DeleteitemFailure extends DeleteitemState {
@@ -17,4 +18,3 @@ class DeleteitemFailure extends DeleteitemState {
 }
 
 class DeleteitemSuccess extends DeleteitemState {}
-

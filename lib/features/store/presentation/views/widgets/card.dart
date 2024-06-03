@@ -78,7 +78,7 @@ class _productCardState extends State<productCard> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(width: 5),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +89,7 @@ class _productCardState extends State<productCard> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 44, 42, 42),
-                              fontSize: 15,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
@@ -110,7 +110,7 @@ class _productCardState extends State<productCard> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(width: 55),
+                            SizedBox(width: 40),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [

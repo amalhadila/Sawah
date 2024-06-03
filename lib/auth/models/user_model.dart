@@ -1,4 +1,3 @@
-
 class userModel {
   final String status;
   final String token;
