@@ -5,13 +5,13 @@ class endPoint {
 
   static String resetpassword = 'users/resetPassword/:token';
   static String updatemypassword = 'users/updateMyPassword';
-  static String getUserDataEndPoint(id) {
-    return "user/get-user/$id";
+   static String getUserDataEndPoint(id) {
+    return "users/$id";
   }
-
 }
-class apikey{
- static String status = "statusCode";
+
+class apikey {
+  static String status = "statusCode";
   static String email = "email";
   static String name = "name";
   static String photo = "photo";
@@ -20,5 +20,4 @@ class apikey{
   static String token = "token";
   static String message = "message";
   static String id = "id";
-
-} 
+}

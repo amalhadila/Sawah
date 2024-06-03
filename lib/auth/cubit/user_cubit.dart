@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/auth/cubit/user_state.dart';
 import 'package:graduation/auth/repos/user_repo.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/auth/repos/user_repo.dart';
+
 class UserCubit extends Cubit<UserState> {
   final UserRepository userRepository;
 
@@ -18,7 +21,6 @@ class UserCubit extends Cubit<UserState> {
   final TextEditingController signUpPassword = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
-
   Future<void> signIn() async {
     emit(SignInLoading());
     final response = await userRepository.signIn(
@@ -28,11 +30,10 @@ class UserCubit extends Cubit<UserState> {
     response.fold(
       (errorMessage) {
         emit(SignInFailure(errorMessage));
-        
       },
       (signInModel) {
         emit(SignInSuccess());
-       
+        getUserProfile();  // Fetch user profile after successful sign-in
       },
     );
   }
@@ -48,26 +49,22 @@ class UserCubit extends Cubit<UserState> {
     response.fold(
       (errorMessage) {
         emit(SignUpFailure(errorMessage));
-       
       },
       (signUpModel) {
         emit(SignUpSuccess());
-        
       },
     );
   }
 
   Future<void> getUserProfile() async {
     emit(GetUserLoading());
-    final response = await userRepository.getUserProfile();
+    final response = await userRepository.getUser();
     response.fold(
       (errorMessage) {
         emit(GetUserFailure(errorMessage));
-        
       },
       (user) {
         emit(GetUserSuccess(user));
-       
       },
     );
   }

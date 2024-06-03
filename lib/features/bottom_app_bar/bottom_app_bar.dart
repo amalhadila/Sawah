@@ -15,7 +15,6 @@ import 'package:dio/dio.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/categories/data/repos/categoriesrepo_impl.dart';
 import 'package:graduation/features/home/pres/manager/cubit/most_visited_cubit.dart';
-
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
 
@@ -78,7 +77,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 3,  // Changed to 3 to match the number of pages
+            itemCount: 3, // Changed to 3 to match the number of pages
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(
@@ -107,12 +106,15 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                       ),
                     ),
                   ),
-                  Icon(
-                    listOfIcons[index],
-                    size: size.width * .076,
-                    color: index == _selectedTab
-                        ? Colors.blueAccent
-                        : Colors.black38,
+                  Container(
+                    width: size.width * .076,
+                    height: size.width * .076,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(listOfAssets[index]),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                   SizedBox(height: size.width * .03),
                 ],
@@ -124,10 +126,10 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     );
   }
 
-  final List<IconData> listOfIcons = [
-    Icons.home_rounded,
-    Icons.favorite_rounded,
-    Icons.settings_rounded,
-    // Adjust your icons based on the number of pages and the items in your bottom navigation bar
+  final List<String> listOfAssets = [
+    AssetsData.key,
+    AssetsData.home,
+    AssetsData.camera,
+    // Adjust your assets based on the number of pages and the items in your bottom navigation bar
   ];
 }

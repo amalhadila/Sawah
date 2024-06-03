@@ -8,55 +8,54 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserCubit, UserState>(listener: (context, state) {
-      if (state is GetUserFailure) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('n'),
-          ),
-        );
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-        body: state is GetUserLoading
-            ? const CircularProgressIndicator()
-            : state is GetUserSuccess
-                ? ListView(
-                    children: [
-                      const SizedBox(height: 16),
-                      //! Profile Picture
-                      CircleAvatar(
-                        radius: 80,
-                        child: Image.asset(state.user.data.photo),
-                      ),
-                      const SizedBox(height: 16),
-
-                      //! Name
-                       ListTile(
-                        title: Text(state.user.data.name),
-                        leading: Icon(Icons.person),
-                      ),
-                      const SizedBox(height: 16),
-
-                      //! Email
-                      ListTile(
-                        title: Text(state.user.data.email),
-                        leading: Icon(Icons.email),
-                      ),
-                      const SizedBox(height: 16),
-
-                      //! Phone number
-
-                      //! Address
-                      const ListTile(
-                        title: Text("Address"),
-                        leading: Icon(Icons.location_city),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-                  )
-                : Container(),
-      );
-    });
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is GetUserFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to load user data: ${state.errorMessage}'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is GetUserLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is GetUserSuccess) {
+          return ListView(
+            children: [
+              const SizedBox(height: 16),
+              //! Profile Picture
+              CircleAvatar(
+                radius: 80,
+                backgroundImage: NetworkImage(state.user.data.photo),
+              ),
+              const SizedBox(height: 16),
+              //! Name
+              ListTile(
+                title: Text(state.user.data.name),
+                leading: Icon(Icons.person),
+              ),
+              const SizedBox(height: 16),
+              //! Email
+              ListTile(
+                title: Text(state.user.data.email),
+                leading: Icon(Icons.email),
+              ),
+              const SizedBox(height: 16),
+            ],
+          );
+        } else if (state is GetUserFailure) {
+          return Center(
+            child: Text(
+              'Unexpected state: ${state.errorMessage}',
+              style: TextStyle(color: Colors.red),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
   }
 }

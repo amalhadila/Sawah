@@ -10,11 +10,11 @@ class userModel {
     required this.data,
   });
 
-  factory userModel.fromJson(Map<String, dynamic> json) {
+  factory userModel.fromJson(Map<String, dynamic> jsonData) {
     return userModel(
-      status: json['status'],
-      token: json['token'],
-      data: UserData.fromJson(json['data']['user']),
+      status: jsonData['status'],
+      token: jsonData['token'],
+      data: UserData.fromjsonData(jsonData['data']['user']),
     );
   }
 }
@@ -36,14 +36,14 @@ class UserData {
     required this.interests,
   });
 
-  factory UserData.fromJson(Map<String, dynamic> json) {
+  factory UserData.fromjsonData(Map<String, dynamic> jsonData) {
     return UserData(
-      id: json['_id'],
-      name: json['name'],
-      email: json['email'],
-      photo: json['photo'],
-      role: json['role'],
-      interests: List<String>.from(json['interests']),
+      id: jsonData['_id'],
+      name: jsonData['name'],
+      email: jsonData['email'],
+      photo: jsonData['photo'],
+      role: jsonData['role'],
+      interests: List<String>.from(jsonData['interests']),
     );
   }
 }
