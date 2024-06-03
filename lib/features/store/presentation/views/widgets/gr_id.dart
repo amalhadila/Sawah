@@ -17,7 +17,7 @@ class GrId extends StatelessWidget {
           ..fetchProducts(categoryId: categoryId!),
         child: Scaffold(
             body: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 28),
+          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
           child: ProductGrid(),
         )));
   }

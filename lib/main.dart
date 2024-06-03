@@ -77,6 +77,7 @@
 // // }
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,9 +90,15 @@ import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
+import 'package:graduation/firebase_options.dart';
 
-void main() {
-  runApp(EasyLocalization(
+void main() async{
+     WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
+  runApp(
+    EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       saveLocale: true,
       startLocale: const Locale('en'),

@@ -35,6 +35,8 @@ class _ProcessImagePageState extends State<ProcessImagePage> {
         ),
         'http://192.168.1.2:8000/api/v1/detections',
         data: formData,
+
+
       );
       LandMarkDetectionModel landMarkDetectionModel =
           LandMarkDetectionModel.fromJson(response.data);

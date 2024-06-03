@@ -21,7 +21,7 @@ class SearchRepoImp implements SearchRepo {
       log('test');
       print(data);
       List<LandmarkOnCatModel> landmark = [];
-      for (var match in data['data']['landmarks']) {
+      for (var match in data['data']['docs']) {
         landmark.add(LandmarkOnCatModel.fromJson(match));
       }
       return right(landmark);

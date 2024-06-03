@@ -65,21 +65,16 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10),
+                                            padding: const EdgeInsets.only(left: 10),
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  state.cartitems_list[index]
-                                                      .name!,
+                                                  state.cartitems_list[index].name!,
                                                   textAlign: TextAlign.center,
                                                   maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  overflow: TextOverflow.ellipsis,
                                                   softWrap: true,
                                                   style: const TextStyle(
                                                     fontSize: 18,
@@ -99,8 +94,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 20),
                                         Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             const Text(
                                               'Quantity',
@@ -111,9 +105,7 @@ class CartScreen extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 10),
                                             Text(
-                                              state.cartitems_list[index]
-                                                  .quantity
-                                                  .toString(),
+                                              state.cartitems_list[index].quantity.toString(),
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -121,11 +113,8 @@ class CartScreen extends StatelessWidget {
                                             ),
                                             IconButton(
                                               onPressed: () {
-                                                BlocProvider.of<DeleteitemCubit>(
-                                                        context)
-                                                    .deleteitem(
-                                                  id: state.cartitems_list[index]
-                                                      .id,
+                                                BlocProvider.of<DeleteitemCubit>(context).deleteitem(
+                                                  id: state.cartitems_list[index].id,
                                                 );
                                               },
                                               icon: const Icon(
@@ -162,7 +151,7 @@ class CartScreen extends StatelessWidget {
                   height: screenHeight * .08,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                     // colo: kmaincolor,
+                   //   primary: kmaincolor,
                     ),
                     onPressed: () {},
                     child: const Text(
