@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:graduation/auth/screens/sign_in_screen.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/categories/data/model/categories_model.dart';
 import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
@@ -15,6 +16,7 @@ import 'package:graduation/features/introduction_screen/presentation/views/intro
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import 'package:graduation/features/search/presentation/views/notfound_page_view.dart';
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
+import 'package:graduation/features/search/splahview.dart';
 import 'package:graduation/features/store/data/products/products.dart';
 import 'package:graduation/features/store/presentation/views/product_info_view.dart';
 import 'package:graduation/features/store/presentation/views/store_view.dart';
@@ -26,6 +28,7 @@ import 'package:graduation/features/store/presentation/views/widgets/product_inf
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
+import '../../features/home/pres/views/homeview.dart';
 import '../../features/search/data/repos/search_repo_imp.dart';
 import '../widgets/loading_widget.dart';
 
@@ -39,7 +42,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/',
+          path: '/uu',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -55,9 +58,12 @@ abstract class AppRouter {
               },
             );
           }),
-            GoRoute(path: '/ChatHomeScreen', builder: (context, state) => ChatHomeScreen()),
-    
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
+         GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
+      GoRoute(path: '/', builder: (context, state) => SplashView()),
+                GoRoute(path: '/ChatHomeScreen', builder: (context, state) => ChatHomeScreen()),
+
+      GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
        GoRoute(
           path: '/productinfoo',
