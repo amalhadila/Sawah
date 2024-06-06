@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/auth/cubit/user_state.dart';
 import 'package:graduation/auth/repos/user_repo.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/auth/repos/user_repo.dart';
+
 class UserCubit extends Cubit<UserState> {
   final UserRepository userRepository;
 
@@ -30,6 +33,7 @@ class UserCubit extends Cubit<UserState> {
       },
       (signInModel) {
         emit(SignInSuccess());
+       
       },
     );
   }
@@ -54,7 +58,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> getUserProfile() async {
     emit(GetUserLoading());
-    final response = await userRepository.getUserProfile();
+    final response = await userRepository.getUser();
     response.fold(
       (errorMessage) {
         emit(GetUserFailure(errorMessage));

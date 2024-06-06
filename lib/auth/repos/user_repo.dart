@@ -1,20 +1,20 @@
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/dio_consumer.dart';
 import 'package:graduation/auth/core_login/api/end_point.dart';
+import 'package:graduation/auth/core_login/errors/excpetion.dart';
 import 'package:graduation/auth/models/loginmodel.dart';
 import 'package:graduation/auth/models/signupmodel.dart';
 import 'package:graduation/auth/models/user_model.dart';
-import 'package:graduation/core/errors/failures.dart';
-
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserRepository {
   final Diocosumer diocosumer;
 
   UserRepository({required this.diocosumer});
+
   Future<Either<String, SignInModel>> signIn({
     required String email,
     required String password,
@@ -60,17 +60,14 @@ class UserRepository {
       return Left(e.toString());
     }
   }
-
-  Future<Either<String, userModel>> getUserProfile() async {
+   Future<Either<String, userModel>> getUserProfile() async {
     try {
-      final response = await diocosumer.get(
-        endPoint.getUserDataEndPoint(
-          CacheHelper().getData(key: apikey.id),
-        ),
-      );
+      final response = await diocosumer.get(endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
       return Right(userModel.fromJson(response));
-    } on ServerFailure catch (e) {
+    } on Failure catch (e) {
+      log('GetUser Error: ${e.toString()}');
       return Left(e.toString());
     }
   }
 }
+

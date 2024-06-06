@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:graduation/auth/screens/profile_screen.dart';
 import 'package:graduation/auth/screens/sign_in_screen.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/categories/data/model/categories_model.dart';
@@ -63,6 +64,7 @@ abstract class AppRouter {
           builder: (context, state) => ChatHomeScreen()),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
+      GoRoute(path: '/profilesrean', builder: (context, state) => ProfileScreen()),
       GoRoute(
           path: '/BookingPage',
           builder: (context, state) => BookingPage(

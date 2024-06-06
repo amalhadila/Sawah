@@ -9,7 +9,7 @@ import 'package:graduation/auth/widgets/dont_have_an_account.dart';
 import 'package:graduation/auth/widgets/forget_password_widget.dart';
 import 'package:graduation/auth/widgets/page_heading.dart';
 import 'package:graduation/features/bottom_app_bar/bottom_app_bar.dart';
-import 'package:graduation/features/home/pres/views/homeview.dart';
+import 'package:graduation/features/home/pres/views/widget/homeview_body.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -21,19 +21,19 @@ class SignInScreen extends StatelessWidget {
       if (state is SignInSuccess) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('success')));
-        context.read<UserCubit>().getUserProfile();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BottomNavigation(),
-          ),
-        );
+            context.read<UserCubit>().getUserProfile();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BottomNavigation (),),
+            );
+
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('fail')));
       }
     }, builder: (context, State) {
-      return Scaffold(
+      return Scaffold(   
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -48,21 +48,23 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const PageHeading(title: 'Welcome Back !'),
-                    SizedBox(height: MediaQuery.of(context).size.height * .03),
+                    SizedBox(height: MediaQuery.of(context).size.height*.03),
                     //!Email
                     CustomInputField(
+                      
                       hintText: 'Your email',
                       controller: context.read<UserCubit>().signInEmail,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * .04),
+                    SizedBox(height: MediaQuery.of(context).size.height*.04),
                     //!Password
                     CustomInputField(
+                     
                       hintText: 'Your password',
                       obscureText: true,
                       suffixIcon: true,
                       controller: context.read<UserCubit>().signInPassword,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * .04),
+                    SizedBox(height: MediaQuery.of(context).size.height*.04),
                     //! Forget password?
                     ForgetPasswordWidget(size: size),
                     const SizedBox(height: 20),
@@ -90,6 +92,7 @@ class SignInScreen extends StatelessWidget {
           ),
         ),
       );
-    });
+    }
+    );
   }
 }
