@@ -34,11 +34,11 @@ class ProcatRepoImple implements proCategoriesRepo {
   Future<Either<Failure, List<Product>>> fetchProducts(
       {required String categoryId}) async {
     try {
-      var data = await apiService.get(endpoint: 'tours/$categoryId');
-      print(data['data']['doc']);
+      var data = await apiService.get(endpoint: 'tours?category=$categoryId');
+      print(data['data']['docs']);
 
       List<Product> product = [];
-      for (var item in data['data']['doc']) {
+      for (var item in data['data']['docs']) {
         product.add(Product.fromJson(item));
       }
       return right(product);

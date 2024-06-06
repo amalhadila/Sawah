@@ -17,15 +17,13 @@ class GrId extends StatelessWidget {
       providers: [
         if (categoryId != null)
           BlocProvider<ProductsCubit>(
-            create: (context) =>
-                ProductsCubit(ProcatRepoImple(ApiService(Dio())))
-                  ..fetchProducts(categoryId: categoryId!),
+            create: (context) => ProductsCubit(ProcatRepoImple(ApiService(Dio())))
+              ..fetchProducts(categoryId: categoryId!),
           ),
         if (categoryId == null)
           BlocProvider<AllproductsCubit>(
-            create: (context) =>
-                AllproductsCubit(ProcatRepoImple(ApiService(Dio())))
-                  ..fetchallProducts(),
+            create: (context) => AllproductsCubit(ProcatRepoImple(ApiService(Dio())))
+              ..fetchallProducts(),
           ),
       ],
       child: Scaffold(
