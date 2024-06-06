@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class ApiService {
-  final _baseurl = 'http://192.168.1.4:8000/api/v1/';
+  final _baseurl = 'http://192.168.1.6:8000/api/v1/';
   final Dio _dio;
 
   ApiService(this._dio) {
@@ -27,8 +27,8 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> delete(
-      {required String endpoint, Options? Headers}) async {
-    var response = await _dio.delete(endpoint, options: Headers);
+      {required String endpoint, Options? headers}) async {
+    var response = await _dio.delete(endpoint, options: headers);
     return response.data;
   }
 }

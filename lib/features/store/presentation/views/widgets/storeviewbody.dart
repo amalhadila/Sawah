@@ -16,11 +16,11 @@ class Storeviewbody extends StatelessWidget {
                 GoRouter.of(context).push('/CartScreen');
               },
               child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                padding: EdgeInsets.only(right: 25),
                 child: Row(
                   children: [
                     Icon(
-                      Icons.shopping_cart,
+                      Icons.shopping_cart_outlined,
                       color: kmaincolor,
                       size: 28,
                     ),
@@ -42,10 +42,10 @@ class Storeviewbody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6),
               child: Container(
-                height: 35,
-                width: 180,
+                height: 45,
+                width: 220,
                 margin: EdgeInsets.only(top: 4),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -56,7 +56,7 @@ class Storeviewbody extends StatelessWidget {
                         Icons.search,
                         size: 20,
                       ),
-                      hintText: "Find Product",
+                      hintText: "Search",
                       hintStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,

@@ -39,7 +39,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/home',
+          path: '/',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -55,7 +55,7 @@ abstract class AppRouter {
               },
             );
           }),
-      GoRoute(path: '/', builder: (context, state) => StoreView()),
+      GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
       GoRoute(path: '/uu', builder: (context, state) => SplashView()),
       GoRoute(
@@ -63,7 +63,11 @@ abstract class AppRouter {
           builder: (context, state) => ChatHomeScreen()),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
-      GoRoute(path: '/BookingPage', builder: (context, state) => BookingPage()),
+      GoRoute(
+          path: '/BookingPage',
+          builder: (context, state) => BookingPage(
+                product: state.extra as Product,
+              )),
       GoRoute(
           path: '/productinfo',
           builder: (context, state) => ProductInfoView(

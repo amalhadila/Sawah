@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
 
-part 'products_state.dart';
+part 'allproducts_state.dart';
 
-class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit(this.catrepo) : super(ProductsInitial());
+class AllproductsCubit extends Cubit<AllproductsState> {
+  AllproductsCubit(this.catrepo) : super(AllproductsInitial());
   final proCategoriesRepo catrepo;
   bool _closed = false;
 
@@ -16,17 +16,17 @@ class ProductsCubit extends Cubit<ProductsState> {
     return super.close();
   }
 
-  Future<void> fetchProducts({required String categoryId}) async {
+  Future<void> fetchallProducts() async {
     if (_closed) return;
     print('Fetching product categories...');
-    emit(ProductLoading());
-    var result = await catrepo.fetchProducts(categoryId: categoryId);
+    emit(AllproductLoading());
+    var result = await catrepo.fetchallProducts();
     result.fold((Failure) {
       print('Failed to fetch product categories: ${Failure.message}');
-      if (!_closed) emit(ProductFailure(Failure.message));
+      if (!_closed) emit(AllproductFailure(Failure.message));
     }, (product_list) {
       print('Successfully fetched product categories');
-      if (!_closed) emit(ProductSuccess(product_list));
+      if (!_closed) emit(AllproductSuccess(product_list));
     });
   }
 }

@@ -3,26 +3,27 @@ import 'package:equatable/equatable.dart';
 import 'guide.dart';
 import 'location.dart';
 
-class Product extends Equatable {
+class Productbyid extends Equatable {
   final String? id;
   final String? name;
   final String? description;
   final int? duration;
-  final List<dynamic>? images;
+  final List<String>? images;
   final List<Location>? locations;
   final int? price;
   final int? maxGroupSize;
-  final List<dynamic>? startDays;
+  final List<String>? startDays;
   final List<Guide>? guides;
-  final dynamic rating;
+  final double? rating;
   final int? ratingsQuantity;
   final int? bookings;
   final String? slug;
-  final dynamic? category;
+  final String? category;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final int? v;
 
-  const Product({
+  const Productbyid({
     this.id,
     this.name,
     this.description,
@@ -40,37 +41,40 @@ class Product extends Equatable {
     this.category,
     this.createdAt,
     this.updatedAt,
+    this.v,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory Productbyid.fromJson(Map<String, dynamic> json) => Productbyid(
         name: json['name'] as String?,
         description: json['description'] as String?,
         duration: json['duration'] as int?,
-        images: json['images'] as List<dynamic>?,
+        images: json['images'] as List<String>?,
         locations: (json['locations'] as List<dynamic>?)
             ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
             .toList(),
         price: json['price'] as int?,
         maxGroupSize: json['maxGroupSize'] as int?,
-        startDays: json['startDays'] as List<dynamic>?,
+        startDays: json['startDays'] as List<String>?,
         guides: (json['guides'] as List<dynamic>?)
             ?.map((e) => Guide.fromJson(e as Map<String, dynamic>))
             .toList(),
-        rating: json['rating'] as dynamic,
+        rating: (json['rating'] as num?)?.toDouble(),
         ratingsQuantity: json['ratingsQuantity'] as int?,
         bookings: json['bookings'] as int?,
         slug: json['slug'] as String?,
-        category: json['category'] as dynamic?,
+        category: json['category'] as String?,
         createdAt: json['createdAt'] == null
             ? null
             : DateTime.parse(json['createdAt'] as String),
         updatedAt: json['updatedAt'] == null
             ? null
             : DateTime.parse(json['updatedAt'] as String),
+        v: json['__v'] as int?,
         id: json['id'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
+        '_id': id,
         'name': name,
         'description': description,
         'duration': duration,
@@ -87,12 +91,14 @@ class Product extends Equatable {
         'category': category,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        '__v': v,
         'id': id,
       };
 
   @override
   List<Object?> get props {
     return [
+      id,
       name,
       description,
       duration,
@@ -109,6 +115,7 @@ class Product extends Equatable {
       category,
       createdAt,
       updatedAt,
+      v,
       id,
     ];
   }

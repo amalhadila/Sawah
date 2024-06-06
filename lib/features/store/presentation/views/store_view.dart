@@ -16,6 +16,6 @@ class StoreView extends StatelessWidget {
           create: (context) =>
               ProductCatCubit(ProcatRepoImple(ApiService(Dio())))
                 ..fetchCategories()),
-    ], child: Scaffold(body: Storeviewbody()));
+    ], child: Storeviewbody());
   }
 }

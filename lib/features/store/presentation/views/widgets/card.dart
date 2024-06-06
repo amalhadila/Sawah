@@ -4,7 +4,7 @@ import 'package:graduation/constants.dart';
 
 class productCard extends StatefulWidget {
   final String imglink;
-  final String? rating;
+  final int? rating;
   final String text;
   final String? info;
   final dynamic price;
@@ -29,6 +29,15 @@ class _productCardState extends State<productCard> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Define your responsive font sizes here
+    double titleFontSize = screenWidth * 0.039;
+    double infoFontSize = screenWidth * 0.034;
+    double priceFontSize = screenWidth * 0.04;
+    double ratingFontSize = screenWidth * 0.035;
+
     return GestureDetector(
       onTap: widget.ontap,
       child: Stack(
@@ -42,7 +51,7 @@ class _productCardState extends State<productCard> {
               ),
               elevation: 0,
               child: Padding(
-                padding: const EdgeInsets.only(right: 10, left: 0, bottom: 0),
+                padding: const EdgeInsets.only(right: 0, left: 0, bottom: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -51,16 +60,15 @@ class _productCardState extends State<productCard> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            // widget.imglink,
                             'assets/img/landmarks/pyramids2.jpg',
-                            height: MediaQuery.sizeOf(context).height * .16,
-                            width: MediaQuery.sizeOf(context).width * .39,
+                            height: screenHeight * .16,
+                            width: screenWidth * .39,
                             fit: BoxFit.cover,
                           ),
                         ),
                         Positioned(
-                          top: 8,
-                          right: 8,
+                          top: 5,
+                          left: 8,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -78,25 +86,36 @@ class _productCardState extends State<productCard> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 5),
+                    SizedBox(width: 15),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.text,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                        Container(
+                          width: screenWidth *
+                              0.43, // Adjust width for text wrapping
+                          child: Text(
+                            widget.text,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
                               color: Color.fromARGB(255, 44, 42, 42),
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600),
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                        Text(
-                          widget.info ?? '',
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 56, 54, 54),
-                            fontSize: 14,
+                        Container(
+                          width: screenWidth *
+                              0.42, // Adjust width for text wrapping
+                          child: Text(
+                            widget.info!,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 56, 54, 54),
+                              fontSize: infoFontSize,
+                            ),
                           ),
                         ),
                         Row(
@@ -104,13 +123,13 @@ class _productCardState extends State<productCard> {
                           children: [
                             Text(
                               r'$' '${widget.price.toString()}',
-                              style: const TextStyle(
-                                fontSize: 15,
+                              style: TextStyle(
+                                fontSize: priceFontSize,
                                 color: Color.fromARGB(255, 44, 42, 42),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(width: 40),
+                            SizedBox(width: 80),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -126,7 +145,7 @@ class _productCardState extends State<productCard> {
                                   widget.rating.toString(),
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 56, 54, 54),
-                                    fontSize: 14,
+                                    fontSize: ratingFontSize,
                                   ),
                                 ),
                               ],

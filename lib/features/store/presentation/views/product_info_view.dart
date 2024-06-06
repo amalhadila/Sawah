@@ -5,23 +5,36 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/products_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/product_info.dart';
 
 class ProductInfoView extends StatelessWidget {
   ProductInfoView({Key? key, required this.products});
 
   final Product products;
-  String? id;
-  int? quantity;
+  int? Adults;
+  var tourDate;
+  var tourId;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AdditemCubit(ProcatRepoImple(ApiService(Dio())))
-        ..addItemToCart(id: id, quantity: quantity),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AdditemCubit>(
+          create: (context) => AdditemCubit(ProcatRepoImple(ApiService(Dio()))),
+        ),
+        BlocProvider<ProductsCubit>(
+          create: (context) => ProductsCubit(ProcatRepoImple(ApiService(Dio())))
+            ..fetchProducts(categoryId: products.id.toString()),
+        ),
+      ],
       child: Scaffold(
-        body: ProductInfo(
-          products: products,
+        body: BlocBuilder<AdditemCubit, AdditemState>(
+          builder: (context, state) {
+            return ProductInfo(
+              products: products,
+            );
+          },
         ),
       ),
     );

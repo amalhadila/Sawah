@@ -33,160 +33,163 @@ class CartScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<GetcartitemsCubit, GetcartitemsState>(
-        builder: (context, state) {
-          if (state is ProductSuccess) {
-            return Column(
-              children: <Widget>[
-                Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      if (state.cartitems_list.isNotEmpty) {
-                        return Container(
-                          height: screenHeight -
-                              statusBarHeight -
-                              appBarHeight -
-                              (screenHeight * .08),
-                          child: ListView.builder(
-                            itemCount: state.cartitems_list.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: GestureDetector(
-                                  onTapUp: (details) {},
-                                  child: Container(
-                                    height: screenHeight * .15,
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: screenHeight * .085 / 2,
-                                          backgroundImage: const AssetImage(
-                                              'assets/img/apple-watch-series-8-2.jpg'),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  state.cartitems_list[index]
-                                                      .name!,
-                                                  textAlign: TextAlign.center,
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  softWrap: true,
-                                                  style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Text(
-                                                  '\$ ${state.cartitems_list[index].price!}',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Text(
-                                              'Quantity',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              // state.cartitems_list[index]
-                                              //     .quantity
-                                              //     .toString(),
-                                              'quantity',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                BlocProvider.of<
-                                                            DeleteitemCubit>(
-                                                        context)
-                                                    .deleteitem(
-                                                  id: state
-                                                      .cartitems_list[index].id,
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: kmaincolor,
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      } else {
-                        return Container(
-                          height: screenHeight -
-                              (screenHeight * .08) -
-                              appBarHeight -
-                              statusBarHeight,
-                          child: const Center(
-                            child: Text('Cart is Empty'),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width,
-                  height: screenHeight * .08,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        //   primary: kmaincolor,
-                        ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Check Out',
-                      style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          } else if (state is ProductFailure) {
-            return CustomErrorWidget(errMessage: state.errMessage);
-          } else {
-            return const Center(
-              child: LoadingWidget(),
-            );
+      body: BlocListener<DeleteitemCubit, DeleteitemState>(
+        listener: (context, state) {
+          if (state is DeleteitemSuccess) {
+            BlocProvider.of<GetcartitemsCubit>(context).fetchcartitems();
           }
         },
+        child: BlocBuilder<GetcartitemsCubit, GetcartitemsState>(
+          builder: (context, state) {
+            if (state is ProductSuccess) {
+              var cartItems = state.cartitems_list
+                  .expand((cart) => cart.cartItems ?? [])
+                  .toList();
+
+              if (cartItems.isNotEmpty) {
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          var item = cartItems[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 13, vertical: 3),
+                            child: Container(
+                              color: Color.fromARGB(255, 255, 248, 241),
+                              height: screenHeight * .15,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 7,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.asset(
+                                      'assets/img/landmarks/pyramids2.jpg',
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              .12,
+                                      width: MediaQuery.sizeOf(context).width *
+                                          .22,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.tour?.name,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                ' Adults',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 2),
+                                              Text(
+                                                ' ${item.groupSize}',
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '\$ ${item.itemPrice}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      var itemId = item.id;
+                                      print(
+                                          'Deleting item with id: $itemId'); // Log the item ID
+                                      BlocProvider.of<DeleteitemCubit>(context)
+                                          .deleteitem(Id: itemId);
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: kmaincolor,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    ButtonTheme(
+                      minWidth: MediaQuery.of(context).size.width,
+                      height: screenHeight * .08,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(),
+                        onPressed: () {},
+                        child: const Text(
+                          'Check Out',
+                          style: TextStyle(
+                            color: kbackgroundcolor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Container(
+                  height: screenHeight -
+                      (screenHeight * .08) -
+                      appBarHeight -
+                      statusBarHeight,
+                  child: const Center(
+                    child: Text(
+                      'Cart is Empty',
+                      style: TextStyle(color: kmaincolor),
+                    ),
+                  ),
+                );
+              }
+            } else if (state is ProductFailure) {
+              return CustomErrorWidget(errMessage: state.errMessage);
+            } else {
+              return const Center(
+                child: LoadingWidget(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

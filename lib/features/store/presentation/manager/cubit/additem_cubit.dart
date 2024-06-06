@@ -8,11 +8,13 @@ class AdditemCubit extends Cubit<AdditemState> {
   final proCategoriesRepo procategoriesRepo;
   AdditemCubit(this.procategoriesRepo) : super(AdditemInitial());
 
-  Future<void> addItemToCart({required var id, required var quantity}) async {
+  Future<void> addItemToCart(
+      {required var Adults, required var tourId, required var tourDate}) async {
     emit(AdditemLoading());
 
     try {
-      await procategoriesRepo.addproduct(id: id, quantity: quantity);
+      await procategoriesRepo.addproduct(
+          Adults: Adults, tourId: tourId, tourDate: tourDate);
       emit(AdditemSuccess());
     } catch (Failure) {
       emit(AdditemFailure(Failure.toString()));

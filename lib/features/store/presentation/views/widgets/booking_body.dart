@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
+import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
 import 'package:intl/intl.dart';
 
 class BookingPage extends StatefulWidget {
+  BookingPage({super.key, required this.product});
+  Product product;
+
   @override
   _BookingPageState createState() => _BookingPageState();
 }
 
 class _BookingPageState extends State<BookingPage> {
-  int _quantity = 1;
+  int quantity = 1;
   DateTime? _selectedDate;
 
   void _pickDate(BuildContext context) async {
@@ -36,7 +41,7 @@ class _BookingPageState extends State<BookingPage> {
           icon: const Icon(
             Icons.arrow_back_ios,
             color: kmaincolor,
-            size: 26,
+            size: 22,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -45,160 +50,217 @@ class _BookingPageState extends State<BookingPage> {
         title: Text(
           'Booking',
           style: TextStyle(
-              fontSize: 21, fontWeight: FontWeight.w600, color: kmaincolor),
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Departing from Osaka',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Check availability',
+                    widget.product.name!,
                     style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      _pickDate(context);
-                    },
-                    child: _selectedDate == null
-                        ? Text(
-                            'June 4 - Oct 31',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: kbackgroundcolor),
-                          )
-                        : Text(
-                            ' ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: kbackgroundcolor),
-                          ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kmaincolor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Adults',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
-                    width: 25,
+                    height: 20,
                   ),
-                  Row(children: [
-                    ClipOval(
-                      child: Material(
-                        color: kbackgroundcolor,
-                        child: GestureDetector(
-                          onTap: subtract,
-                          child: const SizedBox(
-                            height: 27,
-                            width: 27,
-                            child: Icon(
-                              Icons.remove,
-                              size: 26,
-                              color: kmaincolor,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Check availability',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _pickDate(context);
+                        },
+                        child: _selectedDate == null
+                            ? Text(
+                                'June 4 - Oct 31',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: kbackgroundcolor),
+                              )
+                            : Text(
+                                ' ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: kbackgroundcolor),
+                              ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: kmaincolor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Group Size',
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w600),
+                      ),
+                      Spacer(
+                        flex: 2,
+                      ),
+                      Row(children: [
+                        ClipOval(
+                          child: Material(
+                            color: kbackgroundcolor,
+                            child: GestureDetector(
+                              onTap: subtract,
+                              child: const SizedBox(
+                                height: 27,
+                                width: 27,
+                                child: Icon(
+                                  Icons.remove,
+                                  size: 26,
+                                  color: kmaincolor,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Text(
-                      _quantity.toString(),
-                      style: const TextStyle(fontSize: 25),
-                    ),
-                    ClipOval(
-                      child: Material(
-                        color: kbackgroundcolor,
-                        child: GestureDetector(
-                          onTap: add,
-                          child: const SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: Icon(
-                              Icons.add,
-                              size: 26,
-                              color: kmaincolor,
+                        Text(
+                          quantity.toString(),
+                          style: const TextStyle(fontSize: 25),
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: kbackgroundcolor,
+                            child: GestureDetector(
+                              onTap: add,
+                              child: const SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: Icon(
+                                  Icons.add,
+                                  size: 26,
+                                  color: kmaincolor,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ])
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('US\$ 63.55',
+                      ]),
+                      Spacer()
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(r'Price:  $ ' '${widget.product.price.toString()}',
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.black,
                           fontWeight: FontWeight.w700)),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('go to payment',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: kbackgroundcolor,
-                            fontWeight: FontWeight.w700)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kmaincolor,
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Color.fromARGB(255, 252, 237, 227),
+              padding: const EdgeInsets.only(right: 16.0, left: 16, bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_selectedDate != null) {
+                          BlocProvider.of<AdditemCubit>(context).addItemToCart(
+                            tourId: widget.product.id,
+                            Adults: quantity,
+                            tourDate: _selectedDate!.toString(),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('added to the cart')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please select a date.')),
+                          );
+                        }
+                      },
+                      child: Text('Add to cart',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: kbackgroundcolor,
+                              fontWeight: FontWeight.w700)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 18),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_selectedDate != null) {
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please select a date.')),
+                          );
+                        }
+                      },
+                      child: Text('Go to payment',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: kbackgroundcolor,
+                              fontWeight: FontWeight.w700)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   void subtract() {
-    if (_quantity > 1) {
+    if (quantity > 1) {
       setState(() {
-        _quantity--;
-        print(_quantity);
+        quantity--;
+        print(quantity);
       });
     }
   }
 
   void add() {
-    setState(() {
-      _quantity++;
-      print(_quantity);
-    });
+    if (quantity < widget.product.maxGroupSize!.toInt()) {
+      setState(() {
+        quantity++;
+        print(quantity);
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('The Max Group Size ${widget.product.maxGroupSize}')));
+    }
   }
 }
