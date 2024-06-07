@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/store/data/product/product.dart';
-
 class ProductInfo extends StatefulWidget {
   final Product products;
 
@@ -32,8 +31,9 @@ class _ProductInfoState extends State<ProductInfo>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
+    return 
+    
+    Scaffold(      
       body: Stack(children: [
         SingleChildScrollView(
           child: Column(
@@ -130,21 +130,32 @@ class _ProductInfoState extends State<ProductInfo>
                                   wordSpacing: .02,
                                   letterSpacing: .01,
                                   fontSize: 16,
-                                  color: Colors.black,
+                                  color: ksecondcolor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                 
-                                widget.products.locations!.first.address??'',
-                                style: const TextStyle(
-                                  wordSpacing: .02,
-                                  letterSpacing: .01,
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+   widget.products.locations![0].address! ,
+  style: const TextStyle(
+    wordSpacing: .02,
+    letterSpacing: .01,
+    fontSize: 13,
+    color: ksecondcolor,
+    fontWeight: FontWeight.w500,
+  ),
+),
+
+ if (widget.products.startDays != null && widget.products.locations!.length >= 2)
+      Text(
+       widget.products.locations![1].address!.toString(),
+        style: const TextStyle(
+    wordSpacing: .02,
+    letterSpacing: .01,
+    fontSize: 13,
+    color: ksecondcolor,
+    fontWeight: FontWeight.w500,
+  ),
+      ),
                             ],
                           ),
                         ),
@@ -157,7 +168,7 @@ class _ProductInfoState extends State<ProductInfo>
                                 wordSpacing: .02,
                                 letterSpacing: .01,
                                 fontSize: 14,
-                                color: Colors.black,
+                                color: ksecondcolor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -175,7 +186,7 @@ class _ProductInfoState extends State<ProductInfo>
                                 Text(
                                   widget.products.rating.toString(),
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 56, 54, 54),
+                                    color: ksecondcolor,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -228,10 +239,10 @@ class _ProductInfoState extends State<ProductInfo>
                                     children: [
                                       const SizedBox(height: 5),
                                       Text(
-                                        widget.products.description!,
+                                         widget.products.description!,
                                         style: const TextStyle(
                                           fontSize: 14,
-                                          color: Colors.black,
+                                          color: ksecondcolor,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -243,56 +254,88 @@ class _ProductInfoState extends State<ProductInfo>
                           ),
                           SingleChildScrollView(
                             child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Icon(Icons.schedule,
-                                              color: kmaincolor),
-                                          Text(
-                                            'Duration',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Icon(Icons.schedule,
                                                 color: kmaincolor),
-                                          ),
-                                          Text(
-                                            widget.products.duration.toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: kmaincolor),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Icon(
-                                            Icons.group_outlined,
-                                            color: kmaincolor,
-                                          ),
-                                          Text(
-                                            'maxGroupSize',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: kmaincolor),
-                                          ),
-                                          Text(
-                                            widget.products.maxGroupSize
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: kmaincolor),
-                                          ),
-                                        ],
-                                      ),
-                                      
-                                    ],
-                                  ),
-                                ],
+                                            Text(
+                                              'Duration',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kmaincolor),
+                                            ),
+                                            Text(
+                                              widget.products.duration.toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: ksecondcolor),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Icon(
+                                              Icons.group_outlined,
+                                              color: kmaincolor,
+                                            ),
+                                            Text(
+                                              'maxGroupSize',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kmaincolor),
+                                            ),
+                                            Text(
+                                               widget.products.maxGroupSize
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: ksecondcolor),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Icon(
+                                              Icons.calendar_today_outlined,
+                                              color: kmaincolor,
+                                            ),
+                                            Text(
+                                              'day',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kmaincolor),
+                                            ),
+                                            Text(
+                                               widget.products.startDays![0]
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: ksecondcolor),
+                                            ),
+                                            if (widget.products.startDays != null && widget.products.startDays!.length >= 2)
+      Text(
+        widget.products.startDays![1].toString(),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: ksecondcolor,
+        ),
+      ),
+                                          ],
+                                        ),
+                                        
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -343,7 +386,8 @@ class _ProductInfoState extends State<ProductInfo>
       ]),
     );
     
-  }
-  
-}
+      }
+    
+  }  
+
 

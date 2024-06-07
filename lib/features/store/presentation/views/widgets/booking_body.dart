@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 class BookingPage extends StatefulWidget {
   BookingPage({super.key, required this.product});
-  Product product;
+  final Product product;
 
   @override
   _BookingPageState createState() => _BookingPageState();
@@ -16,21 +16,6 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   int quantity = 1;
   DateTime? _selectedDate;
-
-  void _pickDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-
-    if (pickedDate != null) {
-      setState(() {
-        _selectedDate = pickedDate;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +32,7 @@ class _BookingPageState extends State<BookingPage> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           'Booking',
           style: TextStyle(
               fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
@@ -57,69 +42,71 @@ class _BookingPageState extends State<BookingPage> {
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.product.name!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Check availability',
+                      const Text(
+                        'Select available date',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black),
+                            color: ksecondcolor),
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          _pickDate(context);
+                        onPressed: () async {
+                          DateTime initialDate = _getNextAvailableDate();
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: initialDate,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            selectableDayPredicate: (DateTime date) {
+                              // السماح بالتواريخ المتاحة فقط
+                              return widget.product.startDays!.contains(DateFormat('EEEE').format(date));
+                            },
+                          );
+                          if (pickedDate != null) {
+                            setState(() {
+                              _selectedDate = pickedDate;
+                            });
+                          }
                         },
-                        child: _selectedDate == null
-                            ? Text(
-                                'June 4 - Oct 31',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: kbackgroundcolor),
-                              )
-                            : Text(
-                                ' ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: kbackgroundcolor),
-                              ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: kmaincolor,
+                        child: Text(
+                          _selectedDate == null
+                              ? 'Select Date'
+                              : DateFormat('yyyy-MM-dd').format(_selectedDate!),
+                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Group Size',
+                      const Text(
+                        'Group Size ',
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w600),
                       ),
-                      Spacer(
+                      const Spacer(
                         flex: 2,
                       ),
                       Row(children: [
@@ -162,16 +149,16 @@ class _BookingPageState extends State<BookingPage> {
                           ),
                         ),
                       ]),
-                      Spacer()
+                      const Spacer()
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(r'Price:  $ ' '${widget.product.price.toString()}',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.black,
+                          color: ksecondcolor,
                           fontWeight: FontWeight.w700)),
                 ],
               ),
@@ -180,7 +167,7 @@ class _BookingPageState extends State<BookingPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              color: Color.fromARGB(255, 252, 237, 227),
+              color: const Color.fromARGB(255, 252, 237, 227),
               padding: const EdgeInsets.only(right: 16.0, left: 16, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,18 +179,18 @@ class _BookingPageState extends State<BookingPage> {
                           BlocProvider.of<AdditemCubit>(context).addItemToCart(
                             tourId: widget.product.id,
                             Adults: quantity,
-                            tourDate: _selectedDate!.toString(),
+                            tourDate: DateFormat('yyyy-MM-dd').format(_selectedDate!),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('added to the cart')),
+                            const SnackBar(content: Text('Added to the cart')),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please select a date.')),
+                            const SnackBar(content: Text('Please select a date.')),
                           );
                         }
                       },
-                      child: Text('Add to cart',
+                      child: const Text('Add to cart',
                           style: TextStyle(
                               fontSize: 15,
                               color: kbackgroundcolor,
@@ -213,18 +200,19 @@ class _BookingPageState extends State<BookingPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 18),
+                  const SizedBox(width: 18),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         if (_selectedDate != null) {
+                          // Navigate to payment
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please select a date.')),
+                            const SnackBar(content: Text('Please select a date.')),
                           );
                         }
                       },
-                      child: Text('Go to payment',
+                      child: const Text('Go to payment',
                           style: TextStyle(
                               fontSize: 15,
                               color: kbackgroundcolor,
@@ -247,7 +235,6 @@ class _BookingPageState extends State<BookingPage> {
     if (quantity > 1) {
       setState(() {
         quantity--;
-        print(quantity);
       });
     }
   }
@@ -256,11 +243,21 @@ class _BookingPageState extends State<BookingPage> {
     if (quantity < widget.product.maxGroupSize!.toInt()) {
       setState(() {
         quantity++;
-        print(quantity);
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('The Max Group Size ${widget.product.maxGroupSize}')));
     }
+  }
+
+  DateTime _getNextAvailableDate() {
+    DateTime now = DateTime.now();
+    for (int i = 0; i < 7; i++) {
+      DateTime date = now.add(Duration(days: i));
+      if (widget.product.startDays!.contains(DateFormat('EEEE').format(date))) {
+        return date;
+      }
+    }
+    return now; // return current date if no available date found, though ideally this should not happen
   }
 }

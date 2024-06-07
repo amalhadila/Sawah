@@ -8,17 +8,17 @@ class Productbyid extends Equatable {
   final String? name;
   final String? description;
   final int? duration;
-  final List<String>? images;
+  final List<dynamic>? images;
   final List<Location>? locations;
   final int? price;
   final int? maxGroupSize;
-  final List<String>? startDays;
+  final List<dynamic>? startDays;
   final List<Guide>? guides;
   final double? rating;
   final int? ratingsQuantity;
   final int? bookings;
   final String? slug;
-  final String? category;
+  final dynamic? category;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
@@ -48,13 +48,13 @@ class Productbyid extends Equatable {
         name: json['name'] as String?,
         description: json['description'] as String?,
         duration: json['duration'] as int?,
-        images: json['images'] as List<String>?,
+        images: json['images'] as List<dynamic>?,
         locations: (json['locations'] as List<dynamic>?)
             ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
             .toList(),
         price: json['price'] as int?,
         maxGroupSize: json['maxGroupSize'] as int?,
-        startDays: json['startDays'] as List<String>?,
+        startDays: json['startDays'] as List<dynamic>?,
         guides: (json['guides'] as List<dynamic>?)
             ?.map((e) => Guide.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -62,7 +62,7 @@ class Productbyid extends Equatable {
         ratingsQuantity: json['ratingsQuantity'] as int?,
         bookings: json['bookings'] as int?,
         slug: json['slug'] as String?,
-        category: json['category'] as String?,
+        category: json['category'] as dynamic?,
         createdAt: json['createdAt'] == null
             ? null
             : DateTime.parse(json['createdAt'] as String),

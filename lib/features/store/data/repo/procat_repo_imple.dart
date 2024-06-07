@@ -4,13 +4,33 @@ import 'package:graduation/core/errors/failures.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/pro_cat.dart';
 import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/features/store/data/productbyid/productbyid.dart';
 import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
 import 'package:graduation/features/store/data/usercart/usercart.dart';
+import 'package:graduation/features/store/data/wishlistitem.dart';
 
 class ProcatRepoImple implements proCategoriesRepo {
   final ApiService apiService;
-
   ProcatRepoImple(this.apiService);
+  @override
+  Future<Either<Failure, List<Product>>> fetchSearchResults(
+      {required String name}) async {
+    try {
+      var data = await apiService.get(endpoint: 'tours?search=$name');
+      print('ssssssssssssssssssssssssssssssssssssssssssssssssss$data');
+      List<Product> product = [];
+      for (var match in data['data']['docs']) {
+        product.add(Product.fromJson(match));
+      }
+      return right(product);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDiorError(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
 
   @override
   Future<Either<Failure, List<ProCat>>> fetchProductCat() async {
@@ -22,6 +42,35 @@ class ProcatRepoImple implements proCategoriesRepo {
         categorydata.add(ProCat.fromJson(item));
       }
       return right(categorydata);
+    } on Exception catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDiorError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Productbyid>>> fetchProductbyId({
+    required String productId,
+  }) async {
+    try {
+      var data = await apiService.get(endpoint: 'tours/$productId');
+      print(data['data']['doc']);
+
+      List<Productbyid> product = [];
+
+      if (data['data']['doc'] is Map<String, dynamic>) {
+        product.add(Productbyid.fromJson(data['data']['doc']));
+      } else if (data['data']['doc'] is Iterable) {
+        for (var item in data['data']['doc']) {
+          product.add(Productbyid.fromJson(item));
+        }
+      } else {
+        throw Exception('Unexpected data structure');
+      }
+
+      return right(product);
     } on Exception catch (e) {
       if (e is DioError) {
         return left(ServerFailure.fromDiorError(e));
@@ -75,7 +124,7 @@ class ProcatRepoImple implements proCategoriesRepo {
         Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjRlMmY4ZmI4MTRiNTZmYTE4NSIsImlhdCI6MTcxNzQ0NjY0NiwiZXhwIjoxNzI1MjIyNjQ2fQ.dU5JzycZetFhZ6GvxTeM2ke5XIWmveZ1bAqFFIwhYss'
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
           },
         ),
       );
@@ -98,7 +147,36 @@ class ProcatRepoImple implements proCategoriesRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
+    try {
+      var response = await apiService.get(
+        endpoint: 'wishlists',
+        Headers: Options(
+          headers: <String, String>{
+            'Authorization':
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY'
+          },
+        ),
+      );
 
+      if (response != null &&
+          response['data'] != null &&
+          response['data'] != null) {
+        var wishlistotem = response['data'];
+        Wishlistitem wishlist = Wishlistitem.fromJson(wishlistotem as Map<String, dynamic>);
+
+        return right([wishlist]);
+      } else {
+        return left(
+            ServerFailure("Unexpected response structure or null data"));
+      }
+    } on Exception catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDiorError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
   Future<void> addproduct(
       {required var Adults, required var tourId, required var tourDate}) async {
     try {
@@ -107,7 +185,7 @@ class ProcatRepoImple implements proCategoriesRepo {
         Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjRlMmY4ZmI4MTRiNTZmYTE4NSIsImlhdCI6MTcxNzQ5ODI3NywiZXhwIjoxNzI1Mjc0Mjc3fQ.EEAvZiAkAcH9G9HDQC17xi_Io35MD0gzFTfssKEqcVU',
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
             'Content-Type': 'application/json'
           },
         ),
@@ -115,6 +193,35 @@ class ProcatRepoImple implements proCategoriesRepo {
           "tourId": tourId,
           "tourDate": tourDate,
           "groupSize": Adults,
+        },
+      );
+      print(data);
+    } catch (e) {
+      if (e is DioException) {
+        print('DioException: ${e.toString()}');
+        throw ServerFailure.fromDiorError(e);
+      } else {
+        print('ServerFailure: ${e.toString()}');
+        throw ServerFailure(e.toString());
+      }
+    }
+  }
+
+  Future<void>  addproducttowishlist(
+      { required var tourId}) async {
+    try {
+      var data = await apiService.post(
+        endpoint: 'wishlists',
+        Headers: Options(
+          headers: <String, String>{
+            'Authorization':
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
+            'Content-Type': 'application/json'
+          },
+        ),
+        body: {
+          "tourId": tourId,
+         
         },
       );
       print(data);
@@ -137,11 +244,36 @@ class ProcatRepoImple implements proCategoriesRepo {
         headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjRlMmY4ZmI4MTRiNTZmYTE4NSIsImlhdCI6MTcxNzQ5ODI3NywiZXhwIjoxNzI1Mjc0Mjc3fQ.EEAvZiAkAcH9G9HDQC17xi_Io35MD0gzFTfssKEqcVU'
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY'
           },
         ),
       );
       print('Response: ${response}'); // Log the response
+    } catch (e) {
+      if (e is DioError) {
+        print('DioError: ${e.toString()}');
+        print('Response data: ${e.response?.data}');
+        throw ServerFailure.fromDiorError(e);
+      } else {
+        print('ServerFailure: ${e.toString()}');
+        throw ServerFailure(e.toString());
+      }
+    }
+  }
+
+  Future<void> deletewishlistitem({required var Id}) async {
+    print('Deleting item with id: $Id'); 
+    try {
+      var response = await apiService.delete(
+        endpoint: 'wishlists/$Id',
+        headers: Options(
+          headers: <String, String>{
+            'Authorization':
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY'
+          },
+        ),
+      );
+      print('Response: ${response}'); 
     } catch (e) {
       if (e is DioError) {
         print('DioError: ${e.toString()}');

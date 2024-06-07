@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Location extends Equatable {
   final String? type;
-  final List<double>? coordinates;
+  final List<dynamic>? coordinates;
   final String? address;
   final String? description;
   final int? day;
@@ -15,11 +15,11 @@ class Location extends Equatable {
     this.description,
     this.day,
     this.id,
-     });
+  });
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         type: json['type'] as String?,
-        coordinates: json['coordinates'] as List<double>?,
+        coordinates: json['coordinates'] as List<dynamic>?,
         address: json['address'] as String?,
         description: json['description'] as String?,
         day: json['day'] as int?,

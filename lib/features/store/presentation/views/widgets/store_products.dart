@@ -63,7 +63,7 @@ class _store_productState extends State<store_product> {
               ),
               body: TabBarView(
                 children: [
-                  GrId(), // عرض جميع المنتجات عندما تكون الفئة "All"
+                  GrId(), 
                   ...state.pro_cat_list.map((cat) {
                     return GrId(categoryId: cat.id);
                   }).toList(),

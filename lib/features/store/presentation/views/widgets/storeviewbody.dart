@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/store_products.dart';
 
 class Storeviewbody extends StatelessWidget {
   const Storeviewbody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,25 +50,33 @@ class Storeviewbody extends StatelessWidget {
                 height: 45,
                 width: 220,
                 margin: EdgeInsets.only(top: 4),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
                       child: TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 20,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                            size: 20,
+                          ),
+                          hintText: "Search",
+                          hintStyle: TextStyle(fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Color.fromARGB(255, 255, 248, 241),
+                        ),
+                         onFieldSubmitted: (value) {
+    
+    BlocProvider.of<SearchproductCubit>(context).fetchSearchResult(name: value);
+  },
                       ),
-                      hintText: "Search",
-                      hintStyle: TextStyle(fontSize: 14),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(10)),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 255, 248, 241),
                     ),
-                  )),
-                ]),
+                  ],
+                ),
               ),
             ),
           ],

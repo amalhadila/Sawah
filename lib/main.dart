@@ -86,6 +86,7 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
 import 'package:graduation/firebase_options.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/dio_consumer.dart';
@@ -141,6 +142,10 @@ class Sawah extends StatelessWidget {
               GetcartitemsCubit(ProcatRepoImple(ApiService(dio)))
                 ..fetchcartitems(),
         ),
+        BlocProvider(
+          create: (context) =>
+              SearchproductCubit(ProcatRepoImple(ApiService(Dio())))
+                ), 
         BlocProvider(
           create: (context) =>
               UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),

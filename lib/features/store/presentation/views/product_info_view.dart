@@ -5,7 +5,7 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/products_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/product_info.dart';
 
 class ProductInfoView extends StatelessWidget {
@@ -23,9 +23,9 @@ class ProductInfoView extends StatelessWidget {
         BlocProvider<AdditemCubit>(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(Dio()))),
         ),
-        BlocProvider<ProductsCubit>(
-          create: (context) => ProductsCubit(ProcatRepoImple(ApiService(Dio())))
-            ..fetchProducts(categoryId: products.id.toString()),
+        BlocProvider<ProductbyidCubit>(
+          create: (context) => ProductbyidCubit(ProcatRepoImple(ApiService(Dio())))
+            ..fetchProductbyId(productId: products.id.toString()),
         ),
       ],
       child: Scaffold(
