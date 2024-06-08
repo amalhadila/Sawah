@@ -10,6 +10,7 @@ import 'package:graduation/auth/widgets/forget_password_widget.dart';
 import 'package:graduation/auth/widgets/page_heading.dart';
 import 'package:graduation/features/bottom_app_bar/bottom_app_bar.dart';
 import 'package:graduation/features/home/pres/views/widget/homeview_body.dart';
+import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class SignInScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BottomNavigation(),
+              builder: (context) => ReviewPage(),
             ),
           );
         } else if (state is SignInFailure) {

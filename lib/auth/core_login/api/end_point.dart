@@ -20,4 +20,5 @@ class apikey {
   static String token = "token";
   static String message = "message";
   static String id = "id";
+  static String reviews = "reviews";
 }

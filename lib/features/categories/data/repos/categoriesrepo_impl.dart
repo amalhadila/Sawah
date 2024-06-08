@@ -70,4 +70,22 @@ class CategoriesRepoImpl implements CategoriesRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+  Future<Either<Failure, List<MostVisitedModel>>> getreview() async {
+    try {
+      var data = await apiService.get(
+          endpoint: 'reviews');
+      print(data['data']['landmarks']);
+
+      List<MostVisitedModel> mostvisiteddata = [];
+      for (var item in data['data']['landmarks']) {
+        mostvisiteddata.add(MostVisitedModel.fromJson(item));
+      }
+      return right(mostvisiteddata);
+    } on Exception catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDiorError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }
