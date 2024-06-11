@@ -5,7 +5,7 @@ class endPoint {
 
   static String resetpassword = 'users/resetPassword/:token';
   static String updatemypassword = 'users/updateMyPassword';
-   static String getUserDataEndPoint(id) {
+  static String getUserDataEndPoint(id) {
     return "users/$id";
   }
 }

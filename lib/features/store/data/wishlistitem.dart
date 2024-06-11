@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class Wishlistitem extends Equatable {
   final String? id;
   final String? name;
-  final List<String>? images;
+  final List<dynamic>? images;
   final int? price;
 
   const Wishlistitem({
@@ -15,7 +15,7 @@ class Wishlistitem extends Equatable {
 
   factory Wishlistitem.fromJson(Map<String, dynamic> json) => Wishlistitem(
         name: json['name'] as String?,
-        images: json['images'] as List<String>?,
+        images: json['images'] as List<dynamic>?,
         price: json['price'] as int?,
         id: json['id'] as String?,
       );

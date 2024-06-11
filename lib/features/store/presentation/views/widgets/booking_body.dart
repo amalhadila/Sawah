@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
 import 'package:intl/intl.dart';
 
 class BookingPage extends StatefulWidget {
@@ -42,7 +43,8 @@ class _BookingPageState extends State<BookingPage> {
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +52,7 @@ class _BookingPageState extends State<BookingPage> {
                   Text(
                     widget.product.name!,
                     style: const TextStyle(
+                      color: ksecondcolor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -76,8 +79,8 @@ class _BookingPageState extends State<BookingPage> {
                             firstDate: DateTime.now(),
                             lastDate: DateTime(DateTime.now().year + 1),
                             selectableDayPredicate: (DateTime date) {
-                              // السماح بالتواريخ المتاحة فقط
-                              return widget.product.startDays!.contains(DateFormat('EEEE').format(date));
+                              return widget.product.startDays!
+                                  .contains(DateFormat('EEEE').format(date));
                             },
                           );
                           if (pickedDate != null) {
@@ -86,11 +89,17 @@ class _BookingPageState extends State<BookingPage> {
                             });
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: kmaincolor,
+                        ),
                         child: Text(
                           _selectedDate == null
                               ? 'Select Date'
                               : DateFormat('yyyy-MM-dd').format(_selectedDate!),
-                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                          style: const TextStyle(
+                              fontSize: 15.5,
+                              fontWeight: FontWeight.w600,
+                              color: kbackgroundcolor),
                         ),
                       ),
                     ],
@@ -104,10 +113,12 @@ class _BookingPageState extends State<BookingPage> {
                       const Text(
                         'Group Size ',
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: ksecondcolor),
                       ),
                       const Spacer(
-                        flex: 2,
+                        flex: 4,
                       ),
                       Row(children: [
                         ClipOval(
@@ -129,7 +140,8 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                         Text(
                           quantity.toString(),
-                          style: const TextStyle(fontSize: 25),
+                          style: const TextStyle(
+                              fontSize: 25, color: ksecondcolor),
                         ),
                         ClipOval(
                           child: Material(
@@ -174,52 +186,84 @@ class _BookingPageState extends State<BookingPage> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_selectedDate != null) {
-                          BlocProvider.of<AdditemCubit>(context).addItemToCart(
-                            tourId: widget.product.id,
-                            Adults: quantity,
-                            tourDate: DateFormat('yyyy-MM-dd').format(_selectedDate!),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Added to the cart')),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please select a date.')),
-                          );
-                        }
+
+  var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
+      .checkAvailability(
+        Id: widget.product.id!,
+        groupSize: quantity,
+        tourDate: '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"',
+      );
+     print('"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"');
+  if (isAvailable) {
+    BlocProvider.of<AdditemCubit>(context).addItemToCart(
+      tourId: widget.product.id,
+      Adults: quantity,
+      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Added to the cart')),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text('${widget.product.name} is not available')),
+    );
+  }
+} else {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Please select a date.')),
+  );
+};
+
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
                       child: const Text('Add to cart',
                           style: TextStyle(
                               fontSize: 15,
                               color: kbackgroundcolor,
                               fontWeight: FontWeight.w700)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kmaincolor,
-                      ),
                     ),
                   ),
                   const SizedBox(width: 18),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         if (_selectedDate != null) {
-                          // Navigate to payment
+                          var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
+      .checkAvailability(
+        Id: widget.product.id!,
+        groupSize: quantity,
+        tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+      );
+     print(DateFormat('yyyy-MM-dd').format(_selectedDate!));
+  if (isAvailable) {
+    BlocProvider.of<AdditemCubit>(context).addItemToCart(
+      tourId: widget.product.id,
+      Adults: quantity,
+      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+    ); } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text('${widget.product.name} is not available')),
+    );
+  }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please select a date.')),
+                            const SnackBar(
+                                content: Text('Please select a date.')),
                           );
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
                       child: const Text('Go to payment',
                           style: TextStyle(
                               fontSize: 15,
                               color: kbackgroundcolor,
                               fontWeight: FontWeight.w700)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kmaincolor,
-                      ),
                     ),
                   ),
                 ],

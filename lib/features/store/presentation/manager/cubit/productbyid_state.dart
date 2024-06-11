@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/productbyid/productbyid.dart';
 
 sealed class productbyidState extends Equatable {
@@ -19,7 +20,7 @@ class ProductbyFailure extends productbyidState {
 }
 
 class productbyiduccess extends productbyidState {
-  final List<Productbyid> product;
+  final Product product;
 
   const productbyiduccess(this.product);
 }

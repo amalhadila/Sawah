@@ -52,6 +52,8 @@ class ProductGrid extends StatelessWidget {
         return Column(
           children: [
             productCard(
+              address1:productList[index].locations,
+              id: productList[index].id!,
               imglink: 'assets/img/landmarks/pyramids2.jpg',
               info: productList[index].description,
               rating: productList[index].rating,
@@ -60,12 +62,8 @@ class ProductGrid extends StatelessWidget {
               ontap: () => GoRouter.of(context)
                   .push('/productinfo', extra: productList[index]),
             ),
-            SizedBox(height: 1),
-            Divider(
-              thickness: 2.5,
-              color: Color.fromARGB(255, 252, 237, 227),
-            ),
-            SizedBox(height: 1),
+            SizedBox(height: 14),
+           
           ],
         );
       },

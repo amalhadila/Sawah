@@ -19,11 +19,13 @@ import 'package:graduation/features/search/presentation/views/notfound_page_view
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
 import 'package:graduation/features/search/splahview.dart';
 import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/features/store/data/wishlistitem.dart';
 import 'package:graduation/features/store/presentation/views/product_info_view.dart';
 import 'package:graduation/features/store/presentation/views/store_view.dart';
 import 'package:graduation/features/store/presentation/views/widgets/booking_body.dart';
 import 'package:graduation/features/store/presentation/views/widgets/cart_body.dart';
 import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
+import 'package:graduation/features/store/presentation/views/widgets/wishlist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
 import '../../features/home/pres/views/homeview.dart';
@@ -64,11 +66,13 @@ abstract class AppRouter {
           builder: (context, state) => ChatHomeScreen()),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
-      GoRoute(path: '/profilesrean', builder: (context, state) => ProfileScreen()),
+      GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),
+      GoRoute(
+          path: '/profilesrean', builder: (context, state) => ProfileScreen()),
       GoRoute(
           path: '/BookingPage',
           builder: (context, state) => BookingPage(
-                product: state.extra as Product,
+                product: state.extra as Product ,
               )),
       GoRoute(
           path: '/productinfo',

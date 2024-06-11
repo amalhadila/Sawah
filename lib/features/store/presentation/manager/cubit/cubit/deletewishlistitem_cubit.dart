@@ -5,8 +5,9 @@ import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
 part 'deletewishlistitem_state.dart';
 
 class DeletewishlistitemCubit extends Cubit<DeletewishlistitemState> {
-  DeletewishlistitemCubit(this.procategoriesRepo) : super(DeletewishlistitemInitial());
- final proCategoriesRepo procategoriesRepo;
+  DeletewishlistitemCubit(this.procategoriesRepo)
+      : super(DeletewishlistitemInitial());
+  final proCategoriesRepo procategoriesRepo;
 
   Future<void> deletewishlistitem({required var Id}) async {
     emit(deletewishlistitemLoading());

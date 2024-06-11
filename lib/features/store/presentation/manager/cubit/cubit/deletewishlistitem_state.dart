@@ -8,6 +8,7 @@ sealed class DeletewishlistitemState extends Equatable {
 }
 
 final class DeletewishlistitemInitial extends DeletewishlistitemState {}
+
 class deletewishlistitemLoading extends DeletewishlistitemState {}
 
 class deletewishlistitemFailure extends DeletewishlistitemState {

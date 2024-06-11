@@ -16,7 +16,8 @@ class ProcatRepoImple implements proCategoriesRepo {
   Future<Either<Failure, List<Product>>> fetchSearchResults(
       {required String name}) async {
     try {
-      var data = await apiService.get(endpoint: 'tours?search=$name');
+      var data = await apiService.get(endpoint: 'tours', search: name);
+      print(name);
       print('ssssssssssssssssssssssssssssssssssssssssssssssssss$data');
       List<Product> product = [];
       for (var match in data['data']['docs']) {
@@ -31,12 +32,46 @@ class ProcatRepoImple implements proCategoriesRepo {
       }
     }
   }
+   @override
+Future<Either<Failure, Product>> fetchProductbyId({
+  required String productId,
+}) async {
+  try {
+    var data = await apiService.get(endpoint: 'tours/$productId');
+    print(data['data']['doc']);
 
+    Product? product;
+
+    if (data['data']['doc'] is Map<String, dynamic>) {
+      product = Product.fromJson(data['data']['doc']);
+    } else if (data['data']['doc'] is Iterable) {
+      for (var item in data['data']['doc']) {
+        product = Product.fromJson(item);
+      }
+    } else {
+      throw Exception('Unexpected data structure');
+    }
+
+    if (product != null) {
+      return right(product);
+    } else {
+      throw Exception('Product not found');
+    }
+  } on Exception catch (e) {
+    if (e is DioError) {
+      return left(ServerFailure.fromDiorError(e));
+    }
+    return left(ServerFailure(e.toString()));
+  }
+}
+
+
+ 
   @override
   Future<Either<Failure, List<ProCat>>> fetchProductCat() async {
     try {
       var data = await apiService.get(endpoint: 'tourCategories');
-      print(data['data']['docs']);
+     // print(data['data']['docs']);
       List<ProCat> categorydata = [];
       for (var item in data['data']['docs']) {
         categorydata.add(ProCat.fromJson(item));
@@ -51,40 +86,42 @@ class ProcatRepoImple implements proCategoriesRepo {
   }
 
   @override
-  Future<Either<Failure, List<Productbyid>>> fetchProductbyId({
-    required String productId,
-  }) async {
-    try {
-      var data = await apiService.get(endpoint: 'tours/$productId');
-      print(data['data']['doc']);
 
-      List<Productbyid> product = [];
-
-      if (data['data']['doc'] is Map<String, dynamic>) {
-        product.add(Productbyid.fromJson(data['data']['doc']));
-      } else if (data['data']['doc'] is Iterable) {
-        for (var item in data['data']['doc']) {
-          product.add(Productbyid.fromJson(item));
-        }
-      } else {
-        throw Exception('Unexpected data structure');
-      }
-
-      return right(product);
-    } on Exception catch (e) {
-      if (e is DioError) {
-        return left(ServerFailure.fromDiorError(e));
-      }
-      return left(ServerFailure(e.toString()));
-    }
-  }
 
   @override
+  Future<Either<Failure, bool>> checkAvailability
+  ({required var tourId,required var groupSize,required var tourDate}) async {
+  try {
+    var response = await apiService.post(endpoint:'tours/check-availability/$tourId', Headers: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json'
+          },
+        ), body: {
+           "groupSize": groupSize,
+          "tourDate": tourDate,
+         
+        },);
+      
+
+    if (response != null && response['status'] == 'success') {
+      bool isAvailable = response['available'];
+      return right(isAvailable);
+    } else {
+      return left(ServerFailure("not available"));
+    }
+  } on Exception catch (e) {
+    if (e is DioException) {
+      return left(ServerFailure.fromDiorError(e));
+    }
+    return left(ServerFailure(e.toString()));
+  }
+}
+@override
   Future<Either<Failure, List<Product>>> fetchProducts(
       {required String categoryId}) async {
     try {
       var data = await apiService.get(endpoint: 'tours?category=$categoryId');
-      print(data['data']['docs']);
+    //  print(data['data']['docs']);
 
       List<Product> product = [];
       for (var item in data['data']['docs']) {
@@ -92,7 +129,7 @@ class ProcatRepoImple implements proCategoriesRepo {
       }
       return right(product);
     } on Exception catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDiorError(e));
       }
       return left(ServerFailure(e.toString()));
@@ -102,7 +139,7 @@ class ProcatRepoImple implements proCategoriesRepo {
   Future<Either<Failure, List<Product>>> fetchallProducts() async {
     try {
       var data = await apiService.get(endpoint: 'tours');
-      print(data['data']['docs']);
+    //  print(data['data']['docs']);
 
       List<Product> product = [];
       for (var item in data['data']['docs']) {
@@ -147,36 +184,43 @@ class ProcatRepoImple implements proCategoriesRepo {
       return left(ServerFailure(e.toString()));
     }
   }
- Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
-    try {
-      var response = await apiService.get(
-        endpoint: 'wishlists',
-        Headers: Options(
+Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
+  try {
+    var response = await apiService.get(
+      endpoint: 'wishlists',
+      Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY'
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
           },
         ),
-      );
+    );
 
-      if (response != null &&
-          response['data'] != null &&
-          response['data'] != null) {
-        var wishlistotem = response['data'];
-        Wishlistitem wishlist = Wishlistitem.fromJson(wishlistotem as Map<String, dynamic>);
-
+    if (response != null && response['data'] != null) {
+      var wishlistItem = response['data'];
+      
+      if (wishlistItem is List) {
+        List<Wishlistitem> wishlistItems = wishlistItem.map((item) {
+          return Wishlistitem.fromJson(item as Map<String, dynamic>);
+        }).toList();
+        return right(wishlistItems);
+      } else if (wishlistItem is Map<String, dynamic>) {
+        Wishlistitem wishlist = Wishlistitem.fromJson(wishlistItem);
         return right([wishlist]);
       } else {
-        return left(
-            ServerFailure("Unexpected response structure or null data"));
+        return left(ServerFailure("Unexpected type for wishlistItem: ${wishlistItem.runtimeType}"));
       }
-    } on Exception catch (e) {
-      if (e is DioError) {
-        return left(ServerFailure.fromDiorError(e));
-      }
-      return left(ServerFailure(e.toString()));
+    } else {
+      return left(ServerFailure("Unexpected response structure or null data"));
     }
+  } on Exception catch (e) {
+    if (e is DioError) {
+      return left(ServerFailure.fromDiorError(e));
+    }
+    return left(ServerFailure(e.toString()));
   }
+}
+
   Future<void> addproduct(
       {required var Adults, required var tourId, required var tourDate}) async {
     try {

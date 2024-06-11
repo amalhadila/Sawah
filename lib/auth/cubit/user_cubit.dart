@@ -33,7 +33,6 @@ class UserCubit extends Cubit<UserState> {
       },
       (signInModel) {
         emit(SignInSuccess());
-       
       },
     );
   }
@@ -58,7 +57,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> getUserProfile() async {
     emit(GetUserLoading());
-   // final response = await userRepository.getUser();
+    // final response = await userRepository.getUser();
     // response.fold(
     //   (errorMessage) {
     //     emit(GetUserFailure(errorMessage));

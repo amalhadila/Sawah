@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
 
-class CartScreen extends StatelessWidget {
-  CartScreen({Key? key}) : super(key: key);
+class Wishlist extends StatelessWidget {
+  Wishlist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +25,18 @@ class CartScreen extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'My Wishlist',
-          style: TextStyle(color: Colors.black),
+          style:TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
         ),
-        leading: GestureDetector(
-          onTap: () {
+        leading:  IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
+          onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
         ),
       ),
       body: BlocListener<DeletewishlistitemCubit, DeletewishlistitemState>(
@@ -43,8 +48,7 @@ class CartScreen extends StatelessWidget {
         child: BlocBuilder<FetchwishlistCubit, FetchwishlistState>(
           builder: (context, state) {
             if (state is FetchwishlistSuccess) {
-              var wishlist = state.wishlist
-                  ;
+              var wishlist = state.wishlist;
 
               if (wishlist.isNotEmpty) {
                 return Column(
@@ -58,14 +62,38 @@ class CartScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 13, vertical: 3),
                             child: GestureDetector(
-                              onTap:() {
-                                GoRouter.of(context)
-                                  .push('/productinfo', extra: state.wishlist[index]);
+                              onTap: () async {
+                                await BlocProvider.of<ProductbyidCubit>(context)
+                                    .fetchProductbyId(productId:item.id!);
+                                var productState = BlocProvider.of<ProductbyidCubit>(context).state;
+                                if (productState is productbyiduccess) {
+                                  GoRouter.of(context).push(
+                                    '/productinfo',
+                                    extra: productState.product,
+                                  );
+                                } else if (productState is ProductbyFailure) {
+                                  // Handle failure case, show error message for example
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(productState.errMessage)),
+                                  );
+                                }
                               },
                               child: Container(
-                                color: Color.fromARGB(255, 255, 248, 241),
-                                height: screenHeight * .15,
+                                 decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color.fromARGB(255, 255, 248, 241),
+                                boxShadow: const [
+            BoxShadow(
+                blurRadius: 4,
+                offset: Offset(0, 5),
+                color: Color.fromARGB(64, 85, 61, 51),
+                spreadRadius: 0,
+                blurStyle: BlurStyle.normal)
+          ],
+                              ),
+                                height: screenHeight * .17,
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                       width: 7,
@@ -77,14 +105,16 @@ class CartScreen extends StatelessWidget {
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 .12,
-                                        width: MediaQuery.sizeOf(context).width *
-                                            .22,
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                .22,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -93,28 +123,21 @@ class CartScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               item.name ?? '',
-                                              textAlign: TextAlign.center,
+                                              textAlign: TextAlign.start,
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: true,
                                               style: const TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 15,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                               
-                                              
-                                              ],
-                                            ),
+                                            SizedBox(height: 10,),
                                             Text(
-                                              '\$ ${item.price}',
-                                              style: const TextStyle(
+                                              'price  \$${item.price}',
+                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 12,
+                                                fontSize: 13,
                                               ),
                                             ),
                                           ],
@@ -124,13 +147,15 @@ class CartScreen extends StatelessWidget {
                                     IconButton(
                                       onPressed: () {
                                         var itemId = item.id;
-                                        print(
-                                            'Deleting item with id: $itemId'); 
-                                        BlocProvider.of<DeletewishlistitemCubit>(context)
+                                        print('Deleting item with id: $itemId');
+                                        BlocProvider.of<
+                                                    DeletewishlistitemCubit>(
+                                                context)
                                             .deletewishlistitem(Id: itemId);
                                       },
                                       icon: const Icon(
-                                        Icons.delete,
+                                        FontAwesomeIcons.solidHeart,
+                                        size: 23,
                                         color: kmaincolor,
                                       ),
                                     )
@@ -139,7 +164,7 @@ class CartScreen extends StatelessWidget {
                               ),
                             ),
                           );
-                        },
+                        },                        
                       ),
                     ),
                   ],

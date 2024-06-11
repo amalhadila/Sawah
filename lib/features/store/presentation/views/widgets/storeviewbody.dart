@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
+import 'package:graduation/features/store/presentation/views/widgets/searchdelegate.dart';
 import 'package:graduation/features/store/presentation/views/widgets/store_products.dart';
 
 class Storeviewbody extends StatelessWidget {
@@ -14,29 +15,35 @@ class Storeviewbody extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GestureDetector(
-              onTap: () {
-                GoRouter.of(context).push('/CartScreen');
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(right: 25),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_outlined,
-                      color: kmaincolor,
-                      size: 28,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Icon(
-                      FontAwesomeIcons.heart,
-                      color: kmaincolor,
-                    ),
-                  ],
+          Padding(
+            padding: EdgeInsets.only(right: 25),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push('/CartScreen');
+                  },
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: kmaincolor,
+                    size: 28,
+                  ),
                 ),
-              ))
+                SizedBox(
+                  width: 15,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push('/Wishlist');
+                  },
+                  child: Icon(
+                    FontAwesomeIcons.heart,
+                    color: kmaincolor,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -69,10 +76,15 @@ class Storeviewbody extends StatelessWidget {
                           filled: true,
                           fillColor: Color.fromARGB(255, 255, 248, 241),
                         ),
-                         onFieldSubmitted: (value) {
-    
-    BlocProvider.of<SearchproductCubit>(context).fetchSearchResult(name: value);
-  },
+                        onTap: (){
+                          Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductSearchWidget(
+                                  
+                                )));
+                        },
+                       
                       ),
                     ),
                   ],

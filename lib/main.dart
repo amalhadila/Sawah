@@ -86,6 +86,11 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
 import 'package:graduation/firebase_options.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
@@ -128,8 +133,29 @@ class Sawah extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+            create: (context) =>
+                CheckavailabilityCubit(ProcatRepoImple(ApiService(dio)))),
+        BlocProvider(
+          create: (context) =>
+              DeletewishlistitemCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
           create: (context) =>
               DeleteitemCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AddtowishlistCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              FetchwishlistCubit(ProcatRepoImple(ApiService(dio)))
+                ..fetchwishlist(),
+        ),
+         BlocProvider(
+          create: (context) =>
+              ProductbyidCubit(ProcatRepoImple(ApiService(dio)))
+                
         ),
         BlocProvider(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(dio))),
@@ -143,9 +169,8 @@ class Sawah extends StatelessWidget {
                 ..fetchcartitems(),
         ),
         BlocProvider(
-          create: (context) =>
-              SearchproductCubit(ProcatRepoImple(ApiService(Dio())))
-                ), 
+            create: (context) =>
+                SearchproductCubit(ProcatRepoImple(ApiService(Dio())))),
         BlocProvider(
           create: (context) =>
               UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),

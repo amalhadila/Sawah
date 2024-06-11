@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(height: 16),
 
                       //! Name
-                       ListTile(
+                      ListTile(
                         title: Text(state.user.data.name),
                         leading: Icon(Icons.person),
                       ),

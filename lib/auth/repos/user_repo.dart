@@ -60,9 +60,11 @@ class UserRepository {
       return Left(e.toString());
     }
   }
-   Future<Either<String, userModel>> getUserProfile() async {
+
+  Future<Either<String, userModel>> getUserProfile() async {
     try {
-      final response = await diocosumer.get(endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
+      final response = await diocosumer.get(
+          endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
       return Right(userModel.fromJson(response));
     } on Failure catch (e) {
       log('GetUser Error: ${e.toString()}');
@@ -70,4 +72,3 @@ class UserRepository {
     }
   }
 }
-
