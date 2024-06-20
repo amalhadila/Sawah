@@ -60,6 +60,8 @@ dependencies:
   url_launcher: ^6.2.6
   uuid: ^4.4.0
   webview_flutter: ^4.8.0
+  flutter_stripe: ^10.1.1
+  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
