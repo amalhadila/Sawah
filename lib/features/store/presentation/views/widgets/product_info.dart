@@ -1,12 +1,17 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/firebase/firedatabase.dart';
+import 'package:graduation/auth/cach/cach_helper.dart';
+import 'package:graduation/auth/core_login/api/end_point.dart';
 
 class ProductInfo extends StatefulWidget {
   final Product products;
+  String? token;
 
   ProductInfo({Key? key, required this.products}) : super(key: key);
 
@@ -291,105 +296,177 @@ class _ProductInfoState extends State<ProductInfo>
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            const Icon(Icons.schedule,
-                                                color: kmaincolor),
-                                            const Text(
-                                              'Duration',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kmaincolor),
-                                            ),
-                                            const SizedBox(height: 10,),
-                                            Text(
-                                              '${widget.products.duration} Days'
-                                                  ,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: ksecondcolor),
-                                            ),
-                                          ],
-                                        ),
-                                         Container(
-                height: 55,
-                child: const VerticalDivider(
-                  width: 1,
-                  thickness: 1,
-                  color: kmaincolor,
-                ),
+                                    Padding(
+      padding: const EdgeInsets.symmetric(
+       horizontal:  2.0,vertical: 10),
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const CircleAvatar(
+            backgroundImage: AssetImage('assets/profile_picture.png'),
+            radius: 25,
+          ),
+          const SizedBox(width: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                
+                      Text(
+                        'name',
+                        style: TextStyle(
+                        color: ksecondcolor,
+                        fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),                 
+                      
+                    
+                  Text(
+                   'email',
+                    style: TextStyle(
+                      color: ksecondcolor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
               ),
-                                        Column(
-                                          children: [
-                                            const Icon(
-                                              Icons.group_outlined,
-                                              color: kmaincolor,
-                                            ),
-                                            const Text(
-                                              'Group Size',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
+               const SizedBox(width: 145,),
+              IconButton(onPressed: ()async{
+                FirebaseMessaging.instance.requestPermission();
+                await  FirebaseMessaging.instance.getToken().then((onValue){
+                    if (onValue !=null){
+                       widget.token=onValue;
+                       FireData().createUser(myUid,onValue);
+                    }
+                });
+                // final roomId = await FireData().creatRoom(
+                //  // widget.products.guide!
+                //  '66630d9ee76600fd06fc7eb2'
+                //   );
+           
+                  //   GoRouter.of(context)
+                  // .push('/ChatScreen',extra: [roomId,
+                  // //widget.products.guide!
+                  // '66630d9ee76600fd06fc7eb2'
+                  // ]);
+
+                  }, icon: const Icon(Icons.chat_rounded,color: kmaincolor,))
+            ],
+          ),
+          
+        ],
+      ),
+    ),
+// const Divider(height: 1,
+//                   thickness: 1,
+//                   color: kmaincolor,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10.0),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              const Icon(Icons.schedule,
                                                   color: kmaincolor),
-                                            ),
-                                            const SizedBox(height: 10,),
-                                            Text(
-                                              widget.products.maxGroupSize
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: ksecondcolor),
-                                            ),
-                                          ],
-                                        ),
-                                         Container(
-                height: 55,
-                child: const VerticalDivider(
-                  width: 1,
-                  thickness: 1,
-                  color: kmaincolor,
-                ),
-              ),
-                                        Column(
-                                          children: [
-                                            const Icon(
-                                              Icons.calendar_month_outlined,
-                                              color: kmaincolor,
-                                            ),
-                                            const Text(
-                                              'Days',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kmaincolor),
-                                            ),
-                                            const SizedBox(height: 10,),
-                                            Text(
-                                              widget.products.startDays![0]
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: ksecondcolor),
-                                            ),
-                                            if (widget.products.startDays !=
-                                                    null &&
-                                                widget.products.startDays!
-                                                        .length >=
-                                                    2)
+                                              const Text(
+                                                'Duration',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kmaincolor),
+                                              ),
+                                              const SizedBox(height: 10,),
                                               Text(
-                                                widget.products.startDays![1]
+                                                '${widget.products.duration} Days'
+                                                    ,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: ksecondcolor),
+                                              ),
+                                            ],
+                                          ),
+                                           Container(
+                                                      height: 55,
+                                                      child: const VerticalDivider(
+                                                        width: 1,
+                                                        thickness: 1,
+                                                        color: kmaincolor,
+                                                      ),
+                                                    ),
+                                          Column(
+                                            children: [
+                                              const Icon(
+                                                Icons.group_outlined,
+                                                color: kmaincolor,
+                                              ),
+                                              const Text(
+                                                'Group Size',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kmaincolor),
+                                              ),
+                                              const SizedBox(height: 10,),
+                                              Text(
+                                                widget.products.maxGroupSize
                                                     .toString(),
                                                 style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: ksecondcolor,
-                                                ),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: ksecondcolor),
                                               ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                            Container(
+                                                      height: 55,
+                                                      child: const VerticalDivider(
+                                                        width: 1,
+                                                        thickness: 1,
+                                                        color: kmaincolor,
+                                                      ),
+                                                    ),
+                                          Column(
+                                            children: [
+                                              const Icon(
+                                                Icons.calendar_month_outlined,
+                                                color: kmaincolor,
+                                              ),
+                                              const Text(
+                                                'Days',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kmaincolor),
+                                              ),
+                                              const SizedBox(height: 10,),
+                                              Text(
+                                                widget.products.startDays![0]
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: ksecondcolor),
+                                              ),
+                                              if (widget.products.startDays !=
+                                                      null &&
+                                                  widget.products.startDays!
+                                                          .length >=
+                                                      2)
+                                                Text(
+                                                  widget.products.startDays![1]
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: ksecondcolor,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/chat/presentation/models/romemodel.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chatcard.dart';
 import 'package:graduation/firebase/firedatabase.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:graduation/firebase/firedatabase.dart';
+
 
 class ChatHomeScreen extends StatefulWidget {
-  const ChatHomeScreen({super.key});
+   ChatHomeScreen({super.key});
+  String? token;
 
   @override
   State<ChatHomeScreen> createState() => _ChatHomeScreenState();
@@ -19,61 +24,34 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          FireData().creatRoom();
-          //   showBottomSheet(
-          //     context: context,
-          //     builder: (context) {
-          //       return Container(
-          //         padding: EdgeInsets.all(20),
-          //         child: Column(
-          //           mainAxisSize: MainAxisSize.min,
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 Text(
-          //                   "Enter Friend Email",
-          //                   style: Theme.of(context).textTheme.bodyLarge,
-          //                 ),
-          //                 Spacer(),
-          //                 IconButton.filled(
-          //                   onPressed: () {},
-          //                   icon: Icon(Iconsax.scan_barcode),
-          //                 )
-          //               ],
-          //             ),
-          //             CustomField(
-          //               controller: emailCon,
-          //               icon: Iconsax.direct,
-          //               lable: "Email",
-          //             ),
-          //             SizedBox(
-          //               height: 16,
-          //             ),
-          //             ElevatedButton(
-          //                 style: ElevatedButton.styleFrom(
-          //                     padding: EdgeInsets.all(16),
-          //                     shape: RoundedRectangleBorder(
-          //                         borderRadius: BorderRadius.circular(12)),
-          //                     backgroundColor:
-          //                         Theme.of(context).colorScheme.primaryContainer),
-          //                 onPressed: () {},
-          //                 child: Center(
-          //                   child: Text("Create Chat"),
-          //                 ))
-          //           ],
-          //         ),
-          //       );
-          //     },
-          //   );
+        onPressed: () async {
+          FirebaseMessaging.instance.requestPermission();
+                await  FirebaseMessaging.instance.getToken().then((onValue){
+                    if (onValue !=null){
+                       widget.token=onValue;
+                       FireData().createUser(myUid,onValue);
+                    }
+                });
+                final roomId = await FireData().creatRoom(
+                 // widget.products.guide!
+                 '66630d9ee76600fd06fc7eb2'
+                   , widget.token
+                  );
+           
+                    GoRouter.of(context)
+                  .push('/ChatScreen',extra: [roomId,
+                  //widget.products.guide!
+                  '66630d9ee76600fd06fc7eb2'
+                  ]);
         },
         child: const Icon(Iconsax.message_add),
       ),
       appBar: AppBar(
+        backgroundColor: kbackgroundcolor,
         title: const Text("Chats"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(2.0),
         child: Column(
           children: [
             Expanded(
@@ -85,10 +63,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<ChatRoom> chatrooms = snapshot.data!.docs
-                          .map((e) => ChatRoom.fromJson(e.data()))
-                          .toList()
-                        ..sort((a, b) =>
-                            a.lastMessageTime!.compareTo(b.lastMessageTime!));
+  .map((e) => ChatRoom.fromJson(e.data() as Map<String, dynamic>))
+  .toList()
+  ..sort((a, b) => b.lastMessageTime!.compareTo(a.lastMessageTime!));
+
                       return ListView.builder(
                           itemCount: chatrooms.length,
                           itemBuilder: (context, index) {

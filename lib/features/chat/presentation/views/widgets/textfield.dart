@@ -23,7 +23,7 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         validator: (value) => value!.isEmpty ? "Requird" : null,
         obscureText: widget.isPass ? obscure : false,
@@ -38,7 +38,7 @@ class _CustomFieldState extends State<CustomField> {
                   },
                   icon: const Icon(Iconsax.eye))
               : const SizedBox(),
-          contentPadding: const EdgeInsets.all(16),
+          contentPadding: const EdgeInsets.all(12),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Color.fromARGB(0, 221, 62, 62))),

@@ -10,6 +10,7 @@ import 'package:graduation/features/categories/data/model/landmark_on_cat_model/
 import 'package:graduation/features/categories/presentation/views/Landmarks_view.dart';
 import 'package:graduation/features/categories/presentation/views/categories_view.dart';
 import 'package:graduation/features/categories/presentation/views/info_view.dart';
+import 'package:graduation/features/chat/presentation/views/widgets/chat_body.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chathome_body.dart';
 import 'package:graduation/features/contact_us.dart/contact_us_view.dart';
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
@@ -60,10 +61,17 @@ abstract class AppRouter {
           }),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
-      GoRoute(path: '/uu', builder: (context, state) => SplashView()),
+      GoRoute(path: '/a', builder: (context, state) => SplashView()),
       GoRoute(
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
+
+      GoRoute(
+          path: '/ChatScreen',
+          builder:(context, state) {final List<String> extras = state.extra as List<String>;
+          final String roomId = extras[0];
+          final String userId = extras[1];
+          return ChatScreen(roomid: roomId, userId: userId);}),    
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),

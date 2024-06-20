@@ -92,6 +92,7 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/delet
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
+import 'package:graduation/firebase/firedatabase.dart';
 import 'package:graduation/firebase_options.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/dio_consumer.dart';
@@ -103,12 +104,43 @@ import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  ///await Firebase.initializeApp();
+  
+  print("Handling a background message: ${message.messageId}");
+}
+//bool userauth = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+   requestNotificationPermission();
+  
+  FirebaseMessaging.instance.requestPermission();
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.notification?.title}');
+    
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+  
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print('Message data: $fcmToken');
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    messaging.subscribeToTopic("news");
   await CacheHelper().init();
   final Dio dio = Dio();
   runApp(
@@ -121,6 +153,20 @@ void main() async {
       child: Sawah(dio: dio),
     ),
   );
+}
+
+Future<void> requestNotificationPermission() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  print('Notification permission granted: ${settings.authorizationStatus}');
 }
 
 class Sawah extends StatelessWidget {

@@ -1,17 +1,25 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:graduation/firebase/firedatabase.dart';
 
 class FireStorage {
-  final FirebaseStorage firestorage = FirebaseStorage.instance;
+  final FirebaseStorage _firestorage = FirebaseStorage.instance;
 
-  Future<String> sendImage(File file, String messageId) async {
-    String ext = file.path.split('.').last;
-    final ref = firestorage.ref().child("images/$messageId.$ext");
-    await ref.putFile(file);
-    return await ref.getDownloadURL();
+  Future sendImage(File file, String roomId,String toid,String type) async {
+    try {
+      String ext = file.path.split('.').last;
+      final ref = _firestorage.ref().child("images/$roomId.$ext");
+      await ref.putFile(file);
+       String imgurl=await ref.getDownloadURL();
+       FireData().sendMessage(toId: toid, imageUrl: imgurl, roomId: roomId,type: type);
+
+    } catch (e) {
+      print('Error sending image: $e');
+      rethrow;
+    }
   }
 
-  void printImageUrl(String imageUrl) {
-    print(imageUrl);
+  void printImageUrl(String imgurl) {
+    print('Image URL: $imgurl');
   }
 }

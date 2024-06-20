@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chathome_body.dart';
 
 class ChathomeView extends StatelessWidget {
@@ -6,6 +7,8 @@ class ChathomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ChatHomeScreen();
+    return Scaffold(
+      backgroundColor: kbackgroundcolor,
+      body:  ChatHomeScreen());
   }
 }

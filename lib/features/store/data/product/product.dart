@@ -21,8 +21,10 @@ class Product extends Equatable {
   final dynamic? category;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String?  guide;
 
-  const Product({
+  const Product( {
+    this.guide,
     this.id,
     this.name,
     this.description,
@@ -43,6 +45,7 @@ class Product extends Equatable {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
+       guide:json['guide'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,
         duration: json['duration'] as int?,
