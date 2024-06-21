@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-
+import 'package:flutter/foundation.dart';
 import 'guide.dart';
 import 'location.dart';
 
@@ -13,8 +13,8 @@ class Product extends Equatable {
   final int? price;
   final int? maxGroupSize;
   final List<dynamic>? startDays;
-  final List<Guide>? guides;
-    final double? rating;
+  final Guide? guide; // تم استبدال List<Guide> بـ Guide والتأكد من التطابق مع JSON
+  final dynamic rating;
   final int? ratingsQuantity;
   final int? bookings;
   final String? slug;
@@ -32,7 +32,7 @@ class Product extends Equatable {
     this.price,
     this.maxGroupSize,
     this.startDays,
-    this.guides,
+    this.guide,
     this.rating,
     this.ratingsQuantity,
     this.bookings,
@@ -42,74 +42,70 @@ class Product extends Equatable {
     this.updatedAt,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        name: json['name'] as String?,
-        description: json['description'] as String?,
-        duration: json['duration'] as int?,
-        images: json['images'] as List<dynamic>?,
-        locations: (json['locations'] as List<dynamic>?)
-            ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        price: json['price'] as int?,
-        maxGroupSize: json['maxGroupSize'] as int?,
-        startDays: json['startDays'] as List<dynamic>?,
-        guides: (json['guides'] as List<dynamic>?)
-            ?.map((e) => Guide.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        rating: (json['rating'] as num?)?.toDouble(),
-        ratingsQuantity: json['ratingsQuantity'] as int?,
-        bookings: json['bookings'] as int?,
-        slug: json['slug'] as String?,
-        category: json['category'] as dynamic?,
-        createdAt: json['createdAt'] == null
-            ? null
-            : DateTime.parse(json['createdAt'] as String),
-        updatedAt: json['updatedAt'] == null
-            ? null
-            : DateTime.parse(json['updatedAt'] as String),
-        id: json['id'] as String?,
-      );
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['_id'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      duration: json['duration'] as int?,
+      images: (json['images'] as List<dynamic>?)?.cast<String>(),
+      locations: (json['locations'] as List<dynamic>?)
+          ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      price: json['price'] as int?,
+      maxGroupSize: json['maxGroupSize'] as int?,
+      startDays: (json['startDays'] as List<dynamic>?)?.cast<String>(),
+      guide: json['guide'] != null ? Guide.fromJson(json['guide'] as Map<String, dynamic>) : null,
+      rating: json['rating'] as dynamic,
+      ratingsQuantity: json['ratingsQuantity'] as int?,
+      bookings: json['bookings'] as int?,
+      slug: json['slug'] as String?,
+      category: json['category'],
+      createdAt: json['createdAt'] == null ? null : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json['updatedAt'] as String),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'description': description,
-        'duration': duration,
-        'images': images,
-        'locations': locations?.map((e) => e.toJson()).toList(),
-        'price': price,
-        'maxGroupSize': maxGroupSize,
-        'startDays': startDays,
-        'guides': guides?.map((e) => e.toJson()).toList(),
-        'rating': rating,
-        'ratingsQuantity': ratingsQuantity,
-        'bookings': bookings,
-        'slug': slug,
-        'category': category,
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
-        'id': id,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'name': name,
+      'description': description,
+      'duration': duration,
+      'images': images,
+      'locations': locations?.map((e) => e.toJson()).toList(),
+      'price': price,
+      'maxGroupSize': maxGroupSize,
+      'startDays': startDays,
+      'guide': guide?.toJson(), // تحويل Guide إلى JSON
+      'rating': rating,
+      'ratingsQuantity': ratingsQuantity,
+      'bookings': bookings,
+      'slug': slug,
+      'category': category,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+    };
+  }
 
   @override
-  List<Object?> get props {
-    return [
-      name,
-      description,
-      duration,
-      images,
-      locations,
-      price,
-      maxGroupSize,
-      startDays,
-      guides,
-      rating,
-      ratingsQuantity,
-      bookings,
-      slug,
-      category,
-      createdAt,
-      updatedAt,
-      id,
-    ];
-  }
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    duration,
+    images,
+    locations,
+    price,
+    maxGroupSize,
+    startDays,
+    guide,
+    rating,
+    ratingsQuantity,
+    bookings,
+    slug,
+    category,
+    createdAt,
+    updatedAt,
+  ];
 }

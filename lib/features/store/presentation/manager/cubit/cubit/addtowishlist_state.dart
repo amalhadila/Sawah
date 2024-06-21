@@ -8,6 +8,7 @@ sealed class AddtowishlistState extends Equatable {
 }
 
 final class AddtowishlistInitial extends AddtowishlistState {}
+
 class AddtowishlistLoading extends AddtowishlistState {}
 
 class AddtowishlistFailure extends AddtowishlistState {

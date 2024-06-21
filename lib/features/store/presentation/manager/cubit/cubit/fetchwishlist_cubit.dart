@@ -7,7 +7,7 @@ part 'fetchwishlist_state.dart';
 
 class FetchwishlistCubit extends Cubit<FetchwishlistState> {
   FetchwishlistCubit(this.catrepo) : super(FetchwishlistInitial());
-final proCategoriesRepo catrepo;
+  final proCategoriesRepo catrepo;
   bool _closed = false;
 
   @override

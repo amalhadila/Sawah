@@ -4,7 +4,8 @@ import 'package:graduation/auth/core_login/api/end_point.dart';
 
 class ApiInterceptor extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     final token = CacheHelper().getData(key: apikey.token);
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';

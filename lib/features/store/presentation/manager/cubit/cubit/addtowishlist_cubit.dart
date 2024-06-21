@@ -5,17 +5,15 @@ import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
 part 'addtowishlist_state.dart';
 
 class AddtowishlistCubit extends Cubit<AddtowishlistState> {
-    final proCategoriesRepo procategoriesRepo;
+  final proCategoriesRepo procategoriesRepo;
 
   AddtowishlistCubit(this.procategoriesRepo) : super(AddtowishlistInitial());
 
-  Future<void> addproducttowishlist(
-      { required var tourId}) async {
+  Future<void> addproducttowishlist({required var tourId}) async {
     emit(AddtowishlistLoading());
 
     try {
-      await procategoriesRepo.addproducttowishlist(
-         tourId: tourId);
+      await procategoriesRepo.addproducttowishlist(tourId: tourId);
       emit(AddtowishlistSuccess());
     } catch (Failure) {
       emit(AddtowishlistFailure(Failure.toString()));

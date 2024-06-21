@@ -88,7 +88,13 @@ import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
+import 'package:graduation/firebase/firedatabase.dart';
 import 'package:graduation/firebase_options.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/dio_consumer.dart';
@@ -100,12 +106,38 @@ import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async { 
+  print("Handling a background message: ${message.notification!.body}");
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+   requestNotificationPermission();
+  
+  FirebaseMessaging.instance.requestPermission();
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.notification?.title}');
+    
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+  
+  //final fcmToken = await FirebaseMessaging.instance.getToken();
+  //print('Message data: $fcmToken');
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    messaging.subscribeToTopic("news");
   await CacheHelper().init();
   final Dio dio = Dio();
   runApp(
@@ -120,6 +152,20 @@ void main() async {
   );
 }
 
+Future<void> requestNotificationPermission() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  print('Notification permission granted: ${settings.authorizationStatus}');
+}
+
 class Sawah extends StatelessWidget {
   final Dio dio;
 
@@ -130,8 +176,29 @@ class Sawah extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+            create: (context) =>
+                CheckavailabilityCubit(ProcatRepoImple(ApiService(dio)))),
+        BlocProvider(
+          create: (context) =>
+              DeletewishlistitemCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
           create: (context) =>
               DeleteitemCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AddtowishlistCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              FetchwishlistCubit(ProcatRepoImple(ApiService(dio)))
+                ..fetchwishlist(),
+        ),
+         BlocProvider(
+          create: (context) =>
+              ProductbyidCubit(ProcatRepoImple(ApiService(dio)))
+                
         ),
         BlocProvider(
           create: (context) =>
@@ -147,11 +214,16 @@ class Sawah extends StatelessWidget {
           create: (context) =>
               GetcartitemsCubit(ProcatRepoImple(ApiService(dio)))
                 ..fetchcartitems(),
+        ), BlocProvider(
+          create: (context) =>
+              AddtowishlistCubit(ProcatRepoImple(ApiService(dio))),
         ),
         BlocProvider(
-          create: (context) =>
-              SearchproductCubit(ProcatRepoImple(ApiService(Dio())))
-                ), 
+            create: (context) =>
+                SearchproductCubit(ProcatRepoImple(ApiService(Dio())))),
+        BlocProvider(
+            create: (context) =>
+                SearchproductCubit(ProcatRepoImple(ApiService(Dio())))),
         BlocProvider(
           create: (context) =>
               UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),

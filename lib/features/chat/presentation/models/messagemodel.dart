@@ -26,7 +26,7 @@ class Message {
       'fromId': fromId,
       'msg': msg,
       'read': read,
-      'created_at': createdAt!.toIso8601String(),
+      'created_at': createdAt?.toIso8601String(),
       'type': type,
       'imageUrl': imageUrl,
     };
@@ -39,7 +39,7 @@ class Message {
       fromId: json['fromId'],
       msg: json['msg'],
       read: json['read'],
-      createdAt: DateTime.parse(json['created_at']),
+      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
       type: json['type'],
       imageUrl: json['imageUrl'],
     );

@@ -8,6 +8,7 @@ sealed class FetchwishlistState extends Equatable {
 }
 
 final class FetchwishlistInitial extends FetchwishlistState {}
+
 class FetchwishlistLoading extends FetchwishlistState {}
 
 class FetchwishlistFailure extends FetchwishlistState {

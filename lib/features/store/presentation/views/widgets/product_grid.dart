@@ -53,6 +53,8 @@ class ProductGrid extends StatelessWidget {
         return Column(
           children: [
             productCard(
+              address1:productList[index].locations,
+              id: productList[index].id!,
               imglink: 'assets/img/landmarks/pyramids2.jpg',
               info: product.description,
               rating: product.rating != null ? product.rating!.round() : null, // Convert double? to int?
@@ -60,12 +62,8 @@ class ProductGrid extends StatelessWidget {
               price: product.price ?? 0, // Default value if price is null
               ontap: () => GoRouter.of(context).push('/productinfo', extra: product),
             ),
-            SizedBox(height: 1),
-            Divider(
-              thickness: 2.5,
-              color: Color.fromARGB(255, 252, 237, 227),
-            ),
-            SizedBox(height: 1),
+            SizedBox(height: 14),
+           
           ],
         );
       },

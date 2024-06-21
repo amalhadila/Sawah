@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/features/store/data/product/location.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
 
 class productCard extends StatefulWidget {
   final String imglink;
-  final int? rating;
+  final String id;
+   List<Location>? address1;
+  final String? address2;
+  final dynamic? rating;
   final String text;
   final String? info;
   final dynamic price;
@@ -18,6 +24,7 @@ class productCard extends StatefulWidget {
     this.info,
     required this.ontap,
     required this.price,
+    required this.id,   this.address1,  this.address2,
   }) : super(key: key);
 
   @override
@@ -33,10 +40,9 @@ class _productCardState extends State<productCard> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     // Define your responsive font sizes here
-    double titleFontSize = screenWidth * 0.039;
-    double infoFontSize = screenWidth * 0.034;
-    double priceFontSize = screenWidth * 0.04;
-    double ratingFontSize = screenWidth * 0.035;
+    double titleFontSize = screenWidth * 0.04;
+    double priceFontSize = screenWidth * 0.038;
+    double ratingFontSize = screenWidth * 0.038;
 
     return GestureDetector(
       onTap: widget.ontap,
@@ -44,7 +50,23 @@ class _productCardState extends State<productCard> {
         clipBehavior: Clip.none,
         children: [
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+               color: kbackgroundcolor,
+               boxShadow: const [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    offset: Offset(0, 5),
+                                    color: Color.fromARGB(64, 85, 61, 51),
+                                    spreadRadius: 0,
+                                    blurStyle: BlurStyle.normal,
+                                  ),
+                                ],
+            ),
+            
             child: Card(
+              shadowColor: ksecondcolor,
+              
               color: kbackgroundcolor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -62,7 +84,7 @@ class _productCardState extends State<productCard> {
                           child: Image.asset(
                             'assets/img/landmarks/pyramids2.jpg',
                             height: screenHeight * .16,
-                            width: screenWidth * .39,
+                            width: screenWidth * .38,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -73,6 +95,14 @@ class _productCardState extends State<productCard> {
                             onTap: () {
                               setState(() {
                                 isFavorite = !isFavorite;
+                                BlocProvider.of<AddtowishlistCubit>(context)
+                                    .addproducttowishlist(
+                                  tourId: widget.id,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Added to the wishlist')),
+                                );
                               });
                             },
                             child: Icon(
@@ -93,43 +123,80 @@ class _productCardState extends State<productCard> {
                       children: [
                         Container(
                           width: screenWidth *
-                              0.43, // Adjust width for text wrapping
+                              0.43, 
                           child: Text(
                             widget.text,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Color.fromARGB(255, 44, 42, 42),
+                              color: ksecondcolor,
                               fontSize: titleFontSize,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
                         Container(
                           width: screenWidth *
-                              0.42, // Adjust width for text wrapping
-                          child: Text(
-                            widget.info!,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 56, 54, 54),
-                              fontSize: infoFontSize,
+                              0.4, 
+                          child: Column(
+                            children: [
+                              Row(
+                                  children: [
+                                    const Icon(
+                              Icons.location_on,
+                              color: klocicon,
+                              size: 18,
                             ),
+                             SizedBox(width: 4,),
+                                    Text(
+                                      widget.address1![0].address!,
+                                      style: const TextStyle(
+                                       
+                                        fontSize: 13,
+                                        color: ksecondcolor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                            ],
                           ),
-                        ),
+                              if (
+                                  widget.address1!.length >=2)
+                                Row(
+                                  children: [
+                                    const Icon(
+                              Icons.location_on,
+                              color: klocicon,
+                              size: 18,
+                            ),
+                             SizedBox(width: 4,),
+                                    Text(
+                                      widget.address1![1].address!,
+                                      style: const TextStyle(
+                                       
+                                        fontSize: 13,
+                                        color: ksecondcolor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                            ],
+                          ),
+                       ] ),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              r'$' '${widget.price.toString()}',
-                              style: TextStyle(
-                                fontSize: priceFontSize,
-                                color: Color.fromARGB(255, 44, 42, 42),
-                                fontWeight: FontWeight.w500,
+                            Container(
+                              width: 90,
+                              child: Text(
+                                r'price $' '${widget.price.toString()}',
+                                style: TextStyle(
+                                  fontSize: priceFontSize,
+                                  color: ksecondcolor,
+                                    fontWeight: FontWeight.bold,
+                                               
+                                ),
                               ),
                             ),
-                            SizedBox(width: 80),
+                            SizedBox(width: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -144,7 +211,7 @@ class _productCardState extends State<productCard> {
                                 Text(
                                   widget.rating.toString(),
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 56, 54, 54),
+                                    color: ksecondcolor,
                                     fontSize: ratingFontSize,
                                   ),
                                 ),

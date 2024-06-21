@@ -18,14 +18,14 @@ class AllproductsCubit extends Cubit<AllproductsState> {
 
   Future<void> fetchallProducts() async {
     if (_closed) return;
-    print('Fetching product categories...');
+    print('Fetching all product for category ...');
     emit(AllproductLoading());
     var result = await catrepo.fetchallProducts();
     result.fold((Failure) {
-      print('Failed to fetch product categories: ${Failure.message}');
+      print('Failed to fetch all product for category: ${Failure.message}');
       if (!_closed) emit(AllproductFailure(Failure.message));
     }, (product_list) {
-      print('Successfully fetched product categories');
+      print('Successfully fetched all product for category');
       if (!_closed) emit(AllproductSuccess(product_list));
     });
   }
