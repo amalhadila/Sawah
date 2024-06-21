@@ -10,8 +10,42 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/getca
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
 import 'package:intl/intl.dart';
-
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 class CartScreen extends StatelessWidget {
+  final Dio _dio = Dio();
+  Future<void> pay(BuildContext context)async{
+    try {
+    
+      var response = await _dio.post(
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+             'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
+          },
+        ),
+        'http://192.168.1.2:8000/api/v1/bookings/cart-checkout-session/665dc7b7520e8e6b1ac908f2',
+        data: {
+          "firstName":"Amr",
+       "lastName":"Kfr",
+        "phone":1010101001},
+      );
+      PaymentResponse paymentResponse =
+          PaymentResponse.fromJson(response.data);
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => PaymentWebView(
+            paymentResponse: PaymentResponse),
+      ));
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened $e, please try again"),
+        ),
+      );
+    }
+  }
   CartScreen({Key? key}) : super(key: key);
 
   @override
@@ -225,6 +259,7 @@ onPressed: () async {
 
   if (allItemsAvailable) {
     print(allItemsAvailable);
+    await pay(context);
     // Navigate to payment screen
   }
 },
