@@ -9,7 +9,7 @@ class PickImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 130,
-      height: 130,
+      height: MediaQuery.of(context).size.height * .227,
       child: CircleAvatar(
         backgroundColor: Colors.grey.shade200,
         backgroundImage: const AssetImage("assets/images/avatar.png"),

@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
+import 'package:graduation/features/review_onlandmark/pres/comment.dart';
+import 'package:graduation/features/review_onlandmark/pres/commentfortour.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 class ProductInfo extends StatefulWidget {
   final Product products;
@@ -20,7 +22,7 @@ class _ProductInfoState extends State<ProductInfo>
   @override
   void initState() {   
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -219,6 +221,10 @@ class _ProductInfoState extends State<ProductInfo>
                             child: Text('     Details    ',
                                 style: Textstyle.textStyle15
                                     .copyWith(color: kmaincolor))),
+                        Tab(
+                            child: Text('     reviews    ',
+                                style: Textstyle.textStyle15
+                                    .copyWith(color: kmaincolor))),
                       ],
                     ),
                     Container(
@@ -338,7 +344,7 @@ class _ProductInfoState extends State<ProductInfo>
                                 ),
                               ),
                             ),
-                          ),
+                          ),Rviewpagefortour( products:widget.products,)
                         ],
                       ),
                     ),
@@ -351,7 +357,7 @@ class _ProductInfoState extends State<ProductInfo>
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            color: Color.fromARGB(255, 252, 237, 227),
+            color: Colors.white,
             padding: const EdgeInsets.only(right: 30, left: 30, bottom: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

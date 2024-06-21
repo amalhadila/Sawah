@@ -19,8 +19,8 @@ class Diocosumer {
      error: true
     
     ));
-     dio.options.connectTimeout = const Duration(milliseconds: 20000);
-    dio.options.receiveTimeout = const Duration(milliseconds: 20000);
+     dio.options.connectTimeout = const Duration(milliseconds: 200000);
+    dio.options.receiveTimeout = const Duration(milliseconds: 50000);
 
   }
    

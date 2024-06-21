@@ -18,77 +18,81 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {
-        if (state is SignInSuccess) {
-          context.read<UserCubit>().getUserProfile();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ReviewPage(),
-            ),
-          );
-        } else if (state is SignInFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Incorrect email or password')),
-          );
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  color: Colors.white,
-                  height: size.height * .25,
+    return BlocConsumer<UserCubit, UserState>(listener: (context, state) {
+      if (state is SignInSuccess) {
+        
+            context.read<UserCubit>().getUserProfile();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BottomNavigation (),),
+            );
+
+      } else if (state is SignInFailure) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('fail')));
+      }
+    }, builder: (context, State) {
+      return Scaffold(   
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * .25,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    const PageHeading(title: 'Welcome Back !'),
+                    SizedBox(height: MediaQuery.of(context).size.height*.03),
+                    //!Email
+                    CustomInputField(
+                      
+                      hintText: 'Your email',
+                      controller: context.read<UserCubit>().signInEmail,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height*.04),
+                    //!Password
+                    CustomInputField(
+                     
+                      hintText: 'Your password',
+                      obscureText: true,
+                      suffixIcon: true,
+                      controller: context.read<UserCubit>().signInPassword,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height*.04),
+                    //! Forget password?
+                    ForgetPasswordWidget(size: size),
+                    const SizedBox(height: 20),
+                    //!Sign In Button
+                    BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return state is SignInLoading
+                            ? CircularProgressIndicator()
+                            : CustomFormButton(
+                                innerText: 'Sign In',
+                                onPressed: () {
+                                  context.read<UserCubit>().signIn();
+                                },
+                              );
+                      },
+                    ),
+                    const SizedBox(height: 18),
+                    //! Dont Have An Account ?
+                    DontHaveAnAccountWidget(size: size),
+                    const SizedBox(height: 20),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      const PageHeading(title: 'Welcome Back !'),
-                      SizedBox(height: size.height * .03),
-                      CustomInputField(
-                        hintText: 'Your email',
-                        controller: context.read<UserCubit>().signInEmail,
-                      ),
-                      SizedBox(height: size.height * .04),
-                      CustomInputField(
-                        hintText: 'Your password',
-                        obscureText: true,
-                        suffixIcon: true,
-                        controller: context.read<UserCubit>().signInPassword,
-                      ),
-                      SizedBox(height: size.height * .04),
-                      ForgetPasswordWidget(size: size),
-                      const SizedBox(height: 20),
-                      BlocBuilder<UserCubit, UserState>(
-                        builder: (context, state) {
-                          if (state is SignInLoading) {
-                            return CircularProgressIndicator();
-                          }
-                          return CustomFormButton(
-                            innerText: 'Sign In',
-                            onPressed: () {
-                              context.read<UserCubit>().signIn();
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 18),
-                      DontHaveAnAccountWidget(size: size),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      );
+    }
     );
   }
 }

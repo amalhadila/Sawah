@@ -14,7 +14,7 @@ class Product extends Equatable {
   final int? maxGroupSize;
   final List<dynamic>? startDays;
   final List<Guide>? guides;
-  final dynamic rating;
+    final double? rating;
   final int? ratingsQuantity;
   final int? bookings;
   final String? slug;
@@ -56,7 +56,7 @@ class Product extends Equatable {
         guides: (json['guides'] as List<dynamic>?)
             ?.map((e) => Guide.fromJson(e as Map<String, dynamic>))
             .toList(),
-        rating: json['rating'] as dynamic,
+        rating: (json['rating'] as num?)?.toDouble(),
         ratingsQuantity: json['ratingsQuantity'] as int?,
         bookings: json['bookings'] as int?,
         slug: json['slug'] as String?,

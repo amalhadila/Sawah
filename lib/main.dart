@@ -84,6 +84,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
+import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
+import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
@@ -130,6 +132,10 @@ class Sawah extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               DeleteitemCubit(ProcatRepoImple(ApiService(dio))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ReviewCubit(Revwrepoimp(ApiService(dio))),
         ),
         BlocProvider(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(dio))),

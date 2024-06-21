@@ -9,10 +9,10 @@ class MostVisitedModel extends Equatable {
   final String? name;
   final String? description;
   final String? imageCover;
-  final List<dynamic>? images;
+  final List<String>? images; // Updated to List<String> to match the JSON response
   final Category? category;
   final int? visitsNumber;
-  final int? rating;
+  final double? rating;
   final int? ratingsQuantity;
   final String? slug;
   final int? v;
@@ -43,12 +43,12 @@ class MostVisitedModel extends Equatable {
       name: json['name'] as String?,
       description: json['description'] as String?,
       imageCover: json['imageCover'] as String?,
-      images: json['images'] as List<dynamic>?,
+      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       category: json['category'] == null
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       visitsNumber: json['visitsNumber'] as int?,
-      rating: json['rating'] as int?,
+      rating: (json['rating'] as num?)?.toDouble(),
       ratingsQuantity: json['ratingsQuantity'] as int?,
       slug: json['slug'] as String?,
       v: json['__v'] as int?,

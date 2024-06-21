@@ -1,102 +1,125 @@
+import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:graduation/core/utils/api_service.dart';
+import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
+import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
+import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
+import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
 class ReviewPage extends StatefulWidget {
+  const ReviewPage({Key? key, required this.landmarkmodel}) : super(key: key);
+
+  final LandmarkOnCatModel landmarkmodel;
+
   @override
   _ReviewPageState createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
   final TextEditingController _commentController = TextEditingController();
-  double _rating = 0;
-  List<Review> _reviews = [];
-
-  void _submitReview() {
-    if (_commentController.text.isNotEmpty && _rating > 0) {
-      setState(() {
-        _reviews.add(Review(
-          name: "User Name", // Replace with actual user name
-          date: DateTime.now(),
-          rating: _rating,
-          comment: _commentController.text,
-        ));
-        _commentController.clear();
-        _rating = 0;
-      });
-    }
-  }
+  double _rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Review Page")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _commentController,
-              decoration: InputDecoration(
-                labelText: "Enter your comment",
-                border: OutlineInputBorder(),
+    return BlocProvider(
+      create: (context) => ReviewCubit(Revwrepoimp(ApiService(Dio()))),
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Container(
+                height: 80,
+                child: TextField(
+                  controller: _commentController,
+                  decoration: InputDecoration(
+                    labelText: "Enter your comment",
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
+                ),
               ),
-              maxLines: 3,
-            ),
-            SizedBox(height: 10),
-            RatingBar.builder(
-              initialRating: 0,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
-                Icons.star,
-                color: Colors.amber,
+              SizedBox(height: 10),
+              Container(
+                height: 40,
+                child: RatingBar.builder(
+                  initialRating: 0,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                    size: 20,
+                  ),
+                  onRatingUpdate: (rating) {
+                    setState(() {
+                      _rating = rating;
+                    });
+                    context.read<ReviewCubit>().updateRating(rating);
+                  },
+                ),
               ),
-              onRatingUpdate: (rating) {
-                setState(() {
-                  _rating = rating;
-                });
-              },
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _submitReview,
-              child: Text("Submit Review"),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _reviews.length,
-                itemBuilder: (context, index) {
-                  return ReviewWidget(review: _reviews[index]);
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<ReviewCubit>().getallReviewsonlandmark(
+                        id: widget.landmarkmodel.id!,
+                      );
+                  context.read<ReviewCubit>().addReviewonlandmark(
+                        landmarkid: widget.landmarkmodel.id!,
+                        reviewType: 'Landmark',
+                        comment: _commentController.text,
+                      );
                 },
+                child: Text("Submit Review"),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Expanded(
+                child: BlocBuilder<ReviewCubit, ReviewState>(
+                  builder: (context, state) {
+                    if (state is GetReviewSuccess) {
+                      log('GetReviewSuccess state');
+                      return Text(state.toString());
+                      // return ListView.builder(
+                      //   itemCount: state.reviews.first.data.length,
+                      //   itemBuilder: (context, index) {
+                      //     return ReviewWidget(review: state.reviews.first.data[index]);
+                      //   },
+                      // );
+                    } else if (state is AddReviewFailure) {
+                      log('AddReviewFailure state: ${state.errorMessage}');
+                      return Center(
+                          child: Text(
+                              'Error submitting review: ${state.errorMessage}'));
+                    } else if (state is GetReviewFailure) {
+                      log('GetReviewFailure state: ${state.errorMessage}');
+                      return Center(
+                          child: Text(
+                              'Error fetching reviews: ${state.errorMessage}'));
+                    } else {
+                      log('Loading state');
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class Review {
-  final String name;
-  final DateTime date;
-  final double rating;
-  final String comment;
-
-  Review({
-    required this.name,
-    required this.date,
-    required this.rating,
-    required this.comment,
-  });
-}
-
 class ReviewWidget extends StatelessWidget {
-  final Review review;
+  final ReviewData review;
 
   ReviewWidget({required this.review});
 
@@ -112,18 +135,20 @@ class ReviewWidget extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/default_avatar.png'), // Replace with actual image if available
+                  backgroundImage: AssetImage(
+                      'assets/default_avatar.png'), // Replace with actual image if available
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      review.name,
+                      review.user.name,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${review.date.toLocal()}".split(' ')[0],
+                      "${DateTime.parse(review.createdAt).toLocal()}"
+                          .split(' ')[0],
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
