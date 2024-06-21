@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/searchdelegate.dart';
 import 'package:graduation/features/store/presentation/views/widgets/store_products.dart';
 
@@ -20,6 +23,7 @@ class Storeviewbody extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    BlocProvider.of<GetcartitemsCubit>(context).fetchcartitems();
                     GoRouter.of(context).push('/CartScreen');
                   },
                   child: Icon(
@@ -33,6 +37,7 @@ class Storeviewbody extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    BlocProvider.of<FetchwishlistCubit>(context).fetchwishlist();
                     GoRouter.of(context).push('/Wishlist');
                   },
                   child: Icon(
@@ -41,6 +46,7 @@ class Storeviewbody extends StatelessWidget {
                   ),
                 ),
               ],
+              
             ),
           )
         ],

@@ -10,7 +10,7 @@ class productCard extends StatefulWidget {
   final String id;
    List<Location>? address1;
   final String? address2;
-  final int? rating;
+  final dynamic? rating;
   final String text;
   final String? info;
   final dynamic price;

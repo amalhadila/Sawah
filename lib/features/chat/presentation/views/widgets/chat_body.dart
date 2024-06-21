@@ -10,9 +10,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key, required this.roomid, required this.userId});
+  ChatScreen({super.key, required this.roomid, required this.userId,required this.name});
   String roomid;
   String userId;
+  String name;
   List<String> selectedmsg = [];
 
   @override
@@ -37,17 +38,33 @@ class _ChatScreenState extends State<ChatScreen> {
       if (_imageFile != null) {
         File imageFile = File(_imageFile!.path);
         try {
-          imageUrl = await FireStorage().sendImage(imageFile, widget.roomid, widget.userId, 'Image');
+          // String messageId = await FireData()
+          //     .sendMessage(roomId: widget.roomid, msg: message);
+          // print('Message ID: $messageId');
+
+          imageUrl = await FireStorage().sendImage(imageFile,widget.roomid,'Image');
           print('Image URL: $imageUrl');
+
+          // await FirebaseFirestore.instance
+          //     .collection('rooms')
+          //     .doc(widget.roomid)
+          //     .collection('messages')
+          //     .doc(messageId)
+          //     .update({
+          //   'msg': message,
+          //   'imageUrl': imageUrl,
+          // });
         } catch (e) {
           print('Error uploading image: $e');
         }
         setState(() {
           _imageFile = null; // Clear the selected image after upload
         });
+      } else {
+        await FireData()
+            .sendMessage(roomId: widget.roomid, msg: message);
       }
 
-      await FireData().sendMessage(roomId: widget.roomid, toId: widget.userId, msg: message, imageUrl: imageUrl);
       _messageController.clear();
     }
   }
@@ -66,15 +83,19 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text("user1"),
-            Text(
-              "Last Seen 11:28 am",
-              style: TextStyle(fontSize: 14),
-            ),
-          ],
+        title: 
+            Text(widget.name,style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),),            
+         
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           widget.selectedmsg.isNotEmpty

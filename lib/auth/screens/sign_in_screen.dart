@@ -90,6 +90,13 @@ class SignInScreen extends StatelessWidget {
                               //         FireData().createUser(myUid,onValue);
                               //         }
                               //       });
+                              FirebaseMessaging.instance.requestPermission();
+                              await  FirebaseMessaging.instance.getToken().then((onValue){
+                                  if (onValue !=null){
+                                    print('$onValue');
+                                    FireData().createUser(onValue);
+                                      }
+                                  });
                                 },
                               );
                       },

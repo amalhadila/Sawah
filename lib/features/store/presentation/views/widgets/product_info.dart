@@ -310,14 +310,14 @@ class _ProductInfoState extends State<ProductInfo>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                 
                       Text(
-                        'name',
-                        style: TextStyle(
+                         widget.products.guide!.name!,
+                        style: const TextStyle(
                         color: ksecondcolor,
                         fontWeight: FontWeight.w700,
                           fontSize: 16,
@@ -326,8 +326,8 @@ class _ProductInfoState extends State<ProductInfo>
                       
                     
                   Text(
-                   'email',
-                    style: TextStyle(
+                    widget.products.guide!.email!,
+                    style: const TextStyle(
                       color: ksecondcolor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -335,25 +335,28 @@ class _ProductInfoState extends State<ProductInfo>
                   ),
                 ],
               ),
-               const SizedBox(width: 145,),
+               const SizedBox(width: 80,),
               IconButton(onPressed: ()async{
-                FirebaseMessaging.instance.requestPermission();
-                await  FirebaseMessaging.instance.getToken().then((onValue){
-                    if (onValue !=null){
-                       widget.token=onValue;
-                       FireData().createUser(myUid,onValue);
-                    }
-                });
-                // final roomId = await FireData().creatRoom(
-                //  // widget.products.guide!
-                //  '66630d9ee76600fd06fc7eb2'
-                //   );
+                // FirebaseMessaging.instance.requestPermission();
+                // await  FirebaseMessaging.instance.getToken().then((onValue){
+                //     if (onValue !=null){
+                //        widget.token=onValue;
+                //        FireData().createUser(onValue);
+                //     }
+                // });
+                final roomId = await FireData().creatRoom(
+                 
+                  widget.products.guide!.id!,
+                   widget.products.guide!.name!,
+                // '66630d9ee76600fd06fc7eb2'
+                  );
            
-                  //   GoRouter.of(context)
-                  // .push('/ChatScreen',extra: [roomId,
-                  // //widget.products.guide!
-                  // '66630d9ee76600fd06fc7eb2'
-                  // ]);
+                    GoRouter.of(context)
+                  .push('/ChatScreen',extra: [roomId,
+                  widget.products.guide!.id!,
+                  widget.products.guide!.name!,
+                 // '66630d9ee76600fd06fc7eb2'
+                  ]);
 
                   }, icon: const Icon(Icons.chat_rounded,color: kmaincolor,))
             ],

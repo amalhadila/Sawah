@@ -24,6 +24,7 @@ class ChatCard extends StatelessWidget {
                   builder: (context) => ChatScreen(
                     roomid: chatroom.id!,
                     userId: chatroom.userid!,
+                    name:chatroom.name!,
                   ),
                 ),
               ),
@@ -56,12 +57,16 @@ trailing: StreamBuilder(
     }
   },
 ),
-          title: Text(chatroom.id.toString()),
+          title: Text(chatroom.name.toString(),
+    style: TextStyle(
+               color: ksecondcolor,fontWeight: FontWeight.bold)),
           subtitle:Text(chatroom.lastMessage == ""
-      ? 'send your first message'
+      ? 'send message'
     : chatroom.lastMessage!
     ,maxLines: 1,
-    overflow: TextOverflow.ellipsis,),
+    overflow: TextOverflow.ellipsis,
+    style: TextStyle(
+               color: ksecondcolor)),
          ),
     );
   }

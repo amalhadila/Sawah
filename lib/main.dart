@@ -107,14 +107,9 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/getca
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  ///await Firebase.initializeApp();
-  
-  print("Handling a background message: ${message.messageId}");
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async { 
+  print("Handling a background message: ${message.notification!.body}");
 }
-//bool userauth = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -136,8 +131,8 @@ void main() async {
     }
   });
   
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print('Message data: $fcmToken');
+  //final fcmToken = await FirebaseMessaging.instance.getToken();
+  //print('Message data: $fcmToken');
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     messaging.subscribeToTopic("news");

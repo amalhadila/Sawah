@@ -31,7 +31,9 @@ class _store_productState extends State<store_product> {
                   elevation: 0,
                   bottom: TabBar(
                     indicator: BoxDecoration(
-                      color: Color.fromARGB(255, 247, 227, 227),
+                      color:
+                      //kmaincolor,
+                       Color.fromARGB(255, 247, 227, 227),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
@@ -47,17 +49,19 @@ class _store_productState extends State<store_product> {
                     tabs: [
                       Text(
                         ' All ',
-                        style:
-                            Textstyle.textStyle15.copyWith(color: kmaincolor),
+                         style:
+                             Textstyle.textStyle15.copyWith(color: kmaincolor),
                       ),
                       ...state.pro_cat_list.map((cat) {
                         return Text(
                           cat.name!,
-                          style:
-                              Textstyle.textStyle15.copyWith(color: kmaincolor),
+                           style:
+                               Textstyle.textStyle15.copyWith(color: kmaincolor),
                         );
                       }).toList(),
                     ],
+                   // labelColor: kbackgroundcolor, // لون النص عندما يكون التبويب محدد
+  //unselectedLabelColor: kmaincolor,
                   ),
                 ),
               ),

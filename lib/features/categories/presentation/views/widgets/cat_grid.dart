@@ -33,8 +33,9 @@ class CategoriesGrid extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return CustomCard(
-                    imglink:
-                        'assets/img/categories/${state.categorieslist[index].imageCover!}',
+                    imglink:'assets/img/landmarks/pyramids2.jpg',
+
+                       // 'assets/img/categories/${state.categorieslist[index].imageCover!}',
                     text: state.categorieslist[index].name!,
                     onTap: () => GoRouter.of(context).push('/LandmarksBody',
                         extra: state.categorieslist[index]),

@@ -23,32 +23,43 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          FirebaseMessaging.instance.requestPermission();
-                await  FirebaseMessaging.instance.getToken().then((onValue){
-                    if (onValue !=null){
-                       widget.token=onValue;
-                       FireData().createUser(myUid,onValue);
-                    }
-                });
-                final roomId = await FireData().creatRoom(
-                 // widget.products.guide!
-                 '66630d9ee76600fd06fc7eb2'
-                   , widget.token
-                  );
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     // FirebaseMessaging.instance.requestPermission();
+      //     //       await  FirebaseMessaging.instance.getToken().then((onValue){
+      //     //           if (onValue !=null){
+      //     //              widget.token=onValue;
+      //     //              FireData().createUser(onValue);
+      //     //           }
+      //     //       });
+      //           final roomId = await FireData().creatRoom(
+      //            // widget.products.guide!
+      //            '66630d9ee76600fd06fc7eb2'
+                   
+      //             );
            
-                    GoRouter.of(context)
-                  .push('/ChatScreen',extra: [roomId,
-                  //widget.products.guide!
-                  '66630d9ee76600fd06fc7eb2'
-                  ]);
-        },
-        child: const Icon(Iconsax.message_add),
-      ),
+      //               GoRouter.of(context)
+      //             .push('/ChatScreen',extra: [roomId,
+      //             //widget.products.guide!
+      //             '66630d9ee76600fd06fc7eb2'
+      //             ]);
+      //   },
+      //   child: const Icon(Iconsax.message_add),
+      // ),
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: const Text("Chats"),
+        title: const Text("Chats",style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(2.0),

@@ -12,8 +12,8 @@ class MostVisitedModel extends Equatable {
   final List<dynamic>? images;
   final Category? category;
   final int? visitsNumber;
-  final int? rating;
-  final int? ratingsQuantity;
+  final dynamic? rating;
+  final dynamic? ratingsQuantity;
   final String? slug;
   final int? v;
   final String? id;
@@ -48,8 +48,8 @@ class MostVisitedModel extends Equatable {
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       visitsNumber: json['visitsNumber'] as int?,
-      rating: json['rating'] as int?,
-      ratingsQuantity: json['ratingsQuantity'] as int?,
+      rating: json['rating'] as dynamic?,
+      ratingsQuantity: json['ratingsQuantity'] as dynamic?,
       slug: json['slug'] as String?,
       v: json['__v'] as int?,
       id: json['id'] as String?,
