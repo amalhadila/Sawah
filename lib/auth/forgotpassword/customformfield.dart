@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:graduation/auth/forgotpassword/default_form_field.dart';
 
-
- formField(
-      {String title = '',
-      required String hint,
-      required TextEditingController controller,
-      Widget? suffixIcon,
-      bool obscureText = false}) => Column(
+formField(
+        {String title = '',
+        required String hint,
+        required TextEditingController controller,
+        Widget? suffixIcon,
+        bool obscureText = false}) =>
+    Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -30,4 +29,3 @@ import 'package:graduation/auth/forgotpassword/default_form_field.dart';
         ),
       ],
     );
-  

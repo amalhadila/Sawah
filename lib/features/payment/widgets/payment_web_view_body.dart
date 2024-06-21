@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
 class PaymentWebViewWidget extends StatefulWidget {
   PaymentWebViewWidget(
       {Key? key,
@@ -127,32 +126,30 @@ class _PaymentWebViewWidgetState extends State<PaymentWebViewWidget> {
     // return BlocConsumer<MainBloc, MainState>(
     //   listener: (context, state) {},
     //   builder: (context, state) {
-        return 
-        Column(
-          children: [
-            if (widget.logoShell != null &&
-                widget.amountPercentageShell != null) ...[
-              // CircleAvatar(
-              //   radius: 60,
-              //   backgroundColor: Colors.white,
-              //   child: InterActiveOnlineImage(imgUrl: widget.logoShell!),
-              // ),
-             
-            ],
-            Text(
-              "back",
-              //$currentTime ${LocaleKeys.second.tr()}",
-              textAlign: TextAlign.center,
-            ),
-            // if (!appBloc.isPaymentLoading)
-            Expanded(
-              child: WebViewWidget(
-                controller: webViewController,
-              ),
-            ),
-            // if (appBloc.isPaymentLoading)
-          ],
-        );
+    return Column(
+      children: [
+        if (widget.logoShell != null &&
+            widget.amountPercentageShell != null) ...[
+          // CircleAvatar(
+          //   radius: 60,
+          //   backgroundColor: Colors.white,
+          //   child: InterActiveOnlineImage(imgUrl: widget.logoShell!),
+          // ),
+        ],
+        Text(
+          "back",
+          //$currentTime ${LocaleKeys.second.tr()}",
+          textAlign: TextAlign.center,
+        ),
+        // if (!appBloc.isPaymentLoading)
+        Expanded(
+          child: WebViewWidget(
+            controller: webViewController,
+          ),
+        ),
+        // if (appBloc.isPaymentLoading)
+      ],
+    );
     //   },
     // );
   }

@@ -63,9 +63,7 @@ class _OTPPageState extends State<OTPPage> {
             ),
             Center(
               child: Text(
-                _start > 0
-                    ? "00:$_start Sec"
-                    : "Time expired. Resend code?",
+                _start > 0 ? "00:$_start Sec" : "Time expired. Resend code?",
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.grey,

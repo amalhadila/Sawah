@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graduation/auth/forgotpassword/default_button_widget.dart';
@@ -29,12 +28,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           children: [
             Container(
-              height:MediaQuery.of(context).size.height*.2,
+              height: MediaQuery.of(context).size.height * .2,
             ),
-           
             forgetPassTexts(),
-              SizedBox(
-              height: MediaQuery.of(context).size.height*.08,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .08,
             ),
             formField(
               controller: _emailController,
@@ -95,7 +93,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(  height: 10,
+          SizedBox(
+            height: 10,
           ),
           Text(
             "Forgot Password ?",

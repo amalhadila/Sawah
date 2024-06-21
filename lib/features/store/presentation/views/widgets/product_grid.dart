@@ -3,44 +3,71 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
+import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/allproducts_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/products_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/card.dart';
 
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({super.key});
+  final String? categoryId;
+
+  const ProductGrid({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductsCubit, ProductsState>(
-      builder: (context, state) {
-        if (state is ProductSuccess) {
-          print(state.product_list);
-          return GridView.builder(
-              itemCount: state.product_list.length,
-              clipBehavior: Clip.none,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 40,
-              ),
-              itemBuilder: (context, index) {
-                return productCard(
-                  imglink:
-                      'assets/img/products/${state.product_list[index].images![0]}',
-                  text: state.product_list[index].name!,
-                  price: state.product_list[index].price!,
-                  ontap: () => GoRouter.of(context)
-                      .push('/productinfo', extra: state.product_list[index]),
-                );
-              });
-        } else if (state is ProductFailure) {
-          return CustomErrorWidget(errMessage: state.errMessage);
-        } else {
-          return const Center(
-            child: LoadingWidget(),
-          );
-        }
+    if (categoryId != null) {
+      return BlocBuilder<ProductsCubit, ProductsState>(
+        builder: (context, state) {
+          if (state is ProductSuccess) {
+            return buildProductList(state.product_list);
+          } else if (state is ProductFailure) {
+            return CustomErrorWidget(errMessage: state.errMessage);
+          } else {
+            return const Center(child: LoadingWidget());
+          }
+        },
+      );
+    } else {
+      return BlocBuilder<AllproductsCubit, AllproductsState>(
+        builder: (context, state) {
+          if (state is AllproductSuccess) {
+            return buildProductList(state.product_list);
+          } else if (state is AllproductFailure) {
+            return CustomErrorWidget(errMessage: state.errMessage);
+          } else {
+            return const Center(child: LoadingWidget());
+          }
+        },
+      );
+    }
+  }
+
+  Widget buildProductList(List<Product> productList) {
+    return ListView.builder(
+      itemCount: productList.length,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      shrinkWrap: true,
+      clipBehavior: Clip.none,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            productCard(
+              imglink: 'assets/img/landmarks/pyramids2.jpg',
+              info: productList[index].description,
+              rating: productList[index].rating,
+              text: productList[index].name!,
+              price: productList[index].price!,
+              ontap: () => GoRouter.of(context)
+                  .push('/productinfo', extra: productList[index]),
+            ),
+            SizedBox(height: 1),
+            Divider(
+              thickness: 2.5,
+              color: Color.fromARGB(255, 252, 237, 227),
+            ),
+            SizedBox(height: 1),
+          ],
+        );
       },
     );
   }

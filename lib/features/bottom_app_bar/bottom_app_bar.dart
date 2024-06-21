@@ -1,13 +1,11 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/features/categories/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
-import '../../core/utils/assets.dart';
+import 'package:graduation/features/store/presentation/views/store_view.dart';
 import '../../core/widgets/appbar.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
-import '../../constants.dart';
 import '../categories/presentation/views/categories_view.dart';
 import '../home/pres/views/homeview.dart';
 import '../../core/utils/custom_drawer.dart';
@@ -15,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/categories/data/repos/categoriesrepo_impl.dart';
 import 'package:graduation/features/home/pres/manager/cubit/most_visited_cubit.dart';
+
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
 
@@ -29,6 +28,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<Widget> _pages = [
     CategoriesView(),
     Homepage(),
+    StoreView(),
     ImagesUploadPage(),
   ];
 
@@ -54,14 +54,16 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                 ..fetchCategories(),
         ),
         BlocProvider(
-          create: (context) =>
-              SearchCubit(SearchRepoImp(ApiService(Dio()))),
+          create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio()))),
         ),
       ],
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: _selectedTab == 2
+            ? null
+            : CustomAppBar(), // إزالة الـ AppBar إذا كانت التالت صفحة محددة
         drawer: CustomDrawer(),
-        body: _pages[_selectedTab],
+        body:
+            _pages[_selectedTab], // عرض الصفحة المحددة إذا كانت غير التالت صفحة
         bottomNavigationBar: Container(
           margin: EdgeInsets.all(20),
           height: size.width * .155,
@@ -106,15 +108,12 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: size.width * .076,
-                    height: size.width * .076,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(listOfAssets[index]),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  Icon(
+                    listOfIcons[index],
+                    size: size.width * .076,
+                    color: index == _selectedTab
+                        ? Colors.blueAccent
+                        : Colors.black38,
                   ),
                   SizedBox(height: size.width * .03),
                 ],
@@ -126,10 +125,11 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     );
   }
 
-  final List<String> listOfAssets = [
-    AssetsData.key,
-    AssetsData.home,
-    AssetsData.camera,
-    // Adjust your assets based on the number of pages and the items in your bottom navigation bar
+  final List<IconData> listOfIcons = [
+    Icons.home_rounded,
+    Icons.favorite_rounded,
+    Icons.shopping_bag_outlined,
+    Icons.settings_rounded,
+    // Adjust your icons based on the number of pages and the items in your bottom navigation bar
   ];
 }

@@ -11,11 +11,11 @@ class SearhResultGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SearchCubit, SearchStates>
-    (listener: (context, state) {
-      if ((state is SearchSuccess && state.landmark.isEmpty) || state is SearchFailure) {
+    return BlocConsumer<SearchCubit, SearchStates>(listener: (context, state) {
+      if ((state is SearchSuccess && state.landmark.isEmpty) ||
+          state is SearchFailure) {
         GoRouter.of(context).push('/notfound_page_view');
-      } 
+      }
     }, builder: (context, state) {
       if (state is SearchSuccess) {
         return GridView.builder(
@@ -29,7 +29,7 @@ class SearhResultGrid extends StatelessWidget {
           ),
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
-itemBuilder: (context, x) {
+          itemBuilder: (context, x) {
             return CustomCard(
               imglink: 'assets/img/landmarks/${state.landmark[x].imageCover!}',
               text: state.landmark[x].name!,
@@ -37,7 +37,6 @@ itemBuilder: (context, x) {
                   .push('/Information', extra: state.landmark[x]),
             );
           },
-          
         );
       } else if (state is SearchLoading) {
         return const LoadingWidget();

@@ -10,6 +10,7 @@ import 'package:graduation/features/categories/data/model/landmark_on_cat_model/
 import 'package:graduation/features/categories/presentation/views/Landmarks_view.dart';
 import 'package:graduation/features/categories/presentation/views/categories_view.dart';
 import 'package:graduation/features/categories/presentation/views/info_view.dart';
+import 'package:graduation/features/chat/presentation/views/widgets/chathome_body.dart';
 import 'package:graduation/features/contact_us.dart/contact_us_view.dart';
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 import 'package:graduation/features/introduction_screen/presentation/views/introduction_screen_view.dart';
@@ -17,14 +18,13 @@ import 'package:graduation/features/search/presentation/manager/searh_cubit.dart
 import 'package:graduation/features/search/presentation/views/notfound_page_view.dart';
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
 import 'package:graduation/features/search/splahview.dart';
-import 'package:graduation/features/store/data/products/products.dart';
+import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/presentation/views/product_info_view.dart';
 import 'package:graduation/features/store/presentation/views/store_view.dart';
-import 'package:graduation/features/store/presentation/views/widgets/card.dart';
+import 'package:graduation/features/store/presentation/views/widgets/booking_body.dart';
 import 'package:graduation/features/store/presentation/views/widgets/cart_body.dart';
 import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
 import '../../features/home/pres/views/homeview.dart';
 import '../../features/search/data/repos/search_repo_imp.dart';
@@ -40,7 +40,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/uu',
+          path: '/',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -56,16 +56,24 @@ abstract class AppRouter {
               },
             );
           }),
-      GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
+      GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
+      GoRoute(path: '/uu', builder: (context, state) => SplashView()),
+      GoRoute(
+          path: '/ChatHomeScreen',
+          builder: (context, state) => ChatHomeScreen()),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/profilesrean', builder: (context, state) => ProfileScreen()),
       GoRoute(
+          path: '/BookingPage',
+          builder: (context, state) => BookingPage(
+                product: state.extra as Product,
+              )),
+      GoRoute(
           path: '/productinfo',
           builder: (context, state) => ProductInfoView(
-                products: state.extra as Products,
+                products: state.extra as Product,
               )),
       GoRoute(
           path: '/contactus',

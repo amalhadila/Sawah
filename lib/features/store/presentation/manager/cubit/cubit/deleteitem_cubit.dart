@@ -6,18 +6,16 @@ part 'deleteitem_state.dart';
 
 class DeleteitemCubit extends Cubit<DeleteitemState> {
   DeleteitemCubit(this.procategoriesRepo) : super(DeleteitemInitial());
-    final proCategoriesRepo procategoriesRepo;
 
- Future<void> deleteitem({required var id}) async {
+  final proCategoriesRepo procategoriesRepo;
+
+  Future<void> deleteitem({required var Id}) async {
     emit(DeleteitemLoading());
-
     try {
-      await procategoriesRepo.deleteitem(
-          Id: id,
-          ); 
+      await procategoriesRepo.deleteitem(Id: Id);
       emit(DeleteitemSuccess());
-    } catch (Failure) {
-      emit(DeleteitemFailure(Failure.toString()));
+    } catch (e) {
+      emit(DeleteitemFailure(e.toString()));
     }
   }
 }

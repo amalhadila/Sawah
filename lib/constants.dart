@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+String myUid = '12';
+String userId = '1';
 const kbackgroundcolor = Color(0xffFFFFFF);
 const kCardColor = Color(0xFFF2F2F2);
 const kmaincolor = Color.fromRGBO(219, 113, 0, 1);

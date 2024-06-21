@@ -7,9 +7,6 @@ class LandmarksBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: landmarkGrid()
-    );
+    return Scaffold(appBar: CustomAppBar(), body: landmarkGrid());
   }
 }

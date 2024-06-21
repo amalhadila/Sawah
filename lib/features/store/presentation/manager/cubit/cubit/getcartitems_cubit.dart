@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:graduation/features/store/data/cart_item/product.dart';
+import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
+import 'package:graduation/features/store/data/usercart/usercart.dart';
 
 part 'getcartitems_state.dart';
 

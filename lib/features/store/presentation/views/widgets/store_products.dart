@@ -14,7 +14,7 @@ class store_product extends StatefulWidget {
 }
 
 class _store_productState extends State<store_product> {
-  int Index = 0;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,34 +22,52 @@ class _store_productState extends State<store_product> {
       builder: (context, state) {
         if (state is ProductCatSuccess) {
           return DefaultTabController(
-            length: state.pro_cat_list.length,
+            length: state.pro_cat_list.length + 1,
             child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                bottom: TabBar(
-                  indicatorWeight: 1,
-                  dividerColor: kbackgroundcolor,
-                  labelPadding: const EdgeInsets.only(bottom: 12,right: 25),
-                    indicatorColor: kmaincolor,
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(50),
+                child: AppBar(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  bottom: TabBar(
+                    indicator: BoxDecoration(
+                      color: Color.fromARGB(255, 247, 227, 227),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: kbackgroundcolor,
+                    labelPadding:
+                        const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
                     isScrollable: true,
                     onTap: (value) {
                       setState(() {
-                        Index = value;
+                        index = value;
                       });
                     },
-                    tabs: state.pro_cat_list.map((cat) {
-                      return Text(
-                        cat.name!,
+                    tabs: [
+                      Text(
+                        ' All ',
                         style:
-                            Textstyle.textStyle16.copyWith(color: kmaincolor),
-                      );
-                    }).toList()),
+                            Textstyle.textStyle15.copyWith(color: kmaincolor),
+                      ),
+                      ...state.pro_cat_list.map((cat) {
+                        return Text(
+                          cat.name!,
+                          style:
+                              Textstyle.textStyle15.copyWith(color: kmaincolor),
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                ),
               ),
               body: TabBarView(
-                children: state.pro_cat_list.map((cat) {
-                  return GrId(categoryId: cat.id);
-                }).toList(),
+                children: [
+                  GrId(), 
+                  ...state.pro_cat_list.map((cat) {
+                    return GrId(categoryId: cat.id);
+                  }).toList(),
+                ],
               ),
             ),
           );

@@ -10,8 +10,8 @@ class PaymentWebViewPage extends StatefulWidget {
       {Key? key,
       required this.url,
       required this.callBack,
-       this.amountPercentageShell,
-       this.logoShell})
+      this.amountPercentageShell,
+      this.logoShell})
       : super(key: key);
   final String? url;
   String? amountPercentageShell;
@@ -47,8 +47,7 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text("Pay"
-        ),
+        title: Text("Pay"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-
 class DefaultFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? svgIconPath;
@@ -26,10 +25,14 @@ class DefaultFormField extends StatelessWidget {
       this.keyboardType,
       this.obscureText = false,
       this.suffixIcon,
-      this.hintText, this.enabled,
+      this.hintText,
+      this.enabled,
       this.onTap,
-        this.disableHelperText = false, this.errorText, this.onChanged, this.textDirection, this.maxLength
-      });
+      this.disableHelperText = false,
+      this.errorText,
+      this.onChanged,
+      this.textDirection,
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +44,13 @@ class DefaultFormField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       textDirection: textDirection,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(maxLength),
-        ],
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(maxLength),
+      ],
       // cursorHeight: 25.h,
-      style: const TextStyle(fontSize: 15, color: Colors.black,height: 2.5),
+      style: const TextStyle(fontSize: 15, color: Colors.black, height: 2.5),
       validator: (value) {
-        if ((value?.isEmpty)??false) {
+        if ((value?.isEmpty) ?? false) {
           return errorText;
         }
         return null;
@@ -58,8 +61,14 @@ class DefaultFormField extends StatelessWidget {
         helperText: disableHelperText ? null : '',
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle:const TextStyle(color: Colors.grey, fontSize: 12,),
-        labelStyle:const TextStyle(color: Colors.black, fontSize: 14,),
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 12,
+        ),
+        labelStyle: const TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+        ),
         fillColor: Colors.white,
         filled: true,
         // contentPadding: EdgeInsets.fromLTRB(20.w, 5.h, 20.w, 5.h),

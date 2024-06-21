@@ -1,5 +1,3 @@
-
-
 class SignUpModel {
   final String name;
   final String token;

@@ -4,7 +4,8 @@ import 'package:graduation/core/utils/style.dart';
 const kCardColor = Color(0xffF2F2F2);
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({Key? key,required this.imglink, required this.text, this.onTap});
+  const CustomCard(
+      {Key? key, required this.imglink, required this.text, this.onTap});
 
   final String imglink;
   final String text;
@@ -41,7 +42,7 @@ class CustomCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: Image.asset(
-                      imglink ,
+                      imglink,
                       fit: BoxFit.fill,
                       width: double.infinity,
                     ),
