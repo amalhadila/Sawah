@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'category.dart';
 import 'location.dart';
 
@@ -12,8 +11,8 @@ class LandmarkOnCatModel extends Equatable {
   final List<dynamic>? images;
   final Category? category;
   final int? visitsNumber;
-  final dynamic? rating;
-  final dynamic? ratingsQuantity;
+  final double? rating;
+  final int? ratingsQuantity;
   final String? slug;
   final String? id;
 
@@ -46,8 +45,8 @@ class LandmarkOnCatModel extends Equatable {
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       visitsNumber: json['visitsNumber'] as int?,
-      rating: json['rating'] as dynamic?,
-      ratingsQuantity: json['ratingsQuantity'] as dynamic?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      ratingsQuantity: json['ratingsQuantity'] as int?,
       slug: json['slug'] as String?,
       id: json['id'] as String?,
     );

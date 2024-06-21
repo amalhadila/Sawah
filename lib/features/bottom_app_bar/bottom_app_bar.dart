@@ -102,7 +102,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     width: size.width * .128,
                     height: index == _selectedTab ? size.width * .014 : 0,
                     decoration: BoxDecoration(
-                      color: Colors.blueAccent,
+                      color: Colors.orange,
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(10),
                       ),

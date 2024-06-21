@@ -1,4 +1,5 @@
 import 'package:graduation/auth/models/user_model.dart';
+import 'package:graduation/auth/models/userdatamodel.dart';
 
 abstract class UserState {}
 
@@ -27,11 +28,22 @@ class SignUpFailure extends UserState {
 class GetUserLoading extends UserState {}
 
 class GetUserSuccess extends UserState {
-  final userModel user;
+  final userdatamodel user;
   GetUserSuccess(this.user);
 }
 
 class GetUserFailure extends UserState {
   final String errorMessage;
   GetUserFailure(this.errorMessage);
+}
+class Updatephotoloading extends UserState {}
+
+class Updatephotoscuess extends UserState {
+  final userdatamodel user;
+  Updatephotoscuess(this.user);
+}
+
+class Updatephotofailure extends UserState {
+  final String errorMessage;
+  Updatephotofailure(this.errorMessage);
 }

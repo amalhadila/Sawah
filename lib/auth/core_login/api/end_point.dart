@@ -1,5 +1,5 @@
 class endPoint {
-  static String BaseUrl = 'http://192.168.1.4:8000/api/v1/';
+  static String BaseUrl = 'http://192.168.100.3:8000/api/v1/';
   static String signin = 'users/login';
   static String signup = 'users/signup';
 
@@ -20,4 +20,5 @@ class apikey {
   static String token = "token";
   static String message = "message";
   static String id = "id";
+  static String reviews = "reviews";
 }

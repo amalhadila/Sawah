@@ -20,10 +20,10 @@ class userModel {
 
 class UserData {
   final String id;
-  final String name;
-  final String email;
-  final String photo;
-  final String role;
+  final String ?name;
+  final String ?email;
+  final String? photo;
+  final String ?role;
   final List<String> interests;
 
   UserData({

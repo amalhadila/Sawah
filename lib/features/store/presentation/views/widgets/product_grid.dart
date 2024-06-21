@@ -49,18 +49,18 @@ class ProductGrid extends StatelessWidget {
       shrinkWrap: true,
       clipBehavior: Clip.none,
       itemBuilder: (context, index) {
+        final product = productList[index];
         return Column(
           children: [
             productCard(
               address1:productList[index].locations,
               id: productList[index].id!,
               imglink: 'assets/img/landmarks/pyramids2.jpg',
-              info: productList[index].description,
-              rating: productList[index].rating,
-              text: productList[index].name!,
-              price: productList[index].price!,
-              ontap: () => GoRouter.of(context)
-                  .push('/productinfo', extra: productList[index]),
+              info: product.description,
+              rating: product.rating != null ? product.rating!.round() : null, // Convert double? to int?
+              text: product.name ?? 'Unknown Product',
+              price: product.price ?? 0, // Default value if price is null
+              ontap: () => GoRouter.of(context).push('/productinfo', extra: product),
             ),
             SizedBox(height: 14),
            

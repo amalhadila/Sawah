@@ -11,14 +11,17 @@ class Diocosumer {
     dio.options.baseUrl = endPoint.BaseUrl;
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(
-        request: true,
-        requestHeader: true,
-        requestBody: true,
-        responseHeader: true,
-        responseBody: true,
-        error: true));
-    dio.options.connectTimeout = const Duration(milliseconds: 20000);
-    dio.options.receiveTimeout = const Duration(milliseconds: 20000);
+     request: true,
+     requestHeader: true,
+     requestBody: true,
+     responseHeader: true,
+     responseBody: true,
+     error: true
+    
+    ));
+     dio.options.connectTimeout = const Duration(milliseconds: 200000);
+    dio.options.receiveTimeout = const Duration(milliseconds: 50000);
+
   }
 
   Future delete(String path,

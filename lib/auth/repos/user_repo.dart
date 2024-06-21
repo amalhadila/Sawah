@@ -9,8 +9,7 @@ import 'package:graduation/auth/core_login/errors/excpetion.dart';
 import 'package:graduation/auth/models/loginmodel.dart';
 import 'package:graduation/auth/models/signupmodel.dart';
 import 'package:graduation/auth/models/user_model.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/firebase/firedatabase.dart';
+import 'package:graduation/auth/models/userdatamodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserRepository {
@@ -64,11 +63,10 @@ class UserRepository {
     }
   }
 
-  Future<Either<String, userModel>> getUserProfile() async {
+  Future<Either<String, userdatamodel>> getUser() async {
     try {
-      final response = await diocosumer.get(
-          endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
-      return Right(userModel.fromJson(response));
+      final response = await diocosumer.get(endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
+      return Right(userdatamodel.fromJson(response));
     } on Failure catch (e) {
       log('GetUser Error: ${e.toString()}');
       return Left(e.toString());
