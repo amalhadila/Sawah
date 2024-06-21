@@ -10,8 +10,11 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/getca
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
 import 'package:intl/intl.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation/features/store/data/usercart/payment_response.dart';
+
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
   Future<void> pay(BuildContext context)async{
@@ -32,10 +35,11 @@ class CartScreen extends StatelessWidget {
       );
       PaymentResponse paymentResponse =
           PaymentResponse.fromJson(response.data);
-      Navigator.of(context).push(CupertinoPageRoute(
-        builder: (context) => PaymentWebView(
-            paymentResponse: PaymentResponse),
-      ));
+      // Navigator.of(context).push(CupertinoPageRoute(
+      //   builder: (context) =>
+      //       PaymentWebView(
+      //       paymentResponse: PaymentResponse),
+      // ));
     } catch (e) {
       showDialog(
         context: context,

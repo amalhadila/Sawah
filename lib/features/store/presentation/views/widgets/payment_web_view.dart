@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:graduation/features/store/data/usercart/payment_response.dart';
+
 class PaymentWebView extends StatefulWidget {
   final PaymentResponse paymentResponse;
 
@@ -26,9 +28,8 @@ class _PaymentWebViewState extends State<PaymentWebView> {
       onPageFinished: (String url) {},
       onHttpError: (HttpResponseError error) {},
       onWebResourceError: (WebResourceError error) {},
-      onNavigationRequest: (NavigationRequest request) {
-       
-      },
+      // onNavigationRequest: (NavigationRequest request) {
+      // },
     ),
   )
   ..loadRequest(Uri.parse(widget.paymentResponse.session.url));
