@@ -12,6 +12,8 @@ import 'package:graduation/features/store/presentation/manager/cubit/productbyid
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import '../widgets/payment_response.dart';
+import '../widgets/payment_web_view.dart';
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
   Future<void> pay(BuildContext context)async{
@@ -34,7 +36,7 @@ class CartScreen extends StatelessWidget {
           PaymentResponse.fromJson(response.data);
       Navigator.of(context).push(CupertinoPageRoute(
         builder: (context) => PaymentWebView(
-            paymentResponse: PaymentResponse),
+            paymentResponse: paymentResponse),
       ));
     } catch (e) {
       showDialog(

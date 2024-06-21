@@ -26,7 +26,9 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ReviewCubit(Revwrepoimp(ApiService(Dio()))),
+      create: (context) => ReviewCubit(Revwrepoimp(ApiService(Dio())))..getallReviewsonlandmark(
+                        id: widget.landmarkmodel.id!,
+                      ),
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
