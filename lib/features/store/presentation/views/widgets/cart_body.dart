@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:graduation/features/store/data/usercart/payment_response.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
 
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
@@ -35,11 +35,11 @@ class CartScreen extends StatelessWidget {
       );
       PaymentResponse paymentResponse =
           PaymentResponse.fromJson(response.data);
-      // Navigator.of(context).push(CupertinoPageRoute(
-      //   builder: (context) =>
-      //       PaymentWebView(
-      //       paymentResponse: PaymentResponse),
-      // ));
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) =>
+            PaymentWebView(
+            paymentResponse: paymentResponse),
+      ));
     } catch (e) {
       showDialog(
         context: context,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:graduation/features/store/data/usercart/payment_response.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
 
 class PaymentWebView extends StatefulWidget {
   final PaymentResponse paymentResponse;
