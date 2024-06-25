@@ -34,7 +34,7 @@ class landmarkGrid extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return CustomCard(
                     imglink:
-state.Landmarklist[index].imageCover!,
+state.Landmarklist[index].images![0]!,
                     text: state.Landmarklist[index].name!,
                     onTap: () => GoRouter.of(context)
                         .push('/Information', extra: state.Landmarklist[index]),

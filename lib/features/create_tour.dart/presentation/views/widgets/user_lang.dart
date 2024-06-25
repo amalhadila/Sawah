@@ -10,10 +10,9 @@ import 'package:graduation/features/create_tour.dart/presentation/views/widgets/
 
 class Language {
   final String name;
-  final String flag;
   final String nativeName;
 
-  Language({required this.name, required this.flag, required this.nativeName});
+  Language({required this.name, required this.nativeName});
 }
 
 class LanguageSelectionScreen extends StatefulWidget {
@@ -23,64 +22,64 @@ class LanguageSelectionScreen extends StatefulWidget {
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
    final List<Language> languages = [
-    Language(name: "Afrikaans", flag: "assets/flags/za.png", nativeName: "Afrikaans"),
-    Language(name: "Amharic", flag: "assets/flags/et.png", nativeName: "አማርኛ"),
-    Language(name: "Arabic", flag: "assets/flags/sa.png", nativeName: "العربية"),
-    Language(name: "Aymara", flag: "assets/flags/bo.png", nativeName: "Aymar"),
-    Language(name: "Azerbaijani", flag: "assets/flags/az.png", nativeName: "Azərbaycanca"),
-    Language(name: "Belarusian", flag: "assets/flags/by.png", nativeName: "Беларуская"),
-    Language(name: "Bulgarian", flag: "assets/flags/bg.png", nativeName: "Български"),
-    Language(name: "Bislama", flag: "assets/flags/vu.png", nativeName: "Bislama"),
-    Language(name: "Bengali", flag: "assets/flags/bd.png", nativeName: "বাংলা"),
-    Language(name: "Bosnian", flag: "assets/flags/ba.png", nativeName: "Bosanski"),
-    Language(name: "Catalan", flag: "assets/flags/es.png", nativeName: "Català"),
-    Language(name: "Chinese", flag: "assets/flags/cn.png", nativeName: "中文"),
-    Language(name: "Croatian", flag: "assets/flags/hr.png", nativeName: "Hrvatski"),
-    Language(name: "Czech", flag: "assets/flags/cz.png", nativeName: "Čeština"),
-    Language(name: "Danish", flag: "assets/flags/dk.png", nativeName: "Dansk"),
-    Language(name: "Dutch", flag: "assets/flags/nl.png", nativeName: "Nederlands"),
-    Language(name: "English", flag: "assets/flags/us.png", nativeName: "English"),
-    Language(name: "Estonian", flag: "assets/flags/ee.png", nativeName: "Eesti"),
-    Language(name: "Finnish", flag: "assets/flags/fi.png", nativeName: "Suomi"),
-    Language(name: "French", flag: "assets/flags/fr.png", nativeName: "Français"),
-    Language(name: "German", flag: "assets/flags/de.png", nativeName: "Deutsch"),
-    Language(name: "Greek", flag: "assets/flags/gr.png", nativeName: "Ελληνικά"),
-    Language(name: "Hebrew", flag: "assets/flags/il.png", nativeName: "עברית"),
-    Language(name: "Hindi", flag: "assets/flags/in.png", nativeName: "हिन्दी"),
-    Language(name: "Hungarian", flag: "assets/flags/hu.png", nativeName: "Magyar"),
-    Language(name: "Icelandic", flag: "assets/flags/is.png", nativeName: "Íslenska"),
-    Language(name: "Indonesian", flag: "assets/flags/id.png", nativeName: "Bahasa Indonesia"),
-    Language(name: "Italian", flag: "assets/flags/it.png", nativeName: "Italiano"),
-    Language(name: "Japanese", flag: "assets/flags/jp.png", nativeName: "日本語"),
-    Language(name: "Kazakh", flag: "assets/flags/kz.png", nativeName: "Қазақ тілі"),
-    Language(name: "Korean", flag: "assets/flags/kr.png", nativeName: "한국어"),
-    Language(name: "Latvian", flag: "assets/flags/lv.png", nativeName: "Latviešu"),
-    Language(name: "Lithuanian", flag: "assets/flags/lt.png", nativeName: "Lietuvių"),
-    Language(name: "Macedonian", flag: "assets/flags/mk.png", nativeName: "Македонски"),
-    Language(name: "Malay", flag: "assets/flags/my.png", nativeName: "Bahasa Melayu"),
-    Language(name: "Norwegian", flag: "assets/flags/no.png", nativeName: "Norsk"),
-    Language(name: "Persian", flag: "assets/flags/ir.png", nativeName: "فارسی"),
-    Language(name: "Polish", flag: "assets/flags/pl.png", nativeName: "Polski"),
-    Language(name: "Portuguese", flag: "assets/flags/pt.png", nativeName: "Português"),
-    Language(name: "Romanian", flag: "assets/flags/ro.png", nativeName: "Română"),
-    Language(name: "Russian", flag: "assets/flags/ru.png", nativeName: "Русский"),
-    Language(name: "Serbian", flag: "assets/flags/rs.png", nativeName: "Српски"),
-    Language(name: "Slovak", flag: "assets/flags/sk.png", nativeName: "Slovenčina"),
-    Language(name: "Slovenian", flag: "assets/flags/si.png", nativeName: "Slovenščina"),
-    Language(name: "Spanish", flag: "assets/flags/es.png", nativeName: "Español"),
-    Language(name: "Swahili", flag: "assets/flags/ke.png", nativeName: "Kiswahili"),
-    Language(name: "Swedish", flag: "assets/flags/se.png", nativeName: "Svenska"),
-    Language(name: "Thai", flag: "assets/flags/th.png", nativeName: "ไทย"),
-    Language(name: "Turkish", flag: "assets/flags/tr.png", nativeName: "Türkçe"),
-    Language(name: "Ukrainian", flag: "assets/flags/ua.png", nativeName: "Українська"),
-    Language(name: "Urdu", flag: "assets/flags/pk.png", nativeName: "اردو"),
-    Language(name: "Vietnamese", flag: "assets/flags/vn.png", nativeName: "Tiếng Việt"),
-    Language(name: "Welsh", flag: "assets/flags/gb-wls.png", nativeName: "Cymraeg"),
-    Language(name: "Zulu", flag: "assets/flags/za.png", nativeName: "isiZulu"),
+    Language(name: "Afrikaans",  nativeName: "Afrikaans"),
+    Language(name: "Amharic",  nativeName: "አማርኛ"),
+    Language(name: "Arabic", nativeName: "العربية"),
+    Language(name: "Aymara", nativeName: "Aymar"),
+    Language(name: "Azerbaijani",  nativeName: "Azərbaycanca"),
+    Language(name: "Belarusian",  nativeName: "Беларуская"),
+    Language(name: "Bulgarian",  nativeName: "Български"),
+    Language(name: "Bislama",  nativeName: "Bislama"),
+    Language(name: "Bengali",nativeName: "বাংলা"),
+    Language(name: "Bosnian",  nativeName: "Bosanski"),
+    Language(name: "Catalan",  nativeName: "Català"),
+    Language(name: "Chinese",  nativeName: "中文"),
+    Language(name: "Croatian", nativeName: "Hrvatski"),
+    Language(name: "Czech",  nativeName: "Čeština"),
+    Language(name: "Danish",  nativeName: "Dansk"),
+    Language(name: "Dutch",  nativeName: "Nederlands"),
+    Language(name: "English", nativeName: "English"),
+    Language(name: "Estonian", nativeName: "Eesti"),
+    Language(name: "Finnish",  nativeName: "Suomi"),
+    Language(name: "French",  nativeName: "Français"),
+    Language(name: "German",  nativeName: "Deutsch"),
+    Language(name: "Greek",  nativeName: "Ελληνικά"),
+    Language(name: "Hebrew", nativeName: "עברית"),
+    Language(name: "Hindi",  nativeName: "हिन्दी"),
+    Language(name: "Hungarian", nativeName: "Magyar"),
+    Language(name: "Icelandic", nativeName: "Íslenska"),
+    Language(name: "Indonesian", nativeName: "Bahasa Indonesia"),
+    Language(name: "Italian",  nativeName: "Italiano"),
+    Language(name: "Japanese", nativeName: "日本語"),
+    Language(name: "Kazakh",  nativeName: "Қазақ тілі"),
+    Language(name: "Korean",  nativeName: "한국어"),
+    Language(name: "Latvian", nativeName: "Latviešu"),
+    Language(name: "Lithuanian", nativeName: "Lietuvių"),
+    Language(name: "Macedonian", nativeName: "Македонски"),
+    Language(name: "Malay",  nativeName: "Bahasa Melayu"),
+    Language(name: "Norwegian", nativeName: "Norsk"),
+    Language(name: "Persian",  nativeName: "فارسی"),
+    Language(name: "Polish",  nativeName: "Polski"),
+    Language(name: "Portuguese", nativeName: "Português"),
+    Language(name: "Romanian",  nativeName: "Română"),
+    Language(name: "Russian",  nativeName: "Русский"),
+    Language(name: "Serbian",  nativeName: "Српски"),
+    Language(name: "Slovak",  nativeName: "Slovenčina"),
+    Language(name: "Slovenian", nativeName: "Slovenščina"),
+    Language(name: "Spanish",  nativeName: "Español"),
+    Language(name: "Swahili",  nativeName: "Kiswahili"),
+    Language(name: "Swedish",  nativeName: "Svenska"),
+    Language(name: "Thai",  nativeName: "ไทย"),
+    Language(name: "Turkish", nativeName: "Türkçe"),
+    Language(name: "Ukrainian", nativeName: "Українська"),
+    Language(name: "Urdu",  nativeName: "اردو"),
+    Language(name: "Vietnamese", nativeName: "Tiếng Việt"),
+    Language(name: "Welsh",  nativeName: "Cymraeg"),
+    Language(name: "Zulu",  nativeName: "isiZulu"),
   ];
 
   @override
-    Set<String> selectedLanguages = {};
+    List<String> selectedLanguages = [];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,13 +87,23 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text('Landmark name',style: TextStyle(fontWeight: FontWeight.w600),),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Which languages should the guide speak?',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -126,17 +135,20 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed:selectedLanguages.isNotEmpty ? () {
                    Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => TravelInfo()),
   );
-                },
-                child: Text('Next', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17)),
+                }:(){ ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Please, select your language')));
+      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kmaincolor, 
                   minimumSize: Size.fromHeight(50), 
                 ),
+
+                child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),
               ),
             ),
           ],

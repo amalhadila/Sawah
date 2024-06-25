@@ -6,6 +6,7 @@ import 'package:graduation/auth/screens/profile_screen.dart';
 import 'package:graduation/auth/screens/sign_in_screen.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
+import 'package:graduation/features/guide/presentation/views/widgets/tours_list.dart';
 import 'package:graduation/features/landmarks/data/model/categories_model.dart';
 import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 import 'package:graduation/features/landmarks/presentation/views/Landmarks_view.dart';
@@ -44,7 +45,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/IntroductionScreenView',
+          path: '/',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -67,6 +68,7 @@ abstract class AppRouter {
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
 
+ GoRoute(path: '/f', builder: (context, state) => TourListScreen()),
       GoRoute(
           path: '/ChatScreen',
           builder:(context, state) {final List<String> extras = state.extra as List<String>;
@@ -76,7 +78,7 @@ abstract class AppRouter {
           
           return ChatScreen(roomid: roomId, userId: userId,name:name);}),    
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
-            GoRoute(path: '/', builder: (context, state) => Createtourview()),
+            GoRoute(path: '/Createtourview', builder: (context, state) => Createtourview()),
 
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),

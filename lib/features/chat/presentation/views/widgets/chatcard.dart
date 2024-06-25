@@ -58,14 +58,14 @@ trailing: StreamBuilder(
   },
 ),
           title: Text(chatroom.name.toString(),
-    style: TextStyle(
+    style: const TextStyle(
                color: ksecondcolor,fontWeight: FontWeight.bold)),
           subtitle:Text(chatroom.lastMessage == ""
-      ? 'send message'
+      ? 'send a message'
     : chatroom.lastMessage!
     ,maxLines: 1,
     overflow: TextOverflow.ellipsis,
-    style: TextStyle(
+    style: const TextStyle(
                color: ksecondcolor)),
          ),
     );

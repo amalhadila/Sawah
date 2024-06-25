@@ -130,7 +130,7 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                   );
                 },
               ),
-              ReviewPage(landmarkmodel: widget.landmarkmodel), // Pass the actual landmark model instance
+            //  ReviewPage(landmarkmodel: widget.landmarkmodel), // Pass the actual landmark model instance
             ],
           ),
         ),

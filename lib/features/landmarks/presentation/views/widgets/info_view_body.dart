@@ -25,8 +25,7 @@ class InfViewBody extends StatelessWidget {
                 infoimg(
                   imageslink:
                       (landmarkoncatModel?.images ?? mostVisitedModel?.images)!,
-                  imagecoverlink: (landmarkoncatModel?.imageCover ??
-                      mostVisitedModel?.imageCover)!,
+                  
                 ),
                 LocationWidget(
                   name: (landmarkoncatModel?.name ?? mostVisitedModel?.name)!,

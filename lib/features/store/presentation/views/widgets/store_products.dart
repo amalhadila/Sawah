@@ -4,7 +4,7 @@ import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/product_cat_cubit.dart';
-import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
+import 'package:graduation/features/store/presentation/views/widgets/listview.dart';
 
 class store_product extends StatefulWidget {
   store_product({Key? key}) : super(key: key);
