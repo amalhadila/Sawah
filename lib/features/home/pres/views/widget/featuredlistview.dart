@@ -23,7 +23,7 @@ class feturedcustemlist extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: CustomCard(
-                    img: state.MostVisitedlist[index].imageCover!,
+                    img: state.MostVisitedlist[index].images![0],
                     text: state.MostVisitedlist[index].name!,
                     location:
                         state.MostVisitedlist[index].location!.governorate!,

@@ -40,9 +40,9 @@ class _productCardState extends State<productCard> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     // Define your responsive font sizes here
-    double titleFontSize = screenWidth * 0.04;
-    double priceFontSize = screenWidth * 0.038;
-    double ratingFontSize = screenWidth * 0.038;
+    double titleFontSize = screenWidth * 0.038;
+    double priceFontSize = screenWidth * 0.036;
+    double ratingFontSize = screenWidth * 0.036;
 
     return GestureDetector(
       onTap: widget.ontap,
@@ -81,8 +81,8 @@ class _productCardState extends State<productCard> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/img/landmarks/pyramids2.jpg',
+                          child: Image.network(
+                            widget.imglink,
                             height: screenHeight * .16,
                             width: screenWidth * .38,
                             fit: BoxFit.cover,
@@ -118,7 +118,7 @@ class _productCardState extends State<productCard> {
                     ),
                     SizedBox(width: 15),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
@@ -129,12 +129,14 @@ class _productCardState extends State<productCard> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
+                              
                               color: ksecondcolor,
                               fontSize: titleFontSize,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
+                        const SizedBox(height: 7),
                         Container(
                           width: screenWidth *
                               0.4, 
@@ -181,6 +183,7 @@ class _productCardState extends State<productCard> {
                             ],
                           ),
                        ] ),),
+                       const SizedBox(height: 6),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
 import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';

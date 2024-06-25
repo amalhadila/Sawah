@@ -55,9 +55,9 @@ class ProductGrid extends StatelessWidget {
             productCard(
               address1:productList[index].locations,
               id: productList[index].id!,
-              imglink: 'assets/img/landmarks/pyramids2.jpg',
+              imglink: productList[index].images[0],
               info: product.description,
-              rating: product.rating != null ? product.rating!.round() : null, // Convert double? to int?
+              rating: product.rating != null ? product.rating!.round() : null, 
               text: product.name ?? 'Unknown Product',
               price: product.price ?? 0, // Default value if price is null
               ontap: () => GoRouter.of(context).push('/productinfo', extra: product),

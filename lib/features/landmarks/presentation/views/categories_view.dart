@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/features/categories/presentation/views/widgets/categories_view_body.dart';
+import 'package:graduation/features/landmarks/presentation/views/widgets/categories_view_body.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});

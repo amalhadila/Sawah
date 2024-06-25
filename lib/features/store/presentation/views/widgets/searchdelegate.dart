@@ -68,8 +68,8 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                         ),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(5),
-                                          child: Image.asset(
-                                            'assets/img/landmarks/pyramids2.jpg',
+                                          child: Image.network(
+                                            product.images[0],
                                             height:
                                                 MediaQuery.sizeOf(context).height *
                                                     .1,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
-import 'package:graduation/features/categories/presentation/views/widgets/customcard.dart';
+import 'package:graduation/features/landmarks/presentation/views/widgets/customcard.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit_state.dart';
 

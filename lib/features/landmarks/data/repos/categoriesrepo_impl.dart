@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:graduation/core/errors/failures.dart';
 import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/categories/data/model/categories_model.dart';
-import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/categories/data/repos/categories_repo.dart';
+import 'package:graduation/features/landmarks/data/model/categories_model.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/data/repos/categories_repo.dart';
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 
 class CategoriesRepoImpl implements CategoriesRepo {
@@ -16,7 +16,6 @@ class CategoriesRepoImpl implements CategoriesRepo {
   Future<Either<Failure, List<CategoriesModel>>> fetchCategories() async {
     try {
       var data = await apiService.get(endpoint: 'categories');
-      print(data['data']['docs']);
       List<CategoriesModel> categorydata = [];
       for (var item in data['data']['docs']) {
         categorydata.add(CategoriesModel.fromJson(item));
@@ -36,7 +35,6 @@ class CategoriesRepoImpl implements CategoriesRepo {
     try {
       var data = await apiService.get(
           endpoint: 'categories/$categoryId/landmarks?sort=rating');
-      print(data['data']['docs']);
 
       List<LandmarkOnCatModel> landmarkdata = [];
       for (var item in data['data']['docs']) {
@@ -55,7 +53,6 @@ class CategoriesRepoImpl implements CategoriesRepo {
   Future<Either<Failure, List<MostVisitedModel>>> fetchmostvisited() async {
     try {
       var data = await apiService.get(endpoint: 'landmarks/most-visited');
-      print(data['data']['landmarks']);
 
       List<MostVisitedModel> mostvisiteddata = [];
       for (var item in data['data']['landmarks']) {
@@ -73,7 +70,6 @@ class CategoriesRepoImpl implements CategoriesRepo {
     try {
       var data = await apiService.get(
           endpoint: 'reviews');
-      print(data['data']['landmarks']);
 
       List<MostVisitedModel> mostvisiteddata = [];
       for (var item in data['data']['landmarks']) {

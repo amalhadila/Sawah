@@ -19,8 +19,8 @@ class infoimg extends StatelessWidget {
         height: MediaQuery.of(context).size.height * .31,
         child: CarouselSlider(
             items: imageslink!.map((image) {
-              return Image.asset(
-                'assets/img/landmarks/$image',
+              return Image.network(
+                image,
                 fit: BoxFit.cover,
                 width: double.infinity,
               );

@@ -43,7 +43,15 @@ class ServerFailure extends Failure {
       } else {
         return ServerFailure('Unauthorized request');
       }
-    } else {
+    } 
+    else if (response is Map && response.keys.contains("errors")) {
+      return ServerFailure(response['errors'] is String
+          ? response['errors']
+          : response['errors'].values.first is String
+              ? response['errors'].values.first
+              : response['errors'].values.first.first);
+              }
+              else {
       return ServerFailure('There was an error, please try again');
     }
   }

@@ -8,7 +8,7 @@ class Product extends Equatable {
   final String? name;
   final String? description;
   final int? duration;
-  final List<dynamic>? images;
+  final List<dynamic> images;
   final List<Location>? locations;
   final int? price;
   final int? maxGroupSize;
@@ -26,8 +26,8 @@ class Product extends Equatable {
     this.id,
     this.name,
     this.description,
-    this.duration,
-    this.images,
+     this.duration,
+    required this.images,
     this.locations,
     this.price,
     this.maxGroupSize,
@@ -48,7 +48,7 @@ class Product extends Equatable {
       name: json['name'] as String?,
       description: json['description'] as String?,
       duration: json['duration'] as int?,
-      images: (json['images'] as List<dynamic>?)?.cast<String>(),
+      images: (json['images'] as List<dynamic>).cast<String>(),
       locations: (json['locations'] as List<dynamic>?)
           ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
           .toList(),

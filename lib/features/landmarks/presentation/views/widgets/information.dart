@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/categories/presentation/manger/more_info_cubit/more_info_cubit.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/presentation/manger/more_info_cubit/more_info_cubit.dart';
 import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 
 class Information extends StatefulWidget {
