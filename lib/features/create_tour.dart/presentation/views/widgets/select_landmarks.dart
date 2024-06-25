@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(tour_guide());
-}
-
 class tour_guide extends StatelessWidget {
   const tour_guide({super.key});
 
