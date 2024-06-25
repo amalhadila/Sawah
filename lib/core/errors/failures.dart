@@ -36,10 +36,12 @@ class ServerFailure extends Failure {
     if (statusCode == 404) {
       return ServerFailure('Your request was not found, please try later');
     } else if (statusCode == 500) {
-      return ServerFailure('There is a problem with the server, please try later');
+      return ServerFailure(
+          'There is a problem with the server, please try later');
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       if (response != null && response is Map<String, dynamic>) {
-        return ServerFailure(response['error']['message'] ?? 'Unauthorized request');
+        return ServerFailure(
+            response['error']['message'] ?? 'Unauthorized request');
       } else {
         return ServerFailure('Unauthorized request');
       }

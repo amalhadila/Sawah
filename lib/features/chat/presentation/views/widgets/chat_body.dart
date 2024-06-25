@@ -10,7 +10,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key, required this.roomid, required this.userId,required this.name});
+  ChatScreen(
+      {super.key,
+      required this.roomid,
+      required this.userId,
+      required this.name});
   String roomid;
   String userId;
   String name;
@@ -42,7 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
           //     .sendMessage(roomId: widget.roomid, msg: message);
           // print('Message ID: $messageId');
 
-          imageUrl = await FireStorage().sendImage(imageFile,widget.roomid,'Image');
+          imageUrl =
+              await FireStorage().sendImage(imageFile, widget.roomid, 'Image');
           print('Image URL: $imageUrl');
 
           // await FirebaseFirestore.instance
@@ -61,8 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
           _imageFile = null; // Clear the selected image after upload
         });
       } else {
-        await FireData()
-            .sendMessage(roomId: widget.roomid, msg: message);
+        await FireData().sendMessage(roomId: widget.roomid, msg: message);
       }
 
       _messageController.clear();
@@ -83,10 +87,11 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: 
-            Text(widget.name,style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),),            
-         
+        title: Text(
+          widget.name,
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -101,7 +106,8 @@ class _ChatScreenState extends State<ChatScreen> {
           widget.selectedmsg.isNotEmpty
               ? IconButton(
                   onPressed: () async {
-                    await FireData().deleteMessages(widget.roomid, widget.selectedmsg);
+                    await FireData()
+                        .deleteMessages(widget.roomid, widget.selectedmsg);
                     widget.selectedmsg.clear();
                   },
                   icon: const Icon(Iconsax.trash),

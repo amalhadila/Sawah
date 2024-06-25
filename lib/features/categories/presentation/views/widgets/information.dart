@@ -7,7 +7,8 @@ import 'package:graduation/features/categories/presentation/manger/more_info_cub
 import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 
 class Information extends StatefulWidget {
-  const Information({Key? key, required this.text, required this.landmarkmodel}) : super(key: key);
+  const Information({Key? key, required this.text, required this.landmarkmodel})
+      : super(key: key);
 
   final String text;
   final LandmarkOnCatModel landmarkmodel;
@@ -16,7 +17,8 @@ class Information extends StatefulWidget {
   _InformationState createState() => _InformationState();
 }
 
-class _InformationState extends State<Information> with SingleTickerProviderStateMixin {
+class _InformationState extends State<Information>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool showFullText = false;
 
@@ -48,18 +50,17 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
           onTap: (value) {
             setState(() {});
           },
-          tabs: const [
+          tabs: [
             Tab(
               child: Text(
                 '   Information  ',
-                style: TextStyle(color: Colors.amber,fontSize: 18),
+                style: Textstyle.textStyle15.copyWith(color: kmaincolor),
               ),
             ),
             Tab(
               child: Text(
                 '     Reviews    ',
-                  style: TextStyle(color: Colors.amber,fontSize: 18),
-                
+                style: Textstyle.textStyle15.copyWith(color: kmaincolor),
               ),
             ),
           ],
@@ -80,7 +81,8 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                     );
                   }
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 14),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,7 +102,10 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                                 fontWeight: FontWeight.w400, height: 1.5),
                           ),
                         ),
-                        if (BlocProvider.of<MoreInfoCubit>(context).showView_more_Details == true && !showFullText)
+                        if (BlocProvider.of<MoreInfoCubit>(context)
+                                    .showView_more_Details ==
+                                true &&
+                            !showFullText)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: TextButton(
@@ -108,7 +113,8 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                                 setState(() {
                                   showFullText = true;
                                 });
-                                BlocProvider.of<MoreInfoCubit>(context).viewmore(
+                                BlocProvider.of<MoreInfoCubit>(context)
+                                    .viewmore(
                                   text: widget.text,
                                   showmore: showFullText,
                                 );
@@ -118,8 +124,10 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text('View more Details', style: Textstyle.viewmoretext),
-                                    Icon(Icons.keyboard_arrow_down, color: Color(0xff00A2D5)),
+                                    Text('View more Details',
+                                        style: Textstyle.viewmoretext),
+                                    Icon(Icons.keyboard_arrow_down,
+                                        color: Color(0xff00A2D5)),
                                   ],
                                 ),
                               ),
@@ -130,7 +138,9 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                   );
                 },
               ),
-              ReviewPage(landmarkmodel: widget.landmarkmodel), // Pass the actual landmark model instance
+              ReviewPage(
+                  landmarkmodel: widget
+                      .landmarkmodel), // Pass the actual landmark model instance
             ],
           ),
         ),

@@ -109,16 +109,17 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/getca
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async { 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.notification!.body}");
 }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   requestNotificationPermission();
-  
+  requestNotificationPermission();
+
   FirebaseMessaging.instance.requestPermission();
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
@@ -127,17 +128,17 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
     print('Message data: ${message.notification?.title}');
-    
+
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
   });
-  
+
   //final fcmToken = await FirebaseMessaging.instance.getToken();
   //print('Message data: $fcmToken');
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    messaging.subscribeToTopic("news");
+  messaging.subscribeToTopic("news");
   await CacheHelper().init();
   final Dio dio = Dio();
   runApp(
@@ -195,14 +196,11 @@ class Sawah extends StatelessWidget {
               FetchwishlistCubit(ProcatRepoImple(ApiService(dio)))
                 ..fetchwishlist(),
         ),
-         BlocProvider(
-          create: (context) =>
-              ProductbyidCubit(ProcatRepoImple(ApiService(dio)))
-                
-        ),
         BlocProvider(
-          create: (context) =>
-              ReviewCubit(Revwrepoimp(ApiService(dio))),
+            create: (context) =>
+                ProductbyidCubit(ProcatRepoImple(ApiService(dio)))),
+        BlocProvider(
+          create: (context) => ReviewCubit(Revwrepoimp(ApiService(dio))),
         ),
         BlocProvider(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(dio))),
@@ -214,7 +212,8 @@ class Sawah extends StatelessWidget {
           create: (context) =>
               GetcartitemsCubit(ProcatRepoImple(ApiService(dio)))
                 ..fetchcartitems(),
-        ), BlocProvider(
+        ),
+        BlocProvider(
           create: (context) =>
               AddtowishlistCubit(ProcatRepoImple(ApiService(dio))),
         ),

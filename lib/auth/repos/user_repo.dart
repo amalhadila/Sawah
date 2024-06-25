@@ -33,7 +33,7 @@ class UserRepository {
       final decodedToken = JwtDecoder.decode(user.token);
       log(decodedToken['id']);
       CacheHelper().saveData(key: apikey.token, value: user.token);
-      CacheHelper().saveData(key: apikey.id, value: decodedToken[apikey.id]); 
+      CacheHelper().saveData(key: apikey.id, value: decodedToken[apikey.id]);
       return Right(user);
     } on Failure catch (e) {
       return Left(e.toString());
@@ -65,7 +65,8 @@ class UserRepository {
 
   Future<Either<String, userdatamodel>> getUser() async {
     try {
-      final response = await diocosumer.get(endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
+      final response = await diocosumer.get(
+          endPoint.getUserDataEndPoint(CacheHelper().getData(key: apikey.id)));
       return Right(userdatamodel.fromJson(response));
     } on Failure catch (e) {
       log('GetUser Error: ${e.toString()}');

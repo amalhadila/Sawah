@@ -36,6 +36,7 @@ class GetUserFailure extends UserState {
   final String errorMessage;
   GetUserFailure(this.errorMessage);
 }
+
 class Updatephotoloading extends UserState {}
 
 class Updatephotoscuess extends UserState {

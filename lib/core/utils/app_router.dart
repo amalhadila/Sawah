@@ -17,6 +17,7 @@ import 'package:graduation/features/home/data/models/most_visited_model/most_vis
 import 'package:graduation/features/introduction_screen/presentation/views/introduction_screen_view.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
 import 'package:graduation/features/search/presentation/views/notfound_page_view.dart';
+import 'package:graduation/features/search/presentation/views/searchpage.dart';
 import 'package:graduation/features/search/presentation/views/widgets/search_view_body.dart';
 import 'package:graduation/features/search/splahview.dart';
 import 'package:graduation/features/store/data/product/product.dart';
@@ -65,24 +66,28 @@ abstract class AppRouter {
       GoRoute(
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
-
       GoRoute(
           path: '/ChatScreen',
-          builder:(context, state) {final List<String> extras = state.extra as List<String>;
-          final String roomId = extras[0];
-          final String userId = extras[1];
-          final String name = extras[2];
-          
-          return ChatScreen(roomid: roomId, userId: userId,name:name);}),    
+          builder: (context, state) {
+            final List<String> extras = state.extra as List<String>;
+            final String roomId = extras[0];
+            final String userId = extras[1];
+            final String name = extras[2];
+
+            return ChatScreen(roomid: roomId, userId: userId, name: name);
+          }),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),
       GoRoute(
           path: '/profilesrean', builder: (context, state) => ProfileScreen()),
       GoRoute(
+          path: '/searchpage',
+          builder: (context, state) => CustomSearchField()),
+      GoRoute(
           path: '/BookingPage',
           builder: (context, state) => BookingPage(
-                product: state.extra as Product ,
+                product: state.extra as Product,
               )),
       GoRoute(
           path: '/productinfo',

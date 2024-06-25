@@ -25,7 +25,6 @@ class UserCubit extends Cubit<UserState> {
     profilepic = image;
     emit(Updatephotoloading());
   }
-  
 
   Future<void> signIn() async {
     emit(SignInLoading());

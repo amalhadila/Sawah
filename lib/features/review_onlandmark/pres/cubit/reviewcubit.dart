@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
-import 'dart:developer';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
-
 class ReviewCubit extends Cubit<ReviewState> {
   final Revwrepoimp reviewRepo;
 
@@ -59,6 +54,7 @@ class ReviewCubit extends Cubit<ReviewState> {
   Future<void> getallReviewsonlandmark({
     required String id,
   }) async {
+    log('dddddd');
     emit(GetReviewLoading());
 
     try {
@@ -69,45 +65,45 @@ class ReviewCubit extends Cubit<ReviewState> {
       result.fold(
         (failure) {
           emit(GetReviewFailure(failure.toString()));
+          log('fail state ffffffff');
         },
         (reviews) {
           emit(GetReviewSuccess(reviews));
+          log('scusses state eeeeeeeee');
         },
       );
-    } catch (error) {
-      emit(GetReviewFailure(error.toString()));
+    } catch (eror) {
+      emit(GetReviewFailure(eror.toString()));
     }
-  }
 
+    Future<void> postReviewsontour({
+      required String tourid,
+      required String reviewType,
+      required String comment,
+    }) async {
+      emit(AddReviewLoading());
 
+      try {
+        final result = await reviewRepo.postReviewsontour(
+          rating: rating,
+          comment: comment, // Use the parameter 'comment'
+          tourid: tourid,
+          reviewType: reviewType,
+        );
 
-  Future<void> postReviewsontour({
-    required String tourid,
-    required String reviewType,
-    required String comment,
-  }) async {
-    emit(AddReviewLoading());
-
-    try {
-      final result = await reviewRepo.postReviewsontour(
-        rating: rating,
-        comment: comment, // Use the parameter 'comment'
-        tourid: tourid,
-        reviewType: reviewType,
-      );
-
-      result.fold(
-        (failure) => emit(AddReviewFailure(failure.toString())),
-        (_) => emit(AddReviewSuccess()),
-      );
-    } catch (error) {
-      emit(AddReviewFailure(error.toString()));
+        result.fold(
+          (failure) => emit(AddReviewFailure(failure.toString())),
+          (_) => emit(AddReviewSuccess()),
+        );
+      } catch (error) {
+        emit(AddReviewFailure(error.toString()));
+      }
     }
-  }
 
-  @override
-  Future<void> close() {
-    commentController.dispose();
-    return super.close();
+    @override
+    Future<void> close() {
+      commentController.dispose();
+      return super.close();
+    }
   }
 }

@@ -6,45 +6,83 @@ import 'package:go_router/go_router.dart';
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double drawerHeight = MediaQuery.of(context).size.height;
+    double headerHeight = drawerHeight * 0.34;
+
     return Drawer(
       child: ListView(
         dragStartBehavior: DragStartBehavior.start,
         padding: EdgeInsets.zero,
         children: <Widget>[
-          SizedBox(
-              height: MediaQuery.of(context).size.height * .32,
-              // width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'assets/be563d7bfaefe67696fab70f7524d5b1.gif',
-                fit: BoxFit.fill,
-                width: double.infinity,
-              )),
+          Container(
+            height: headerHeight,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/be563d7bfaefe67696fab70f7524d5b1.gif',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 16,
+                  child: GestureDetector(
+                    onTap: () => GoRouter.of(context).push('/profilesrean'),
+                    child: CircleAvatar(
+                      radius: 45,
+                      backgroundColor: Colors.white,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/egypt-pyramid_8330589.png',
+                          width: 90,
+                          height: 90,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * .04,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDrawerItem(
-                icon: Icons.language,
-                text: 'drawer.language'.tr(),
-                // onTap: () {
-                //   // Add functionality to rate the app
-                // },
+              InkWell(
+                onTap: () {
+                  if (EasyLocalization.of(context)!.currentLocale ==
+                      const Locale('en')) {
+                    EasyLocalization.of(context)!.setLocale(const Locale('ar'));
+                  } else {
+                    EasyLocalization.of(context)!.setLocale(const Locale('en'));
+                  }
+                },
+                child: _buildDrawerItem(
+                  icon: Icons.language,
+                  text: 'drawer.language'.tr(),
+                ),
               ),
               _buildDrawerItem(
                 icon: Icons.share,
                 text: 'drawer.share'.tr(),
-                // onTap: () {
-                //   // Add functionality to share the app
-                // },
+                onTap: () {
+                  // Add functionality to share the app
+                },
               ),
               _buildDrawerItem(
                 icon: Icons.star,
                 text: 'drawer.rate'.tr(),
-                // onTap: () {
-                //   // Add functionality to share the app
-                // },
+                onTap: () {
+                  // Add functionality to rate the app
+                },
               ),
               InkWell(
                 onTap: () => GoRouter.of(context).push('/contactus'),
@@ -54,25 +92,16 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
             ],
-          )
-
-          // Add more options as needed
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDrawerHeader() {
-    // You can customize this header according to your design
-    return Column(
-      children: [Image.asset('assets/be563d7bfaefe67696fab70f7524d5b1.gif')],
     );
   }
 
   Widget _buildDrawerItem({
     required IconData icon,
     required String text,
-    /* Function onTap*/
+    Function()? onTap,
   }) {
     return ListTile(
       leading: Icon(
@@ -89,7 +118,7 @@ class CustomDrawer extends StatelessWidget {
           letterSpacing: 0,
         ),
       ),
-      // onTap: onTap,
+      onTap: onTap,
     );
   }
 }

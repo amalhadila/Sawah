@@ -7,8 +7,6 @@ class ChathomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kbackgroundcolor,
-      body:  ChatHomeScreen());
+    return Scaffold(backgroundColor: kbackgroundcolor, body: ChatHomeScreen());
   }
 }

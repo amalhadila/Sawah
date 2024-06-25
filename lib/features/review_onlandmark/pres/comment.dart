@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
 import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
 import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
@@ -24,94 +25,90 @@ class _ReviewPageState extends State<ReviewPage> {
   double _rating = 0.0;
 
   @override
+  void initState() {
+    super.initState();
+    context.read<ReviewCubit>().getallReviewsonlandmark(
+          id: widget.landmarkmodel.id!,
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ReviewCubit(Revwrepoimp(ApiService(Dio()))),
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Container(
-                height: 80,
-                child: TextField(
-                  controller: _commentController,
-                  decoration: InputDecoration(
-                    labelText: "Enter your comment",
-                    border: OutlineInputBorder(),
-                  ),
-                  maxLines: 3,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              child: TextField(
+                controller: _commentController,
+                decoration: InputDecoration(
+                  labelText: "Enter your comment",
+                  border: OutlineInputBorder(),
                 ),
+                maxLines: 3,
               ),
-              SizedBox(height: 10),
-              Container(
-                height: 40,
-                child: RatingBar.builder(
-                  initialRating: 0,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: 20,
-                  ),
-                  onRatingUpdate: (rating) {
-                    setState(() {
-                      _rating = rating;
-                    });
-                    context.read<ReviewCubit>().updateRating(rating);
-                  },
+            ),
+            SizedBox(height: 10),
+            Container(
+              height: 40,
+              child: RatingBar.builder(
+                initialRating: 0,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 20,
                 ),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<ReviewCubit>().getallReviewsonlandmark(
-                        id: widget.landmarkmodel.id!,
-                      );
-                  context.read<ReviewCubit>().addReviewonlandmark(
-                        landmarkid: widget.landmarkmodel.id!,
-                        reviewType: 'Landmark',
-                        comment: _commentController.text,
-                      );
+                onRatingUpdate: (rating) {
+                  setState(() {
+                    _rating = rating;
+                  });
+                  context.read<ReviewCubit>().updateRating(rating);
                 },
-                child: Text("Submit Review"),
               ),
-              SizedBox(height: 20),
-              Expanded(
-                child: BlocBuilder<ReviewCubit, ReviewState>(
-                  builder: (context, state) {
-                    if (state is GetReviewSuccess) {
-                      log('GetReviewSuccess state');
-                      return Text(state.toString());
-                      // return ListView.builder(
-                      //   itemCount: state.reviews.first.data.length,
-                      //   itemBuilder: (context, index) {
-                      //     return ReviewWidget(review: state.reviews.first.data[index]);
-                      //   },
-                      // );
-                    } else if (state is AddReviewFailure) {
-                      log('AddReviewFailure state: ${state.errorMessage}');
-                      return Center(
-                          child: Text(
-                              'Error submitting review: ${state.errorMessage}'));
-                    } else if (state is GetReviewFailure) {
-                      log('GetReviewFailure state: ${state.errorMessage}');
-                      return Center(
-                          child: Text(
-                              'Error fetching reviews: ${state.errorMessage}'));
-                    } else {
-                      log('Loading state');
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                context.read<ReviewCubit>().addReviewonlandmark(
+                      landmarkid: widget.landmarkmodel.id!,
+                      reviewType: 'Landmark',
+                      comment: _commentController.text,
+                    );
+              },
+              child: Text("Submit Review"),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: BlocBuilder<ReviewCubit, ReviewState>(
+                builder: (context, state) {
+                  if (state is GetReviewSuccess) {
+                    log('GetReviewSuccess state');
+                    return ListView.builder(
+                      itemCount: state.reviews.length,
+                      itemBuilder: (context, index) {
+                        return ReviewWidget(review: state.reviews[index]);
+                      },
+                    );
+                  } else if (state is GetReviewFailure) {
+                    log('GetReviewFailure state: ${state.errorMessage}');
+                    return Center(
+                        child: Text(
+                            'Error fetching reviews: ${state.errorMessage}'));
+                  } else {
+                    log('Loading state');
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -119,7 +116,7 @@ class _ReviewPageState extends State<ReviewPage> {
 }
 
 class ReviewWidget extends StatelessWidget {
-  final ReviewData review;
+  final GetReviewModel review;
 
   ReviewWidget({required this.review});
 
@@ -143,11 +140,11 @@ class ReviewWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      review.user.name,
+                      review.user?.name ?? 'Unknown',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${DateTime.parse(review.createdAt).toLocal()}"
+                      "${review.createdAt?.toLocal()}"
                           .split(' ')[0],
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -157,7 +154,7 @@ class ReviewWidget extends StatelessWidget {
             ),
             SizedBox(height: 10),
             RatingBarIndicator(
-              rating: review.rating,
+              rating: review.rating ?? 0,
               itemBuilder: (context, index) => Icon(
                 Icons.star,
                 color: Colors.amber,
@@ -167,7 +164,7 @@ class ReviewWidget extends StatelessWidget {
               direction: Axis.horizontal,
             ),
             SizedBox(height: 10),
-            Text(review.comment),
+            Text(review.comment ?? ''),
           ],
         ),
       ),

@@ -69,8 +69,8 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  context.read<ReviewCubit>().postReviewsontour(
-                        tourid: widget.products.id!,
+                  context.read<ReviewCubit>().addReviewonlandmark(
+                        landmarkid: widget.products.id!,
                         reviewType: 'Tour',
                         comment: _commentController
                             .text, // Ensure comment is passed here

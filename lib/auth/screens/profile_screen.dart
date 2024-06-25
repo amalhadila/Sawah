@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/auth/cubit/user_cubit.dart';
 import 'package:graduation/auth/cubit/user_state.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -24,13 +24,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 25.0),
             color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+                  icon: const Icon(Icons.arrow_back,
+                      color: Color.fromARGB(255, 146, 52, 17)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -41,10 +42,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 146, 52, 17),
                   ),
                 ),
-                Container(),
+                IconButton(
+                  onPressed: () {
+                    GoRouter.of(context).push('/ChatHomeScreen');
+                  },
+                  icon: const Icon(
+                    Icons.chat,
+                    color: Color.fromARGB(255, 146, 52, 17),
+                  ),
+                ),
               ],
             ),
           ),
@@ -68,7 +77,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: context.read<UserCubit>().profilepic == null
                               ? CircleAvatar(
                                   backgroundColor: Colors.grey.shade200,
-                                  backgroundImage: NetworkImage(user.data.photo ?? 'assets/default_avatar.png'),
+                                  backgroundImage: NetworkImage(
+                                      user.data.photo ??
+                                          'assets/default_avatar.png'),
                                   child: Stack(
                                     children: [
                                       Positioned(
@@ -76,9 +87,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         right: 75,
                                         child: GestureDetector(
                                           onTap: () async {
-                                            XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                            XFile? image = await ImagePicker()
+                                                .pickImage(
+                                                    source:
+                                                        ImageSource.gallery);
                                             if (image != null) {
-                                              context.read<UserCubit>().uploadprofilepict(image);
+                                              context
+                                                  .read<UserCubit>()
+                                                  .uploadprofilepict(image);
                                             }
                                           },
                                           child: Container(
@@ -86,8 +102,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             width: 50,
                                             decoration: BoxDecoration(
                                               color: Colors.blue.shade400,
-                                              border: Border.all(color: Colors.white, width: 3),
-                                              borderRadius: BorderRadius.circular(25),
+                                              border: Border.all(
+                                                  color: Colors.white,
+                                                  width: 3),
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
                                             ),
                                             child: const Icon(
                                               Icons.camera_alt_sharp,
@@ -101,7 +120,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 )
                               : CircleAvatar(
-                                  backgroundImage: FileImage(File(context.read<UserCubit>().profilepic!.path)),
+                                  backgroundImage: FileImage(File(context
+                                      .read<UserCubit>()
+                                      .profilepic!
+                                      .path)),
                                 ),
                         ),
                         const SizedBox(height: 16),
@@ -109,32 +131,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             ProfileMenu(
                               text: user.data.name ?? 'name',
-                              icon: "assets/cameraa.svg",
+                              icon: Icon(Icons.person,
+                                  color: Color.fromARGB(255, 146, 52, 17)),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: user.data.email ?? 'email',
-                              icon: "assets/cameraa.svg",
+                              icon: Icon(Icons.email,
+                                  color: Color.fromARGB(255, 146, 52, 17)),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: 'wishlist',
-                              icon: "assets/cameraa.svg",
-                              press: () => {},
+                              icon: Icon(Icons.favorite,
+                                  color: Color.fromARGB(255, 146, 52, 17)),
+                              press: () =>
+                                  {GoRouter.of(context).push('/wishlist')},
                             ),
                             ProfileMenu(
                               text: 'Interests',
-                              icon: "assets/cameraa.svg",
+                              icon: Icon(Icons.interests,
+                                  color: Color.fromARGB(255, 146, 52, 17)),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: 'logout',
-                              icon: "assets/cameraa.svg",
+                              icon: Icon(Icons.logout,
+                                  color: Color.fromARGB(255, 146, 52, 17)),
                               press: () => {},
                             ),
                           ],
                         ),
-                      
                       ],
                     );
                   }
@@ -157,7 +184,8 @@ class ProfileMenu extends StatelessWidget {
     this.press,
   }) : super(key: key);
 
-  final String text, icon;
+  final String text;
+  final Icon icon;
   final VoidCallback? press;
 
   @override
@@ -166,19 +194,16 @@ class ProfileMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: Color(0xFFFF7643),
+          foregroundColor: Color.fromARGB(255, 146, 52, 17),
           padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor: const Color(0xFFF5F6F9),
         ),
         onPressed: press,
         child: Row(
           children: [
-            SvgPicture.asset(
-              icon,
-              color: Color(0xFFFF7643),
-              width: 22,
-            ),
+            icon,
             const SizedBox(width: 20),
             Expanded(child: Text(text)),
             const Icon(Icons.arrow_forward_ios),
@@ -225,7 +250,7 @@ class ProfilePic extends StatelessWidget {
                   backgroundColor: const Color(0xFFF5F6F9),
                 ),
                 onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                child: Icon(Icons.camera_alt),
               ),
             ),
           ),

@@ -79,7 +79,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 3, // Changed to 3 to match the number of pages
+            itemCount: 4, // Changed to 3 to match the number of pages
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(
@@ -111,9 +111,8 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                   Icon(
                     listOfIcons[index],
                     size: size.width * .076,
-                    color: index == _selectedTab
-                        ? Colors.blueAccent
-                        : Colors.black38,
+                    color:
+                        index == _selectedTab ? Colors.orange : Colors.black38,
                   ),
                   SizedBox(height: size.width * .03),
                 ],
@@ -126,10 +125,12 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   }
 
   final List<IconData> listOfIcons = [
-    Icons.home_rounded,
     Icons.favorite_rounded,
+    Icons.home_rounded,
+
     Icons.shopping_bag_outlined,
-    Icons.settings_rounded,
+    Icons.camera_alt_rounded,
+
     // Adjust your icons based on the number of pages and the items in your bottom navigation bar
   ];
 }

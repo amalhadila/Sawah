@@ -9,9 +9,8 @@ import 'package:graduation/firebase/firedatabase.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:graduation/firebase/firedatabase.dart';
 
-
 class ChatHomeScreen extends StatefulWidget {
-   ChatHomeScreen({super.key});
+  ChatHomeScreen({super.key});
   String? token;
 
   @override
@@ -35,9 +34,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       //           final roomId = await FireData().creatRoom(
       //            // widget.products.guide!
       //            '66630d9ee76600fd06fc7eb2'
-                   
+
       //             );
-           
+
       //               GoRouter.of(context)
       //             .push('/ChatScreen',extra: [roomId,
       //             //widget.products.guide!
@@ -48,8 +47,11 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       // ),
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: const Text("Chats",style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),),
+        title: const Text(
+          "Chats",
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -74,9 +76,11 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<ChatRoom> chatrooms = snapshot.data!.docs
-  .map((e) => ChatRoom.fromJson(e.data() as Map<String, dynamic>))
-  .toList()
-  ..sort((a, b) => b.lastMessageTime!.compareTo(a.lastMessageTime!));
+                          .map((e) => ChatRoom.fromJson(
+                              e.data() as Map<String, dynamic>))
+                          .toList()
+                        ..sort((a, b) =>
+                            b.lastMessageTime!.compareTo(a.lastMessageTime!));
 
                       return ListView.builder(
                           itemCount: chatrooms.length,

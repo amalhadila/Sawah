@@ -13,7 +13,8 @@ class Product extends Equatable {
   final int? price;
   final int? maxGroupSize;
   final List<dynamic>? startDays;
-  final Guide? guide; // تم استبدال List<Guide> بـ Guide والتأكد من التطابق مع JSON
+  final Guide?
+      guide; // تم استبدال List<Guide> بـ Guide والتأكد من التطابق مع JSON
   final dynamic rating;
   final int? ratingsQuantity;
   final int? bookings;
@@ -55,14 +56,20 @@ class Product extends Equatable {
       price: json['price'] as int?,
       maxGroupSize: json['maxGroupSize'] as int?,
       startDays: (json['startDays'] as List<dynamic>?)?.cast<String>(),
-      guide: json['guide'] != null ? Guide.fromJson(json['guide'] as Map<String, dynamic>) : null,
+      guide: json['guide'] != null
+          ? Guide.fromJson(json['guide'] as Map<String, dynamic>)
+          : null,
       rating: json['rating'] as dynamic,
       ratingsQuantity: json['ratingsQuantity'] as int?,
       bookings: json['bookings'] as int?,
       slug: json['slug'] as String?,
       category: json['category'],
-      createdAt: json['createdAt'] == null ? null : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json['updatedAt'] as String),
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
     );
   }
 
@@ -90,22 +97,22 @@ class Product extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    description,
-    duration,
-    images,
-    locations,
-    price,
-    maxGroupSize,
-    startDays,
-    guide,
-    rating,
-    ratingsQuantity,
-    bookings,
-    slug,
-    category,
-    createdAt,
-    updatedAt,
-  ];
+        id,
+        name,
+        description,
+        duration,
+        images,
+        locations,
+        price,
+        maxGroupSize,
+        startDays,
+        guide,
+        rating,
+        ratingsQuantity,
+        bookings,
+        slug,
+        category,
+        createdAt,
+        updatedAt,
+      ];
 }

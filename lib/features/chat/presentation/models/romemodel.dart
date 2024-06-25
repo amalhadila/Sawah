@@ -1,6 +1,6 @@
 class ChatRoom {
   String? id;
-   String? name;
+  String? name;
   String? pushtoken;
   String? userid;
   List<String>? members;
@@ -12,7 +12,7 @@ class ChatRoom {
     required this.id,
     required this.name,
     required this.userid,
-   //  required this.pushtoken,
+    //  required this.pushtoken,
     required this.members,
     required this.lastMessage,
     required this.lastMessageTime,
@@ -27,17 +27,22 @@ class ChatRoom {
       //pushtoken: json['pushtoken'] ?? "",
       members: List<String>.from(json['members'] ?? []),
       lastMessage: json['last_message'] ?? "",
-      lastMessageTime: json['last_message_time'] != null ? DateTime.fromMillisecondsSinceEpoch(int.parse(json['last_message_time'])) : null,
-      createdAt: json['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(int.parse(json['created_at'])) : null,
+      lastMessageTime: json['last_message_time'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              int.parse(json['last_message_time']))
+          : null,
+      createdAt: json['created_at'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(int.parse(json['created_at']))
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name':name,
+      'name': name,
       'userid': userid,
-     // 'pushtoken':pushtoken,
+      // 'pushtoken':pushtoken,
       'members': members,
       'last_message': lastMessage,
       'last_message_time': lastMessageTime?.millisecondsSinceEpoch.toString(),

@@ -8,7 +8,7 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/addto
 class productCard extends StatefulWidget {
   final String imglink;
   final String id;
-   List<Location>? address1;
+  List<Location>? address1;
   final String? address2;
   final dynamic? rating;
   final String text;
@@ -24,7 +24,9 @@ class productCard extends StatefulWidget {
     this.info,
     required this.ontap,
     required this.price,
-    required this.id,   this.address1,  this.address2,
+    required this.id,
+    this.address1,
+    this.address2,
   }) : super(key: key);
 
   @override
@@ -52,21 +54,19 @@ class _productCardState extends State<productCard> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-               color: kbackgroundcolor,
-               boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 4,
-                                    offset: Offset(0, 5),
-                                    color: Color.fromARGB(64, 85, 61, 51),
-                                    spreadRadius: 0,
-                                    blurStyle: BlurStyle.normal,
-                                  ),
-                                ],
+              color: kbackgroundcolor,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 4,
+                  offset: Offset(0, 5),
+                  color: Color.fromARGB(64, 85, 61, 51),
+                  spreadRadius: 0,
+                  blurStyle: BlurStyle.normal,
+                ),
+              ],
             ),
-            
             child: Card(
               shadowColor: ksecondcolor,
-              
               color: kbackgroundcolor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -122,8 +122,7 @@ class _productCardState extends State<productCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: screenWidth *
-                              0.43, 
+                          width: screenWidth * 0.43,
                           child: Text(
                             widget.text,
                             maxLines: 2,
@@ -136,51 +135,51 @@ class _productCardState extends State<productCard> {
                           ),
                         ),
                         Container(
-                          width: screenWidth *
-                              0.4, 
-                          child: Column(
-                            children: [
+                          width: screenWidth * 0.4,
+                          child: Column(children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: klocicon,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  widget.address1![0].address!,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: ksecondcolor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (widget.address1!.length >= 2)
                               Row(
-                                  children: [
-                                    const Icon(
-                              Icons.location_on,
-                              color: klocicon,
-                              size: 18,
-                            ),
-                             SizedBox(width: 4,),
-                                    Text(
-                                      widget.address1![0].address!,
-                                      style: const TextStyle(
-                                       
-                                        fontSize: 13,
-                                        color: ksecondcolor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                children: [
+                                  const Icon(
+                                    Icons.location_on,
+                                    color: klocicon,
+                                    size: 18,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    widget.address1![1].address!,
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      color: ksecondcolor,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                            ],
-                          ),
-                              if (
-                                  widget.address1!.length >=2)
-                                Row(
-                                  children: [
-                                    const Icon(
-                              Icons.location_on,
-                              color: klocicon,
-                              size: 18,
-                            ),
-                             SizedBox(width: 4,),
-                                    Text(
-                                      widget.address1![1].address!,
-                                      style: const TextStyle(
-                                       
-                                        fontSize: 13,
-                                        color: ksecondcolor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                            ],
-                          ),
-                       ] ),),
+                                  ),
+                                ],
+                              ),
+                          ]),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -191,8 +190,7 @@ class _productCardState extends State<productCard> {
                                 style: TextStyle(
                                   fontSize: priceFontSize,
                                   color: ksecondcolor,
-                                    fontWeight: FontWeight.bold,
-                                               
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),

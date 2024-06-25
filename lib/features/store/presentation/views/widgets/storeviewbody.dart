@@ -23,7 +23,8 @@ class Storeviewbody extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    BlocProvider.of<GetcartitemsCubit>(context).fetchcartitems();
+                    BlocProvider.of<GetcartitemsCubit>(context)
+                        .fetchcartitems();
                     GoRouter.of(context).push('/CartScreen');
                   },
                   child: Icon(
@@ -37,7 +38,8 @@ class Storeviewbody extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    BlocProvider.of<FetchwishlistCubit>(context).fetchwishlist();
+                    BlocProvider.of<FetchwishlistCubit>(context)
+                        .fetchwishlist();
                     GoRouter.of(context).push('/Wishlist');
                   },
                   child: Icon(
@@ -46,7 +48,6 @@ class Storeviewbody extends StatelessWidget {
                   ),
                 ),
               ],
-              
             ),
           )
         ],
@@ -81,15 +82,12 @@ class Storeviewbody extends StatelessWidget {
                           filled: true,
                           fillColor: Color.fromARGB(255, 255, 248, 241),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProductSearchWidget(
-                                  
-                                )));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductSearchWidget()));
                         },
-                       
                       ),
                     ),
                   ],

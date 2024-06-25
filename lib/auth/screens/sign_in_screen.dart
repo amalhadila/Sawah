@@ -27,15 +27,13 @@ class SignInScreen extends StatelessWidget {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('success')));
         context.read<UserCubit>().getUserProfile();
-        
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => BottomNavigation(),
           ),
-          
         );
-        
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('fail')));
@@ -81,21 +79,24 @@ class SignInScreen extends StatelessWidget {
                             ? CircularProgressIndicator()
                             : CustomFormButton(
                                 innerText: 'Sign In',
-                                onPressed: ()async{
-                                 await context.read<UserCubit>().signIn();
-                              // await    FirebaseMessaging.instance.requestPermission();
-                              //        await FirebaseMessaging.instance.getToken().then((onValue){
-                              //       if (onValue !=null){
-                              //         print('$onValue');
-                              //         FireData().createUser(myUid,onValue);
-                              //         }
-                              //       });
-                              FirebaseMessaging.instance.requestPermission();
-                              await  FirebaseMessaging.instance.getToken().then((onValue){
-                                  if (onValue !=null){
-                                    print('$onValue');
-                                    FireData().createUser(onValue);
-                                      }
+                                onPressed: () async {
+                                  await context.read<UserCubit>().signIn();
+                                  // await    FirebaseMessaging.instance.requestPermission();
+                                  //        await FirebaseMessaging.instance.getToken().then((onValue){
+                                  //       if (onValue !=null){
+                                  //         print('$onValue');
+                                  //         FireData().createUser(myUid,onValue);
+                                  //         }
+                                  //       });
+                                  FirebaseMessaging.instance
+                                      .requestPermission();
+                                  await FirebaseMessaging.instance
+                                      .getToken()
+                                      .then((onValue) {
+                                    if (onValue != null) {
+                                      print('$onValue');
+                                      FireData().createUser(onValue);
+                                    }
                                   });
                                 },
                               );

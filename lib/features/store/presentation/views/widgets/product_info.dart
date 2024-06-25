@@ -28,7 +28,7 @@ class _ProductInfoState extends State<ProductInfo>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length:3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -139,19 +139,19 @@ class _ProductInfoState extends State<ProductInfo>
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              
                               Row(
                                 children: [
                                   const Icon(
-                              Icons.location_on,
-                              color: klocicon,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 5,),
+                                    Icons.location_on,
+                                    color: klocicon,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     widget.products.locations![0].address!,
                                     style: const TextStyle(
-                                      
                                       fontSize: 13,
                                       color: ksecondcolor,
                                       fontWeight: FontWeight.w600,
@@ -164,16 +164,17 @@ class _ProductInfoState extends State<ProductInfo>
                                 Row(
                                   children: [
                                     const Icon(
-                              Icons.location_on,
-                              color: klocicon,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 5,),
+                                      Icons.location_on,
+                                      color: klocicon,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
                                     Text(
                                       widget.products.locations![1].address!
                                           .toString(),
                                       style: const TextStyle(
-                                       
                                         fontSize: 13,
                                         color: ksecondcolor,
                                         fontWeight: FontWeight.w600,
@@ -209,15 +210,14 @@ class _ProductInfoState extends State<ProductInfo>
                                   width: 6.3,
                                 ),
                                 Text(
-                                  textAlign:TextAlign.center,
+                                  textAlign: TextAlign.center,
                                   widget.products.rating.toString(),
                                   style: const TextStyle(
-                                    color: ksecondcolor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                  ),
+                                      color: ksecondcolor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                                 const SizedBox(
+                                const SizedBox(
                                   width: 23,
                                 ),
                               ],
@@ -237,7 +237,6 @@ class _ProductInfoState extends State<ProductInfo>
                         indicatorWeight: .5,
                         dividerColor: const Color.fromARGB(255, 255, 248, 241),
                         dividerHeight: 2,
-                        
                         onTap: (value) {
                           setState(() {
                             index = value;
@@ -246,7 +245,6 @@ class _ProductInfoState extends State<ProductInfo>
                         tabs: [
                           Tab(
                               child: Text('Overview',
-                            
                                   style: Textstyle.textStyle15
                                       .copyWith(color: kmaincolor))),
                           Tab(
@@ -256,7 +254,7 @@ class _ProductInfoState extends State<ProductInfo>
                           Tab(
                               child: Text('Reviews',
                                   style: Textstyle.textStyle15
-                                      .copyWith(color: kmaincolor))),            
+                                      .copyWith(color: kmaincolor))),
                         ],
                       ),
                     ),
@@ -299,81 +297,101 @@ class _ProductInfoState extends State<ProductInfo>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-      padding: const EdgeInsets.symmetric(
-       horizontal:  2.0,vertical: 10),
-      child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/profile_picture.png'),
-            radius: 25,
-          ),
-          const SizedBox(width: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                
-                      Text(
-                         widget.products.guide!.name!,
-                        style: const TextStyle(
-                        color: ksecondcolor,
-                        fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),                 
-                      
-                    
-                  Text(
-                    widget.products.guide!.email!,
-                    style: const TextStyle(
-                      color: ksecondcolor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(width: 80,),
-              IconButton(onPressed: ()async{
-                // FirebaseMessaging.instance.requestPermission();
-                // await  FirebaseMessaging.instance.getToken().then((onValue){
-                //     if (onValue !=null){
-                //        widget.token=onValue;
-                //        FireData().createUser(onValue);
-                //     }
-                // });
-                final roomId = await FireData().creatRoom(
-                 
-                  widget.products.guide!.id!,
-                   widget.products.guide!.name!,
-                // '66630d9ee76600fd06fc7eb2'
-                  );
-           
-                    GoRouter.of(context)
-                  .push('/ChatScreen',extra: [roomId,
-                  widget.products.guide!.id!,
-                  widget.products.guide!.name!,
-                 // '66630d9ee76600fd06fc7eb2'
-                  ]);
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 2.0, vertical: 10),
+                                      child: Row(
+                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                'assets/profile_picture.png'),
+                                            radius: 25,
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    widget
+                                                        .products.guide!.name!,
+                                                    style: const TextStyle(
+                                                      color: ksecondcolor,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    widget
+                                                        .products.guide!.email!,
+                                                    style: const TextStyle(
+                                                      color: ksecondcolor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 80,
+                                              ),
+                                              IconButton(
+                                                  onPressed: () async {
+                                                    // FirebaseMessaging.instance.requestPermission();
+                                                    // await  FirebaseMessaging.instance.getToken().then((onValue){
+                                                    //     if (onValue !=null){
+                                                    //        widget.token=onValue;
+                                                    //        FireData().createUser(onValue);
+                                                    //     }
+                                                    // });
+                                                    final roomId =
+                                                        await FireData()
+                                                            .creatRoom(
+                                                      widget
+                                                          .products.guide!.id!,
+                                                      widget.products.guide!
+                                                          .name!,
+                                                      // '66630d9ee76600fd06fc7eb2'
+                                                    );
 
-                  }, icon: const Icon(Icons.chat_rounded,color: kmaincolor,))
-            ],
-          ),
-          
-        ],
-      ),
-    ),
+                                                    GoRouter.of(context).push(
+                                                        '/ChatScreen',
+                                                        extra: [
+                                                          roomId,
+                                                          widget.products.guide!
+                                                              .id!,
+                                                          widget.products.guide!
+                                                              .name!,
+                                                          // '66630d9ee76600fd06fc7eb2'
+                                                        ]);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.chat_rounded,
+                                                    color: kmaincolor,
+                                                  ))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
 // const Divider(height: 1,
 //                   thickness: 1,
 //                   color: kmaincolor,),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10.0),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
@@ -387,24 +405,25 @@ class _ProductInfoState extends State<ProductInfo>
                                                     fontWeight: FontWeight.bold,
                                                     color: kmaincolor),
                                               ),
-                                              const SizedBox(height: 10,),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
-                                                '${widget.products.duration} Days'
-                                                    ,
+                                                '${widget.products.duration} Days',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: ksecondcolor),
                                               ),
                                             ],
                                           ),
-                                           Container(
-                                                      height: 55,
-                                                      child: const VerticalDivider(
-                                                        width: 1,
-                                                        thickness: 1,
-                                                        color: kmaincolor,
-                                                      ),
-                                                    ),
+                                          Container(
+                                            height: 55,
+                                            child: const VerticalDivider(
+                                              width: 1,
+                                              thickness: 1,
+                                              color: kmaincolor,
+                                            ),
+                                          ),
                                           Column(
                                             children: [
                                               const Icon(
@@ -417,7 +436,9 @@ class _ProductInfoState extends State<ProductInfo>
                                                     fontWeight: FontWeight.bold,
                                                     color: kmaincolor),
                                               ),
-                                              const SizedBox(height: 10,),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
                                                 widget.products.maxGroupSize
                                                     .toString(),
@@ -427,14 +448,14 @@ class _ProductInfoState extends State<ProductInfo>
                                               ),
                                             ],
                                           ),
-                                            Container(
-                                                      height: 55,
-                                                      child: const VerticalDivider(
-                                                        width: 1,
-                                                        thickness: 1,
-                                                        color: kmaincolor,
-                                                      ),
-                                                    ),
+                                          Container(
+                                            height: 55,
+                                            child: const VerticalDivider(
+                                              width: 1,
+                                              thickness: 1,
+                                              color: kmaincolor,
+                                            ),
+                                          ),
                                           Column(
                                             children: [
                                               const Icon(
@@ -447,7 +468,9 @@ class _ProductInfoState extends State<ProductInfo>
                                                     fontWeight: FontWeight.bold,
                                                     color: kmaincolor),
                                               ),
-                                              const SizedBox(height: 10,),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
                                                 widget.products.startDays![0]
                                                     .toString(),
@@ -478,9 +501,7 @@ class _ProductInfoState extends State<ProductInfo>
                               ),
                             ),
                           ),
-                          const SingleChildScrollView(
-                           child:  Text('reviews')
-                          )
+                          Rviewpagefortour(products: widget.products!),
                         ],
                       ),
                     ),

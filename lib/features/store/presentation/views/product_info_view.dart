@@ -22,7 +22,6 @@ class ProductInfoView extends StatelessWidget {
         BlocProvider<AdditemCubit>(
           create: (context) => AdditemCubit(ProcatRepoImple(ApiService(Dio()))),
         ),
-    
       ],
       child: Scaffold(
         body: BlocBuilder<AdditemCubit, AdditemState>(

@@ -1,1 +1,1 @@
-class Reviewmodel{}
+class Reviewmodel {}

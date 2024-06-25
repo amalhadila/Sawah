@@ -9,14 +9,12 @@ import 'package:graduation/features/store/data/wishlistitem.dart';
 abstract class proCategoriesRepo {
   Future<Either<Failure, List<ProCat>>> fetchProductCat();
   Future<Either<Failure, bool>> checkAvailability(
-      {required var tourId,
-      required var groupSize,
-      required var tourDate});
-      Future<Either<Failure, Product>> fetchProductbyId(
+      {required var tourId, required var groupSize, required var tourDate});
+  Future<Either<Failure, Product>> fetchProductbyId(
       {required String productId});
   Future<Either<Failure, List<Product>>> fetchProducts(
       {required String categoryId});
- 
+
   Future<Either<Failure, List<Product>>> fetchallProducts();
   Future<Either<Failure, List<Usercart>>> fetchcartitems();
   Future addproduct(
@@ -28,5 +26,4 @@ abstract class proCategoriesRepo {
   Future addproducttowishlist({required var tourId});
   Future<Either<Failure, List<Product>>> fetchSearchResults(
       {required String name});
-
 }

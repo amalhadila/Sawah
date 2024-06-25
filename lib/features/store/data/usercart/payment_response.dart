@@ -1,131 +1,132 @@
 class PaymentResponse {
-    String status;
-    Session session;
+  String status;
+  Session session;
 
-    PaymentResponse({
-        required this.status,
-        required this.session,
-    });
+  PaymentResponse({
+    required this.status,
+    required this.session,
+  });
 
-    factory PaymentResponse.fromJson(Map<String, dynamic> json) => PaymentResponse(
+  factory PaymentResponse.fromJson(Map<String, dynamic> json) =>
+      PaymentResponse(
         status: json["status"],
         session: Session.fromJson(json["session"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "status": status,
         "session": session.toJson(),
-    };
+      };
 }
 
 class Session {
-    String id;
-    String object;
-    dynamic afterExpiration;
-    dynamic allowPromotionCodes;
-    int amountSubtotal;
-    int amountTotal;
-    AutomaticTax automaticTax;
-    dynamic billingAddressCollection;
-    String cancelUrl;
-    String clientReferenceId;
-    dynamic clientSecret;
-    dynamic consent;
-    dynamic consentCollection;
-    int created;
-    String currency;
-    dynamic currencyConversion;
-    List<dynamic> customFields;
-    CustomText customText;
-    dynamic customer;
-    String customerCreation;
-    CustomerDetails customerDetails;
-    String customerEmail;
-    int expiresAt;
-    dynamic invoice;
-    InvoiceCreation invoiceCreation;
-    bool livemode;
-    dynamic locale;
-    Metadata metadata;
-    String mode;
-    dynamic paymentIntent;
-    dynamic paymentLink;
-    String paymentMethodCollection;
-    dynamic paymentMethodConfigurationDetails;
-    PaymentMethodOptions paymentMethodOptions;
-    List<String> paymentMethodTypes;
-    String paymentStatus;
-    PhoneNumberCollection phoneNumberCollection;
-    dynamic recoveredFrom;
-    dynamic savedPaymentMethodOptions;
-    dynamic setupIntent;
-    dynamic shippingAddressCollection;
-    dynamic shippingCost;
-    dynamic shippingDetails;
-    List<dynamic> shippingOptions;
-    String status;
-    dynamic submitType;
-    dynamic subscription;
-    String successUrl;
-    TotalDetails totalDetails;
-    String uiMode;
-    String url;
+  String id;
+  String object;
+  dynamic afterExpiration;
+  dynamic allowPromotionCodes;
+  int amountSubtotal;
+  int amountTotal;
+  AutomaticTax automaticTax;
+  dynamic billingAddressCollection;
+  String cancelUrl;
+  String clientReferenceId;
+  dynamic clientSecret;
+  dynamic consent;
+  dynamic consentCollection;
+  int created;
+  String currency;
+  dynamic currencyConversion;
+  List<dynamic> customFields;
+  CustomText customText;
+  dynamic customer;
+  String customerCreation;
+  CustomerDetails customerDetails;
+  String customerEmail;
+  int expiresAt;
+  dynamic invoice;
+  InvoiceCreation invoiceCreation;
+  bool livemode;
+  dynamic locale;
+  Metadata metadata;
+  String mode;
+  dynamic paymentIntent;
+  dynamic paymentLink;
+  String paymentMethodCollection;
+  dynamic paymentMethodConfigurationDetails;
+  PaymentMethodOptions paymentMethodOptions;
+  List<String> paymentMethodTypes;
+  String paymentStatus;
+  PhoneNumberCollection phoneNumberCollection;
+  dynamic recoveredFrom;
+  dynamic savedPaymentMethodOptions;
+  dynamic setupIntent;
+  dynamic shippingAddressCollection;
+  dynamic shippingCost;
+  dynamic shippingDetails;
+  List<dynamic> shippingOptions;
+  String status;
+  dynamic submitType;
+  dynamic subscription;
+  String successUrl;
+  TotalDetails totalDetails;
+  String uiMode;
+  String url;
 
-    Session({
-        required this.id,
-        required this.object,
-        required this.afterExpiration,
-        required this.allowPromotionCodes,
-        required this.amountSubtotal,
-        required this.amountTotal,
-        required this.automaticTax,
-        required this.billingAddressCollection,
-        required this.cancelUrl,
-        required this.clientReferenceId,
-        required this.clientSecret,
-        required this.consent,
-        required this.consentCollection,
-        required this.created,
-        required this.currency,
-        required this.currencyConversion,
-        required this.customFields,
-        required this.customText,
-        required this.customer,
-        required this.customerCreation,
-        required this.customerDetails,
-        required this.customerEmail,
-        required this.expiresAt,
-        required this.invoice,
-        required this.invoiceCreation,
-        required this.livemode,
-        required this.locale,
-        required this.metadata,
-        required this.mode,
-        required this.paymentIntent,
-        required this.paymentLink,
-        required this.paymentMethodCollection,
-        required this.paymentMethodConfigurationDetails,
-        required this.paymentMethodOptions,
-        required this.paymentMethodTypes,
-        required this.paymentStatus,
-        required this.phoneNumberCollection,
-        required this.recoveredFrom,
-        required this.savedPaymentMethodOptions,
-        required this.setupIntent,
-        required this.shippingAddressCollection,
-        required this.shippingCost,
-        required this.shippingDetails,
-        required this.shippingOptions,
-        required this.status,
-        required this.submitType,
-        required this.subscription,
-        required this.successUrl,
-        required this.totalDetails,
-        required this.uiMode,
-        required this.url,
-    });
+  Session({
+    required this.id,
+    required this.object,
+    required this.afterExpiration,
+    required this.allowPromotionCodes,
+    required this.amountSubtotal,
+    required this.amountTotal,
+    required this.automaticTax,
+    required this.billingAddressCollection,
+    required this.cancelUrl,
+    required this.clientReferenceId,
+    required this.clientSecret,
+    required this.consent,
+    required this.consentCollection,
+    required this.created,
+    required this.currency,
+    required this.currencyConversion,
+    required this.customFields,
+    required this.customText,
+    required this.customer,
+    required this.customerCreation,
+    required this.customerDetails,
+    required this.customerEmail,
+    required this.expiresAt,
+    required this.invoice,
+    required this.invoiceCreation,
+    required this.livemode,
+    required this.locale,
+    required this.metadata,
+    required this.mode,
+    required this.paymentIntent,
+    required this.paymentLink,
+    required this.paymentMethodCollection,
+    required this.paymentMethodConfigurationDetails,
+    required this.paymentMethodOptions,
+    required this.paymentMethodTypes,
+    required this.paymentStatus,
+    required this.phoneNumberCollection,
+    required this.recoveredFrom,
+    required this.savedPaymentMethodOptions,
+    required this.setupIntent,
+    required this.shippingAddressCollection,
+    required this.shippingCost,
+    required this.shippingDetails,
+    required this.shippingOptions,
+    required this.status,
+    required this.submitType,
+    required this.subscription,
+    required this.successUrl,
+    required this.totalDetails,
+    required this.uiMode,
+    required this.url,
+  });
 
-    factory Session.fromJson(Map<String, dynamic> json) => Session(
+  factory Session.fromJson(Map<String, dynamic> json) => Session(
         id: json["id"],
         object: json["object"],
         afterExpiration: json["after_expiration"],
@@ -158,18 +159,23 @@ class Session {
         paymentIntent: json["payment_intent"],
         paymentLink: json["payment_link"],
         paymentMethodCollection: json["payment_method_collection"],
-        paymentMethodConfigurationDetails: json["payment_method_configuration_details"],
-        paymentMethodOptions: PaymentMethodOptions.fromJson(json["payment_method_options"]),
-        paymentMethodTypes: List<String>.from(json["payment_method_types"].map((x) => x)),
+        paymentMethodConfigurationDetails:
+            json["payment_method_configuration_details"],
+        paymentMethodOptions:
+            PaymentMethodOptions.fromJson(json["payment_method_options"]),
+        paymentMethodTypes:
+            List<String>.from(json["payment_method_types"].map((x) => x)),
         paymentStatus: json["payment_status"],
-        phoneNumberCollection: PhoneNumberCollection.fromJson(json["phone_number_collection"]),
+        phoneNumberCollection:
+            PhoneNumberCollection.fromJson(json["phone_number_collection"]),
         recoveredFrom: json["recovered_from"],
         savedPaymentMethodOptions: json["saved_payment_method_options"],
         setupIntent: json["setup_intent"],
         shippingAddressCollection: json["shipping_address_collection"],
         shippingCost: json["shipping_cost"],
         shippingDetails: json["shipping_details"],
-        shippingOptions: List<dynamic>.from(json["shipping_options"].map((x) => x)),
+        shippingOptions:
+            List<dynamic>.from(json["shipping_options"].map((x) => x)),
         status: json["status"],
         submitType: json["submit_type"],
         subscription: json["subscription"],
@@ -177,9 +183,9 @@ class Session {
         totalDetails: TotalDetails.fromJson(json["total_details"]),
         uiMode: json["ui_mode"],
         url: json["url"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "object": object,
         "after_expiration": afterExpiration,
@@ -212,9 +218,11 @@ class Session {
         "payment_intent": paymentIntent,
         "payment_link": paymentLink,
         "payment_method_collection": paymentMethodCollection,
-        "payment_method_configuration_details": paymentMethodConfigurationDetails,
+        "payment_method_configuration_details":
+            paymentMethodConfigurationDetails,
         "payment_method_options": paymentMethodOptions.toJson(),
-        "payment_method_types": List<dynamic>.from(paymentMethodTypes.map((x) => x)),
+        "payment_method_types":
+            List<dynamic>.from(paymentMethodTypes.map((x) => x)),
         "payment_status": paymentStatus,
         "phone_number_collection": phoneNumberCollection.toJson(),
         "recovered_from": recoveredFrom,
@@ -231,137 +239,139 @@ class Session {
         "total_details": totalDetails.toJson(),
         "ui_mode": uiMode,
         "url": url,
-    };
+      };
 }
 
 class AutomaticTax {
-    bool enabled;
-    dynamic liability;
-    dynamic status;
+  bool enabled;
+  dynamic liability;
+  dynamic status;
 
-    AutomaticTax({
-        required this.enabled,
-        required this.liability,
-        required this.status,
-    });
+  AutomaticTax({
+    required this.enabled,
+    required this.liability,
+    required this.status,
+  });
 
-    factory AutomaticTax.fromJson(Map<String, dynamic> json) => AutomaticTax(
+  factory AutomaticTax.fromJson(Map<String, dynamic> json) => AutomaticTax(
         enabled: json["enabled"],
         liability: json["liability"],
         status: json["status"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "enabled": enabled,
         "liability": liability,
         "status": status,
-    };
+      };
 }
 
 class CustomText {
-    dynamic afterSubmit;
-    dynamic shippingAddress;
-    dynamic submit;
-    dynamic termsOfServiceAcceptance;
+  dynamic afterSubmit;
+  dynamic shippingAddress;
+  dynamic submit;
+  dynamic termsOfServiceAcceptance;
 
-    CustomText({
-        required this.afterSubmit,
-        required this.shippingAddress,
-        required this.submit,
-        required this.termsOfServiceAcceptance,
-    });
+  CustomText({
+    required this.afterSubmit,
+    required this.shippingAddress,
+    required this.submit,
+    required this.termsOfServiceAcceptance,
+  });
 
-    factory CustomText.fromJson(Map<String, dynamic> json) => CustomText(
+  factory CustomText.fromJson(Map<String, dynamic> json) => CustomText(
         afterSubmit: json["after_submit"],
         shippingAddress: json["shipping_address"],
         submit: json["submit"],
         termsOfServiceAcceptance: json["terms_of_service_acceptance"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "after_submit": afterSubmit,
         "shipping_address": shippingAddress,
         "submit": submit,
         "terms_of_service_acceptance": termsOfServiceAcceptance,
-    };
+      };
 }
 
 class CustomerDetails {
-    dynamic address;
-    String email;
-    dynamic name;
-    dynamic phone;
-    String taxExempt;
-    dynamic taxIds;
+  dynamic address;
+  String email;
+  dynamic name;
+  dynamic phone;
+  String taxExempt;
+  dynamic taxIds;
 
-    CustomerDetails({
-        required this.address,
-        required this.email,
-        required this.name,
-        required this.phone,
-        required this.taxExempt,
-        required this.taxIds,
-    });
+  CustomerDetails({
+    required this.address,
+    required this.email,
+    required this.name,
+    required this.phone,
+    required this.taxExempt,
+    required this.taxIds,
+  });
 
-    factory CustomerDetails.fromJson(Map<String, dynamic> json) => CustomerDetails(
+  factory CustomerDetails.fromJson(Map<String, dynamic> json) =>
+      CustomerDetails(
         address: json["address"],
         email: json["email"],
         name: json["name"],
         phone: json["phone"],
         taxExempt: json["tax_exempt"],
         taxIds: json["tax_ids"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "address": address,
         "email": email,
         "name": name,
         "phone": phone,
         "tax_exempt": taxExempt,
         "tax_ids": taxIds,
-    };
+      };
 }
 
 class InvoiceCreation {
-    bool enabled;
-    InvoiceData invoiceData;
+  bool enabled;
+  InvoiceData invoiceData;
 
-    InvoiceCreation({
-        required this.enabled,
-        required this.invoiceData,
-    });
+  InvoiceCreation({
+    required this.enabled,
+    required this.invoiceData,
+  });
 
-    factory InvoiceCreation.fromJson(Map<String, dynamic> json) => InvoiceCreation(
+  factory InvoiceCreation.fromJson(Map<String, dynamic> json) =>
+      InvoiceCreation(
         enabled: json["enabled"],
         invoiceData: InvoiceData.fromJson(json["invoice_data"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "enabled": enabled,
         "invoice_data": invoiceData.toJson(),
-    };
+      };
 }
 
 class InvoiceData {
-    dynamic accountTaxIds;
-    dynamic customFields;
-    dynamic description;
-    dynamic footer;
-    dynamic issuer;
-    Metadata metadata;
-    dynamic renderingOptions;
+  dynamic accountTaxIds;
+  dynamic customFields;
+  dynamic description;
+  dynamic footer;
+  dynamic issuer;
+  Metadata metadata;
+  dynamic renderingOptions;
 
-    InvoiceData({
-        required this.accountTaxIds,
-        required this.customFields,
-        required this.description,
-        required this.footer,
-        required this.issuer,
-        required this.metadata,
-        required this.renderingOptions,
-    });
+  InvoiceData({
+    required this.accountTaxIds,
+    required this.customFields,
+    required this.description,
+    required this.footer,
+    required this.issuer,
+    required this.metadata,
+    required this.renderingOptions,
+  });
 
-    factory InvoiceData.fromJson(Map<String, dynamic> json) => InvoiceData(
+  factory InvoiceData.fromJson(Map<String, dynamic> json) => InvoiceData(
         accountTaxIds: json["account_tax_ids"],
         customFields: json["custom_fields"],
         description: json["description"],
@@ -369,9 +379,9 @@ class InvoiceData {
         issuer: json["issuer"],
         metadata: Metadata.fromJson(json["metadata"]),
         renderingOptions: json["rendering_options"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "account_tax_ids": accountTaxIds,
         "custom_fields": customFields,
         "description": description,
@@ -379,87 +389,87 @@ class InvoiceData {
         "issuer": issuer,
         "metadata": metadata.toJson(),
         "rendering_options": renderingOptions,
-    };
+      };
 }
 
 class Metadata {
-    Metadata();
+  Metadata();
 
-    factory Metadata.fromJson(Map<String, dynamic> json) => Metadata(
-    );
+  factory Metadata.fromJson(Map<String, dynamic> json) => Metadata();
 
-    Map<String, dynamic> toJson() => {
-    };
+  Map<String, dynamic> toJson() => {};
 }
 
 class PaymentMethodOptions {
-    Card card;
+  Card card;
 
-    PaymentMethodOptions({
-        required this.card,
-    });
+  PaymentMethodOptions({
+    required this.card,
+  });
 
-    factory PaymentMethodOptions.fromJson(Map<String, dynamic> json) => PaymentMethodOptions(
+  factory PaymentMethodOptions.fromJson(Map<String, dynamic> json) =>
+      PaymentMethodOptions(
         card: Card.fromJson(json["card"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "card": card.toJson(),
-    };
+      };
 }
 
 class Card {
-    String requestThreeDSecure;
+  String requestThreeDSecure;
 
-    Card({
-        required this.requestThreeDSecure,
-    });
+  Card({
+    required this.requestThreeDSecure,
+  });
 
-    factory Card.fromJson(Map<String, dynamic> json) => Card(
+  factory Card.fromJson(Map<String, dynamic> json) => Card(
         requestThreeDSecure: json["request_three_d_secure"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "request_three_d_secure": requestThreeDSecure,
-    };
+      };
 }
 
 class PhoneNumberCollection {
-    bool enabled;
+  bool enabled;
 
-    PhoneNumberCollection({
-        required this.enabled,
-    });
+  PhoneNumberCollection({
+    required this.enabled,
+  });
 
-    factory PhoneNumberCollection.fromJson(Map<String, dynamic> json) => PhoneNumberCollection(
+  factory PhoneNumberCollection.fromJson(Map<String, dynamic> json) =>
+      PhoneNumberCollection(
         enabled: json["enabled"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "enabled": enabled,
-    };
+      };
 }
 
 class TotalDetails {
-    int amountDiscount;
-    int amountShipping;
-    int amountTax;
+  int amountDiscount;
+  int amountShipping;
+  int amountTax;
 
-    TotalDetails({
-        required this.amountDiscount,
-        required this.amountShipping,
-        required this.amountTax,
-    });
+  TotalDetails({
+    required this.amountDiscount,
+    required this.amountShipping,
+    required this.amountTax,
+  });
 
-    factory TotalDetails.fromJson(Map<String, dynamic> json) => TotalDetails(
+  factory TotalDetails.fromJson(Map<String, dynamic> json) => TotalDetails(
         amountDiscount: json["amount_discount"],
         amountShipping: json["amount_shipping"],
         amountTax: json["amount_tax"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "amount_discount": amountDiscount,
         "amount_shipping": amountShipping,
         "amount_tax": amountTax,
-    };
+      };
 }

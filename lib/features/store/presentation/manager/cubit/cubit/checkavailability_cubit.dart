@@ -53,7 +53,6 @@ class CheckavailabilityCubit extends Cubit<CheckavailabilityState> {
 
       print('isAvailable: $isAvailable');
       return isAvailable;
-
     } on DioError catch (e) {
       final failure = ServerFailure.fromDioError(e);
       if (!_closed) {

@@ -1,24 +1,23 @@
 class User {
   String? id;
-  String? pushtoken;  
+  String? pushtoken;
 
   User({
     required this.id,
-      this.pushtoken,
-   
+    this.pushtoken,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'] ?? "",
       pushtoken: json['pushtoken'] ?? "",
-      );
+    );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,     
-      'pushtoken':pushtoken,
-      };
+      'id': id,
+      'pushtoken': pushtoken,
+    };
   }
 }

@@ -16,7 +16,8 @@ class ChatMessageCard extends StatelessWidget {
     super.key,
     required this.message,
     required this.roomid,
-    required this.isMe, required this.selected,
+    required this.isMe,
+    required this.selected,
   });
 
   @override
@@ -27,12 +28,14 @@ class ChatMessageCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: selected ? Color.fromARGB(255, 238, 190, 142) : Colors.transparent,
+        color:
+            selected ? Color.fromARGB(255, 238, 190, 142) : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       margin: EdgeInsets.symmetric(vertical: 1),
       child: Row(
-        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Card(
             shape: RoundedRectangleBorder(
@@ -56,7 +59,8 @@ class ChatMessageCard extends StatelessWidget {
                     if (message.imageUrl != null)
                       CachedNetworkImage(
                         imageUrl: message.imageUrl!,
-                        placeholder: (context, url) => const CircularProgressIndicator(),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
                       ),
                     if (message.msg != null) Text(message.msg!),
                     Row(
@@ -65,7 +69,9 @@ class ChatMessageCard extends StatelessWidget {
                         if (isMe)
                           Icon(
                             Iconsax.tick_circle,
-                            color: message.read == true ? Colors.blueAccent : Colors.grey,
+                            color: message.read == true
+                                ? Colors.blueAccent
+                                : Colors.grey,
                             size: 18,
                           ),
                         Text(

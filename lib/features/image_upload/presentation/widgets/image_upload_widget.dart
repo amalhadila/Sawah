@@ -74,6 +74,10 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return uploadimage_ui(context);
+  }
+
+  Column uploadimage_ui(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
