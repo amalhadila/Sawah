@@ -33,7 +33,7 @@ class CategoriesGrid extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return CustomCard(
-                    imglink: 'assets/img/landmarks/pyramids2.jpg',
+                     imglink:state.categorieslist[index].imageCover!,
 
                     // 'assets/img/categories/${state.categorieslist[index].imageCover!}',
                     text: state.categorieslist[index].name!,

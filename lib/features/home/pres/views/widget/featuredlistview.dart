@@ -20,21 +20,16 @@ class feturedcustemlist extends StatelessWidget {
               itemCount: state.MostVisitedlist.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final item = state.MostVisitedlist[index];
-                final img = item.imageCover ?? 'assets/PYRAMIDS.webp'; // Default image if null
-                final text = item.name ?? 'Unknown Place'; // Default text if null
-                final location = item.location?.governorate ?? 'Unknown Location'; // Default location if null
-
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: CustomCard(
-                    img: img,
-                    text: text,
-                    location: location,
+                    img: state.MostVisitedlist[index].images![0],
+                    text: state.MostVisitedlist[index].name!,
+                    location:
+                        state.MostVisitedlist[index].location!.governorate!,
                     onTap: () => GoRouter.of(context).push(
-                      '/mostvisitedInformation',
-                      extra: item,
-                    ),
+                        '/mostvisitedInformation',
+                        extra: state.MostVisitedlist[index]),
                   ),
                 );
               },

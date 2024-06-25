@@ -41,7 +41,7 @@ class CustomCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.189,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: Image.asset(
+                    child: Image.network(
                       imglink,
                       fit: BoxFit.fill,
                       width: double.infinity,

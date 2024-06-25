@@ -2,6 +2,7 @@ const express = require('express');
 
 const authController = require('./../controllers/authController');
 const userController = require('./../controllers/userController');
+const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 // protected routes
 router.use(authController.protect);
+
 router.post('/resendVerificationEmail', authController.resendVerificationEmail);
 router.patch('/updateMyPassword', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
@@ -27,11 +29,14 @@ router.delete('/deleteMe', userController.deleteMe);
 
 router.get('/:id', userController.getUser);
 
-router.use(authController.restrictTo('admin'));
-router.route('/').get(userController.getAllUsers);
+router
+    .route('/')
+    .get(authController.restrictTo('admin'), userController.getAllUsers);
 router
     .route('/:id')
-    .patch(userController.updateUser)
-    .delete(userController.deleteUser);
+    .patch(authController.restrictTo('admin'), userController.updateUser)
+    .delete(authController.restrictTo('admin'), userController.deleteUser);
+
+router.use('/:subjectId/reviews', reviewRouter);
 
 module.exports = router;

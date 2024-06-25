@@ -21,6 +21,7 @@ const landmarkSchema = new mongoose.Schema(
             trim: true,
         },
         images: [String],
+        imagesId: [String],
         category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category',
@@ -47,6 +48,7 @@ const landmarkSchema = new mongoose.Schema(
             default: 4,
             min: [0, 'Rating must be at least 1'],
             max: [5, 'Rating must be at most 5'],
+            set: (val) => Math.round(val * 10) / 10,
         },
         ratingsQuantity: {
             type: Number,
