@@ -41,6 +41,28 @@ class InfViewBody extends StatelessWidget {
         ),
       ),
     ));
+          onRefresh: _refresh,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                infoimg(
+                  imageslink:
+                      (landmarkoncatModel?.images ?? mostVisitedModel?.images)!,
+                  
+                ),
+                LocationWidget(
+                  name: (landmarkoncatModel?.name ?? mostVisitedModel?.name)!,
+                  location: (landmarkoncatModel?.location?.governorate ??
+                      mostVisitedModel?.location?.governorate)!,
+                ),
+                Information(
+                    text: (landmarkoncatModel?.description ??
+                        mostVisitedModel?.description)!,landmarkmodel: landmarkoncatModel!,),
+              ],
+            ),
+          ),
+        ));
   }
 
   Future<void> _refresh() async {

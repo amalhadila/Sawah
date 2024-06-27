@@ -26,7 +26,7 @@ class landmarkGrid extends StatelessWidget {
                 clipBehavior: Clip.none,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: (MediaQuery.of(context).size.width * .431) /
-                      (MediaQuery.of(context).size.height * .245),
+                      (MediaQuery.of(context).size.height * .24),
                   crossAxisCount: 2,
                   crossAxisSpacing: 22,
                   mainAxisSpacing: 15,
@@ -34,7 +34,7 @@ class landmarkGrid extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return CustomCard(
                     imglink:
-state.Landmarklist[index].imageCover!,
+state.Landmarklist[index].images![0]!,
                     text: state.Landmarklist[index].name!,
                     onTap: () => GoRouter.of(context)
                         .push('/Information', extra: state.Landmarklist[index]),

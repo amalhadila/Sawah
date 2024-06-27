@@ -51,7 +51,7 @@ class Storeviewbody extends StatelessWidget {
             ),
           )
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: kbackgroundcolor,
         elevation: 0,
         centerTitle: true,
         title: Row(
@@ -72,15 +72,22 @@ class Storeviewbody extends StatelessWidget {
                           prefixIcon: Icon(
                             Icons.search,
                             size: 20,
+                            color: ksecondcolor,/////////////
                           ),
                           hintText: "Search",
-                          hintStyle: TextStyle(fontSize: 14),
+                          hintStyle: TextStyle(fontSize: 14,
+                          ////////////
+                          color: ksecondcolor
+                          ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           filled: true,
-                          fillColor: Color.fromARGB(255, 255, 248, 241),
+                          fillColor:
+                          shadow//////////////////
+                           //kCardColor,
+                          //Color.fromARGB(255, 255, 248, 241),
                         ),
                         onTap: () {
                           Navigator.push(

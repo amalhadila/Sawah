@@ -99,7 +99,8 @@ class _InformationState extends State<Information>
                           child: Text(
                             '${BlocProvider.of<MoreInfoCubit>(context).Text}',
                             style: Textstyle.textStyle12.copyWith(
-                                fontWeight: FontWeight.w400, height: 1.5),
+                              color: neutralColor3,
+                                fontWeight: FontWeight.w400, height: 1.7),
                           ),
                         ),
                         if (BlocProvider.of<MoreInfoCubit>(context)
@@ -119,7 +120,7 @@ class _InformationState extends State<Information>
                                   showmore: showFullText,
                                 );
                               },
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

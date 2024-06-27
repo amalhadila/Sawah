@@ -24,7 +24,7 @@ class LocationWidget extends StatelessWidget {
               Flexible(
                 child: Text(
                   name,
-                  style: Textstyle.textStyle16,
+                  style: Textstyle.textStyle16.copyWith(color: kmaincolor),
                   softWrap: true,
                 ),
               ),
@@ -32,13 +32,13 @@ class LocationWidget extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.location_on,
-                    color: klocicon,
-                    size: 14,
+                    color: accentColor1,
+                    size: 18,
                   ),
                   const SizedBox(width: 7),
                   Text(
                     location,
-                    style: Textstyle.textStyle16,
+                    style: Textstyle.textStyle16.copyWith(color: kmaincolor),
                   ),
                 ],
               ),

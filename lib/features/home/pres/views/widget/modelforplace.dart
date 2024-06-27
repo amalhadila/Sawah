@@ -24,28 +24,30 @@ class CustomCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 200,
-        height: MediaQuery.of(context).size.height * .22,
+        height: MediaQuery.of(context).size.height * .3,
         decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(25), boxShadow: [
+            BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
-              blurRadius: 40,
-              color: Colors.grey.withOpacity(.1),
+              blurRadius: 3,
+              color: 
+              shadow,
+              // Color(0xFF7073BA),
               spreadRadius: 0,
-              offset: Offset(10, 10))
+              offset: Offset(0,2))
         ]),
         child: Card(
           elevation: 10,
-          color: Colors.white,
+          color: secondaryColor1,
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(7),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .128,
+                  height: MediaQuery.of(context).size.height * .16,
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                        img,
                         fit: BoxFit.fill,
@@ -53,37 +55,39 @@ class CustomCard extends StatelessWidget {
                       )),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 3),
                   child: Text(
                     text,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700),
+                      color: kmaincolor2,
+                       ///////////////////////// color: ksecondcolor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 8),
+                  padding: EdgeInsets.only(bottom: 1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Icon(
                         FontAwesomeIcons.locationDot,
-                        color: textcolor,
+                        color: accentColor1,
+                        size: 18,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 5, top: 5),
                         child: Text(
                           '$location',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700),
+                              color: ksecondcolor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     ],

@@ -21,7 +21,7 @@ class Wishlist extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kbackgroundcolor,
         elevation: 0,
         title: const Text(
           'My Wishlist',
@@ -31,7 +31,7 @@ class Wishlist extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: kmaincolor,
+            color: ksecondcolor,
             size: 22,
           ),
           onPressed: () {
@@ -60,7 +60,7 @@ class Wishlist extends StatelessWidget {
                           var item = wishlist[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 3),
+                                horizontal: 20, vertical: 13),
                             child: GestureDetector(
                               onTap: () async {
                                 await BlocProvider.of<ProductbyidCubit>(context)
@@ -82,19 +82,20 @@ class Wishlist extends StatelessWidget {
                                 }
                               },
                               child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color:
-                                      const Color.fromARGB(255, 255, 248, 241),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        offset: Offset(0, 5),
-                                        color: Color.fromARGB(64, 85, 61, 51),
-                                        spreadRadius: 0,
-                                        blurStyle: BlurStyle.normal)
-                                  ],
-                                ),
+                                 decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color:
+                                kbackgroundcolor,
+                                /////////////// kCardColor,
+                                boxShadow: const [
+            BoxShadow(
+                blurRadius: 4,
+                offset: Offset(0, 5),
+                color: Color.fromARGB(64, 85, 61, 51),
+                spreadRadius: 0,
+                blurStyle: BlurStyle.normal)
+          ],
+                              ),
                                 height: screenHeight * .17,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -104,21 +105,21 @@ class Wishlist extends StatelessWidget {
                                     ),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: Image.asset(
-                                        'assets/img/landmarks/pyramids2.jpg',
+                                      child: Image.network(
+                                        item.images![0],
                                         height:
                                             MediaQuery.sizeOf(context).height *
-                                                .11,
+                                                .13,
                                         width:
                                             MediaQuery.sizeOf(context).width *
-                                                .25,
-                                        fit: BoxFit.cover,
+                                                .332,
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 10),
+                                            const EdgeInsets.only(left: 18),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -132,6 +133,7 @@ class Wishlist extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: true,
                                               style: const TextStyle(
+                                                color:ksecondcolor ,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -141,7 +143,8 @@ class Wishlist extends StatelessWidget {
                                             ),
                                             Text(
                                               'price  \$${item.price}',
-                                              style: const TextStyle(
+                                             style: const TextStyle(
+                                              color:ksecondcolor ,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 13,
                                               ),
@@ -150,6 +153,7 @@ class Wishlist extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    SizedBox(width: 20,),
                                     IconButton(
                                       onPressed: () {
                                         var itemId = item.id;
@@ -159,10 +163,13 @@ class Wishlist extends StatelessWidget {
                                                 context)
                                             .deletewishlistitem(Id: itemId);
                                       },
-                                      icon: const Icon(
-                                        FontAwesomeIcons.solidHeart,
-                                        size: 23,
-                                        color: kmaincolor,
+                                      icon: Padding(
+                                        padding: const EdgeInsets.only(right:12.0),
+                                        child: const Icon(
+                                          FontAwesomeIcons.solidHeart,
+                                          size: 23,
+                                          color: kmaincolor,
+                                        ),
                                       ),
                                     )
                                   ],

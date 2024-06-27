@@ -26,7 +26,7 @@ class CategoriesGrid extends StatelessWidget {
                 clipBehavior: Clip.none,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: (MediaQuery.of(context).size.width * .431) /
-                      (MediaQuery.of(context).size.height * .245),
+                      (MediaQuery.of(context).size.height * .24),
                   crossAxisCount: 2,
                   crossAxisSpacing: 22,
                   mainAxisSpacing: 15,

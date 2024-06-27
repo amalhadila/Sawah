@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
 
-class tour_guide extends StatelessWidget {
-  const tour_guide({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LandmarkSelectionScreen(),
-    );
-  }
-}
+
 
 class LandmarkSelectionScreen extends StatelessWidget {
   final List<Map<String, String>> landmarks = [
@@ -43,21 +34,22 @@ class LandmarkSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('What do you want to see?'),
+        title: Text('What do you want to see?',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19),
         ),
-        backgroundColor: Color(0xffFFFFFF), // Background color of the app bar
-        actions: [
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              // Implement the close action
-            },
+        backgroundColor: kbackgroundcolor, // Background color of the app bar
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
           ),
-        ],
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal:16.0),
         child: Column(
           children: [
             Row(
@@ -67,36 +59,23 @@ class LandmarkSelectionScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "Enter the landmark's name",
                       prefixIcon: Icon(Icons.search,
-                          color: Color.fromRGBO(219, 113, 0,
-                              1)), // Color of the icon beside search bar
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                        
+                              ), // Color of the icon beside search bar
+                      hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: shadow,
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.map,
-                      color: Color.fromRGBO(
-                          219, 113, 0, 1)), // Color of the map icon
-                  onPressed: () {
-                    // Implement the map action
-                  },
-                ),
+                
               ],
             ),
             SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Implement the "I don't know. Pick for me!" action
-                  },
-                  child: Text("I don't know. Pick for me!"),
-                ),
-              ],
-            ),
+
             Expanded(
               child: ListView.builder(
                 itemCount: landmarks.length,
@@ -106,19 +85,18 @@ class LandmarkSelectionScreen extends StatelessWidget {
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.grey[200],
+                      color: shadow,
                     ),
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.grey,
                         child: Icon(Icons.location_on, color: Colors.white),
                       ),
-                      title: Text(landmarks[index]['name']!),
-                      subtitle: Text(landmarks[index]['description']!),
+                      title: Text(landmarks[index]['name']!,style: TextStyle(color: ksecondcolor),),
+                      subtitle: Text(landmarks[index]['description']!,style: TextStyle(color: neutralColor2)),
                       trailing: IconButton(
                         icon: Icon(Icons.add,
-                            color: Color.fromRGBO(
-                                219, 113, 0, 1)), // Color of the '+' button
+                            color: ksecondcolor), // Color of the '+' button
                         onPressed: () {
                           // Implement the add action
                         },
@@ -128,28 +106,24 @@ class LandmarkSelectionScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SelectedLandmarksScreen(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 80),
+              child: ElevatedButton(
+                onPressed: () {                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SelectedLandmarksScreen(),
+                    ),
+                  );
+                },
+                
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kmaincolor, 
+                    minimumSize: Size.fromHeight(48), 
                   ),
-                );
-              },
-              child: Text('Next 1'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(
-                        219, 113, 0, 1)), // Color of the "Next 1" button
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
+              
+                  child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),
+                
               ),
             ),
           ],
@@ -164,20 +138,23 @@ class SelectedLandmarksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('This is what you chose'),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              // Implement the close action
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
           ),
-        ],
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: kbackgroundcolor,
+        title:  Text('This is what you chose',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19),
+        ),
+        
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal:16.0),
         child: Column(
           children: [
             Container(
@@ -185,7 +162,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: Colors.grey[200],
+                color: shadow,
               ),
               child: ListTile(
                 leading: CircleAvatar(
@@ -197,7 +174,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
                   onPressed: () {
                     // Implement the delete action
                   },
-                  child: Text('delete'),
+                  child: Text('delete',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
                 ),
               ),
             ),
@@ -206,12 +183,12 @@ class SelectedLandmarksScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: Colors.grey[200],
+                color: shadow,
               ),
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey,
-                  child: Icon(Icons.add, color: Colors.white),
+                  child: Icon(Icons.add, color: kbackgroundcolor),
                 ),
                 title: Text('Add a new landmark'),
                 onTap: () {
@@ -220,25 +197,27 @@ class SelectedLandmarksScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Implement the next action
-              },
-              child: Text('Next 1'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(
-                        219, 113, 0, 1)), // Color of the "Next 1" button
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LanguageSelectionScreen(),
+                    ),
+                  );
+                },
+                
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kmaincolor, 
+                    minimumSize: Size.fromHeight(48), 
                   ),
-                ),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
-              ),
-            ),
-          ],
+              
+                  child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),
+                
+                      ),
+            )],
         ),
       ),
     );

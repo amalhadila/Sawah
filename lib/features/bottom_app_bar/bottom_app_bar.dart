@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/constants.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
 import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
@@ -28,6 +30,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<Widget> _pages = [
     CategoriesView(),
     Homepage(),
+    Createtourview(),
     StoreView(),
     ImagesUploadPage(),
   ];
@@ -58,7 +61,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         ),
       ],
       child: Scaffold(
-        appBar: _selectedTab == 2
+        appBar: _selectedTab == 3
             ? null
             : CustomAppBar(), // إزالة الـ AppBar إذا كانت التالت صفحة محددة
         drawer: CustomDrawer(),
@@ -102,7 +105,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     width: size.width * .128,
                     height: index == _selectedTab ? size.width * .014 : 0,
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: accentColor3,
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(10),
                       ),

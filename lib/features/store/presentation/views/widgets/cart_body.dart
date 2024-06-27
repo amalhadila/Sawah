@@ -17,20 +17,56 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
 
+import 'user_cart_model.dart';
+
+import 'user_cart_model.dart';
+
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
-  Future<void> pay(BuildContext context) async {
+    Future<void> getCartInfo(BuildContext context)async{
+    try {
+
+      var response = await _dio.get(
+        options: Options(
+          headers: {
+             'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+         },
+        ),
+        'http://192.168.1.6:8000/api/v1/carts'
+      );
+      UserCartResponse userCartResponse =
+          UserCartResponse.fromJson(response.data);
+          await pay(context, userCartResponse.data.cart.id);
+
+      // Navigator.of(context).push(CupertinoPageRoute(
+      //   builder: (context) =>
+      //       PaymentWebView(
+      //       paymentResponse: paymentResponse),
+      // ));
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened $e, please try again"),
+        ),
+      );
+    }
+  }
+  Future<void> pay(BuildContext context, String cartId)async{
     try {
       var response = await _dio.post(
         options: Options(
           headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjMwZDllZTc2NjAwZmQwNmZjN2ViMiIsImlhdCI6MTcxNzc3Njk2NCwiZXhwIjoxNzI1NTUyOTY0fQ.GJvTEzdygj9EKYq7lIRx5ORsrlRUOPyYcs1wkQxm_OY',
+            'Content-Type': 'application/json',
+             'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
           },
         ),
-        'http://192.168.100.3:8000/api/v1/bookings/cart-checkout-session/665dc7b7520e8e6b1ac908f2',
-        data: {"firstName": "Amr", "lastName": "Kfr", "phone": 1010101001},
+        'http://192.168.1.6:8000/api/v1/bookings/cart-checkout-session/$cartId',
+        data: {
+          "firstName":"Amr",
+       "lastName":"Kfr",
+        "phone":1010101001},
       );
       PaymentResponse paymentResponse =
           PaymentResponse.fromJson(response.data);
@@ -60,7 +96,7 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kbackgroundcolor,
         elevation: 0,
         title: const Text(
           'My Cart',
@@ -101,7 +137,7 @@ class CartScreen extends StatelessWidget {
                           var item = cartItems[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 3),
+                                horizontal: 20, vertical: 13),
                             child: GestureDetector(
                               onTap: () async {
                                 await BlocProvider.of<ProductbyidCubit>(context)
@@ -124,8 +160,9 @@ class CartScreen extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color:
-                                      const Color.fromARGB(255, 255, 248, 241),
+                                  color: 
+                                  kbackgroundcolor,
+                                  ////////////kCardColor,
                                   boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 4,
@@ -144,15 +181,11 @@ class CartScreen extends StatelessWidget {
                                       const SizedBox(width: 5),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
-                                        child: Image.asset(
-                                          'assets/img/landmarks/pyramids2.jpg',
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .13,
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  .23,
-                                          fit: BoxFit.cover,
+                                        child: Image.network(
+                                          item.tour?.images[0],
+                                          height: MediaQuery.sizeOf(context).height * .13,
+                                          width: MediaQuery.sizeOf(context).width * .3,
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
                                       Expanded(
@@ -172,6 +205,7 @@ class CartScreen extends StatelessWidget {
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: true,
                                                 style: const TextStyle(
+                                                  color:ksecondcolor ,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -188,6 +222,7 @@ class CartScreen extends StatelessWidget {
                                                   Text(
                                                     ' ${DateFormat('yyyy-MM-dd').format(item.tourDate)} ',
                                                     style: const TextStyle(
+                                                      color:ksecondcolor ,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -206,6 +241,7 @@ class CartScreen extends StatelessWidget {
                                                   Text(
                                                     ' ${item.groupSize} ',
                                                     style: const TextStyle(
+                                                      color: ksecondcolor,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -215,6 +251,7 @@ class CartScreen extends StatelessWidget {
                                                   const Text(
                                                     'people',
                                                     style: TextStyle(
+                                                      color:ksecondcolor ,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -225,6 +262,7 @@ class CartScreen extends StatelessWidget {
                                               Text(
                                                 'price \$${item.itemPrice}',
                                                 style: const TextStyle(
+                                                  color:ksecondcolor ,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 13,
                                                 ),
@@ -277,24 +315,28 @@ class CartScreen extends StatelessWidget {
                           );
                           print("isAvailable: $isAvailable");
 
-                          if (!isAvailable) {
-                            allItemsAvailable = false;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      '${item.tour?.name} is not available')),
-                            );
-                          } else {
-                            /////////////////////////////////////////////////////
-                          }
-                        }
+    if (!isAvailable) {
+      allItemsAvailable = false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${item.tour?.name} is not available')),
+      );                           
+      await getCartInfo(context);
+    } else {
+      /////////////////////////////////////////////////////
+    }
+  }
 
-                        if (allItemsAvailable) {
-                          print(allItemsAvailable);
-                          await pay(context);
-                          // Navigate to payment screen
-                        }
-                      },
+  if (allItemsAvailable) {
+    print(allItemsAvailable);
+    await getCartInfo(context);
+    await getCartInfo(context);
+    // Navigate to payment screen
+  }
+},
+
+
+
+                      
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kmaincolor,
                       ),

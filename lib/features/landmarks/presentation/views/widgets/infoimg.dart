@@ -5,23 +5,20 @@ class infoimg extends StatelessWidget {
   const infoimg({
     super.key,
     this.imageslink,
-    required this.imagecoverlink,
   });
 
   final List<dynamic>? imageslink;
-  final String imagecoverlink;
 
   @override
   Widget build(BuildContext context) {
-    if (imageslink != null) {
       return SizedBox(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * .31,
+        height: MediaQuery.of(context).size.height * .38,
         child: CarouselSlider(
             items: imageslink!.map((image) {
               return Image.network(
                 image,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 width: double.infinity,
               );
             }).toList(),
@@ -39,16 +36,6 @@ class infoimg extends StatelessWidget {
               autoPlayAnimationDuration: const Duration(milliseconds: 1000),
             )),
       );
-    } else {
-      return Container(
-        width: double.infinity,
-        child: SizedBox(
-            height: MediaQuery.of(context).size.height * .31,
-            child: Image.asset(
-              'assets/img/landmarks/$imagecoverlink',
-              fit: BoxFit.fill,
-            )),
-      );
-    }
-  }
+    } 
+
 }

@@ -42,28 +42,32 @@ class ChatCard extends StatelessWidget {
                   .where((element) => element.fromId != myUid)
                   .toList();
 
-              if (unreadmessglist.isNotEmpty) {
-                return Badge(
-                  largeSize: 20,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  label: Text(unreadmessglist.length.toString()),
-                );
-              } else {
-                return const Text('');
-              }
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        title: Text(chatroom.name.toString(),
-            style: TextStyle(color: ksecondcolor, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            chatroom.lastMessage == "" ? 'send message' : chatroom.lastMessage!,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: ksecondcolor)),
-      ),
+      if (unreadmessglist.isNotEmpty) {
+        return Badge(
+          backgroundColor:accentColor3 ,
+          largeSize: 25,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          label: Text(unreadmessglist.length.toString()),
+        );
+      } else {
+        return const Text('');
+      }
+    } else {
+      return const SizedBox(); 
+    }
+  },
+),
+          title: Text(chatroom.name.toString(),
+    style: const TextStyle(
+               color: neutralColor3,fontWeight: FontWeight.bold)),
+          subtitle:Text(chatroom.lastMessage == ""
+      ? 'send a message'
+    : chatroom.lastMessage!
+    ,maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    style: const TextStyle(
+               color: neutralColor3)),
+         ),
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/product_cat_cubit.dart';
 import 'package:graduation/features/store/presentation/views/widgets/listview.dart';
 
-
 class store_product extends StatefulWidget {
   store_product({Key? key}) : super(key: key);
 
@@ -28,7 +27,7 @@ class _store_productState extends State<store_product> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: AppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: kbackgroundcolor,
                   elevation: 0,
                   bottom: TabBar(
                     indicator: BoxDecoration(
