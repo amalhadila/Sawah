@@ -5,11 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:graduation/auth/screens/profile_screen.dart';
 import 'package:graduation/auth/screens/sign_in_screen.dart';
 import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/categories/data/model/categories_model.dart';
-import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/categories/presentation/views/Landmarks_view.dart';
-import 'package:graduation/features/categories/presentation/views/categories_view.dart';
-import 'package:graduation/features/categories/presentation/views/info_view.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
+import 'package:graduation/features/landmarks/data/model/categories_model.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/presentation/views/Landmarks_view.dart';
+import 'package:graduation/features/landmarks/presentation/views/categories_view.dart';
+import 'package:graduation/features/landmarks/presentation/views/info_view.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chat_body.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chathome_body.dart';
 import 'package:graduation/features/contact_us.dart/contact_us_view.dart';
@@ -26,7 +27,7 @@ import 'package:graduation/features/store/presentation/views/product_info_view.d
 import 'package:graduation/features/store/presentation/views/store_view.dart';
 import 'package:graduation/features/store/presentation/views/widgets/booking_body.dart';
 import 'package:graduation/features/store/presentation/views/widgets/cart_body.dart';
-import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
+import 'package:graduation/features/store/presentation/views/widgets/listview.dart';
 import 'package:graduation/features/store/presentation/views/widgets/wishlist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
@@ -62,7 +63,7 @@ abstract class AppRouter {
           }),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      GoRoute(path: '/4', builder: (context, state) => SplashView()),
       GoRoute(
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
@@ -77,6 +78,8 @@ abstract class AppRouter {
             return ChatScreen(roomid: roomId, userId: userId, name: name);
           }),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
+            GoRoute(path: '/', builder: (context, state) => Createtourview()),
+
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),
       GoRoute(

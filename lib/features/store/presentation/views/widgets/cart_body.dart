@@ -12,8 +12,10 @@ import 'package:graduation/features/store/presentation/manager/cubit/productbyid
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:intl/intl.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
 
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
@@ -30,12 +32,13 @@ class CartScreen extends StatelessWidget {
         'http://192.168.100.3:8000/api/v1/bookings/cart-checkout-session/665dc7b7520e8e6b1ac908f2',
         data: {"firstName": "Amr", "lastName": "Kfr", "phone": 1010101001},
       );
-      // PaymentResponse paymentResponse =
-      //     PaymentResponse.fromJson(response.data);
-      // Navigator.of(context).push(CupertinoPageRoute(
-      //   builder: (context) => PaymentWebView(
-      //    //   paymentResponse: PaymentResponse),
-      // )));
+      PaymentResponse paymentResponse =
+          PaymentResponse.fromJson(response.data);
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) =>
+            PaymentWebView(
+            paymentResponse: paymentResponse),
+      ));
     } catch (e) {
       showDialog(
         context: context,

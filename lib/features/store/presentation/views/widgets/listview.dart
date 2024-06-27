@@ -5,7 +5,7 @@ import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/allproducts_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/products_cubit.dart';
-import 'package:graduation/features/store/presentation/views/widgets/product_grid.dart';
+import 'package:graduation/features/store/presentation/views/widgets/product_list.dart';
 
 class GrId extends StatelessWidget {
   GrId({super.key, this.categoryId});

@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/core/errors/failures.dart';
 import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/categories/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 import 'package:graduation/features/search/data/repos/search_repo.dart';
 import 'package:dio/dio.dart';
 

@@ -179,7 +179,7 @@ class _BookingPageState extends State<BookingPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              color: const Color.fromARGB(255, 252, 237, 227),
+             // color: const Color.fromARGB(255, 252, 237, 227),
               padding: const EdgeInsets.only(right: 16.0, left: 16, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

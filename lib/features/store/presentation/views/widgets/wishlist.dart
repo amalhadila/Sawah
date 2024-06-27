@@ -108,10 +108,10 @@ class Wishlist extends StatelessWidget {
                                         'assets/img/landmarks/pyramids2.jpg',
                                         height:
                                             MediaQuery.sizeOf(context).height *
-                                                .12,
+                                                .11,
                                         width:
                                             MediaQuery.sizeOf(context).width *
-                                                .22,
+                                                .25,
                                         fit: BoxFit.cover,
                                       ),
                                     ),

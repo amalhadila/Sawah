@@ -4,7 +4,8 @@ import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/product_cat_cubit.dart';
-import 'package:graduation/features/store/presentation/views/widgets/gr_id.dart';
+import 'package:graduation/features/store/presentation/views/widgets/listview.dart';
+
 
 class store_product extends StatefulWidget {
   store_product({Key? key}) : super(key: key);
@@ -32,8 +33,8 @@ class _store_productState extends State<store_product> {
                   bottom: TabBar(
                     indicator: BoxDecoration(
                       color:
-                          //kmaincolor,
-                          Color.fromARGB(255, 247, 227, 227),
+                     kmaincolor,
+                     //  Color.fromARGB(255, 247, 227, 227),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
@@ -49,19 +50,19 @@ class _store_productState extends State<store_product> {
                     tabs: [
                       Text(
                         ' All ',
-                        style:
-                            Textstyle.textStyle15.copyWith(color: kmaincolor),
+                         style:
+                             Textstyle.textStyle15,
                       ),
                       ...state.pro_cat_list.map((cat) {
                         return Text(
                           cat.name!,
-                          style:
-                              Textstyle.textStyle15.copyWith(color: kmaincolor),
+                           style:
+                               Textstyle.textStyle15,
                         );
                       }).toList(),
                     ],
-                    // labelColor: kbackgroundcolor, // لون النص عندما يكون التبويب محدد
-                    //unselectedLabelColor: kmaincolor,
+                   labelColor: kbackgroundcolor, // لون النص عندما يكون التبويب محدد
+                   unselectedLabelColor: kmaincolor,
                   ),
                 ),
               ),
