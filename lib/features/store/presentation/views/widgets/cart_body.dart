@@ -17,6 +17,8 @@ import 'package:graduation/features/store/presentation/views/widgets/payment_res
 
 import 'user_cart_model.dart';
 
+import 'user_cart_model.dart';
+
 class CartScreen extends StatelessWidget {
   final Dio _dio = Dio();
     Future<void> getCartInfo(BuildContext context)async{
@@ -303,6 +305,7 @@ onPressed: () async {
 
   if (allItemsAvailable) {
     print(allItemsAvailable);
+    await getCartInfo(context);
     await getCartInfo(context);
     // Navigate to payment screen
   }
