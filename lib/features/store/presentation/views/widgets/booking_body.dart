@@ -222,43 +222,34 @@ class _BookingPageState extends State<BookingPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_selectedDate != null) {
-                          var isAvailable =
-                              await BlocProvider.of<CheckavailabilityCubit>(
-                                      context)
-                                  .checkAvailability(
-                            Id: widget.product.id!,
-                            groupSize: quantity,
-                            tourDate:
-                                '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"',
-                          );
-                          print(
-                              '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"');
-                          if (isAvailable) {
-                            BlocProvider.of<AdditemCubit>(context)
-                                .addItemToCart(
-                              tourId: widget.product.id,
-                              Adults: quantity,
-                              tourDate:
-                                  "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Added to the cart')),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      '${widget.product.name} is not available')),
-                            );
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Please select a date.')),
-                          );
-                        }
-                        ;
+
+  var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
+      .checkAvailability(
+        Id: widget.product.id!,
+        groupSize: quantity,
+        tourDate: '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"',
+      );
+     print('"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"');
+  if (isAvailable) {
+    BlocProvider.of<AdditemCubit>(context).addItemToCart(
+      tourId: widget.product.id,
+      Adults: quantity,
+      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Added to the cart')),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text('${widget.product.name} is not available')),
+    );
+  }
+} else {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Please select a date.')),
+  );
+};
+
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kmaincolor,
@@ -273,34 +264,25 @@ class _BookingPageState extends State<BookingPage> {
                   const SizedBox(width: 18),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () async{
                         if (_selectedDate != null) {
-                          var isAvailable =
-                              await BlocProvider.of<CheckavailabilityCubit>(
-                                      context)
-                                  .checkAvailability(
-                            Id: widget.product.id!,
-                            groupSize: quantity,
-                            tourDate:
-                                "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-                          );
-                          print(
-                              DateFormat('yyyy-MM-dd').format(_selectedDate!));
-                          if (isAvailable) {
-                            BlocProvider.of<AdditemCubit>(context)
-                                .addItemToCart(
-                              tourId: widget.product.id,
-                              Adults: quantity,
-                              tourDate:
-                                  "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      '${widget.product.name} is not available')),
-                            );
-                          }
+                          var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
+      .checkAvailability(
+        Id: widget.product.id!,
+        groupSize: quantity,
+        tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+      );
+     print(DateFormat('yyyy-MM-dd').format(_selectedDate!));
+  if (isAvailable) {
+    BlocProvider.of<AdditemCubit>(context).addItemToCart(
+      tourId: widget.product.id,
+      Adults: quantity,
+      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+    ); } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text('${widget.product.name} is not available')),
+    );
+  }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

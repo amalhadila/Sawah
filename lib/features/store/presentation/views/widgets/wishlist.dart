@@ -25,10 +25,10 @@ class Wishlist extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'My Wishlist',
-          style: TextStyle(
+          style:TextStyle(
               fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
         ),
-        leading: IconButton(
+        leading:  IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
             color: ksecondcolor,
@@ -64,10 +64,8 @@ class Wishlist extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () async {
                                 await BlocProvider.of<ProductbyidCubit>(context)
-                                    .fetchProductbyId(productId: item.id!);
-                                var productState =
-                                    BlocProvider.of<ProductbyidCubit>(context)
-                                        .state;
+                                    .fetchProductbyId(productId:item.id!);
+                                var productState = BlocProvider.of<ProductbyidCubit>(context).state;
                                 if (productState is productbyiduccess) {
                                   GoRouter.of(context).push(
                                     '/productinfo',
@@ -76,8 +74,7 @@ class Wishlist extends StatelessWidget {
                                 } else if (productState is ProductbyFailure) {
                                   // Handle failure case, show error message for example
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(productState.errMessage)),
+                                    SnackBar(content: Text(productState.errMessage)),
                                   );
                                 }
                               },
@@ -138,9 +135,7 @@ class Wishlist extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
+                                            SizedBox(height: 10,),
                                             Text(
                                               'price  \$${item.price}',
                                              style: const TextStyle(
@@ -177,7 +172,7 @@ class Wishlist extends StatelessWidget {
                               ),
                             ),
                           );
-                        },
+                        },                        
                       ),
                     ),
                   ],

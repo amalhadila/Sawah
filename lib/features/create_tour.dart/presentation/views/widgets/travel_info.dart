@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/detailspage.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TravelInfo extends StatefulWidget {
@@ -183,7 +185,7 @@ class _TravelInfoState extends State<TravelInfo> {
                     ? () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TravelInfo()),
+                          MaterialPageRoute(builder: (context) => TourDetailsPage()),
                         );
                       }
                     : (){ ScaffoldMessenger.of(context).showSnackBar(

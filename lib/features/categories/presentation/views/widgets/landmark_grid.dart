@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
+
+
 import 'package:graduation/features/landmarks/presentation/manger/landmarks_cubit/landmarks_cubit_cubit.dart';
 import 'package:graduation/features/landmarks/presentation/views/widgets/customcard.dart';
 
@@ -26,15 +28,15 @@ class landmarkGrid extends StatelessWidget {
                 clipBehavior: Clip.none,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: (MediaQuery.of(context).size.width * .431) /
-                      (MediaQuery.of(context).size.height * .24),
+                      (MediaQuery.of(context).size.height * .253),
                   crossAxisCount: 2,
                   crossAxisSpacing: 22,
                   mainAxisSpacing: 15,
                 ),
                 itemBuilder: (context, index) {
                   return CustomCard(
-                    imglink:
-state.Landmarklist[index].images![0]!,
+                    imglink:state.Landmarklist[index].imageCover!,
+                        // 'assets/img/landmarks/${state.Landmarklist[index].imageCover}',
                     text: state.Landmarklist[index].name!,
                     onTap: () => GoRouter.of(context)
                         .push('/Information', extra: state.Landmarklist[index]),

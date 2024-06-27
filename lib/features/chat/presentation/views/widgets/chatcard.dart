@@ -17,30 +17,31 @@ class ChatCard extends StatelessWidget {
       color: kbackgroundcolor,
       elevation: 0,
       child: ListTile(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatScreen(
-              roomid: chatroom.id!,
-              userId: chatroom.userid!,
-              name: chatroom.name!,
-            ),
-          ),
-        ),
-        leading: const CircleAvatar(),
-        trailing: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('rooms')
-              .doc(chatroom.id)
-              .collection('messages')
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data != null) {
-              final unreadmessglist = snapshot.data!.docs
-                  .map((e) => Message.fromJson(e.data()))
-                  .where((element) => element.read != null && !element.read!)
-                  .where((element) => element.fromId != myUid)
-                  .toList();
+
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatScreen(
+                    roomid: chatroom.id!,
+                    userId: chatroom.userid!,
+                    name:chatroom.name!,
+                  ),
+                ),
+              ),
+          leading: const CircleAvatar(),
+trailing: StreamBuilder(
+  stream: FirebaseFirestore.instance
+      .collection('rooms')
+      .doc(chatroom.id)
+      .collection('messages')
+      .snapshots(),
+  builder: (context, snapshot) {
+    if (snapshot.hasData && snapshot.data != null) {
+      final unreadmessglist = snapshot.data!.docs
+          .map((e) => Message.fromJson(e.data()))
+          .where((element) => element.read != null && !element.read!)
+          .where((element) => element.fromId != myUid)
+          .toList();
 
       if (unreadmessglist.isNotEmpty) {
         return Badge(

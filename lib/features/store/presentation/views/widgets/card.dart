@@ -8,7 +8,7 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/addto
 class productCard extends StatefulWidget {
   final String imglink;
   final String id;
-  List<Location>? address1;
+   List<Location>? address1;
   final String? address2;
   final dynamic? rating;
   final String text;
@@ -24,9 +24,7 @@ class productCard extends StatefulWidget {
     this.info,
     required this.ontap,
     required this.price,
-    required this.id,
-    this.address1,
-    this.address2,
+    required this.id,   this.address1,  this.address2,
   }) : super(key: key);
 
   @override

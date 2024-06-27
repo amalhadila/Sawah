@@ -4,20 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
-import 'package:graduation/features/store/data/usercart/payment_response.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
-import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:intl/intl.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
-
-import 'user_cart_model.dart';
 
 import 'user_cart_model.dart';
 
@@ -55,6 +51,7 @@ class CartScreen extends StatelessWidget {
   }
   Future<void> pay(BuildContext context, String cartId)async{
     try {
+    
       var response = await _dio.post(
         options: Options(
           headers: {
@@ -85,7 +82,6 @@ class CartScreen extends StatelessWidget {
       );
     }
   }
-
   CartScreen({Key? key}) : super(key: key);
 
   @override
@@ -139,12 +135,10 @@ class CartScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 13),
                             child: GestureDetector(
-                              onTap: () async {
+                              onTap:  () async {
                                 await BlocProvider.of<ProductbyidCubit>(context)
-                                    .fetchProductbyId(productId: item.tour.id!);
-                                var productState =
-                                    BlocProvider.of<ProductbyidCubit>(context)
-                                        .state;
+                                    .fetchProductbyId(productId:item.tour.id!);
+                                var productState = BlocProvider.of<ProductbyidCubit>(context).state;
                                 if (productState is productbyiduccess) {
                                   GoRouter.of(context).push(
                                     '/productinfo',
@@ -152,8 +146,7 @@ class CartScreen extends StatelessWidget {
                                   );
                                 } else if (productState is ProductbyFailure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(productState.errMessage)),
+                                    SnackBar(content: Text(productState.errMessage)),
                                   );
                                 }
                               },
@@ -190,13 +183,10 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 12),
+                                          padding: const EdgeInsets.only(left: 12),
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 item.tour?.name ?? '',
@@ -211,40 +201,31 @@ class CartScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  const Icon(
-                                                      Icons
-                                                          .calendar_month_outlined,
-                                                      color: kmaincolor),
+                                                  const Icon(Icons.calendar_month_outlined, color: kmaincolor),
                                                   const SizedBox(width: 2),
                                                   Text(
                                                     ' ${DateFormat('yyyy-MM-dd').format(item.tourDate)} ',
                                                     style: const TextStyle(
                                                       color:ksecondcolor ,
                                                       fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                      fontWeight: FontWeight.w600,
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                               Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  const Icon(
-                                                      Icons.group_outlined,
-                                                      color: kmaincolor),
+                                                  const Icon(Icons.group_outlined, color: kmaincolor),
                                                   const SizedBox(width: 2),
                                                   Text(
                                                     ' ${item.groupSize} ',
                                                     style: const TextStyle(
                                                       color: ksecondcolor,
                                                       fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                   const SizedBox(width: 2),
@@ -253,8 +234,7 @@ class CartScreen extends StatelessWidget {
                                                     style: TextStyle(
                                                       color:ksecondcolor ,
                                                       fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -274,10 +254,8 @@ class CartScreen extends StatelessWidget {
                                       IconButton(
                                         onPressed: () {
                                           var itemId = item.id;
-                                          print(
-                                              'Deleting item with id: $itemId');
-                                          BlocProvider.of<DeleteitemCubit>(
-                                                  context)
+                                          print('Deleting item with id: $itemId');
+                                          BlocProvider.of<DeleteitemCubit>(context)
                                               .deleteitem(Id: itemId);
                                         },
                                         icon: const Icon(
@@ -296,24 +274,21 @@ class CartScreen extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () async {
-                        bool allItemsAvailable = true;
 
-                        for (var item in cartItems) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(item.tourDate);
-                          print(
-                              "Checking availability for item ID: ${item.id}, groupSize: ${item.groupSize}, tourDate: $formattedDate");
+onPressed: () async {
+  bool allItemsAvailable = true;
+  
+  for (var item in cartItems) {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(item.tourDate);
+    print("Checking availability for item ID: ${item.id}, groupSize: ${item.groupSize}, tourDate: $formattedDate");
 
-                          var isAvailable =
-                              await BlocProvider.of<CheckavailabilityCubit>(
-                                      context)
-                                  .checkAvailability(
-                            Id: item.tour.id,
-                            groupSize: item.groupSize,
-                            tourDate: formattedDate,
-                          );
-                          print("isAvailable: $isAvailable");
+    var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
+        .checkAvailability(
+          Id: item.tour.id,
+          groupSize: item.groupSize,
+          tourDate: formattedDate,
+        );
+    print("isAvailable: $isAvailable");
 
     if (!isAvailable) {
       allItemsAvailable = false;
@@ -328,7 +303,6 @@ class CartScreen extends StatelessWidget {
 
   if (allItemsAvailable) {
     print(allItemsAvailable);
-    await getCartInfo(context);
     await getCartInfo(context);
     // Navigate to payment screen
   }
@@ -353,10 +327,7 @@ class CartScreen extends StatelessWidget {
                 );
               } else {
                 return Container(
-                  height: screenHeight -
-                      (screenHeight * .08) -
-                      appBarHeight -
-                      statusBarHeight,
+                  height: screenHeight - (screenHeight * .08) - appBarHeight - statusBarHeight,
                   child: const Center(
                     child: Text(
                       'Cart is Empty',

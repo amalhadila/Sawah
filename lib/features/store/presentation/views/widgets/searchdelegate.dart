@@ -34,10 +34,10 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
             setState(() {
               query = value;
             });
-            BlocProvider.of<SearchproductCubit>(context)
-                .fetchSearchResult(name: query!);
+            BlocProvider.of<SearchproductCubit>(context).fetchSearchResult(name:query!);
           },
         ),
+       
       ),
       body: BlocBuilder<SearchproductCubit, SearchproductStates>(
         builder: (context, state) {

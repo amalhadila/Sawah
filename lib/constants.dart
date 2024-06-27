@@ -5,7 +5,7 @@ import 'package:graduation/auth/core_login/api/end_point.dart';
 String myUid =
 //"66630da3e76600fd06fc7eb4";
 //'66630d9ee76600fd06fc7eb2';
-    CacheHelper().getData(key: apikey.id);
+CacheHelper().getData(key:apikey.id );
 
 const shadow = Color(0xFFF2F2F2);
 //const kbackgroundcolor = Color(0xffFFFFFF);
