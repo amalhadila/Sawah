@@ -42,14 +42,52 @@ class Revwrepoimp implements reviews {
 
       print(data);
 
-      final reviewModel = ReviewModel.fromJson(data);
-      return Right([reviewModel]);
+        List<ReviewModel> reviewModel = (data['data']['docs'] as List)
+          .map((review) => ReviewModel.fromJson(review))
+          .toList();
+      return Right([reviewModel.first]);
     } on Failure catch (e) {
       return Left(ServerFailure(e.message));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
+   @override
+    Future<Either<Failure, List<ReviewModel>>> postReviewsontour({
+      required double rating,
+      required String comment,
+      required String tourid,
+      String reviewType = 'Tour',
+    }) async {
+      try {
+        var data = await apiService.post(
+          endpoint: 'landmarks/$tourid/reviews',
+          Headers: Options(
+            headers: <String, String>{
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4MTRiNTZmYTE4NCIsImlhdCI6MTcxNTU1NTA4MCwiZXhwIjoxNzIzMzMxMDgwfQ.7KcMqIu-UNoV5qBqm71cyWH8ZBzpKBMjSXq-hmgjxWg',
+              'Content-Type': 'application/json',
+            },
+          ),
+          body: {
+            'rating': rating,
+            'comment': comment,
+            'reviewType': reviewType,
+          },
+        );
+
+        print(data);
+
+         List<ReviewModel> reviewModel = (data['data']['docs'] as List)
+          .map((review) => ReviewModel.fromJson(review))
+          .toList();
+        return Right([reviewModel.first]);
+      } on Failure catch (e) {
+        return Left(ServerFailure(e.message));
+      } catch (e) {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
 
   @override
   Future<void> deleteReview({required String id}) async {
@@ -190,7 +228,7 @@ class Revwrepoimp implements reviews {
     // }
 
     @override
-    Future<Either<Failure, List<ReviewModel>>> postReviewsontour({
+    Future<Either<Failure, List<ReviewModel>>> posttReviewsontour({
       required double rating,
       required String comment,
       required String tourid,

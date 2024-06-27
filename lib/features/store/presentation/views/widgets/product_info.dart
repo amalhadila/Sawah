@@ -54,7 +54,7 @@ Widget build(BuildContext context) {
           //   fit: BoxFit.fill,
           // ),
          SizedBox(
-  width: MediaQuery.of(context).size.width,
+  width: double.infinity,
   height: MediaQuery.of(context).size.height * .31,
   child: CarouselSlider(
     disableGesture: false,
@@ -62,21 +62,24 @@ Widget build(BuildContext context) {
       return Image.network(
         image,
         fit: BoxFit.cover,
-      width: MediaQuery.of(context).size.width,
+        width: double.infinity,
       );
     }).toList(),
     options: CarouselOptions(
-     height: MediaQuery.of(context).size.height,
-        autoPlay: true,
-        initialPage: 0,
-        enableInfiniteScroll: true,
-        viewportFraction: 1,
-        enlargeCenterPage: true,
-        enlargeFactor: 0.3,
-        pageSnapping: true,
-        autoPlayInterval: Duration(seconds: 4),
-        autoPlayCurve: Curves.linear,
-        autoPlayAnimationDuration: const Duration(milliseconds: 4000), ),
+      height: MediaQuery.of(context).size.height,
+      autoPlay: true,
+      initialPage: 0,
+      enableInfiniteScroll: true,
+      viewportFraction: 1,
+      enlargeCenterPage: true,
+      enlargeFactor: 0.2,
+      enlargeStrategy: CenterPageEnlargeStrategy.scale, // استخدم هذه الخاصية لعمل تأثير الزووم
+      pageSnapping: true,
+      
+      autoPlayInterval: Duration(seconds: 7),
+      autoPlayCurve: Curves.easeInOutCubicEmphasized,
+      autoPlayAnimationDuration: const Duration(milliseconds: 5000),
+    ),
   ),
 )
 
@@ -147,7 +150,7 @@ Widget build(BuildContext context) {
         children: [
           const SizedBox(height: 25),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(
@@ -159,16 +162,16 @@ Widget build(BuildContext context) {
                         wordSpacing: .02,
                         letterSpacing: .01,
                         fontSize: 16,
-                        color: kmaincolor,
+                        color: ksecondcolor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 9),
                     Row(
                       children: [
                         const Icon(
                           Icons.location_on,
-                          color: accentColor1,
+                          color: klocicon,
                           size: 18,
                         ),
                         const SizedBox(width: 5),
@@ -176,7 +179,7 @@ Widget build(BuildContext context) {
                           widget.products.locations![0].address!,
                           style: const TextStyle(
                             fontSize: 13,
-                            color: kmaincolor,
+                            color: ksecondcolor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -188,7 +191,7 @@ Widget build(BuildContext context) {
                         children: [
                           const Icon(
                             Icons.location_on,
-                            color: accentColor1,
+                            color: klocicon,
                             size: 18,
                           ),
                           const SizedBox(width: 5),
@@ -196,7 +199,7 @@ Widget build(BuildContext context) {
                             widget.products.locations![1].address!.toString(),
                             style: const TextStyle(
                               fontSize: 13,
-                              color: kmaincolor,
+                              color: ksecondcolor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -205,7 +208,6 @@ Widget build(BuildContext context) {
                   ],
                 ),
               ),
-              SizedBox(width: 25,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -215,7 +217,7 @@ Widget build(BuildContext context) {
                       wordSpacing: .02,
                       letterSpacing: .01,
                       fontSize: 14,
-                      color: kmaincolor,
+                      color: ksecondcolor,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -226,14 +228,14 @@ Widget build(BuildContext context) {
                       const Icon(
                         FontAwesomeIcons.solidStar,
                         size: 16,
-                        color: accentColor1,
+                        color: kmaincolor,
                       ),
                       const SizedBox(width: 6.3),
                       Text(
                         textAlign: TextAlign.center,
                         widget.products.rating.toString(),
                         style: const TextStyle(
-                          color: kmaincolor,
+                          color: ksecondcolor,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -252,7 +254,7 @@ Widget build(BuildContext context) {
               controller: _tabController,
               padding: const EdgeInsets.symmetric(vertical: 0),
               indicatorPadding: const EdgeInsets.all(0),
-              indicatorColor: kCardColor,
+              indicatorColor: kmaincolor,
               indicatorWeight: .5,
               dividerColor: const Color.fromARGB(255, 255, 248, 241),
               dividerHeight: 2,
@@ -289,7 +291,7 @@ Widget build(BuildContext context) {
                           widget.products.description!,
                           style: const TextStyle(
                             fontSize: 14,
-                            color: neutralColor3,
+                            color: ksecondcolor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -322,7 +324,7 @@ Widget build(BuildContext context) {
             Text(
               widget.products.guide!.name!,
               style: const TextStyle(
-                color: kmaincolor,
+                color: ksecondcolor,
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -330,7 +332,7 @@ Widget build(BuildContext context) {
             Text(
               widget.products.guide!.email!,
               style: const TextStyle(
-                color: neutralColor3,
+                color: ksecondcolor,
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -378,7 +380,7 @@ Widget build(BuildContext context) {
                                     '${widget.products.duration} Days',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: neutralColor3,
+                                      color: ksecondcolor,
                                     ),
                                   ),
                                 ],
@@ -406,7 +408,7 @@ Widget build(BuildContext context) {
                                     widget.products.maxGroupSize.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: neutralColor3,
+                                      color: ksecondcolor,
                                     ),
                                   ),
                                 ],
@@ -434,7 +436,7 @@ Widget build(BuildContext context) {
                                     widget.products.startDays![0].toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: neutralColor3,
+                                      color: ksecondcolor,
                                     ),
                                   ),
                                   if (widget.products.startDays != null && widget.products.startDays!.length >= 2)
@@ -442,7 +444,7 @@ Widget build(BuildContext context) {
                                       widget.products.startDays![1].toString(),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: neutralColor3,
+                                        color: ksecondcolor,
                                       ),
                                     ),
                                 ],
@@ -454,9 +456,9 @@ Widget build(BuildContext context) {
                     ),
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Center(child: Text('Reviews')),
-                ),
+               
+                  Rviewpagefortour(products:widget.products,) ,
+                
               ],
             ),
           ),

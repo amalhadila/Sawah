@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
+import 'package:graduation/features/guide/presentation/views/guide_view.dart';
 import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
@@ -30,7 +31,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<Widget> _pages = [
     CategoriesView(),
     Homepage(),
-    Createtourview(),
+    GuideView(),
     StoreView(),
     ImagesUploadPage(),
   ];

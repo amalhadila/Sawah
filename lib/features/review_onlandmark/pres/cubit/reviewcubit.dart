@@ -51,6 +51,40 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
+  Future<void> addReviewonTour({
+    required String landmarkid,
+    required String reviewType,
+    required String comment,
+  }) async {
+    emit(AddReviewLoading());
+    log('AddReviewLoading emitted');
+
+    try {
+      final result = await reviewRepo.postReviewsontour(
+        rating: rating,
+        comment: comment,
+        tourid: landmarkid,
+        reviewType: reviewType,
+      );
+
+      log('API call result: $result');
+
+      result.fold(
+        (failure) {
+          log('AddReviewFailure: $failure');
+          emit(AddReviewFailure(failure.toString()));
+        },
+        (_) {
+          log('AddReviewSuccess');
+          emit(AddReviewSuccess());
+        },
+      );
+    } catch (error) {
+      log('Catch block error: $error');
+      emit(AddReviewFailure(error.toString()));
+    }
+  }
+
   Future<void> getallReviewsonlandmark({
     required String id,
   }) async {
