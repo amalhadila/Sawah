@@ -45,7 +45,8 @@ trailing: StreamBuilder(
 
       if (unreadmessglist.isNotEmpty) {
         return Badge(
-          largeSize: 20,
+          backgroundColor:accentColor3 ,
+          largeSize: 25,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           label: Text(unreadmessglist.length.toString()),
         );
@@ -59,14 +60,14 @@ trailing: StreamBuilder(
 ),
           title: Text(chatroom.name.toString(),
     style: const TextStyle(
-               color: ksecondcolor,fontWeight: FontWeight.bold)),
+               color: neutralColor3,fontWeight: FontWeight.bold)),
           subtitle:Text(chatroom.lastMessage == ""
       ? 'send a message'
     : chatroom.lastMessage!
     ,maxLines: 1,
     overflow: TextOverflow.ellipsis,
     style: const TextStyle(
-               color: ksecondcolor)),
+               color: neutralColor3)),
          ),
     );
   }

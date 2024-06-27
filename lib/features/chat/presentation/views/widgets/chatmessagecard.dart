@@ -27,7 +27,7 @@ class ChatMessageCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: selected ? Color.fromARGB(255, 238, 190, 142) : Colors.transparent,
+        color: selected ? neutralColor : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       margin: EdgeInsets.symmetric(vertical: 1),
@@ -43,7 +43,7 @@ class ChatMessageCard extends StatelessWidget {
                 topRight: Radius.circular(12),
               ),
             ),
-            color: isMe ? kCardColor : Color.fromARGB(255, 247, 227, 227),
+            color: isMe ? shadow : Color.fromARGB(255, 247, 227, 227),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Container(
@@ -62,17 +62,19 @@ class ChatMessageCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        if (isMe)
-                          Icon(
-                            Iconsax.tick_circle,
-                            color: message.read == true ? Colors.blueAccent : Colors.grey,
-                            size: 18,
-                          ),
+                       
                         Text(
                           DateFormat('yyyy-MM-dd hh:mm:ss')
                               .format(message.createdAt ?? DateTime.now()),
+                              style: TextStyle(fontSize: 12),
                         ),
                         SizedBox(width: 6),
+                         if (isMe)
+                          Icon(
+                            Iconsax.tick_circle,
+                            color: message.read == true ? accentColor3 : Colors.grey,
+                            size: 18,
+                          ),
                       ],
                     ),
                   ],

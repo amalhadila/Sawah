@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/constants.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
 import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
@@ -28,6 +30,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<Widget> _pages = [
     CategoriesView(),
     Homepage(),
+    Createtourview(),
     StoreView(),
     ImagesUploadPage(),
   ];
@@ -58,7 +61,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         ),
       ],
       child: Scaffold(
-        appBar: _selectedTab == 2
+        appBar: _selectedTab == 3
             ? null
             : CustomAppBar(), // إزالة الـ AppBar إذا كانت التالت صفحة محددة
         drawer: CustomDrawer(),
@@ -79,7 +82,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 3, // Changed to 3 to match the number of pages
+            itemCount: 5, // Changed to 3 to match the number of pages
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(
@@ -102,7 +105,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     width: size.width * .128,
                     height: index == _selectedTab ? size.width * .014 : 0,
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: accentColor3,
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(10),
                       ),
@@ -112,7 +115,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     listOfIcons[index],
                     size: size.width * .076,
                     color: index == _selectedTab
-                        ? Colors.blueAccent
+                        ? accentColor1
                         : Colors.black38,
                   ),
                   SizedBox(height: size.width * .03),
@@ -128,6 +131,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<IconData> listOfIcons = [
     Icons.home_rounded,
     Icons.favorite_rounded,
+    Icons.add,
     Icons.shopping_bag_outlined,
     Icons.settings_rounded,
     // Adjust your icons based on the number of pages and the items in your bottom navigation bar

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:graduation/constants.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -77,14 +78,14 @@ class CustomDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: Color.fromARGB(255, 116, 35, 6),
+        color: kmaincolor,
       ),
       title: Text(
         text,
         style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 18,
-          color: Color.fromARGB(255, 116, 35, 6),
+          color: kmaincolor,
           fontWeight: FontWeight.w900,
           letterSpacing: 0,
         ),

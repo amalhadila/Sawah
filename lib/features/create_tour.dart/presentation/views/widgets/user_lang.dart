@@ -85,7 +85,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: Text('Landmark name',style: TextStyle(fontWeight: FontWeight.w600),),
+        title: Text('Landmark name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19,color: kmaincolor),),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
@@ -106,7 +106,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Which languages should the guide speak?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: neutralColor3),
               ),
             ),
             Expanded(
@@ -133,7 +133,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
               child: ElevatedButton(
                 onPressed:selectedLanguages.isNotEmpty ? () {
                    Navigator.push(
@@ -145,7 +145,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kmaincolor, 
-                  minimumSize: Size.fromHeight(50), 
+                  minimumSize: Size.fromHeight(48), 
                 ),
 
                 child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),

@@ -97,7 +97,8 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                           child: Text(
                             '${BlocProvider.of<MoreInfoCubit>(context).Text}',
                             style: Textstyle.textStyle12.copyWith(
-                                fontWeight: FontWeight.w400, height: 1.5),
+                              color: neutralColor3,
+                                fontWeight: FontWeight.w400, height: 1.7),
                           ),
                         ),
                         if (BlocProvider.of<MoreInfoCubit>(context).showView_more_Details == true && !showFullText)
@@ -113,13 +114,13 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                                   showmore: showFullText,
                                 );
                               },
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text('View more Details', style: Textstyle.viewmoretext),
-                                    Icon(Icons.keyboard_arrow_down, color: Color(0xff00A2D5)),
+                                    Text('View more Details', style: Textstyle.viewmoretext.copyWith(color: accentColor3)),
+                                    Icon(Icons.keyboard_arrow_down, color: accentColor3),
                                   ],
                                 ),
                               ),
@@ -130,7 +131,7 @@ class _InformationState extends State<Information> with SingleTickerProviderStat
                   );
                 },
               ),
-            //  ReviewPage(landmarkmodel: widget.landmarkmodel), // Pass the actual landmark model instance
+              ReviewPage(landmarkmodel: widget.landmarkmodel), // Pass the actual landmark model instance
             ],
           ),
         ),

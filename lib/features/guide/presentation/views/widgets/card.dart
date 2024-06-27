@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 
 class guideCard extends StatelessWidget {
   final String imageUrl;
@@ -15,64 +16,78 @@ class guideCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double cardHeight = screenWidth * 0.23;
+    double cardHeight = screenWidth * 0.55;
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 2,
-      child: Container(
-        height: cardHeight,
-        padding: EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+    return Padding(
+      padding: const EdgeInsets.only(top:15.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.asset(
-                imageUrl,
-                width: cardHeight,
-                height: cardHeight,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    landmarkname,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+        elevation: 2,
+        child: Container(
+          height: cardHeight,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: secondaryColor1,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(13),
+                  child: Image.asset(
+                    imageUrl,
+                    width: double.infinity,
+                    height: cardHeight*.67,
+                    fit: BoxFit.fill,
                   ),
-                  SizedBox(height: 4),
-                  
-                      Text(
-                        date,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                   
-                ],
+                ),
               ),
-            ),
-            
-          ],
+              SizedBox(height: 4,),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            landmarkname,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ksecondcolor,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        //  const SizedBox(height: 6),
+                          
+                              Text(
+                                date,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: neutralColor2,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                           
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
+            ],
+          ),
         ),
       ),
     );

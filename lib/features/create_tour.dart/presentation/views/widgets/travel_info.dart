@@ -21,7 +21,7 @@ class _TravelInfoState extends State<TravelInfo> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Landmark name',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19,color: kmaincolor),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -48,7 +48,7 @@ class _TravelInfoState extends State<TravelInfo> {
                     children: [
                       const Text(
                         'Enter the start and the end date ',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: kmaincolor),
                       ),
                       const SizedBox(height: 16.0),
                       TableCalendar(           
@@ -68,15 +68,17 @@ class _TravelInfoState extends State<TravelInfo> {
                           }
                         },
                         calendarStyle: const CalendarStyle(
+                          defaultTextStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: kmaincolor),
                           todayDecoration: BoxDecoration(
-        color: Colors.grey,
+        color: accentColor3,
         shape: BoxShape.circle,
             ),
             selectedDecoration: BoxDecoration(
-        color: kmaincolor, 
+        color: kCardColor, 
         shape: BoxShape.circle, 
             ),),
                         headerStyle: const HeaderStyle(
+                          titleTextStyle: TextStyle(color: kmaincolor,fontWeight: FontWeight.w600),
             titleCentered: true,
             formatButtonVisible: false,
           ),
@@ -99,20 +101,20 @@ class _TravelInfoState extends State<TravelInfo> {
                       SizedBox(height: 30),
                       Text(
                         'How many people will be on the tour?',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: kmaincolor),
                       ),
                       SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ChoiceChip(
-                            checkmarkColor: Colors.black,
-                            selectedColor: kCardColor,
+                            checkmarkColor: kbackgroundcolor,
+                            selectedColor: accentColor3,
                             side: BorderSide(color: kbackgroundcolor),
-                            backgroundColor: kCardColor,
+                            backgroundColor: shadow,
                             label: Text(
                               '1-4',
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              style: TextStyle(color: groupSize == 1 ? kbackgroundcolor : kmaincolor,fontSize: 15, fontWeight: FontWeight.bold),
                             ),
                             selected: groupSize == 1,
                             onSelected: (bool selected) {
@@ -122,11 +124,11 @@ class _TravelInfoState extends State<TravelInfo> {
                             },
                           ),
                           ChoiceChip(
-                            checkmarkColor: Colors.black,
-                            selectedColor: kCardColor,
+                            checkmarkColor: kbackgroundcolor,
+                            selectedColor: accentColor3,
                             side: BorderSide(color: kbackgroundcolor),
-                            backgroundColor: kCardColor,
-                            label: Text('5-10', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            backgroundColor: shadow,
+                            label: Text('5-10', style: TextStyle(color: groupSize == 2 ? kbackgroundcolor : kmaincolor,fontSize: 15, fontWeight: FontWeight.bold)),
                             selected: groupSize == 2,
                             onSelected: (bool selected) {
                               setState(() {
@@ -135,11 +137,11 @@ class _TravelInfoState extends State<TravelInfo> {
                             },
                           ),
                           ChoiceChip(
-                            checkmarkColor: Colors.black,
-                            selectedColor: kCardColor,
+                            checkmarkColor: kbackgroundcolor,
+                            selectedColor: accentColor3,
                             side: BorderSide(color: kbackgroundcolor),
-                            backgroundColor: kCardColor,
-                            label: Text('More than 10', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            backgroundColor: shadow,
+                            label: Text('More than 10', style: TextStyle(color: groupSize == 3 ? kbackgroundcolor : kmaincolor,fontSize: 15, fontWeight: FontWeight.bold)),
                             selected: groupSize == 3,
                             onSelected: (bool selected) {
                               setState(() {
@@ -152,7 +154,7 @@ class _TravelInfoState extends State<TravelInfo> {
                       SizedBox(height: 27),
                       Text(
                         'Comment for the guide',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: kmaincolor),
                       ),
                       SizedBox(height: 10),
                       TextField(
@@ -164,10 +166,11 @@ class _TravelInfoState extends State<TravelInfo> {
                           ),
                           hintText: 'Enter your comment',
                           filled: true,
-                          fillColor: Color.fromARGB(255, 255, 248, 241),
+                          fillColor: shadow,
                         ),
                         maxLines: 4,
                       ),
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),

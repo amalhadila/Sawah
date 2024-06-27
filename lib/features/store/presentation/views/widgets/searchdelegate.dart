@@ -44,7 +44,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
           if (state is SearchproductSuccess) {
             final products = state.product;
             if (products.isEmpty) {
-              return Center(child: Text('No results found.'));
+              return Center(child: Text('No results found.',));
             }
             return ListView.builder(
               itemCount: products.length,
@@ -98,6 +98,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600,
+                                                    color: kmaincolor2,
                                                   ),
                                                 ),
                                                 
@@ -107,7 +108,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                       children: [
                                         const Icon(
                                   Icons.location_on,
-                                  color: klocicon,
+                                  color: accentColor1,
                                   size: 18,
                                                               ),
                                                                
@@ -116,7 +117,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                           style: const TextStyle(
                                            
                                             fontSize: 13,
-                                           // color: ksecondcolor,
+                                            color: ksecondcolor,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -128,7 +129,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                       children: [
                                         const Icon(
                                   Icons.location_on,
-                                  color: klocicon,
+                                  color: accentColor1,
                                   size: 18,
                                                               ),
                                                                
@@ -137,7 +138,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                           style: const TextStyle(
                                            
                                             fontSize: 13,
-                                           // color: ksecondcolor,
+                                            color: ksecondcolor,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -148,6 +149,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                                   'price  \$${product.price}',
                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
+                                                    color: ksecondcolor,
                                                     fontSize: 13,
                                                   ),
                                                 ),
@@ -158,7 +160,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                         
                                       ],
                                     ),
-                                  ),Divider(color:Color.fromARGB(255, 247, 227, 227)),
+                                  ),Divider(color:neutralColor),
                                 ],
                               ),
 

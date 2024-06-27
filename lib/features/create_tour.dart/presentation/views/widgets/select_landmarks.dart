@@ -34,8 +34,7 @@ class LandmarkSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('What do you want to see?',style: TextStyle(fontWeight: FontWeight.w600),),
+        title: Text('What do you want to see?',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19),
         ),
         backgroundColor: kbackgroundcolor, // Background color of the app bar
         leading: IconButton(
@@ -60,15 +59,15 @@ class LandmarkSelectionScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "Enter the landmark's name",
                       prefixIcon: Icon(Icons.search,
-                          color: Color.fromRGBO(219, 113, 0,
-                              1)), // Color of the icon beside search bar
+                        
+                              ), // Color of the icon beside search bar
                       hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           filled: true,
-                          fillColor: Color.fromARGB(255, 255, 248, 241),
+                          fillColor: shadow,
                     ),
                   ),
                 ),
@@ -86,19 +85,18 @@ class LandmarkSelectionScreen extends StatelessWidget {
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
-                      color: kCardColor,
+                      color: shadow,
                     ),
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.grey,
                         child: Icon(Icons.location_on, color: Colors.white),
                       ),
-                      title: Text(landmarks[index]['name']!),
-                      subtitle: Text(landmarks[index]['description']!),
+                      title: Text(landmarks[index]['name']!,style: TextStyle(color: ksecondcolor),),
+                      subtitle: Text(landmarks[index]['description']!,style: TextStyle(color: neutralColor2)),
                       trailing: IconButton(
                         icon: Icon(Icons.add,
-                            color: Color.fromRGBO(
-                                219, 113, 0, 1)), // Color of the '+' button
+                            color: ksecondcolor), // Color of the '+' button
                         onPressed: () {
                           // Implement the add action
                         },
@@ -108,12 +106,10 @@ class LandmarkSelectionScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 16.0),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+              padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 80),
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () {                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SelectedLandmarksScreen(),
@@ -123,7 +119,7 @@ class LandmarkSelectionScreen extends StatelessWidget {
                 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor, 
-                    minimumSize: Size.fromHeight(50), 
+                    minimumSize: Size.fromHeight(48), 
                   ),
               
                   child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),
@@ -153,8 +149,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
           },
         ),
         backgroundColor: kbackgroundcolor,
-        title: Center(
-          child: Text('This is what you chose',style: TextStyle(fontWeight: FontWeight.w600),),
+        title:  Text('This is what you chose',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19),
         ),
         
       ),
@@ -167,7 +162,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: kCardColor,
+                color: shadow,
               ),
               child: ListTile(
                 leading: CircleAvatar(
@@ -188,12 +183,12 @@ class SelectedLandmarksScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: Colors.grey[200],
+                color: shadow,
               ),
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey,
-                  child: Icon(Icons.add, color: Colors.white),
+                  child: Icon(Icons.add, color: kbackgroundcolor),
                 ),
                 title: Text('Add a new landmark'),
                 onTap: () {
@@ -203,7 +198,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -216,7 +211,7 @@ class SelectedLandmarksScreen extends StatelessWidget {
                 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor, 
-                    minimumSize: Size.fromHeight(50), 
+                    minimumSize: Size.fromHeight(48), 
                   ),
               
                   child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),

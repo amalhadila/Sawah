@@ -27,7 +27,7 @@ class _store_productState extends State<store_product> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: AppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: kbackgroundcolor,
                   elevation: 0,
                   bottom: TabBar(
                     indicator: BoxDecoration(

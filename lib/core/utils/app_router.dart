@@ -68,7 +68,7 @@ abstract class AppRouter {
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
 
- GoRoute(path: '/f', builder: (context, state) => TourListScreen()),
+ GoRoute(path: '/TourListScreen', builder: (context, state) => TourListScreen()),
       GoRoute(
           path: '/ChatScreen',
           builder:(context, state) {final List<String> extras = state.extra as List<String>;

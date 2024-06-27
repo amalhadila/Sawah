@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 
 class SendPriceScreen extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class SendPriceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tour ID: ', style: TextStyle(fontSize: 24)),
+            Text('Tour name: ', style: TextStyle(fontSize: 24,color: kmaincolor)),
             SizedBox(height: 20),
             TextField(
               controller: priceController,
@@ -27,10 +28,12 @@ class SendPriceScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Logic to send the price will be implemented here
                 print('Price: ${priceController.text}');
               },
-              child: Text('Send'),
+              child: Text('Send',style:TextStyle(color: kbackgroundcolor,fontWeight: FontWeight.w600),),
+            style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
             ),
           ],
         ),

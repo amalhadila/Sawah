@@ -13,12 +13,12 @@ class infoimg extends StatelessWidget {
   Widget build(BuildContext context) {
       return SizedBox(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * .31,
+        height: MediaQuery.of(context).size.height * .38,
         child: CarouselSlider(
             items: imageslink!.map((image) {
               return Image.network(
                 image,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 width: double.infinity,
               );
             }).toList(),

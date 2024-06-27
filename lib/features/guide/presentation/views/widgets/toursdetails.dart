@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/features/guide/presentation/views/widgets/send_price.dart';
 
 class TourDetailsScreen extends StatelessWidget {
@@ -6,6 +7,7 @@ class TourDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kbackgroundcolor,
         title: Text('Tour Details'),
       ),
       body: Padding(
@@ -13,9 +15,9 @@ class TourDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tour ID:', style: TextStyle(fontSize: 24)),
+            Text('Tour name:', style: TextStyle(fontSize: 24,color: kmaincolor)),
             SizedBox(height: 20),
-            Text('Details about the tour will be shown here.', style: TextStyle(fontSize: 18)),
+            Text('Details about the tour will be shown here.', style: TextStyle(fontSize: 18,color: kmaincolor)),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -24,7 +26,10 @@ class TourDetailsScreen extends StatelessWidget {
     MaterialPageRoute(builder: (context) => SendPriceScreen()),
   );
               },
-              child: Text('Send Price'),
+              child: Text('Send Price',style: TextStyle(color: kbackgroundcolor,fontWeight: FontWeight.w600),),
+            style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                      ),
             ),
           ],
         ),

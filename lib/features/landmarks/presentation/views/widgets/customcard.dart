@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 
 const kCardColor = Color(0xffF2F2F2);
@@ -21,14 +22,16 @@ class CustomCard extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
                 blurRadius: 4,
-                offset: Offset(0, 5),
-                color: Color(0x40000000),
+                offset: Offset(0, 3),
+                color: shadow,
+
+                //Color(0xFF7073BA),
                 spreadRadius: 0,
                 blurStyle: BlurStyle.normal)
           ],
         ),
         child: Card(
-          color: kCardColor,
+          color: secondaryColor1,
           elevation: 0,
           child: Padding(
             padding:
@@ -38,7 +41,7 @@ class CustomCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.175,
+                  height: MediaQuery.of(context).size.height * 0.17,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: Image.network(
@@ -51,7 +54,8 @@ class CustomCard extends StatelessWidget {
                 const Spacer(),
                 Text(
                   text,
-                  style: Textstyle.textStyle12,
+                  style: Textstyle.textStyle12.copyWith(color: kmaincolor2),
+                  //copyWith(color: ksecondcolor),///////////
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

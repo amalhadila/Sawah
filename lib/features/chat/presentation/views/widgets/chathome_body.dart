@@ -62,7 +62,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(2.0),
+        padding: const EdgeInsets.symmetric(horizontal:12.0),
         child: Column(
           children: [
             Expanded(
