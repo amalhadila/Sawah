@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart'; // Import Dio for HTTP requests
+import 'package:dio/dio.dart'; 
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart'; // Ensure this import is correct
 
 class TourDetailsPage extends StatefulWidget {
@@ -132,7 +133,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ResponseScreen()),
+                          MaterialPageRoute(builder: (context) => MyOrdersPage()),
                         );
                       },
                   style: ElevatedButton.styleFrom(
