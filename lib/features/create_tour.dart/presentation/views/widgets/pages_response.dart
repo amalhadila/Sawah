@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/AvailableGuidesScreen.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 
 class ResponseScreen extends StatefulWidget {
           final String tourId;
+          final String tourname;
 
-  const ResponseScreen({super.key, required this.tourId});
+  const ResponseScreen({super.key, required this.tourId, required this.tourname});
 
   @override
   _ResponseScreenState createState() => _ResponseScreenState();
@@ -18,21 +21,18 @@ class _ResponseScreenState extends State<ResponseScreen>
     with SingleTickerProviderStateMixin {
 
   late TabController _tabController;
-  late Future<List<GetMyRequestsModel>> _myRequestsFuture;
 
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _myRequestsFuture = getMyRequests();
   }
-  
 Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
   final Dio _dio = Dio();
   try {
     var response = await _dio.get(
-      'http://192.168.1.6:8000/api/v1/customizedTour/$tourId/browse-guides',
+      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/browse-guides',
       options: Options(
         headers: {
           'Authorization':
@@ -41,127 +41,77 @@ Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
       ),
     );
 
-    dynamic responseData = response.data;
+    List<dynamic> responseData = response.data['availableGuides'];
     print(responseData);
 
-    List<GetAvailableGuidesModel> guides = [];
-    if (responseData is List) {
-      guides = responseData
-          .map((json) => GetAvailableGuidesModel.fromJson(json))
-          .toList();
-    } else if (responseData is Map<String, dynamic>) {
-      guides.add(GetAvailableGuidesModel.fromJson(responseData));
-    }
+    List<GetAvailableGuidesModel> guides = responseData
+        .map((json) => GetAvailableGuidesModel.fromJson(json))
+        .toList();
 
     return guides;
   } catch (e) {
-    throw e; // Rethrow the exception to handle it further if needed
+    throw e;
   }
 }
 
-
-
-  Future<List<GetMyRequestsModel>> getMyRequests() async {
-    final Dio _dio = Dio();
-    try {
-      var response = await _dio.get(
-        'http://192.168.1.6:8000/api/v1/customizedTour/my-requests',
-        options: Options(
-          headers: {
-            'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
-          },
-        ),
-      );
-
-      dynamic responseData = response.data;
-      print(responseData);
-
-      List<GetMyRequestsModel> requests = (responseData['data']['requests'] as List)
-          .map((json) => GetMyRequestsModel.fromJson(json))
-          .toList();
-
-      return requests;
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Operation Failed"),
-          content: Text("An error happened $e, please try again"),
-        ),
-      );
-      throw e; // rethrowing the exception to handle it further if needed
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kbackgroundcolor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: kmaincolor),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Column(
-          children: [
-            Text('Paris', style: TextStyle(color: Colors.black)),
-            Text('2024-06-21',
-                style: TextStyle(color: Colors.black54, fontSize: 14)),
-          ],
-        ),
+        title:
+            Text(widget.tourname, style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
+            
+        
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(60),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(30),
-            ),
+          child: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20.0),
             child: TabBar(
+              labelStyle:       Textstyle.textStyle15,
               controller: _tabController,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicator: RoundedRectangleTabIndicator(
-                color: Colors.white,
-                weight: 2,
-                width: 100,
-                radius: 30,
+              indicator: BoxDecoration(
+                color: kmaincolor,
+                borderRadius: BorderRadius.circular(10),
               ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: kbackgroundcolor,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+             
               tabs: [
                 Tab(text: 'Your Requests'),
                 Tab(text: 'All guides'),
               ],
+               labelColor: kbackgroundcolor,
+              unselectedLabelColor: kmaincolor,
             ),
           ),
         ),
-      ),
-      body: FutureBuilder<List<GetMyRequestsModel>>(
-        future: _myRequestsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return _buildNoRequestsTab();
-          } else {
-            return TabBarView(
+      ),),
+      body: 
+             TabBarView(
+              
               controller: _tabController,
               children: [
-                _buildResponsesTab(snapshot.data!),
-                _buildAllGuidesTab(), // Displaying all guides tab
-              ],
-            );
-          }
-        },
-      ),
-    );
-  }
+                _buildNoRequestsTab(),
+                _buildAllGuidesTab(),
+              ],));
+            
+          
+        }
+     
 
   Widget _buildNoRequestsTab() {
     return Center(
@@ -247,12 +197,7 @@ Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
                       SizedBox(height: 8),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AvailableGuidesScreen(tourId: requests[index].id!),
-                            ),
-                          );
+                          
                         },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -277,33 +222,66 @@ Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
     );
   }
 
-  Widget _buildAllGuidesTab() {
-    return FutureBuilder<List<GetAvailableGuidesModel>>(
-      future: getAvailableGuides(widget.tourId), // Pass your tour ID here
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No guides available'));
+Widget _buildAllGuidesTab() {
+  return FutureBuilder<List<GetAvailableGuidesModel>>(
+    future: getAvailableGuides(widget.tourId),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Center(child: Text('Error: ${snapshot.error}'));
+      } else {
+        final guides = snapshot.data ?? [];
+        if (guides.isEmpty) {
+          return const Center(child: Text('No guides available'));
         } else {
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: guides.length,
             itemBuilder: (context, index) {
+              final guide = guides[index];
               return ListTile(
-                title: Text(snapshot.data![index].name??''),
-                subtitle: Text(snapshot.data![index].rating.toString()??''),
-                // Add more details as needed
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(guide.photo??'')
+                    
+                ),
+                title: Text(guide.name ?? 'Unknown Name',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Padding(
+                  padding: const EdgeInsets.symmetric(vertical:3.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      
+                      Text(
+                        'Kind: ${guide.kind ?? 'Unknown Kind'} ',style: TextStyle(color: ksecondcolor,fontWeight: FontWeight.w600)
+                      ),
+                      SizedBox(height: 3,),
+                       Row(
+                         children: [
+                          const Icon(
+                                      FontAwesomeIcons.solidStar,
+                                      size: 16,
+                                      color: accentColor1,
+                                    ),
+                           Text(
+                            ' ${guide.rating?.toString() ?? 'No rating'} ',style: TextStyle(color: ksecondcolor,fontWeight: FontWeight.w600)
+                                               ),
+                         ],
+                       ),
+                    ],
+                  ),
+                ),
+             
               );
             },
           );
         }
-      },
-    );
-  }
+      }
+    },
+  );
 }
 
+
+}
 class RoundedRectangleTabIndicator extends Decoration {
   final BoxPainter _painter;
 

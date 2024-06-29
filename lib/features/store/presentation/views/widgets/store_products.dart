@@ -47,16 +47,23 @@ class _store_productState extends State<store_product> {
                       });
                     },
                     tabs: [
-                      Text(
-                        ' All ',
-                         style:
-                             Textstyle.textStyle15,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:6.0),
+                          child: Text(
+                            'All',
+                             style:
+                                 Textstyle.textStyle15,
+                          ),
+                        ),
                       ),
                       ...state.pro_cat_list.map((cat) {
-                        return Text(
-                          cat.name!,
-                           style:
-                               Textstyle.textStyle15,
+                        return Expanded(
+                          child: Text(
+                            cat.name!,
+                             style:
+                                 Textstyle.textStyle15,
+                          ),
                         );
                       }).toList(),
                     ],

@@ -92,11 +92,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Landmark name',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 19,
-            color: kmaincolor,
-          ),
+          style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
         leading: IconButton(

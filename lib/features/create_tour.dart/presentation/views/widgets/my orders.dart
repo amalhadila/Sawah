@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/AvailableGuidesScreen.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_cite.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
@@ -34,7 +34,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.6:8000/api/v1/customizedTour/my-requests',
+        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
             'Authorization':
@@ -67,14 +67,42 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My orders',style: TextStyle(color: kmaincolor,fontSize: 18),),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Active'),
-            Tab(text: 'Completed'),
-          ],
-        ),
+        backgroundColor: kbackgroundcolor,
+        title:  Text('My orders',style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20.0),
+            child: TabBar(
+              labelStyle:       Textstyle.textStyle15,
+              controller: _tabController,
+              indicator: BoxDecoration(
+                color: kmaincolor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: kbackgroundcolor,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              tabs: [
+                Expanded(
+                  child: Tab(
+            text: 'Active',
+            
+                  ),
+                ),
+                Expanded(
+                  child: Tab(
+            text: 'Completed',
+                  ),
+                ),
+              ],
+              labelColor: kbackgroundcolor,
+              unselectedLabelColor: kmaincolor,
+            ),
+          ),
+        )
+
       ),
       body: TabBarView(
         controller: _tabController,
@@ -110,7 +138,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
                         );
         },
         label: Text('Create order',style: TextStyle(color: kbackgroundcolor),),
-        icon: Icon(Icons.add),
+        icon: Icon(Icons.add,color: kbackgroundcolor,),
         backgroundColor: kmaincolor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -158,6 +186,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(date!);
     return Card(
+      color: ksecondcolor2,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
@@ -166,7 +195,7 @@ class OrderCard extends StatelessWidget {
            Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => yourTourDetailsPage(
+                            builder: (context) => TourDetailsPage(
                               tour: tour!,
                               
                             ),
@@ -190,18 +219,17 @@ class OrderCard extends StatelessWidget {
         //     ),
         //   ),
         // ),
-        title: Text(name!),
+        title: Text(location!,style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(location!),
-              SizedBox(height: 2,),
-              Text(formattedDate),
+            
+              Text(formattedDate,style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w600),),
                Text(
                 status!,
-                style: TextStyle(color: Colors.green),
+                style: TextStyle(color: accentColor3,fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -214,6 +242,7 @@ class OrderCard extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => ResponseScreen(
                               tourId: id!,
+                              tourname: name!,
                               
                             ),
               ),
@@ -221,14 +250,14 @@ class OrderCard extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-            backgroundColor: status == 'canceled' ? Colors.grey : kmaincolor,
+            backgroundColor: status == 'canceled' ? neutralColor : kmaincolor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Text(
             'View Guides',
-            style: TextStyle(fontSize: 12, color: status == 'canceled' ? Colors.black : Colors.white),
+            style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700, color: status == 'canceled' ? Colors.black : Colors.white),
           ),
             
            

@@ -55,6 +55,7 @@ const Color abarcolor = Color(0xFF4B4E89);
 
    const neutralColor = Color(0xFFCCCCCC);
    const accentColor2 = Color(0xFFE27D60);
+   const ksecondcolor2 = Color(0xFFF7F7F7);
 
 const Color secondaryColor1 = Color(0xFFFFFFFF);
 const Color ksecondcolor = Color(0xFF7073BA);

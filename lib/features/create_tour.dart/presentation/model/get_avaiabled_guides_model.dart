@@ -3,7 +3,7 @@ class GetAvailableGuidesModel {
   String? name;
   String? photo;
   String? kind;
-  int? rating;
+  dynamic rating;
   int? ratingsQuantity;
 
   GetAvailableGuidesModel({this.id, this.name, this.photo, this.kind, this.rating, this.ratingsQuantity});

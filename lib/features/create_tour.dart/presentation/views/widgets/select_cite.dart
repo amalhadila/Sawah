@@ -17,7 +17,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.6:8000/api/v1/customizedTour/governorates',
+        'http://192.168.1.4:8000/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
             'Authorization':
@@ -47,9 +47,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Choose the city',
-          style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 19, color: kmaincolor),
-        ),
+         style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(

@@ -1,19 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 
 Future cancelTour(BuildContext context, String tourId) async {
   final Dio _dio = Dio();
   try {
     print('Cancel tour request sent');
     var response = await _dio.patch(
-        options: Options(
-          headers: {
-            'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
-          },
-        ),
-        'http://192.168.1.6:8000/api/v1/customizedTour/$tourId/cancel');
+      options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+        },
+      ),
+      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/cancel',
+    );
     print('Cancel tour request successful');
   } catch (e) {
     print('Cancel tour request failed: $e');
@@ -27,55 +30,138 @@ Future cancelTour(BuildContext context, String tourId) async {
   }
 }
 
-class yourTourDetailsPage extends StatefulWidget {
+class TourDetailsPage extends StatefulWidget {
   final GetMyRequestsModel tour;
 
-  yourTourDetailsPage({required this.tour});
+  TourDetailsPage({required this.tour});
 
   @override
-  _yourTourDetailsPageState createState() => _yourTourDetailsPageState();
+  _TourDetailsPageState createState() => _TourDetailsPageState();
 }
 
-class _yourTourDetailsPageState extends State<yourTourDetailsPage> {
+class _TourDetailsPageState extends State<TourDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tour Details'),
+        backgroundColor: kbackgroundcolor,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('User Name: ${widget.tour.user?.name?? 'No user name'}'),
-            Text('Governorate: ${widget.tour.governorate?? 'No governorate'}'),
-            Text('Group Size: ${widget.tour.groupSize?? ''}'),
-            Text('Landmark: ${widget.tour.landmarks?[0].name?? ''}'),
+            
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.location_city,color: ksecondcolor,),
+                title: Text('Governorate',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
+                subtitle: Text(widget.tour.governorate ?? 'No governorate',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.group,color: ksecondcolor),
+                title: Text('Group Size',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.groupSize ?? 'No group size',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.date_range,color: ksecondcolor),
+                title: Text('Start Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.startDate?.toLocal().toString() ?? 'No start date',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.date_range,color: ksecondcolor),
+                title: Text('End Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.endDate?.toLocal().toString() ?? 'No end date',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.comment,color: ksecondcolor),
+                title: Text('Comment for Guide',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.commentForGuide ?? 'No comment',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.flag,color: ksecondcolor),
+                title: Text('Status',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.status ?? 'No status',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            Card(
+               color: ksecondcolor2,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Icon(Icons.payment,color: ksecondcolor),
+                title: Text('Payment Status',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.paymentStatus ?? 'No payment status',style: TextStyle(color: kmaincolor)),
+              ),
+            ),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.tour.landmarks?.length ?? 0,
+              itemBuilder: (context, index) {
+                final landmark = widget.tour.landmarks![index];
+                return Card(
+                   color: ksecondcolor2,
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: ListTile(
+                    leading: Icon(Icons.location_on,color: ksecondcolor),
+                    title: Text(landmark.name ?? 'No name',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
+                    subtitle: Text(landmark.category?.name ?? 'No category',style: TextStyle(color: kmaincolor)),
+                  ),
+                );
+              },
+            ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                try {
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal:26, vertical: 11),
+            backgroundColor:  kmaincolor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),),
+                onPressed: () async {
                   print('Cancel tour button pressed');
                   showDialog(
                     context: context,
                     builder: (context) => Center(child: CircularProgressIndicator()),
                   );
-                  await cancelTour(context, widget.tour.id?? '');
+                  await cancelTour(context, widget.tour.id ?? '');
                   print('Tour cancelled successfully');
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                } catch (e) {
-                  print('Error cancelling tour: $e');
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Operation Failed"),
-                      content: Text("An error happened $e, please try again"),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Tour cancelled successfully')),
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyOrdersPage(),
                     ),
                   );
-                }
-              },
-              child: Text('Cancel Tour'),
+                },
+                child: Text('Cancel Tour',style:TextStyle(color: kbackgroundcolor,fontWeight: FontWeight.w700) ,),
+              ),
             ),
           ],
         ),

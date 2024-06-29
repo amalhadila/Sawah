@@ -48,7 +48,7 @@ class _TravelInfoState extends State<TravelInfo> {
       print('Comment for Guide: $commentForGuide');
 
       var response = await _dio.post(
-        'http://192.168.1.6:8000/api/v1/customizedTour',
+        'http://192.168.1.4:8000/api/v1/customizedTour',
         options: Options(
           headers: {
             'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
