@@ -5,6 +5,7 @@ import 'package:graduation/features/create_tour.dart/presentation/model/get_my_r
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/AvailableGuidesScreen.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_cite.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 import 'package:intl/intl.dart';
 
 class MyOrdersPage extends StatefulWidget {
@@ -135,6 +136,7 @@ class OrdersList extends StatelessWidget {
           date: order.startDate,
           status:order.status , 
           id:order.id,
+          tour:order,
         );
       },
     );
@@ -143,13 +145,14 @@ class OrdersList extends StatelessWidget {
 
 class OrderCard extends StatelessWidget {
   final String? name;
+  GetMyRequestsModel? tour;
   final String? id;
   final String? location;
   final DateTime? date;
   final String? status;
 
 
-  OrderCard({this.name, this.location, this.date, this.status, this.id});
+  OrderCard({super.key, this.name, this.tour, this.location, this.date, this.status, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -160,15 +163,15 @@ class OrderCard extends StatelessWidget {
       elevation: 5,
       child: ListTile(minVerticalPadding: 22,
         onTap: () {
-          //  Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => ResponseScreen(
-          //                     tourId: id!,
+           Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => yourTourDetailsPage(
+                              tour: tour!,
                               
-          //                   ),
-          //                 ),
-          //               );
+                            ),
+                          ),
+                        );
         },
          leading:null,
         // CachedNetworkImage(
