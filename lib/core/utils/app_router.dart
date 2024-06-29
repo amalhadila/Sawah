@@ -46,7 +46,7 @@ abstract class AppRouter {
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-          path: '/5',
+          path: '/',
           builder: (context, state) {
             return FutureBuilder<bool>(
               future: loadShowOnboarding(),
@@ -64,7 +64,7 @@ abstract class AppRouter {
           }),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      GoRoute(path: '/ا', builder: (context, state) => SplashView()),
       GoRoute(
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),

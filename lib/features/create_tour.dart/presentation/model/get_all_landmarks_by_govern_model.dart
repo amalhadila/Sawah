@@ -47,7 +47,7 @@ class Landmark {
     List<dynamic> imagesId;
     Category category;
     int visitsNumber;
-    int rating;
+    dynamic rating;
     int ratingsQuantity;
     String slug;
     int v;

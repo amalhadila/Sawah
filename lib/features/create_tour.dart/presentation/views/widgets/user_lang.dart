@@ -1,12 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/travel_info.dart';
-
-
-
-
 
 class Language {
   final String name;
@@ -16,76 +11,93 @@ class Language {
 }
 
 class LanguageSelectionScreen extends StatefulWidget {
+  final List<Landmark> landmarks;
+  final String selectedGovernorate;
+
+  const LanguageSelectionScreen({
+    Key? key,
+    required this.selectedGovernorate,
+    required this.landmarks,
+  }) : super(key: key);
+
   @override
-  State<LanguageSelectionScreen> createState() => _LanguageSelectionScreenState();
+  _LanguageSelectionScreenState createState() =>
+      _LanguageSelectionScreenState();
 }
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
-   final List<Language> languages = [
-    Language(name: "Afrikaans",  nativeName: "Afrikaans"),
-    Language(name: "Amharic",  nativeName: "አማርኛ"),
+  final List<Language> languages = [
+    Language(name: "Afrikaans", nativeName: "Afrikaans"),
+    Language(name: "Amharic", nativeName: "አማርኛ"),
     Language(name: "Arabic", nativeName: "العربية"),
     Language(name: "Aymara", nativeName: "Aymar"),
-    Language(name: "Azerbaijani",  nativeName: "Azərbaycanca"),
-    Language(name: "Belarusian",  nativeName: "Беларуская"),
-    Language(name: "Bulgarian",  nativeName: "Български"),
-    Language(name: "Bislama",  nativeName: "Bislama"),
-    Language(name: "Bengali",nativeName: "বাংলা"),
-    Language(name: "Bosnian",  nativeName: "Bosanski"),
-    Language(name: "Catalan",  nativeName: "Català"),
-    Language(name: "Chinese",  nativeName: "中文"),
+    Language(name: "Azerbaijani", nativeName: "Azərbaycanca"),
+    Language(name: "Belarusian", nativeName: "Беларуская"),
+    Language(name: "Bulgarian", nativeName: "Български"),
+    Language(name: "Bislama", nativeName: "Bislama"),
+    Language(name: "Bengali", nativeName: "বাংলা"),
+    Language(name: "Bosnian", nativeName: "Bosanski"),
+    Language(name: "Catalan", nativeName: "Català"),
+    Language(name: "Chinese", nativeName: "中文"),
     Language(name: "Croatian", nativeName: "Hrvatski"),
-    Language(name: "Czech",  nativeName: "Čeština"),
-    Language(name: "Danish",  nativeName: "Dansk"),
-    Language(name: "Dutch",  nativeName: "Nederlands"),
+    Language(name: "Czech", nativeName: "Čeština"),
+    Language(name: "Danish", nativeName: "Dansk"),
+    Language(name: "Dutch", nativeName: "Nederlands"),
     Language(name: "English", nativeName: "English"),
     Language(name: "Estonian", nativeName: "Eesti"),
-    Language(name: "Finnish",  nativeName: "Suomi"),
-    Language(name: "French",  nativeName: "Français"),
-    Language(name: "German",  nativeName: "Deutsch"),
-    Language(name: "Greek",  nativeName: "Ελληνικά"),
+    Language(name: "Finnish", nativeName: "Suomi"),
+    Language(name: "French", nativeName: "Français"),
+    Language(name: "German", nativeName: "Deutsch"),
+    Language(name: "Greek", nativeName: "Ελληνικά"),
     Language(name: "Hebrew", nativeName: "עברית"),
-    Language(name: "Hindi",  nativeName: "हिन्दी"),
+    Language(name: "Hindi", nativeName: "हिन्दी"),
     Language(name: "Hungarian", nativeName: "Magyar"),
     Language(name: "Icelandic", nativeName: "Íslenska"),
     Language(name: "Indonesian", nativeName: "Bahasa Indonesia"),
-    Language(name: "Italian",  nativeName: "Italiano"),
+    Language(name: "Italian", nativeName: "Italiano"),
     Language(name: "Japanese", nativeName: "日本語"),
-    Language(name: "Kazakh",  nativeName: "Қазақ тілі"),
-    Language(name: "Korean",  nativeName: "한국어"),
+    Language(name: "Kazakh", nativeName: "Қазақ тілі"),
+    Language(name: "Korean", nativeName: "한국어"),
     Language(name: "Latvian", nativeName: "Latviešu"),
     Language(name: "Lithuanian", nativeName: "Lietuvių"),
     Language(name: "Macedonian", nativeName: "Македонски"),
-    Language(name: "Malay",  nativeName: "Bahasa Melayu"),
+    Language(name: "Malay", nativeName: "Bahasa Melayu"),
     Language(name: "Norwegian", nativeName: "Norsk"),
-    Language(name: "Persian",  nativeName: "فارسی"),
-    Language(name: "Polish",  nativeName: "Polski"),
+    Language(name: "Persian", nativeName: "فارسی"),
+    Language(name: "Polish", nativeName: "Polski"),
     Language(name: "Portuguese", nativeName: "Português"),
-    Language(name: "Romanian",  nativeName: "Română"),
-    Language(name: "Russian",  nativeName: "Русский"),
-    Language(name: "Serbian",  nativeName: "Српски"),
-    Language(name: "Slovak",  nativeName: "Slovenčina"),
+    Language(name: "Romanian", nativeName: "Română"),
+    Language(name: "Russian", nativeName: "Русский"),
+    Language(name: "Serbian", nativeName: "Српски"),
+    Language(name: "Slovak", nativeName: "Slovenčina"),
     Language(name: "Slovenian", nativeName: "Slovenščina"),
-    Language(name: "Spanish",  nativeName: "Español"),
-    Language(name: "Swahili",  nativeName: "Kiswahili"),
-    Language(name: "Swedish",  nativeName: "Svenska"),
-    Language(name: "Thai",  nativeName: "ไทย"),
+    Language(name: "Spanish", nativeName: "Español"),
+    Language(name: "Swahili", nativeName: "Kiswahili"),
+    Language(name: "Swedish", nativeName: "Svenska"),
+    Language(name: "Thai", nativeName: "ไทย"),
     Language(name: "Turkish", nativeName: "Türkçe"),
     Language(name: "Ukrainian", nativeName: "Українська"),
-    Language(name: "Urdu",  nativeName: "اردو"),
+    Language(name: "Urdu", nativeName: "اردو"),
     Language(name: "Vietnamese", nativeName: "Tiếng Việt"),
-    Language(name: "Welsh",  nativeName: "Cymraeg"),
-    Language(name: "Zulu",  nativeName: "isiZulu"),
+    Language(name: "Welsh", nativeName: "Cymraeg"),
+    Language(name: "Zulu", nativeName: "isiZulu"),
   ];
 
-  @override
-    List<String> selectedLanguages = [];
+  List<String> selectedLanguages = [];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: Text('Landmark name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 19,color: kmaincolor),),
+        title: Text(
+          'Landmark name',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 19,
+            color: kmaincolor,
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
@@ -106,7 +118,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Which languages should the guide speak?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: neutralColor3),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: neutralColor3,
+                ),
               ),
             ),
             Expanded(
@@ -114,11 +130,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 itemCount: languages.length,
                 itemBuilder: (context, index) {
                   final language = languages[index];
-                  final isSelected = selectedLanguages.contains(language.name);
+                  final isSelected =
+                      selectedLanguages.contains(language.name);
                   return ListTile(
-                    title: Text(language.name, style: TextStyle(fontWeight: FontWeight.w600)),
+                    title: Text(language.name,
+                        style: TextStyle(fontWeight: FontWeight.w600)),
                     subtitle: Text(language.nativeName),
-                    trailing: isSelected ? Icon(Icons.check, color: kmaincolor) : null,
+                    trailing: isSelected
+                        ? Icon(Icons.check, color: kmaincolor)
+                        : null,
                     onTap: () {
                       setState(() {
                         if (isSelected) {
@@ -133,22 +153,38 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
               child: ElevatedButton(
-                onPressed:selectedLanguages.isNotEmpty ? () {
-                   Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => TravelInfo()),
-  );
-                }:(){ ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please, select your language')));
-      },
+                onPressed: selectedLanguages.isNotEmpty
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TravelInfo(
+                              selectedGovernorate:
+                                  widget.selectedGovernorate,
+                              selectedLanguages: selectedLanguages,
+                              selectedLandmarks: widget.landmarks,
+                            ),
+                          ),
+                        );
+                      }
+                    : () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Please, select your language')),
+                        );
+                      },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: kmaincolor, 
-                  minimumSize: Size.fromHeight(48), 
+                  backgroundColor: kmaincolor,
+                  minimumSize: Size.fromHeight(48),
                 ),
-
-                child: const Text('Next', style: TextStyle(color: kbackgroundcolor, fontWeight: FontWeight.bold, fontSize: 17)),
+                child: const Text('Next',
+                    style: TextStyle(
+                        color: kbackgroundcolor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17)),
               ),
             ),
           ],

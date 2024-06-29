@@ -28,6 +28,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
+  final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<List<String>> _selectedMessagesNotifier = ValueNotifier<List<String>>([]);
 
   @override
   void initState() {
@@ -42,23 +44,8 @@ class _ChatScreenState extends State<ChatScreen> {
       if (_imageFile != null) {
         File imageFile = File(_imageFile!.path);
         try {
-          // String messageId = await FireData()
-          //     .sendMessage(roomId: widget.roomid, msg: message);
-          // print('Message ID: $messageId');
-
-          imageUrl =
-              await FireStorage().sendImage(imageFile, widget.roomid, 'Image');
+          imageUrl = await FireStorage().sendImage(imageFile, widget.roomid, 'Image');
           print('Image URL: $imageUrl');
-
-          // await FirebaseFirestore.instance
-          //     .collection('rooms')
-          //     .doc(widget.roomid)
-          //     .collection('messages')
-          //     .doc(messageId)
-          //     .update({
-          //   'msg': message,
-          //   'imageUrl': imageUrl,
-          // });
         } catch (e) {
           print('Error uploading image: $e');
         }
@@ -82,6 +69,16 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void _toggleSelection(String messageId) {
+    List<String> selectedMessages = List.from(_selectedMessagesNotifier.value);
+    if (selectedMessages.contains(messageId)) {
+      selectedMessages.remove(messageId);
+    } else {
+      selectedMessages.add(messageId);
+    }
+    _selectedMessagesNotifier.value = selectedMessages;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,16 +100,20 @@ class _ChatScreenState extends State<ChatScreen> {
           },
         ),
         actions: [
-          widget.selectedmsg.isNotEmpty
-              ? IconButton(
-                  onPressed: () async {
-                    await FireData()
-                        .deleteMessages(widget.roomid, widget.selectedmsg);
-                    widget.selectedmsg.clear();
-                  },
-                  icon: const Icon(Iconsax.trash),
-                )
-              : Container(),
+          ValueListenableBuilder<List<String>>(
+            valueListenable: _selectedMessagesNotifier,
+            builder: (context, selectedMessages, child) {
+              return selectedMessages.isNotEmpty
+                  ? IconButton(
+                      onPressed: () async {
+                        await FireData().deleteMessages(widget.roomid, selectedMessages);
+                        _selectedMessagesNotifier.value = [];
+                      },
+                      icon: const Icon(Iconsax.trash),
+                    )
+                  : Container();
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -142,6 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                   return ListView.builder(
                     reverse: true,
+                    controller: _scrollController,
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[index];
@@ -149,26 +151,23 @@ class _ChatScreenState extends State<ChatScreen> {
 
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            if (widget.selectedmsg.isNotEmpty) {
-                              widget.selectedmsg.contains(message.id)
-                                  ? widget.selectedmsg.remove(message.id)
-                                  : widget.selectedmsg.add(message.id!);
-                            }
-                          });
+                          if (_selectedMessagesNotifier.value.isNotEmpty) {
+                            _toggleSelection(message.id!);
+                          }
                         },
                         onLongPress: () {
-                          setState(() {
-                            widget.selectedmsg.contains(message.id)
-                                ? widget.selectedmsg.remove(message.id)
-                                : widget.selectedmsg.add(message.id!);
-                          });
+                          _toggleSelection(message.id!);
                         },
-                        child: ChatMessageCard(
-                          selected: widget.selectedmsg.contains(message.id),
-                          roomid: widget.roomid,
-                          message: message,
-                          isMe: isMe,
+                        child: ValueListenableBuilder<List<String>>(
+                          valueListenable: _selectedMessagesNotifier,
+                          builder: (context, selectedMessages, child) {
+                            return ChatMessageCard(
+                              selected: selectedMessages.contains(message.id),
+                              roomid: widget.roomid,
+                              message: message,
+                              isMe: isMe,
+                            );
+                          },
                         ),
                       );
                     },

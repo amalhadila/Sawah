@@ -1,15 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart'; // Import Dio for HTTP requests
+import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart'; // Ensure this import is correct
 
 class TourDetailsPage extends StatefulWidget {
+  final String selectedGovernorate;
+  final List<String> selectedLanguages;
+  final List<Landmark> selectedLandmarks;
+  final DateTime startDate;
+  final DateTime endDate;
+  final int groupSize;
+  final String comment;
+
+  TourDetailsPage({
+    required this.selectedGovernorate,
+    required this.selectedLanguages,
+    required this.selectedLandmarks,
+    required this.startDate,
+    required this.endDate,
+    required this.groupSize,
+    required this.comment,
+  });
+
   @override
   _TourDetailsPageState createState() => _TourDetailsPageState();
 }
 
 class _TourDetailsPageState extends State<TourDetailsPage> {
-  final TextEditingController destinationController = TextEditingController(text: 'Paris');
-  final TextEditingController peopleController = TextEditingController(text: '5-10');
+  final TextEditingController destinationController = TextEditingController();
+  final TextEditingController peopleController = TextEditingController();
   DateTime selectedDate = DateTime(2024, 6, 21);
+
+  @override
+  void initState() {
+    super.initState();
+    destinationController.text = 'Paris'; // Set initial value
+    peopleController.text = '5-10'; // Set initial value
+    selectedDate = widget.startDate; // Set selected date from widget.startDate
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +59,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Paris',
+                      destinationController.text,
                       style: TextStyle(fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: screenWidth * 0.02),
@@ -70,7 +98,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                     SizedBox(width: screenWidth * 0.04),
                     Expanded(
                       child: Text(
-                        'Place de la Bastille',
+                        widget.selectedLandmarks.isNotEmpty ? widget.selectedLandmarks.first.name : '',
                         style: TextStyle(fontSize: screenWidth * 0.04),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -90,10 +118,10 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildRowWithEdit(context, 'Tour languages', 'Afrikaans', screenWidth),
+                    _buildRowWithEdit(context, 'Tour languages', widget.selectedLanguages.isNotEmpty ? widget.selectedLanguages.join(', ') : '', screenWidth),
                     SizedBox(height: screenWidth * 0.02),
                     Text('How many people will be on the tour?'),
-                    _buildRowWithEdit(context, 'n5-10', '', screenWidth),
+                    _buildRowWithEdit(context, widget.groupSize == 1 ? '1-4' : widget.groupSize == 2 ? '5-10' : 'More than 10', '', screenWidth),
                   ],
                 ),
               ),
@@ -101,12 +129,17 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _beginGuideSearch,
+                  onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ResponseScreen()),
+                        );
+                      },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueGrey,
                     padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
-                  child: Text('Begin guide search', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
+                  child: Text('create', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
                 ),
               ),
             ],
@@ -170,12 +203,6 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     }
   }
 
-  void _beginGuideSearch() {
-    // Implement the search functionality
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ResponseScreen()), // Ensure this is the correct page to navigate to
-    );
-    print('Search for guides');
-  }
+  
+ 
 }

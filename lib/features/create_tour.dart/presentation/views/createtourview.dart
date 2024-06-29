@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_cite.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
 
 class Createtourview extends StatelessWidget {
@@ -6,6 +7,6 @@ class Createtourview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  LandmarkSelectionScreen();
+    return  CitySelectionScreen();
   }
 }

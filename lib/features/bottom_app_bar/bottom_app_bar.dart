@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
-import 'package:graduation/features/guide/presentation/views/guide_view.dart';
 import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
 import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
@@ -31,9 +30,9 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   final List<Widget> _pages = [
     CategoriesView(),
     Homepage(),
-    GuideView(),
+    Createtourview(),
     StoreView(),
-    ImagesUploadPage(),
+  //  ImagesUploadPage(),
   ];
 
   void _changeTab(int index) {
@@ -115,8 +114,9 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                   Icon(
                     listOfIcons[index],
                     size: size.width * .076,
-                    color:
-                        index == _selectedTab ? Colors.orange : Colors.black38,
+                    color: index == _selectedTab
+                        ? accentColor1
+                        : Colors.black38,
                   ),
                   SizedBox(height: size.width * .03),
                 ],
@@ -129,12 +129,11 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   }
 
   final List<IconData> listOfIcons = [
-    Icons.favorite_rounded,
     Icons.home_rounded,
-
+    Icons.favorite_rounded,
+    Icons.add,
     Icons.shopping_bag_outlined,
-    Icons.camera_alt_rounded,
-
+ //   Icons.settings_rounded,
     // Adjust your icons based on the number of pages and the items in your bottom navigation bar
   ];
 }
