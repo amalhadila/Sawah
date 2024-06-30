@@ -81,15 +81,17 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                         ..sort((a, b) => b.lastMessageTime!.compareTo(a.lastMessageTime!));
 
                     return ListView.builder(
+                      
                       itemCount: chatrooms.length,
                       itemBuilder: (context, index) {
                         final chatroom = chatrooms[index];
+                        final isMe = chatroom.userid != myUid;
                         return GestureDetector(
                           onTap: () {
                             if (_selectedRoomsNotifier.value.isNotEmpty) {
                               _toggleSelection(chatroom.id!);
                             } else {
-                              GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!, chatroom.name!]);
+                              GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!,chatroom.name]);
                             }
                           },
                           onLongPress: () {
@@ -105,7 +107,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                   if (_selectedRoomsNotifier.value.isNotEmpty) {
                                     _toggleSelection(chatroom.id!);
                                   } else {
-                                    GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!, chatroom.name!]);
+                                    GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!,isMe? chatroom.name!:chatroom.myname!]);
                                   }
                                 },
                                 onLongPress: () {

@@ -6,6 +6,8 @@ String myUid =
 //"66630da3e76600fd06fc7eb4";
 //'66630d9ee76600fd06fc7eb2';
 CacheHelper().getData(key:apikey.id );
+  String myname='amal';
+  //CacheHelper().getData(key:apikey.name );
 
 const shadow = Color(0xFFF2F2F2);
 //const kbackgroundcolor = Color(0xffFFFFFF);

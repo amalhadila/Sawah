@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:graduation/auth/forgotpassword/default_button_widget.dart';
 import 'package:graduation/auth/forgotpassword/default_form_field.dart';
 import 'package:graduation/auth/forgotpassword/otp_page.dart';
+import 'package:graduation/constants.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
@@ -47,7 +48,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   MaterialPageRoute(
                     builder: (context) => const OTPPage(),
                   )),
-              color: Colors.orange,
+              color: kmaincolor,
               text: "Continue",
               textColor: Colors.white,
             ),
@@ -101,7 +102,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: 22,
-              color: Colors.orange,
+              color: kmaincolor,
             ),
           ),
           SizedBox(

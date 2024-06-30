@@ -23,17 +23,21 @@ class infoimg extends StatelessWidget {
               );
             }).toList(),
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.height,
-              autoPlay: true,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              viewportFraction: 1,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              pageSnapping: true,
-              autoPlayInterval: Duration(seconds: 4),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                height: MediaQuery.of(context).size.height,
+                    autoPlay: true,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.2,
+                    enlargeStrategy:
+                        CenterPageEnlargeStrategy.scale, // استخدم هذه الخاصية لعمل تأثير الزووم
+                    pageSnapping: true,
+
+                    autoPlayInterval: Duration(seconds: 5),
+                    autoPlayCurve: Curves.easeInOutCubicEmphasized,
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 5000),
             )),
       );
     } 

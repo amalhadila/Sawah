@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/auth/screens/sign_up_screen.dart';
+import 'package:graduation/constants.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({
@@ -36,7 +37,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
               'Sign-up',
               style: TextStyle(
                   fontSize: 15,
-                  color: Colors.orange,
+                  color: ksecondcolor,
                   fontWeight: FontWeight.bold),
             ),
           ),

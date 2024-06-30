@@ -32,7 +32,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     Homepage(),
     Createtourview(),
     StoreView(),
-  //  ImagesUploadPage(),
+    ImagesUploadPage(),
   ];
 
   void _changeTab(int index) {
@@ -61,12 +61,12 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         ),
       ],
       child: Scaffold(
-        appBar: _selectedTab == 3
-            ? null
-            : CustomAppBar(), // إزالة الـ AppBar إذا كانت التالت صفحة محددة
+        appBar: (_selectedTab == 2 || _selectedTab == 3)
+    ? null
+    : CustomAppBar(), 
         drawer: CustomDrawer(),
         body:
-            _pages[_selectedTab], // عرض الصفحة المحددة إذا كانت غير التالت صفحة
+            _pages[_selectedTab], 
         bottomNavigationBar: Container(
           margin: EdgeInsets.all(20),
           height: size.width * .155,
@@ -82,7 +82,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 4, // Changed to 3 to match the number of pages
+            itemCount: 5, // Changed to 3 to match the number of pages
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(
@@ -133,7 +133,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     Icons.favorite_rounded,
     Icons.add,
     Icons.shopping_bag_outlined,
- //   Icons.settings_rounded,
+    Icons.settings_rounded,
     // Adjust your icons based on the number of pages and the items in your bottom navigation bar
   ];
 }

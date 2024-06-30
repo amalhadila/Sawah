@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/auth/cubit/user_cubit.dart';
 import 'package:graduation/auth/cubit/user_state.dart';
+import 'package:graduation/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,8 +31,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back,
-                      color: Color.fromARGB(255, 146, 52, 17)),
+                  icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -42,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 146, 52, 17),
+                    color: kmaincolor,
                   ),
                 ),
                 IconButton(
@@ -51,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                   icon: const Icon(
                     Icons.chat,
-                    color: Color.fromARGB(255, 146, 52, 17),
+                    color: kmaincolor,
                   ),
                 ),
               ],
@@ -131,33 +135,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             ProfileMenu(
                               text: user.data.name ?? 'name',
-                              icon: Icon(Icons.person,
-                                  color: Color.fromARGB(255, 146, 52, 17)),
+                              icon: const Icon(Icons.person,
+                                  color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: user.data.email ?? 'email',
-                              icon: Icon(Icons.email,
-                                  color: Color.fromARGB(255, 146, 52, 17)),
+                              icon: const Icon(Icons.email,
+                                  color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: 'wishlist',
-                              icon: Icon(Icons.favorite,
-                                  color: Color.fromARGB(255, 146, 52, 17)),
+                              icon: const Icon(Icons.favorite,
+                                  color: ksecondcolor),
                               press: () =>
                                   {GoRouter.of(context).push('/wishlist')},
                             ),
                             ProfileMenu(
                               text: 'Interests',
-                              icon: Icon(Icons.interests,
-                                  color: Color.fromARGB(255, 146, 52, 17)),
+                              icon: const Icon(Icons.interests,
+                                  color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: 'logout',
                               icon: Icon(Icons.logout,
-                                  color: Color.fromARGB(255, 146, 52, 17)),
+                                  color: ksecondcolor),
                               press: () => {},
                             ),
                           ],
@@ -194,7 +198,7 @@ class ProfileMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: Color.fromARGB(255, 146, 52, 17),
+          foregroundColor: kmaincolor,
           padding: const EdgeInsets.all(20),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -245,7 +249,7 @@ class ProfilePic extends StatelessWidget {
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
-                    side: const BorderSide(color: Colors.orange),
+                    side: const BorderSide(color: kmaincolor),
                   ),
                   backgroundColor: const Color(0xFFF5F6F9),
                 ),

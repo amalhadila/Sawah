@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 
 class AlreadyHaveAnAccountWidget extends StatelessWidget {
   const AlreadyHaveAnAccountWidget({
@@ -25,7 +26,7 @@ class AlreadyHaveAnAccountWidget extends StatelessWidget {
               'Log-in',
               style: TextStyle(
                   fontSize: 15,
-                  color: Colors.orange,
+                  color: ksecondcolor,
                   fontWeight: FontWeight.bold),
             ),
           ),

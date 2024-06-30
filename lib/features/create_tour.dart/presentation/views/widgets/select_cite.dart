@@ -86,7 +86,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                           title: Text(city,
                               style: TextStyle(fontWeight: FontWeight.w600)),
                           trailing: isSelected
-                              ? Icon(Icons.check, color: kmaincolor)
+                              ? Icon(Icons.check, color: accentColor3)
                               : null,
                           onTap: () {
                             setState(() {

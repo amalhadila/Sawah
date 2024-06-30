@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 
 class PageHeading extends StatelessWidget {
   final String title;
@@ -13,7 +14,7 @@ class PageHeading extends StatelessWidget {
         textAlign: TextAlign.center,
         title,
         style: const TextStyle(
-            color: Colors.orange,
+            color: kmaincolor,
             fontSize: 30,
             fontWeight: FontWeight.bold,
             fontFamily: 'NotoSerif'),

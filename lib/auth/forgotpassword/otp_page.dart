@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graduation/auth/forgotpassword/default_button_widget.dart';
 import 'package:graduation/auth/forgotpassword/forgot_password_page.dart';
+import 'package:graduation/constants.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPPage extends StatefulWidget {
@@ -87,7 +88,7 @@ class _OTPPageState extends State<OTPPage> {
                     "Re-send",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.orange,
+                      color: kmaincolor,
                       decoration: TextDecoration.underline,
                     ),
                   ),
@@ -107,7 +108,7 @@ class _OTPPageState extends State<OTPPage> {
                   );
                 }
               },
-              color: Colors.orange,
+              color: kmaincolor,
               text: "Submit",
               textColor: Colors.white,
             ),
@@ -128,7 +129,7 @@ class _OTPPageState extends State<OTPPage> {
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 22,
-              color: Colors.orange,
+              color: kmaincolor,
             ),
           ),
           SizedBox(
@@ -154,11 +155,11 @@ class _OTPPageState extends State<OTPPage> {
       padding: const EdgeInsets.only(top: 7),
       textStyle: const TextStyle(
         fontSize: 20,
-        color: Colors.amber,
+        color: accentColor1,
         fontWeight: FontWeight.w600,
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.amber),
+        border: Border.all(color: accentColor1),
         borderRadius: BorderRadius.circular(10),
       ),
     );

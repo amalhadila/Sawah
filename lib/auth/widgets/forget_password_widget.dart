@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/auth/forgotpassword/forgot_password_page.dart';
+import 'package:graduation/constants.dart';
 
 class ForgetPasswordWidget extends StatelessWidget {
   const ForgetPasswordWidget({
@@ -26,7 +27,7 @@ class ForgetPasswordWidget extends StatelessWidget {
         child: const Text(
           'Forget password?',
           style: TextStyle(
-            color: Colors.orange,
+            color: ksecondcolor,
             fontSize: 13,
             fontWeight: FontWeight.bold,
           ),

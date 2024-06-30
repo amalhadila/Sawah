@@ -5,7 +5,6 @@ import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 
 class ResponseScreen extends StatefulWidget {
           final String tourId;

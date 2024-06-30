@@ -44,8 +44,19 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tour Details'),
+        title: Text('Tour Details', style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),
+      ),
         backgroundColor: kbackgroundcolor,
+         leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kmaincolor,
+            size: 22,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

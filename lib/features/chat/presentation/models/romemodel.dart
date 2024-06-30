@@ -1,6 +1,7 @@
 class ChatRoom {
   String? id;
   String? name;
+  String? myname;
   String? pushtoken;
   String? userid;
   List<String>? members;
@@ -11,6 +12,7 @@ class ChatRoom {
   ChatRoom({
     required this.id,
     required this.name,
+    required this.myname,
     required this.userid,
     //  required this.pushtoken,
     required this.members,
@@ -23,6 +25,7 @@ class ChatRoom {
     return ChatRoom(
       id: json['id'] ?? "",
       name: json['name'] ?? "",
+      myname: json['myname'] ?? "",
       userid: json['userid'] ?? "",
       //pushtoken: json['pushtoken'] ?? "",
       members: List<String>.from(json['members'] ?? []),
@@ -41,6 +44,7 @@ class ChatRoom {
     return {
       'id': id,
       'name': name,
+      'myname': myname,
       'userid': userid,
       // 'pushtoken':pushtoken,
       'members': members,

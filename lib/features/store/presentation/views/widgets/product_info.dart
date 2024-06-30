@@ -56,34 +56,36 @@ Widget build(BuildContext context) {
          SizedBox(
   width: double.infinity,
   height: MediaQuery.of(context).size.height * .31,
-  child: CarouselSlider(
-    disableGesture: false,
-    items: widget.products.images.map((image) {
-      return Image.network(
-        image,
-        fit: BoxFit.cover,
-        width: double.infinity,
-      );
-    }).toList(),
-    options: CarouselOptions(
-      height: MediaQuery.of(context).size.height,
-      autoPlay: true,
-      initialPage: 0,
-      enableInfiniteScroll: true,
-      viewportFraction: 1,
-      enlargeCenterPage: true,
-      enlargeFactor: 0.2,
-      enlargeStrategy: CenterPageEnlargeStrategy.scale, // استخدم هذه الخاصية لعمل تأثير الزووم
-      pageSnapping: true,
-      
-      autoPlayInterval: Duration(seconds: 7),
-      autoPlayCurve: Curves.easeInOutCubicEmphasized,
-      autoPlayAnimationDuration: const Duration(milliseconds: 5000),
-    ),
-  ),
-)
+  child:CarouselSlider(
+                  disableGesture: false,
+                  items: widget.products.images.map((image) {
+  return Image.network(
+      image,
+      fit: BoxFit.cover,
+      width: double.infinity,
+  );
+}).toList(),
 
-        ),
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height,
+                    autoPlay: true,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.2,
+                    enlargeStrategy:
+                        CenterPageEnlargeStrategy.scale, // استخدم هذه الخاصية لعمل تأثير الزووم
+                    pageSnapping: true,
+
+                    autoPlayInterval: Duration(seconds: 5),
+                    autoPlayCurve: Curves.easeInOutCubicEmphasized,
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 5000),
+                  ),
+                ),
+              ),
+            ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
@@ -171,7 +173,7 @@ Widget build(BuildContext context) {
                       children: [
                         const Icon(
                           Icons.location_on,
-                          color: klocicon,
+                          color: accentColor1,
                           size: 18,
                         ),
                         const SizedBox(width: 5),
@@ -191,7 +193,7 @@ Widget build(BuildContext context) {
                         children: [
                           const Icon(
                             Icons.location_on,
-                            color: klocicon,
+                            color: accentColor1,
                             size: 18,
                           ),
                           const SizedBox(width: 5),
@@ -228,7 +230,7 @@ Widget build(BuildContext context) {
                       const Icon(
                         FontAwesomeIcons.solidStar,
                         size: 16,
-                        color: kmaincolor,
+                        color: accentColor1,
                       ),
                       const SizedBox(width: 6.3),
                       Text(
@@ -349,7 +351,6 @@ Widget build(BuildContext context) {
         );
         GoRouter.of(context).push('/ChatScreen', extra: [
           roomId,
-          widget.products.guide!.id!,
           widget.products.guide!.name!,
         ]);
       },

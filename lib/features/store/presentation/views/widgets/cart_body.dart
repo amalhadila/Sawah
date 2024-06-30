@@ -28,7 +28,7 @@ class CartScreen extends StatelessWidget {
              'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
          },
         ),
-        'http://192.168.1.6:8000/api/v1/carts'
+        'http://192.168.1.4:8000/api/v1/carts'
       );
       UserCartResponse userCartResponse =
           UserCartResponse.fromJson(response.data);
@@ -59,7 +59,7 @@ class CartScreen extends StatelessWidget {
              'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
           },
         ),
-        'http://192.168.1.6:8000/api/v1/bookings/cart-checkout-session/$cartId',
+        'http://192.168.1.4:8000/api/v1/bookings/cart-checkout-session/$cartId',
         data: {
           "firstName":"Amr",
        "lastName":"Kfr",

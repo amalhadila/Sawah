@@ -133,7 +133,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                         style: TextStyle(fontWeight: FontWeight.w600)),
                     subtitle: Text(language.nativeName),
                     trailing: isSelected
-                        ? Icon(Icons.check, color: kmaincolor)
+                        ? Icon(Icons.check, color: accentColor3)
                         : null,
                     onTap: () {
                       setState(() {

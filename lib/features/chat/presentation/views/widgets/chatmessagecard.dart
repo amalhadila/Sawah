@@ -27,7 +27,7 @@ class ChatMessageCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: selected ? neutralColor : Colors.transparent,
+        color: selected ? const Color.fromARGB(160, 133, 205, 201) : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       margin: EdgeInsets.symmetric(vertical: 1),

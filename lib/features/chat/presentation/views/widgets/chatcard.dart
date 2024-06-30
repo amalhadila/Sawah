@@ -21,49 +21,57 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: selected ? accentColor3.withOpacity(0.5) : kbackgroundcolor,
-      elevation: 0,
-      child: ListTile(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        leading: const CircleAvatar(),
-        trailing: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('rooms')
-              .doc(chatroom.id)
-              .collection('messages')
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data != null) {
-              final unreadmessglist = snapshot.data!.docs
-                  .map((e) => Message.fromJson(e.data()))
-                  .where((element) => element.read != null && !element.read!)
-                  .where((element) => element.fromId != myUid)
-                  .toList();
+                                          final isMe = chatroom.userid != myUid;
 
-              if (unreadmessglist.isNotEmpty) {
-                return Badge(
-                  backgroundColor: accentColor3,
-                  largeSize: 25,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  label: Text(unreadmessglist.length.toString()),
-                );
+    return Card(
+      color: selected ? accentColor3.withOpacity(0.5) : ksecondcolor2,
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(7.0),
+        child: ListTile(
+          
+          onTap: onTap,
+          onLongPress: onLongPress,
+          leading: const CircleAvatar(),
+          trailing: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('rooms')
+                .doc(chatroom.id)
+                .collection('messages')
+                .snapshots(),
+            builder: (context, snapshot) {
+
+              if (snapshot.hasData && snapshot.data != null) {
+                final unreadmessglist = snapshot.data!.docs
+                
+                    .map((e) => Message.fromJson(e.data()))
+                    .where((element) => element.read != null && !element.read!)
+                    .where((element) => element.fromId != myUid)
+                    .toList();
+        
+                if (unreadmessglist.isNotEmpty) {
+                  return Badge(
+                    backgroundColor: accentColor3,
+                    largeSize: 25,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    label: Text(unreadmessglist.length.toString()),
+                  );
+                } else {
+                  return const Text('');
+                }
               } else {
-                return const Text('');
+                return const SizedBox();
               }
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        title: Text(chatroom.name.toString(),
-            style: const TextStyle(color: neutralColor3, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-          chatroom.lastMessage == "" ? 'send a message' : chatroom.lastMessage!,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(color: neutralColor3),
+            },
+          ),
+          title: Text(isMe?chatroom.name.toString():chatroom.myname.toString(),
+              style: const TextStyle(color: kmaincolor, fontWeight: FontWeight.bold)),
+          subtitle: Text(
+            chatroom.lastMessage == "" ? 'send a message' : chatroom.lastMessage!,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: ksecondcolor),
+          ),
         ),
       ),
     );

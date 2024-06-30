@@ -45,7 +45,7 @@ class CustomCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .16,
+                  height: MediaQuery.of(context).size.height * .13,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(

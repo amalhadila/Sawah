@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 
 class CustomFormButton extends StatelessWidget {
   final String innerText;
@@ -13,7 +14,7 @@ class CustomFormButton extends StatelessWidget {
     return Container(
       width: size.width * 0.8,
       decoration: BoxDecoration(
-        color: Colors.orange,
+        color: kmaincolor,
         borderRadius: BorderRadius.circular(26),
       ),
       child: TextButton(

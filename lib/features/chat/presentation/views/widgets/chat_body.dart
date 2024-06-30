@@ -13,10 +13,8 @@ class ChatScreen extends StatefulWidget {
   ChatScreen(
       {super.key,
       required this.roomid,
-      required this.userId,
       required this.name});
   String roomid;
-  String userId;
   String name;
   List<String> selectedmsg = [];
 
@@ -148,7 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemBuilder: (context, index) {
                       final message = messages[index];
                       final isMe = message.fromId == myUid;
-
+                  
                       return GestureDetector(
                         onTap: () {
                           if (_selectedMessagesNotifier.value.isNotEmpty) {

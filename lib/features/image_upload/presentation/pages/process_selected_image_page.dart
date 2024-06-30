@@ -33,7 +33,7 @@ class _ProcessImagePageState extends State<ProcessImagePage> {
             "GEN_AI_API_KEY": "AIzaSyCG2YD1d94hMUCy-fYI-jTlQ7fG9gMbB0Y"
           },
         ),
-        'http://192.168.1.2:8000/api/v1/detections',
+        'http://192.168.1.4:8000/api/v1/detections',
         data: formData,
       );
       LandMarkDetectionModel landMarkDetectionModel =

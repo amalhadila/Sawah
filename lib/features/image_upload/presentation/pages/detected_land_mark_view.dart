@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:graduation/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/widgets/appbar.dart';
@@ -29,7 +30,7 @@ class _DetectedLandMarkViewState extends State<DetectedLandMarkView> {
             children: [
               Image.file(
                 File(widget.selectedImage.path),
-                height: 200,
+                height: 220,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
@@ -38,7 +39,7 @@ class _DetectedLandMarkViewState extends State<DetectedLandMarkView> {
               ),
               Text(
                 widget.landMarkDetectionModel.data.gemini.label,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900,color: kmaincolor),
               ),
               SizedBox(
                 height: 10,

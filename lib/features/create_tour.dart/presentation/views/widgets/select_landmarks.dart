@@ -16,7 +16,7 @@ class LandmarkSelectionScreen extends StatefulWidget {
 }
 
 class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
-  List<Landmark> selectedLandmarks = [];
+  final _selectedLandmarksNotifier = ValueNotifier<List<Landmark>>([]);
 
   Future<GetAllLandmarksByGovernModel> getAllLandMarksByGovern(
       BuildContext context, String governorate) async {
@@ -46,17 +46,12 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
   }
 
   void addLandmark(Landmark landmark) {
-    setState(() {
-      if (!selectedLandmarks.contains(landmark)) {
-        selectedLandmarks.add(landmark);
-      }
-    });
+    _selectedLandmarksNotifier.value = [..._selectedLandmarksNotifier.value, landmark];
   }
 
   void removeLandmark(Landmark landmark) {
-    setState(() {
-      selectedLandmarks.remove(landmark);
-    });
+    _selectedLandmarksNotifier.value =
+        _selectedLandmarksNotifier.value.where((l) => l != landmark).toList();
   }
 
   @override
@@ -65,7 +60,7 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
       appBar: AppBar(
         title: Text(
           'What do you want to see?',
-          style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),
+          style: TextStyle(color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
         ),
         backgroundColor: kbackgroundcolor,
         leading: IconButton(
@@ -86,15 +81,13 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
             SizedBox(height: 16.0),
             Expanded(
               child: FutureBuilder<GetAllLandmarksByGovernModel>(
-                future: getAllLandMarksByGovern(
-                    context, widget.selectedGovernorate),
+                future: getAllLandMarksByGovern(context, widget.selectedGovernorate),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData ||
-                      snapshot.data!.data.landmarks.isEmpty) {
+                  } else if (!snapshot.hasData || snapshot.data!.data.landmarks.isEmpty) {
                     return Center(child: Text('No landmarks found'));
                   } else {
                     final landmarks = snapshot.data!.data.landmarks;
@@ -112,29 +105,31 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
                           child: ListTile(
                             leading: const CircleAvatar(
                               backgroundColor: Colors.grey,
-                              child:
-                                  Icon(Icons.location_on, color: Colors.white),
+                              child: Icon(Icons.location_on, color: Colors.white),
                             ),
-                            title: Text(landmark.name,
-                                style: TextStyle(color: ksecondcolor)),
+                            title: Text(landmark.name, style: TextStyle(color: ksecondcolor)),
                             subtitle: Text(
-                                landmark.description.substring(0, 170),
-                                style: TextStyle(color: neutralColor2)),
+    landmark.description.length > 100 
+        ? landmark.description.substring(0, 100) + '...' 
+        : landmark.description,
+                              style: TextStyle(color: neutralColor2),
+                            ),
                             trailing: IconButton(
-                              icon: Icon(
-                                selectedLandmarks.contains(landmark)
-                                    ? Icons.remove
-                                    : Icons.add,
-                                color: ksecondcolor,
-                              ),
+                              icon: ValueListenableBuilder(
+  valueListenable: _selectedLandmarksNotifier,
+  builder: (context, value, child) {
+    return _selectedLandmarksNotifier.value.contains(landmark)
+       ? Icon(Icons.check_circle, color: ksecondcolor)
+        : Icon(Icons.circle_outlined, color: ksecondcolor);
+  },
+),
                               onPressed: () {
-                                setState(() {
-                                  if (selectedLandmarks.contains(landmark)) {
-                                    removeLandmark(landmark);
-                                  } else {
-                                    addLandmark(landmark);
-                                  }
-                                });
+                                print('Button pressed'); 
+                                if (_selectedLandmarksNotifier.value.contains(landmark)) {
+                                  removeLandmark(landmark);
+                                } else {
+                                  addLandmark(landmark);
+                                }
                               },
                             ),
                           ),
@@ -146,30 +141,37 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 2.0, horizontal: 80),
+              padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 80),
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SelectedLandmarksScreen(
-                        selectedGovernorate: widget.selectedGovernorate,
-                        selectedLandmarks: selectedLandmarks,
-                      ),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: kmaincolor,
-                  minimumSize: Size.fromHeight(48),
-                ),
-                child: const Text('Next',
-                    style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
-              ),
+  onPressed: () {
+    if (_selectedLandmarksNotifier.value.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SelectedLandmarksScreen(
+            selectedGovernorate: widget.selectedGovernorate,
+            selectedLandmarks: _selectedLandmarksNotifier.value,
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select at least one landmark'),
+        ),
+      );
+    }
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: kmaincolor,
+    minimumSize: Size.fromHeight(48),
+  ),
+  child: const Text('Next',
+      style: TextStyle(
+          color: kbackgroundcolor,
+          fontWeight: FontWeight.bold,
+          fontSize: 17)),
+),
             ),
           ],
         ),
