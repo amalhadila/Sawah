@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
@@ -9,6 +10,7 @@ import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 import 'package:graduation/features/review_onlandmark/pres/commentfortour.dart';
 import 'package:graduation/features/store/data/product/product.dart';
+import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 import 'package:graduation/firebase/firedatabase.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -120,6 +122,7 @@ Widget build(BuildContext context) {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: () {
+                BlocProvider.of<GetcartitemsCubit>(context).fetchcartitems();
                 GoRouter.of(context).push('/CartScreen');
               },
               child: Stack(

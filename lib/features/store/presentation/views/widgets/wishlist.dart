@@ -83,7 +83,6 @@ class Wishlist extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 color:
                                 kbackgroundcolor,
-                                /////////////// kCardColor,
                                 boxShadow: const [
             BoxShadow(
                 blurRadius: 4,

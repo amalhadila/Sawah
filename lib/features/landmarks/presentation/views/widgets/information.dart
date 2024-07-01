@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
+import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 import 'package:graduation/features/landmarks/presentation/manger/more_info_cubit/more_info_cubit.dart';
 import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 
 class Information extends StatefulWidget {
-  const Information({Key? key, required this.text, required this.landmarkmodel})
+  const Information({Key? key, required this.text,  this.landmarkmodel, this.mostvistedkmodel})
       : super(key: key);
 
   final String text;
-  final LandmarkOnCatModel landmarkmodel;
+  final LandmarkOnCatModel? landmarkmodel;
+      final MostVisitedModel? mostvistedkmodel;
+
 
   @override
   _InformationState createState() => _InformationState();
@@ -141,7 +144,7 @@ class _InformationState extends State<Information>
               ),
               ReviewPage(
                   landmarkmodel: widget
-                      .landmarkmodel), // Pass the actual landmark model instance
+                      .landmarkmodel,mostvistedkmodel: widget.mostvistedkmodel,), // Pass the actual landmark model instance
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:graduation/core/utils/api_service.dart';
+import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 
 import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 
@@ -14,9 +15,11 @@ import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dar
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({Key? key, required this.landmarkmodel}) : super(key: key);
+  const ReviewPage({Key? key,  this.landmarkmodel, this.mostvistedkmodel}) : super(key: key);
 
-  final LandmarkOnCatModel landmarkmodel;
+  final LandmarkOnCatModel? landmarkmodel;
+    final MostVisitedModel? mostvistedkmodel;
+
 
   @override
   _ReviewPageState createState() => _ReviewPageState();
@@ -30,7 +33,7 @@ class _ReviewPageState extends State<ReviewPage> {
   void initState() {
     super.initState();
     context.read<ReviewCubit>().getallReviewsonlandmark(
-          id: widget.landmarkmodel.id!,
+          id: (widget.landmarkmodel?.id??widget.mostvistedkmodel?.id)!,
         );
   }
 
@@ -79,7 +82,7 @@ class _ReviewPageState extends State<ReviewPage> {
             ElevatedButton(
               onPressed: () {
                 context.read<ReviewCubit>().addReviewonlandmark(
-                      landmarkid: widget.landmarkmodel.id!,
+                      landmarkid: (widget.landmarkmodel?.id??widget.mostvistedkmodel?.id)!,
                       reviewType: 'Landmark',
                       comment: _commentController.text,
                     );

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
+import 'package:graduation/firebase/firedatabase.dart';
 
 class ResponseScreen extends StatefulWidget {
           final String tourId;
@@ -241,6 +243,19 @@ Widget _buildAllGuidesTab() {
             itemBuilder: (context, index) {
               final guide = guides[index];
               return ListTile(
+                trailing: IconButton(
+      onPressed: () async {
+        final roomId = await FireData().creatRoom(
+         guide.id!,
+         guide.name!,
+        );
+        GoRouter.of(context).push('/ChatScreen', extra: [
+          roomId,
+          guide.name!,
+        ]);
+      },
+      icon: const Icon(Icons.chat_rounded, color: kmaincolor),
+    ),
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(guide.photo??'')
                     

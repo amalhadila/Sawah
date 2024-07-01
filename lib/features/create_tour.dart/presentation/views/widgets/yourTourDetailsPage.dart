@@ -5,6 +5,7 @@ import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
+import 'package:intl/intl.dart';
 
 Future cancelTour(BuildContext context, String tourId) async {
   final Dio _dio = Dio();
@@ -70,8 +71,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.location_city,color: ksecondcolor,),
-                title: Text('Governorate',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
+                leading: const Icon(Icons.location_city,color: ksecondcolor,),
+                title: const Text('Governorate',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
                 subtitle: Text(widget.tour.governorate ?? 'No governorate',style: TextStyle(color: kmaincolor)),
               ),
             ),
@@ -90,7 +91,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               child: ListTile(
                 leading: Icon(Icons.date_range,color: ksecondcolor),
                 title: Text('Start Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.startDate?.toLocal().toString() ?? 'No start date',style: TextStyle(color: kmaincolor)),
+                subtitle: Text(DateFormat('dd/MM/yyyy').format(widget.tour.startDate!.toLocal()) ?? 'No start date',style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
@@ -99,7 +100,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               child: ListTile(
                 leading: Icon(Icons.date_range,color: ksecondcolor),
                 title: Text('End Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.endDate?.toLocal().toString() ?? 'No end date',style: TextStyle(color: kmaincolor)),
+                subtitle: Text(DateFormat('dd/MM/yyyy').format(widget.tour.endDate!.toLocal())?? 'No end date',style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(

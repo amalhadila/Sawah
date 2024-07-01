@@ -34,7 +34,7 @@ class InfViewBody extends StatelessWidget {
                 ),
                 Information(
                     text: (landmarkoncatModel?.description ??
-                        mostVisitedModel?.description)!,landmarkmodel: landmarkoncatModel!,),
+                        mostVisitedModel?.description)!,landmarkmodel: landmarkoncatModel,mostvistedkmodel: mostVisitedModel),
               ],
             ),
           ),

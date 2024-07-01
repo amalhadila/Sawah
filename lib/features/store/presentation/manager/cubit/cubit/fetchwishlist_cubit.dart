@@ -16,7 +16,7 @@ class FetchwishlistCubit extends Cubit<FetchwishlistState> {
     return super.close();
   }
 
-  Future<void> fetchwishlist() async {
+  Future<dynamic> fetchwishlist() async {
     if (_closed) return;
     emit(FetchwishlistLoading());
     var result = await catrepo.fetchwishlist();
@@ -25,6 +25,7 @@ class FetchwishlistCubit extends Cubit<FetchwishlistState> {
     }, (wishlist) {
       print(wishlist);
       if (!_closed) emit(FetchwishlistSuccess(wishlist));
+      return wishlist;
     });
   }
 }
