@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation/auth/cach/cach_helper.dart';
+import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/detailspage.dart';
@@ -51,7 +53,7 @@ class _TravelInfoState extends State<TravelInfo> {
         'http://192.168.1.4:8000/api/v1/customizedTour',
         options: Options(
           headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+            'Authorization': 'Bearer ${Token}',
             'Content-Type': 'application/json'
           },
         ),

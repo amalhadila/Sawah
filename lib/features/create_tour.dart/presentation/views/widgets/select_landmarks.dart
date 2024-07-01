@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/auth/cach/cach_helper.dart';
+import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/landmarkdetails.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
 import 'package:dio/dio.dart';
+import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:graduation/features/landmarks/presentation/views/info_view.dart';
 
 class LandmarkSelectionScreen extends StatefulWidget {
   final String selectedGovernorate;
@@ -27,7 +32,7 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
           options: Options(
             headers: {
               'Authorization':
-                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                  'Bearer ${Token}',
             },
           ));
       GetAllLandmarksByGovernModel getAllGovernsModel =
@@ -103,6 +108,22 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
                             color: shadow,
                           ),
                           child: ListTile(
+                            onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Landmarkdetails(
+                                
+                                
+                                name: landmark.name,
+                                description: landmark.description,
+                                images: landmark.images
+                                // Add other necessary fields here
+                              ),
+                            ),
+                          
+                        );},
+                     
                             leading: const CircleAvatar(
                               backgroundColor: Colors.grey,
                               child: Icon(Icons.location_on, color: Colors.white),

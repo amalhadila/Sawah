@@ -71,9 +71,9 @@ Widget build(BuildContext context) {
                     autoPlay: true,
                     initialPage: 0,
                     enableInfiniteScroll: true,
-                    viewportFraction: 1,
+                    viewportFraction: 1.05,
                     enlargeCenterPage: true,
-                    enlargeFactor: 0.2,
+                    enlargeFactor: .2,
                     enlargeStrategy:
                         CenterPageEnlargeStrategy.scale, // استخدم هذه الخاصية لعمل تأثير الزووم
                     pageSnapping: true,

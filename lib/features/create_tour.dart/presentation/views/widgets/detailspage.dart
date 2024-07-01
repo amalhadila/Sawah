@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart'; 
+import 'package:dio/dio.dart';
+import 'package:graduation/constants.dart'; 
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart'; // Ensure this import is correct
@@ -46,7 +47,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Let's check the details"),
+        title: Text("Let's check the details"),backgroundColor: kbackgroundcolor,
       ),
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.04),
@@ -137,7 +138,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                         );
                       },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey,
+                    backgroundColor: kmaincolor,
                     padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
                   child: Text('create', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
@@ -155,6 +156,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Card(
       elevation: 4,
+      color: ksecondcolor2,
       child: Padding(
         padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(

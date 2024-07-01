@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:graduation/auth/cach/cach_helper.dart';
+import 'package:graduation/auth/core_login/api/end_point.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/core/errors/failures.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/store/data/pro_cat.dart';
@@ -161,7 +164,7 @@ Future<Either<Failure, Product>> fetchProductbyId({
         Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${Token}',
           },
         ),
       );
@@ -191,7 +194,7 @@ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
       Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${Token}',
           },
         ),
     );
@@ -229,7 +232,7 @@ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
         Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${Token}',
             'Content-Type': 'application/json'
           },
         ),
@@ -259,7 +262,7 @@ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
         Headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${Token}',
             'Content-Type': 'application/json'
           },
         ),
@@ -288,7 +291,7 @@ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
         headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E'
+                'Bearer ${Token}'
           },
         ),
       );
@@ -313,7 +316,7 @@ Future<Either<Failure, List<Wishlistitem>>> fetchwishlist() async {
         headers: Options(
           headers: <String, String>{
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E'
+                'Bearer ${Token}'
           },
         ),
       );

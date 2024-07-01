@@ -25,7 +25,7 @@ class CartScreen extends StatelessWidget {
       var response = await _dio.get(
         options: Options(
           headers: {
-             'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+             'Authorization' :'Bearer ${Token}',
          },
         ),
         'http://192.168.1.4:8000/api/v1/carts'
@@ -56,7 +56,7 @@ class CartScreen extends StatelessWidget {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-             'Authorization' :'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+             'Authorization' :'Bearer ${Token}',
           },
         ),
         'http://192.168.1.4:8000/api/v1/bookings/cart-checkout-session/$cartId',
