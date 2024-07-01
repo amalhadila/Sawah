@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/core/utils/api_service.dart';
+import '../../constants.dart';
+import '../store/data/usercart/payment_response.dart';
+import '../store/presentation/views/widgets/payment_web_view.dart';
 import 'presentation/model/get_all_custom_tours_model.dart';
 import 'presentation/model/get_all_governs_model.dart';
 import 'presentation/model/get_all_landmarks_by_govern_model.dart';
@@ -9,6 +13,7 @@ import 'presentation/model/get_cancelled_tours_model.dart';
 import 'presentation/model/get_custom_tour_by_id_model.dart';
 import 'presentation/model/get_my_requests_model.dart';
 import 'presentation/model/get_my_tour_request_by_id_model.dart';
+import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart' as ps;
 
 class GuideRequests {
   final ApiService apiService = ApiService(Dio());
@@ -414,4 +419,40 @@ class GuideRequests {
       );
     }
   }
+  Future<void> payCustomTour(BuildContext context, tourId)async{
+        final Dio _dio = Dio();
+
+    try {
+    
+      var response = await _dio.post(
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+             'Authorization' :'Bearer ${Token}',
+          },
+        ),
+        'http://192.168.1.4:8000/api/v1/bookings/custom-checkout-session/:$tourId',
+        data: {
+          "firstName":"Amr",
+       "lastName":"Kfr",
+        "phone":1010101001},
+      );
+      ps.PaymentResponse paymentResponse =
+          ps.PaymentResponse.fromJson(response.data);
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) =>
+            PaymentWebView(
+            paymentResponse: paymentResponse),
+      ));
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened $e, please try again"),
+        ),
+      );
+    }
+  }
+  
 }
