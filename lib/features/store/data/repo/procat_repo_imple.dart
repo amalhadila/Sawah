@@ -142,7 +142,7 @@ Future<Either<Failure, Product>> fetchProductbyId({
   Future<Either<Failure, List<Product>>> fetchallProducts() async {
     try {
       var data = await apiService.get(endpoint: 'tours');
-    //  print(data['data']['docs']);
+     print(data['data']['docs']);
 
       List<Product> product = [];
       for (var item in data['data']['docs']) {

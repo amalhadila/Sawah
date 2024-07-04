@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:graduation/constants.dart'; 
+import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart'; // Ensure this import is correct
@@ -47,7 +47,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Let's check the details"),backgroundColor: kbackgroundcolor,
+        title: Text("Let's check the details"),
+        backgroundColor: kbackgroundcolor,
       ),
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.04),
@@ -62,7 +63,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   children: [
                     Text(
                       destinationController.text,
-                      style: TextStyle(fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.05,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: screenWidth * 0.02),
                     GestureDetector(
@@ -78,7 +81,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                           Spacer(),
                           Text(
                             'Edit',
-                            style: TextStyle(color: Colors.blue, fontSize: screenWidth * 0.04),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: screenWidth * 0.04),
                           ),
                         ],
                       ),
@@ -100,7 +105,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                     SizedBox(width: screenWidth * 0.04),
                     Expanded(
                       child: Text(
-                        widget.selectedLandmarks.isNotEmpty ? widget.selectedLandmarks.first.name : '',
+                        widget.selectedLandmarks.isNotEmpty
+                            ? widget.selectedLandmarks.first.name
+                            : '',
                         style: TextStyle(fontSize: screenWidth * 0.04),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -108,7 +115,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                     Spacer(),
                     Text(
                       'Edit',
-                      style: TextStyle(color: Colors.blue, fontSize: screenWidth * 0.04),
+                      style: TextStyle(
+                          color: Colors.blue, fontSize: screenWidth * 0.04),
                     ),
                   ],
                 ),
@@ -120,10 +128,24 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildRowWithEdit(context, 'Tour languages', widget.selectedLanguages.isNotEmpty ? widget.selectedLanguages.join(', ') : '', screenWidth),
+                    _buildRowWithEdit(
+                        context,
+                        'Tour languages',
+                        widget.selectedLanguages.isNotEmpty
+                            ? widget.selectedLanguages.join(', ')
+                            : '',
+                        screenWidth),
                     SizedBox(height: screenWidth * 0.02),
                     Text('How many people will be on the tour?'),
-                    _buildRowWithEdit(context, widget.groupSize == 1 ? '1-4' : widget.groupSize == 2 ? '5-10' : 'More than 10', '', screenWidth),
+                    _buildRowWithEdit(
+                        context,
+                        widget.groupSize == 1
+                            ? '1-4'
+                            : widget.groupSize == 2
+                                ? '5-10'
+                                : 'More than 10',
+                        '',
+                        screenWidth),
                   ],
                 ),
               ),
@@ -132,16 +154,18 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyOrdersPage()),
-                        );
-                      },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor,
                     padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
-                  child: Text('create', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
+                  child: Text('create',
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.04, color: Colors.white)),
                 ),
               ),
             ],
@@ -164,7 +188,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: screenWidth * 0.04, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: screenWidth * 0.04, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: screenWidth * 0.02),
             child,
@@ -174,7 +199,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     );
   }
 
-  Widget _buildRowWithEdit(BuildContext context, String title, String value, double screenWidth) {
+  Widget _buildRowWithEdit(
+      BuildContext context, String title, String value, double screenWidth) {
     return Row(
       children: [
         Text(title, style: TextStyle(fontSize: screenWidth * 0.04)),
@@ -205,7 +231,4 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
       });
     }
   }
-
-  
- 
 }

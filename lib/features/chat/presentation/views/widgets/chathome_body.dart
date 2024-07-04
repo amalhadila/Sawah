@@ -17,7 +17,8 @@ class ChatHomeScreen extends StatefulWidget {
 
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
   TextEditingController emailCon = TextEditingController();
-  final ValueNotifier<List<String>> _selectedRoomsNotifier = ValueNotifier<List<String>>([]);
+  final ValueNotifier<List<String>> _selectedRoomsNotifier =
+      ValueNotifier<List<String>>([]);
 
   void _toggleSelection(String roomId) {
     List<String> selectedRooms = List.from(_selectedRoomsNotifier.value);
@@ -34,8 +35,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: const Text("Chats", style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor)),
+        title: const Text("Chats",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w800, color: kmaincolor)),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -64,7 +66,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 10),
         child: Column(
           children: [
             Expanded(
@@ -76,12 +78,13 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<ChatRoom> chatrooms = snapshot.data!.docs
-                        .map((e) => ChatRoom.fromJson(e.data() as Map<String, dynamic>))
+                        .map((e) =>
+                            ChatRoom.fromJson(e.data() as Map<String, dynamic>))
                         .toList()
-                        ..sort((a, b) => b.lastMessageTime!.compareTo(a.lastMessageTime!));
+                      ..sort((a, b) =>
+                          b.lastMessageTime!.compareTo(a.lastMessageTime!));
 
                     return ListView.builder(
-                      
                       itemCount: chatrooms.length,
                       itemBuilder: (context, index) {
                         final chatroom = chatrooms[index];
@@ -91,7 +94,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                             if (_selectedRoomsNotifier.value.isNotEmpty) {
                               _toggleSelection(chatroom.id!);
                             } else {
-                              GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!,chatroom.name]);
+                              GoRouter.of(context).push('/ChatScreen',
+                                  extra: [chatroom.id!, chatroom.name]);
                             }
                           },
                           onLongPress: () {
@@ -107,7 +111,11 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                   if (_selectedRoomsNotifier.value.isNotEmpty) {
                                     _toggleSelection(chatroom.id!);
                                   } else {
-                                    GoRouter.of(context).push('/ChatScreen', extra: [chatroom.id!,isMe? chatroom.name!:chatroom.myname!]);
+                                    GoRouter.of(context)
+                                        .push('/ChatScreen', extra: [
+                                      chatroom.id!,
+                                      isMe ? chatroom.name! : chatroom.myname!
+                                    ]);
                                   }
                                 },
                                 onLongPress: () {

@@ -6,6 +6,25 @@ const router = express.Router();
 
 router.use(authController.protect);
 
+router.get('/governorates', customizedTourController.getAllGovernorates);
+router.get(
+    '/landmarks/:governorate',
+    customizedTourController.getLandmarksByGovernorate
+);
+
+// Routes for tour completion
+router.patch(
+    '/:tourId/confirm-completion/guide',
+    authController.restrictTo('guide'),
+    customizedTourController.confirmCompletionGuide
+);
+
+router.patch(
+    '/:tourId/confirm-completion/user',
+    authController.restrictTo('user'),
+    customizedTourController.confirmCompletionUser
+);
+
 // Routes for tour requests
 router.get(
     '/my-requests',

@@ -61,14 +61,12 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         ),
       ],
       child: Scaffold(
-        appBar: (_selectedTab == 2 || _selectedTab == 3)
-    ? null
-    : CustomAppBar(), 
+        appBar:
+            (_selectedTab == 2 || _selectedTab == 3) ? null : CustomAppBar(),
         drawer: CustomDrawer(),
-        body:
-            _pages[_selectedTab], 
+        body: _pages[_selectedTab],
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(right:20,left: 20,bottom: 15,top: 5),
           height: size.width * .155,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -114,9 +112,8 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                   Icon(
                     listOfIcons[index],
                     size: size.width * .076,
-                    color: index == _selectedTab
-                        ? accentColor1
-                        : Colors.black38,
+                    color:
+                        index == _selectedTab ? ksecondcolor : Colors.black38,
                   ),
                   SizedBox(height: size.width * .03),
                 ],

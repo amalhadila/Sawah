@@ -50,7 +50,7 @@ class _TravelInfoState extends State<TravelInfo> {
       print('Comment for Guide: $commentForGuide');
 
       var response = await _dio.post(
-        'http://192.168.1.4:8000/api/v1/customizedTour',
+        'http://192.168.1.7:8000/api/v1/customizedTour',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',
@@ -65,12 +65,10 @@ class _TravelInfoState extends State<TravelInfo> {
           "startDate": startDate,
           "endDate": endDate,
           "commentForGuide": commentForGuide,
-
         },
       );
       print('Response status code: ${response.statusCode}');
 
-     
       print('Tour creation request successful');
     } catch (e) {
       showDialog(
@@ -140,8 +138,7 @@ class _TravelInfoState extends State<TravelInfo> {
                           if (_startDate != null && _endDate != null) {
                             return day.isAfter(
                                     _startDate!.subtract(Duration(days: 1))) &&
-                                day.isBefore(
-                                    _endDate!.add(Duration(days: 1)));
+                                day.isBefore(_endDate!.add(Duration(days: 1)));
                           } else if (_startDate != null) {
                             return isSameDay(day, _startDate);
                           } else {
@@ -173,7 +170,8 @@ class _TravelInfoState extends State<TravelInfo> {
                         ),
                         onDaySelected: (selectedDay, focusedDay) {
                           setState(() {
-                            _focusedDay = focusedDay; // Keep the focused day in sync
+                            _focusedDay =
+                                focusedDay; // Keep the focused day in sync
                             if (_startDate == null ||
                                 (_startDate != null && _endDate != null)) {
                               _startDate = selectedDay;
@@ -299,43 +297,50 @@ class _TravelInfoState extends State<TravelInfo> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
               child: ElevatedButton(
-               onPressed: _startDate != null && _endDate != null
-  ? () {
-      createTour(
-        context,
-        governorate: widget.selectedGovernorate,
-        spokenLanguages: widget.selectedLanguages,
-        groupSize: groupSize == 1 ? '1-4' : groupSize == 2 ? '5-10' : 'More than 10',
-        landmarks: widget.selectedLandmarks.map((e) => e.id).toList(),
-        startDate: _startDate.toString(),
-        endDate: _endDate.toString(),
-        commentForGuide: commentController.text,
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TourDetailsPage(
-            selectedGovernorate: widget.selectedGovernorate,
-            selectedLanguages: widget.selectedLanguages,
-            selectedLandmarks: widget.selectedLandmarks,
-            startDate: _startDate!,
-            endDate: _endDate!,
-            groupSize: groupSize,
-            comment: commentController.text,
-          ),
-        ),
-      );
-    }
-  : () {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please, select the start and the end date'),
-        ),
-      );
-    },
-
+                onPressed: _startDate != null && _endDate != null
+                    ? () {
+                        createTour(
+                          context,
+                          governorate: widget.selectedGovernorate,
+                          spokenLanguages: widget.selectedLanguages,
+                          groupSize: groupSize == 1
+                              ? '1-4'
+                              : groupSize == 2
+                                  ? '5-10'
+                                  : 'More than 10',
+                          landmarks: widget.selectedLandmarks
+                              .map((e) => e.id)
+                              .toList(),
+                          startDate: _startDate.toString(),
+                          endDate: _endDate.toString(),
+                          commentForGuide: commentController.text,
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TourDetailsPage(
+                              selectedGovernorate: widget.selectedGovernorate,
+                              selectedLanguages: widget.selectedLanguages,
+                              selectedLandmarks: widget.selectedLandmarks,
+                              startDate: _startDate!,
+                              endDate: _endDate!,
+                              groupSize: groupSize,
+                              comment: commentController.text,
+                            ),
+                          ),
+                        );
+                      }
+                    : () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Please, select the start and the end date'),
+                          ),
+                        );
+                      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kmaincolor,
                   minimumSize: const Size.fromHeight(50),

@@ -15,11 +15,11 @@ import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dar
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({Key? key,  this.landmarkmodel, this.mostvistedkmodel}) : super(key: key);
+  const ReviewPage({Key? key, this.landmarkmodel, this.mostvistedkmodel})
+      : super(key: key);
 
   final LandmarkOnCatModel? landmarkmodel;
-    final MostVisitedModel? mostvistedkmodel;
-
+  final MostVisitedModel? mostvistedkmodel;
 
   @override
   _ReviewPageState createState() => _ReviewPageState();
@@ -33,7 +33,7 @@ class _ReviewPageState extends State<ReviewPage> {
   void initState() {
     super.initState();
     context.read<ReviewCubit>().getallReviewsonlandmark(
-          id: (widget.landmarkmodel?.id??widget.mostvistedkmodel?.id)!,
+          id: (widget.landmarkmodel?.id ?? widget.mostvistedkmodel?.id)!,
         );
   }
 
@@ -82,7 +82,8 @@ class _ReviewPageState extends State<ReviewPage> {
             ElevatedButton(
               onPressed: () {
                 context.read<ReviewCubit>().addReviewonlandmark(
-                      landmarkid: (widget.landmarkmodel?.id??widget.mostvistedkmodel?.id)!,
+                      landmarkid: (widget.landmarkmodel?.id ??
+                          widget.mostvistedkmodel?.id)!,
                       reviewType: 'Landmark',
                       comment: _commentController.text,
                     );
@@ -149,8 +150,7 @@ class ReviewWidget extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${review.createdAt?.toLocal()}"
-                          .split(' ')[0],
+                      "${review.createdAt?.toLocal()}".split(' ')[0],
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],

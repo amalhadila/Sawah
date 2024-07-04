@@ -12,78 +12,73 @@ class IntroductionScreenViewBody extends StatelessWidget {
   final List<PageViewModel> pages = [
     PageViewModel(
       decoration: const PageDecoration(
-          pageColor: abarcolor, titleTextStyle: Textstyle.textStyle25),
+          pageColor: kbackgroundcolor, bodyTextStyle: Textstyle.textStyle16),
       image: Image.asset(
-        'assets/egypt-pyramid_8330589.png',
-        width: 230,
-        height: 230,
+        'assets/Usability testing (1).gif',
+        width: 330,
+        height: 400,
         fit: BoxFit.fill,
       ),
-      title: 'onBoarding.learnMore'.tr(),
-      body: '',
+      title: '',
+      bodyWidget: Text(
+    'Welcome aboard! Dive into a world of wonder as you explore detailed info on tourist hotspots. ',
+    style: Textstyle.textStyle16.copyWith(color: neutralColor3)),),
+    PageViewModel(
+      decoration: const PageDecoration(
+          pageColor: kbackgroundcolor, bodyTextStyle: Textstyle.textStyle16),
+      image: Image.asset(
+        'assets/Date picker.gif',
+        width: 330,
+        height: 400,
+        fit: BoxFit.fill,
+      ),
+      title: '',
+      bodyWidget:Text( 'Your adventure, your way! Pick from expertly curated tours or design your own unique journey tailored just for you.',
+       style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
     ),
     PageViewModel(
       decoration: const PageDecoration(
-          pageColor: abarcolor, titleTextStyle: Textstyle.textStyle25),
+          pageColor: kbackgroundcolor, bodyTextStyle: Textstyle.textStyle16),
       image: Image.asset(
-        'assets/qr-scan_11815469.png',
-        width: 230,
-        height: 230,
+        'assets/Tour guide (2).gif',
+        width: 330,
+        height: 400,
         fit: BoxFit.fill,
       ),
-      title: 'onBoarding.scan'.tr(),
-      body: '',
-    ),
-    PageViewModel(
-      decoration: const PageDecoration(
-          pageColor: abarcolor, titleTextStyle: Textstyle.textStyle25),
-      image: Image.asset(
-        'assets/sphinx_760052.png',
-        width: 230,
-        height: 230,
-        fit: BoxFit.fill,
-      ),
-      title: 'onBoarding.enjoy'.tr(),
-      body: '',
+      title: '',
+      bodyWidget: Text('Need a hand? Chat with our expert guides for tailored tips and guidance to make your trip unforgettable.',
+      style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: abarcolor,
+      backgroundColor: kbackgroundcolor,
       appBar: AppBar(
-        title: const Text(
-          'SawaH',
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-            fontFamily: 'Pacifico',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: abarcolor,
+     
+        backgroundColor: kbackgroundcolor,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(12, 80, 12, 12),
         child: IntroductionScreen(
-          globalBackgroundColor: abarcolor,
+          globalBackgroundColor: kbackgroundcolor,
           pages: pages,
           dotsDecorator: const DotsDecorator(
             size: Size(15, 15),
-            color: Colors.blue,
+            color: ksecondcolor,
             activeSize: Size.square(20),
-            activeColor: Colors.white,
+            activeColor: kmaincolor,
           ),
           showDoneButton: true,
           done: Text(
             'onBoarding.done'.tr(),
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: kmaincolor,fontWeight: FontWeight.w700),
           ),
           showSkipButton: true,
           skip: Text(
             'onBoarding.skip'.tr(),
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: kmaincolor,fontWeight: FontWeight.w700),
           ),
           showNextButton: true,
           next: const Icon(
@@ -100,6 +95,6 @@ class IntroductionScreenViewBody extends StatelessWidget {
   void onDone(context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('ON_BOARDING', false);
-    GoRouter.of(context).push('/');
+    GoRouter.of(context).push('/sign');
   }
 }

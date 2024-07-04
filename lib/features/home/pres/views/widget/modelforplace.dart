@@ -29,11 +29,10 @@ class CustomCard extends StatelessWidget {
             BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
               blurRadius: 3,
-              color: 
-              shadow,
+              color: shadow,
               // Color(0xFF7073BA),
               spreadRadius: 0,
-              offset: Offset(0,2))
+              offset: Offset(0, 2))
         ]),
         child: Card(
           elevation: 10,
@@ -49,7 +48,7 @@ class CustomCard extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                       img,
+                        img,
                         fit: BoxFit.fill,
                         width: double.infinity,
                       )),
@@ -61,8 +60,8 @@ class CustomCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      color: kmaincolor2,
-                       ///////////////////////// color: ksecondcolor,
+                        color: kmaincolor2,
+                        ///////////////////////// color: ksecondcolor,
                         fontSize: 13,
                         fontWeight: FontWeight.w600),
                   ),

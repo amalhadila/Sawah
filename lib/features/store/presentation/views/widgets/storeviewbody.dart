@@ -23,7 +23,8 @@ class Storeviewbody extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    BlocProvider.of<GetcartitemsCubit>(context).fetchcartitems();
+                    BlocProvider.of<GetcartitemsCubit>(context)
+                        .fetchcartitems();
                     GoRouter.of(context).push('/CartScreen');
                   },
                   child: Icon(
@@ -37,7 +38,8 @@ class Storeviewbody extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    BlocProvider.of<FetchwishlistCubit>(context).fetchwishlist();
+                    BlocProvider.of<FetchwishlistCubit>(context)
+                        .fetchwishlist();
                     GoRouter.of(context).push('/Wishlist');
                   },
                   child: Icon(
@@ -46,7 +48,6 @@ class Storeviewbody extends StatelessWidget {
                   ),
                 ),
               ],
-              
             ),
           )
         ],
@@ -68,35 +69,31 @@ class Storeviewbody extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            size: 20,
-                            color: ksecondcolor,/////////////
-                          ),
-                          hintText: "Search",
-                          hintStyle: TextStyle(fontSize: 14,
-                          ////////////
-                          color: ksecondcolor
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          fillColor:
-                          shadow//////////////////
-                           //kCardColor,
-                          //Color.fromARGB(255, 255, 248, 241),
-                        ),
-                        onTap: (){
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 20,
+                              color: ksecondcolor, /////////////
+                            ),
+                            hintText: "Search",
+                            hintStyle: TextStyle(
+                                fontSize: 14,
+                                ////////////
+                                color: ksecondcolor),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: shadow //////////////////
+                            //kCardColor,
+                            //Color.fromARGB(255, 255, 248, 241),
+                            ),
+                        onTap: () {
                           Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProductSearchWidget(
-                                  
-                                )));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductSearchWidget()));
                         },
-                       
                       ),
                     ),
                   ],

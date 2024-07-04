@@ -1,5 +1,6 @@
 const CustomizedTour = require('../models/customizedTourModel');
 const User = require('../models/userModel');
+const Landmark = require('../models/landmarkModel');
 
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
@@ -73,11 +74,72 @@ exports.setUserIdToBody = (req, res, next) => {
     next();
 };
 
-exports.getAllCustomizedTours = factory.getAll(CustomizedTour);
+exports.getAllCustomizedTours = catchAsync(async (req, res, next) => {
+    const filter =
+        req.user.role === 'admin'
+            ? {}
+            : {
+                  // Check if every language in spokenLanguages is included in the guide's languages
+                  spokenLanguages: {
+                      $not: { $elemMatch: { $nin: req.user.languages } },
+                  },
+                  // Check if the tour's governorate is included in the guide's governorates
+                  governorate: { $in: req.user.governorates },
+              };
+
+    // EXECUTE QUERY
+    const features = new APIFeatures(CustomizedTour.find(filter), req.query)
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
+    const docs = await features.query;
+
+    // SEND RESPONSE
+    res.status(200).json({
+        status: 'success',
+        requestedAt: req.requestTime,
+        results: docs.length,
+        data: {
+            docs,
+        },
+    });
+});
+
 exports.getCustomizedTourById = factory.getOne(CustomizedTour);
 exports.createCustomizedTour = factory.createOne(CustomizedTour);
 exports.updateCustomizedTour = factory.updateOne(CustomizedTour);
 exports.deleteCustomizedTour = factory.deleteOne(CustomizedTour);
+
+exports.getAllGovernorates = catchAsync(async (req, res, next) => {
+    const governorates = await Landmark.distinct('location.governorate');
+
+    if (!governorates) {
+        return next(new AppError('No governorates found.', 404));
+    }
+
+    res.status(200).json({
+        status: 'success',
+        results: governorates.length,
+        data: {
+            governorates,
+        },
+    });
+});
+
+exports.getLandmarksByGovernorate = catchAsync(async (req, res, next) => {
+    const landmarks = await Landmark.find({
+        'location.governorate': req.params.governorate,
+    }).select('name photo description');
+
+    res.status(200).json({
+        status: 'success',
+        results: landmarks.length,
+        data: {
+            landmarks,
+        },
+    });
+});
 
 exports.getMyTourRequests = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(
@@ -176,11 +238,11 @@ exports.respondToTourRequest = catchAsync(async (req, res, next) => {
         return next(new AppError('Tour request not found. ', 404));
     }
 
-    // Check if the guide's languages and cities match the tour request
+    // Check if the guide's languages and governorates match the tour request
     const languagesMatch = tourRequest.spokenLanguages.every((lang) =>
         guide.languages.includes(lang)
     );
-    const cityMatch = guide.cities.includes(tourRequest.city);
+    const cityMatch = guide.governorates.includes(tourRequest.governorate);
 
     if (!languagesMatch || !cityMatch) {
         return next(
@@ -280,8 +342,8 @@ exports.findGuidesForTourRequest = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(
         User.find({
             languages: { $all: request.spokenLanguages },
-            cities: { $in: [request.city] },
-        }),
+            governorates: { $in: [request.governorate] },
+        }).select('name photo rating ratingsQuantity'),
         req.query
     )
         .filter()
@@ -329,7 +391,7 @@ exports.sendRequestToGuide = catchAsync(async (req, res, next) => {
     const guide = await User.findOne({
         _id: guideId,
         languages: { $all: tourRequest.spokenLanguages },
-        cities: { $in: [tourRequest.city] },
+        governorates: { $in: [tourRequest.governorate] },
     });
 
     if (!guide) {
@@ -391,5 +453,87 @@ exports.cancelRequestToGuide = catchAsync(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         message: 'Request cancelled.',
+    });
+});
+
+exports.confirmCompletionGuide = catchAsync(async (req, res, next) => {
+    const { tourId } = req.params;
+
+    const tour = await CustomizedTour.findOneAndUpdate(
+        {
+            _id: tourId,
+            acceptedGuide: req.user.id,
+            paymentStatus: 'paid',
+            endDate: { $lte: Date.now() },
+        },
+        {
+            $set: {
+                guideConfirmCompletion: true,
+            },
+        },
+        { new: true }
+    );
+
+    if (!tour) {
+        return next(
+            new AppError(
+                'Tour can not be marked as completed at this time.',
+                400
+            )
+        );
+    }
+
+    if (tour.userConfirmCompletion) {
+        tour.status = 'completed';
+        await tour.save();
+    }
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Guide confirmed tour completion.',
+        data: {
+            tour,
+        },
+    });
+});
+
+exports.confirmCompletionUser = catchAsync(async (req, res, next) => {
+    const { tourId } = req.params;
+
+    const tour = await CustomizedTour.findOneAndUpdate(
+        {
+            _id: tourId,
+            user: req.user.id,
+            paymentStatus: 'paid',
+            endDate: { $lte: Date.now() },
+        },
+        {
+            $set: {
+                userConfirmCompletion: true,
+            },
+        },
+        { new: true }
+    );
+
+    if (!tour) {
+        return next(
+            new AppError(
+                'Tour can not be marked as completed at this time.',
+                400
+            )
+        );
+    }
+
+    if (tour.guideConfirmCompletion) {
+        tour.status = 'completed';
+        await tour.save();
+    }
+
+    res.status(200).json({
+        status: 'success',
+        message: 'User confirmed tour completion.',
+        data: {
+            tour,
+        },
     });
 });

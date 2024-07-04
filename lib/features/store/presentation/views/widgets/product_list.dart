@@ -53,17 +53,17 @@ class ProductGrid extends StatelessWidget {
         return Column(
           children: [
             productCard(
-              address1:productList[index].locations,
+              address1: productList[index].location,
               id: productList[index].id!,
               imglink: productList[index].images[0],
               info: product.description,
-              rating: product.rating != null ? product.rating!.round() : null, 
+              rating: product.rating != null ? product.rating!.round() : null,
               text: product.name ?? 'Unknown Product',
               price: product.price ?? 0, // Default value if price is null
-              ontap: () => GoRouter.of(context).push('/productinfo', extra: product),
+              ontap: () =>
+                  GoRouter.of(context).push('/productinfo', extra: product),
             ),
             SizedBox(height: 14),
-           
           ],
         );
       },

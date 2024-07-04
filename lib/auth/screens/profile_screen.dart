@@ -32,10 +32,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 IconButton(
                   icon: const Icon(
-            Icons.arrow_back_ios,
-            color: kmaincolor,
-            size: 22,
-          ),
+                    Icons.arrow_back_ios,
+                    color: kmaincolor,
+                    size: 22,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -135,14 +135,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             ProfileMenu(
                               text: user.data.name ?? 'name',
-                              icon: const Icon(Icons.person,
-                                  color: ksecondcolor),
+                              icon:
+                                  const Icon(Icons.person, color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: user.data.email ?? 'email',
-                              icon: const Icon(Icons.email,
-                                  color: ksecondcolor),
+                              icon:
+                                  const Icon(Icons.email, color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
@@ -160,8 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             ProfileMenu(
                               text: 'logout',
-                              icon: Icon(Icons.logout,
-                                  color: ksecondcolor),
+                              icon: Icon(Icons.logout, color: ksecondcolor),
                               press: () => {},
                             ),
                           ],

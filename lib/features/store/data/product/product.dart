@@ -8,18 +8,17 @@ class Product extends Equatable {
   final String? name;
   final String? description;
   final int? duration;
-  final List<dynamic> images;
-  final List<Location>? locations;
+  final List<String> images;
+  final Location? location; // تعديل إلى Location بدلاً من List<Location>
   final int? price;
   final int? maxGroupSize;
-  final List<dynamic>? startDays;
-  final Guide?
-      guide; // تم استبدال List<Guide> بـ Guide والتأكد من التطابق مع JSON
+  final List<String>? startDays;
+  final Guide? guide;
   final dynamic rating;
   final int? ratingsQuantity;
   final int? bookings;
   final String? slug;
-  final dynamic? category;
+  final dynamic category;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -27,9 +26,9 @@ class Product extends Equatable {
     this.id,
     this.name,
     this.description,
-     this.duration,
+    this.duration,
     required this.images,
-    this.locations,
+    this.location, // تعديل إلى Location
     this.price,
     this.maxGroupSize,
     this.startDays,
@@ -49,13 +48,17 @@ class Product extends Equatable {
       name: json['name'] as String?,
       description: json['description'] as String?,
       duration: json['duration'] as int?,
-      images: (json['images'] as List<dynamic>).cast<String>(),
-      locations: (json['locations'] as List<dynamic>?)
-          ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      images: json['images'] is List
+          ? (json['images'] as List<dynamic>).cast<String>()
+          : [], // تعامل مع حالة عدم تطابق النوع
+      location: json['locations'] != null
+          ? Location.fromJson(json['locations'] as Map<String, dynamic>)
+          : null, // تعديل إلى Location
       price: json['price'] as int?,
       maxGroupSize: json['maxGroupSize'] as int?,
-      startDays: (json['startDays'] as List<dynamic>?)?.cast<String>(),
+      startDays: json['startDays'] is List
+          ? (json['startDays'] as List<dynamic>?)?.cast<String>()
+          : null, // تعامل مع حالة عدم تطابق النوع
       guide: json['guide'] != null
           ? Guide.fromJson(json['guide'] as Map<String, dynamic>)
           : null,
@@ -80,7 +83,7 @@ class Product extends Equatable {
       'description': description,
       'duration': duration,
       'images': images,
-      'locations': locations?.map((e) => e.toJson()).toList(),
+      'locations': location?.toJson(), // تحويل Location إلى JSON
       'price': price,
       'maxGroupSize': maxGroupSize,
       'startDays': startDays,
@@ -102,7 +105,7 @@ class Product extends Equatable {
         description,
         duration,
         images,
-        locations,
+        location, // تعديل إلى Location
         price,
         maxGroupSize,
         startDays,

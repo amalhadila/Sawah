@@ -8,7 +8,7 @@ const customizedTourSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        city: {
+        governorate: {
             type: String,
             required: true,
         },
@@ -73,6 +73,14 @@ const customizedTourSchema = new mongoose.Schema(
                 ref: 'User',
             },
         ],
+        guideConfirmCompletion: {
+            type: Boolean,
+            default: false,
+        },
+        userConfirmCompletion: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );
@@ -84,10 +92,16 @@ customizedTourSchema.pre(/^find/, function () {
     })
         .populate({
             path: 'landmarks',
-            select: 'name imageCover',
+            select: 'name images',
         })
-        .populate({ path: 'respondingGuides.guide', select: 'name photo' })
-        .populate({ path: 'acceptedGuide', select: 'name photo' });
+        .populate({
+            path: 'respondingGuides.guide',
+            select: 'name photo rating ratingsQuantity',
+        })
+        .populate({
+            path: 'acceptedGuide',
+            select: 'name photo rating ratingsQuantity',
+        });
     // .populate({ path: 'sentRequests', select: 'name photo' });
 });
 

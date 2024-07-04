@@ -8,13 +8,13 @@ import 'package:graduation/features/landmarks/presentation/manger/more_info_cubi
 import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 
 class Information extends StatefulWidget {
-  const Information({Key? key, required this.text,  this.landmarkmodel, this.mostvistedkmodel})
+  const Information(
+      {Key? key, required this.text, this.landmarkmodel, this.mostvistedkmodel})
       : super(key: key);
 
   final String text;
   final LandmarkOnCatModel? landmarkmodel;
-      final MostVisitedModel? mostvistedkmodel;
-
+  final MostVisitedModel? mostvistedkmodel;
 
   @override
   _InformationState createState() => _InformationState();
@@ -102,8 +102,9 @@ class _InformationState extends State<Information>
                           child: Text(
                             '${BlocProvider.of<MoreInfoCubit>(context).Text}',
                             style: Textstyle.textStyle12.copyWith(
-                              color: neutralColor3,
-                                fontWeight: FontWeight.w400, height: 1.7),
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w400,
+                                height: 1.7),
                           ),
                         ),
                         if (BlocProvider.of<MoreInfoCubit>(context)
@@ -123,7 +124,7 @@ class _InformationState extends State<Information>
                                   showmore: showFullText,
                                 );
                               },
-                              child:  Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -143,8 +144,9 @@ class _InformationState extends State<Information>
                 },
               ),
               ReviewPage(
-                  landmarkmodel: widget
-                      .landmarkmodel,mostvistedkmodel: widget.mostvistedkmodel,), // Pass the actual landmark model instance
+                landmarkmodel: widget.landmarkmodel,
+                mostvistedkmodel: widget.mostvistedkmodel,
+              ), // Pass the actual landmark model instance
             ],
           ),
         ),

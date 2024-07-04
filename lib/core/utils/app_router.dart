@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:graduation/auth/screens/profile_screen.dart';
 import 'package:graduation/auth/screens/sign_in_screen.dart';
 import 'package:graduation/core/utils/api_service.dart';
+import 'package:graduation/features/chatbot/presentation/views/chatbot_view.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
 import 'package:graduation/features/guide/presentation/views/widgets/tours_list.dart';
 import 'package:graduation/features/landmarks/data/model/categories_model.dart';
@@ -57,19 +58,27 @@ abstract class AppRouter {
                   bool showOnboarding = snapshot.data ?? true;
                   return showOnboarding
                       ? const IntroductionScreenView()
-                      : const BottomNavigation();
+                      : const SignInScreen();
                 }
               },
             );
           }),
+      //   GoRoute(
+      // path: '/',
+      // builder: (context, state) =>
+      //     IntroductionScreenView()
+      // ),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
+      GoRoute(path: '/ChatbotView', builder: (context, state) => ChatbotView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
       GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(
           path: '/ChatHomeScreen',
           builder: (context, state) => ChatHomeScreen()),
 
- GoRoute(path: '/TourListScreen', builder: (context, state) => TourListScreen()),
+      GoRoute(
+          path: '/TourListScreen',
+          builder: (context, state) => TourListScreen()),
       GoRoute(
           path: '/ChatScreen',
           builder: (context, state) {
@@ -77,10 +86,12 @@ abstract class AppRouter {
             final String roomId = extras[0];
             final String name = extras[1];
 
-            return ChatScreen(roomid: roomId,  name: name);
+            return ChatScreen(roomid: roomId, name: name);
           }),
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
-            GoRoute(path: '/Createtourview', builder: (context, state) => Createtourview()),
+      GoRoute(
+          path: '/Createtourview',
+          builder: (context, state) => Createtourview()),
 
       GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),

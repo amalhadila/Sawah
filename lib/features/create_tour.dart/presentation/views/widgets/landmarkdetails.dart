@@ -7,14 +7,10 @@ import 'package:graduation/features/landmarks/presentation/views/widgets/informa
 import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
 
 class Landmarkdetails extends StatelessWidget {
-   Landmarkdetails(
-      {super.key,this.description,this.images ,this.name});
-List<String>? images;
-String? description;
-String? name;
-
-
-
+  Landmarkdetails({super.key, this.description, this.images, this.name});
+  List<String>? images;
+  String? description;
+  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +24,33 @@ String? name;
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 infoimg(
-                  imageslink:
-                      images,
-                  
+                  imageslink: images,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20,),
-                      Text(  name!,style: TextStyle(color: kmaincolor,fontSize: 18,fontWeight: FontWeight.w700),),
-                   SizedBox(height: 3,),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(  description!),
-                                )
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        name!,
+                        style: TextStyle(
+                            color: kmaincolor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(description!),
+                      )
                     ],
                   ),
                 ),
-                 
               ],
             ),
           ),

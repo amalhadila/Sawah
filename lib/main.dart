@@ -84,6 +84,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/core/utils/app_router.dart';
+import 'package:graduation/features/chatbot/data/repo/repo_implementation.dart';
+import 'package:graduation/features/chatbot/presentation/manager/cubit/chatbotmessage_cubit.dart';
+import 'package:graduation/features/chatbot/presentation/manager/cubit/deletechatbot_cubit.dart';
+import 'package:graduation/features/chatbot/presentation/manager/cubit/sendmesage_cubit.dart';
 import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
 import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
 import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
@@ -176,6 +180,16 @@ class Sawah extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ChatbotmessageCubit>(
+            create: (context) =>
+                ChatbotmessageCubit(RepoImple(ApiService(dio)))),
+                BlocProvider<DeletechatbotCubit>(
+            create: (context) =>
+                DeletechatbotCubit(RepoImple(ApiService(dio)))),
+
+                BlocProvider<SendmesageCubit>(
+            create: (context) =>
+                SendmesageCubit(RepoImple(ApiService(dio)))),
         BlocProvider(
             create: (context) =>
                 CheckavailabilityCubit(ProcatRepoImple(ApiService(dio)))),

@@ -15,15 +15,19 @@ class MyOrdersPage extends StatefulWidget {
   _MyOrdersPageState createState() => _MyOrdersPageState();
 }
 
-class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderStateMixin {
+class _MyOrdersPageState extends State<MyOrdersPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<List<GetMyRequestsModel>> _myRequestsFuture;
+    late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
+
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _myRequestsFuture = getMyRequests();
+    _mycompleteRequestsFuture = getMycompleteRequests();
   }
 
   @override
@@ -36,11 +40,10 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests',
+        'http://192.168.1.7:8000/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer ${Token}',
+            'Authorization': 'Bearer ${Token}',
           },
         ),
       );
@@ -48,9 +51,44 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
       dynamic responseData = response.data;
       print(responseData);
 
-      List<GetMyRequestsModel> requests = (responseData['data']['requests'] as List)
-          .map((json) => GetMyRequestsModel.fromJson(json))
-          .toList();
+      List<GetMyRequestsModel> requests =
+          (responseData['data']['requests'] as List)
+              .map((json) => GetMyRequestsModel.fromJson(json))
+              .toList();
+
+      return requests;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened $e, please try again"),
+        ),
+      );
+      throw e; // rethrowing the exception to handle it further if needed
+    }
+  }
+  
+  Future<List<GetMyRequestsModel>> getMycompleteRequests() async {
+    final Dio _dio = Dio();
+    try {
+      var response = await _dio.get(
+        'http://192.168.1.7:8000/api/v1/customizedTour/my-requests?status=completed',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${Token}',
+          },
+        ),
+      );
+
+      dynamic responseData = response.data;
+       print('complete');
+      print(responseData);
+
+      List<GetMyRequestsModel> requests =
+          (responseData['data']['requests'] as List)
+              .map((json) => GetMyRequestsModel.fromJson(json))
+              .toList();
 
       return requests;
     } catch (e) {
@@ -69,43 +107,45 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kbackgroundcolor,
-        title:  Text('My orders',style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:20.0),
-            child: TabBar(
-              labelStyle:       Textstyle.textStyle15,
-              controller: _tabController,
-              indicator: BoxDecoration(
-                color: kmaincolor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: kbackgroundcolor,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-              tabs: [
-                Expanded(
-                  child: Tab(
-            text: 'Active',
-            
-                  ),
-                ),
-                Expanded(
-                  child: Tab(
-            text: 'Completed',
-                  ),
-                ),
-              ],
-              labelColor: kbackgroundcolor,
-              unselectedLabelColor: kmaincolor,
-            ),
+          backgroundColor: kbackgroundcolor,
+          title: Text(
+            'My orders',
+            style: TextStyle(
+                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
           ),
-        )
-
-      ),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: TabBar(
+                labelStyle: Textstyle.textStyle15,
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  color: kmaincolor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                indicatorSize: TabBarIndicatorSize.tab,
+                dividerColor: kbackgroundcolor,
+                labelPadding:
+                    const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                tabs: [
+                  Expanded(
+                    child: Tab(
+                      text: 'Active',
+                    ),
+                  ),
+                  Expanded(
+                    child: Tab(
+                      text: 'Completed',
+                    ),
+                  ),
+                ],
+                labelColor: kbackgroundcolor,
+                unselectedLabelColor: kmaincolor,
+              ),
+            ),
+          )),
       body: TabBarView(
         controller: _tabController,
         children: [
@@ -123,24 +163,39 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
               return OrdersList(orders: snapshot.data!);
             },
           ),
-          Center(child: Text('No completed orders')),
+             FutureBuilder<List<GetMyRequestsModel>>(
+            future: _mycompleteRequestsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(child: Text('No completed orders'));
+              }
+
+              return OrdersList(orders: snapshot.data!);
+            },
+          ),
         ],
       ),
-      
-       
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CitySelectionScreen(
-                              
-                            ),
-                          ),
-                        );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CitySelectionScreen(),
+            ),
+          );
         },
-        label: Text('Create order',style: TextStyle(color: kbackgroundcolor),),
-        icon: Icon(Icons.add,color: kbackgroundcolor,),
+        label: Text(
+          'Create order',
+          style: TextStyle(color: kbackgroundcolor),
+        ),
+        icon: Icon(
+          Icons.add,
+          color: kbackgroundcolor,
+        ),
         backgroundColor: kmaincolor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -161,12 +216,13 @@ class OrdersList extends StatelessWidget {
       itemBuilder: (context, index) {
         final order = orders[index];
         return OrderCard(
-          name: order.landmarks![0].name, 
-          location: order.governorate, // Assuming you have a location in your model
+          name: order.landmarks![0].name,
+          location:
+              order.governorate, // Assuming you have a location in your model
           date: order.startDate,
-          status:order.status , 
-          id:order.id,
-          tour:order,
+          status: order.status,
+          id: order.id,
+          tour: order,
         );
       },
     );
@@ -180,9 +236,15 @@ class OrderCard extends StatelessWidget {
   final String? location;
   final DateTime? date;
   final String? status;
-  
 
-  OrderCard({super.key, this.name, this.tour, this.location, this.date, this.status, this.id});
+  OrderCard(
+      {super.key,
+      this.name,
+      this.tour,
+      this.location,
+      this.date,
+      this.status,
+      this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -192,19 +254,19 @@ class OrderCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
-      child: ListTile(minVerticalPadding: 22,
+      child: ListTile(
+        minVerticalPadding: 22,
         onTap: () {
-           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TourDetailsPage(
-                              tour: tour!,
-                              
-                            ),
-                          ),
-                        );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TourDetailsPage(
+                tour: tour!,
+              ),
+            ),
+          );
         },
-         leading:null,
+        leading: null,
         // CachedNetworkImage(
         //   imageUrl: imageUrl!,
         //   placeholder: (context, url) => CircularProgressIndicator(),
@@ -221,35 +283,42 @@ class OrderCard extends StatelessWidget {
         //     ),
         //   ),
         // ),
-        title: Text(location!,style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
+        title: Text(
+          location!,
+          style: TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
+        ),
         subtitle: Padding(
-          padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 2),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            
-              Text(formattedDate,style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w600),),
-               Text(
+              Text(
+                formattedDate,
+                style:
+                    TextStyle(color: kmaincolor, fontWeight: FontWeight.w600),
+              ),
+              Text(
                 status!,
-                style: TextStyle(color: accentColor3,fontWeight: FontWeight.w600),
+                style:
+                    TextStyle(color: accentColor3, fontWeight: FontWeight.w600),
               ),
             ],
           ),
         ),
-       trailing: 
-              ElevatedButton(
-               onPressed: status == 'cancelled' ? null : () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ResponseScreen(
-                              tourId: id!,
-                              tourname: name!,
-                              
-                            ),
-              ),
-            );
-          },
+        trailing: ElevatedButton(
+          onPressed: status == 'cancelled'
+              ? null
+              : () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResponseScreen(
+                        tourId: id!,
+                        tourname: name!,
+                      ),
+                    ),
+                  );
+                },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
             backgroundColor: status == 'canceled' ? neutralColor : kmaincolor,
@@ -259,14 +328,13 @@ class OrderCard extends StatelessWidget {
           ),
           child: Text(
             'View Guides',
-            style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700, color: status == 'canceled' ? Colors.black : Colors.white),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: status == 'canceled' ? Colors.black : Colors.white),
           ),
-            
-           
-          
         ),
       ),
-      
     );
   }
 }

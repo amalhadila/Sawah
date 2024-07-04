@@ -11,10 +11,11 @@ import 'package:graduation/features/create_tour.dart/presentation/model/get_my_r
 import 'package:graduation/firebase/firedatabase.dart';
 
 class ResponseScreen extends StatefulWidget {
-          final String tourId;
-          final String tourname;
+  final String tourId;
+  final String tourname;
 
-  const ResponseScreen({super.key, required this.tourId, required this.tourname});
+  const ResponseScreen(
+      {super.key, required this.tourId, required this.tourname});
 
   @override
   _ResponseScreenState createState() => _ResponseScreenState();
@@ -22,99 +23,94 @@ class ResponseScreen extends StatefulWidget {
 
 class _ResponseScreenState extends State<ResponseScreen>
     with SingleTickerProviderStateMixin {
-
   late TabController _tabController;
-
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
-Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
-  final Dio _dio = Dio();
-  try {
-    var response = await _dio.get(
-      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/browse-guides',
-      options: Options(
-        headers: {
-          'Authorization':
-              'Bearer ${Token}',
-        },
-      ),
-    );
 
-    List<dynamic> responseData = response.data['availableGuides'];
-    print(responseData);
+  Future<List<GetAvailableGuidesModel>> getAvailableGuides(
+      String tourId) async {
+    final Dio _dio = Dio();
+    try {
+      var response = await _dio.get(
+        'http://192.168.1.7:8000/api/v1/customizedTour/$tourId/browse-guides',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${Token}',
+          },
+        ),
+      );
 
-    List<GetAvailableGuidesModel> guides = responseData
-        .map((json) => GetAvailableGuidesModel.fromJson(json))
-        .toList();
+      List<dynamic> responseData = response.data['availableGuides'];
+      print(responseData);
 
-    return guides;
-  } catch (e) {
-    throw e;
+      List<GetAvailableGuidesModel> guides = responseData
+          .map((json) => GetAvailableGuidesModel.fromJson(json))
+          .toList();
+
+      return guides;
+    } catch (e) {
+      throw e;
+    }
   }
-}
-
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kbackgroundcolor,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: kmaincolor),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title:
-            Text(widget.tourname, style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
-            
-        
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:20.0),
-            child: TabBar(
-              labelStyle:       Textstyle.textStyle15,
-              controller: _tabController,
-              indicator: BoxDecoration(
-                color: kmaincolor,
-                borderRadius: BorderRadius.circular(10),
+        appBar: AppBar(
+          backgroundColor: kbackgroundcolor,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: kmaincolor),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text(
+            widget.tourname,
+            style: TextStyle(
+                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          ),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(50),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: TabBar(
+                  labelStyle: Textstyle.textStyle15,
+                  controller: _tabController,
+                  indicator: BoxDecoration(
+                    color: kmaincolor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: kbackgroundcolor,
+                  labelPadding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                  tabs: [
+                    Tab(text: 'Your Requests'),
+                    Tab(text: 'All guides'),
+                  ],
+                  labelColor: kbackgroundcolor,
+                  unselectedLabelColor: kmaincolor,
+                ),
               ),
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: kbackgroundcolor,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-             
-              tabs: [
-                Tab(text: 'Your Requests'),
-                Tab(text: 'All guides'),
-              ],
-               labelColor: kbackgroundcolor,
-              unselectedLabelColor: kmaincolor,
             ),
           ),
         ),
-      ),),
-      body: 
-             TabBarView(
-              
-              controller: _tabController,
-              children: [
-                _buildNoRequestsTab(),
-                _buildAllGuidesTab(),
-              ],));
-            
-          
-        }
-     
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            _buildNoRequestsTab(),
+            _buildAllGuidesTab(),
+          ],
+        ));
+  }
 
   Widget _buildNoRequestsTab() {
     return Center(
@@ -199,11 +195,10 @@ Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
                       ),
                       SizedBox(height: 8),
                       ElevatedButton(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -225,79 +220,80 @@ Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
     );
   }
 
-Widget _buildAllGuidesTab() {
-  return FutureBuilder<List<GetAvailableGuidesModel>>(
-    future: getAvailableGuides(widget.tourId),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Error: ${snapshot.error}'));
-      } else {
-        final guides = snapshot.data ?? [];
-        if (guides.isEmpty) {
-          return const Center(child: Text('No guides available'));
+  Widget _buildAllGuidesTab() {
+    return FutureBuilder<List<GetAvailableGuidesModel>>(
+      future: getAvailableGuides(widget.tourId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
         } else {
-          return ListView.builder(
-            itemCount: guides.length,
-            itemBuilder: (context, index) {
-              final guide = guides[index];
-              return ListTile(
-                trailing: IconButton(
-      onPressed: () async {
-        final roomId = await FireData().creatRoom(
-         guide.id!,
-         guide.name!,
-        );
-        GoRouter.of(context).push('/ChatScreen', extra: [
-          roomId,
-          guide.name!,
-        ]);
-      },
-      icon: const Icon(Icons.chat_rounded, color: kmaincolor),
-    ),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(guide.photo??'')
-                    
-                ),
-                title: Text(guide.name ?? 'Unknown Name',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Padding(
-                  padding: const EdgeInsets.symmetric(vertical:3.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      
-                      Text(
-                        'Kind: ${guide.kind ?? 'Unknown Kind'} ',style: TextStyle(color: ksecondcolor,fontWeight: FontWeight.w600)
-                      ),
-                      SizedBox(height: 3,),
-                       Row(
-                         children: [
-                          const Icon(
-                                      FontAwesomeIcons.solidStar,
-                                      size: 16,
-                                      color: accentColor1,
-                                    ),
-                           Text(
-                            ' ${guide.rating?.toString() ?? 'No rating'} ',style: TextStyle(color: ksecondcolor,fontWeight: FontWeight.w600)
-                                               ),
-                         ],
-                       ),
-                    ],
+          final guides = snapshot.data ?? [];
+          if (guides.isEmpty) {
+            return const Center(child: Text('No guides available'));
+          } else {
+            return ListView.builder(
+              itemCount: guides.length,
+              itemBuilder: (context, index) {
+                final guide = guides[index];
+                return ListTile(
+                  trailing: IconButton(
+                    onPressed: () async {
+                      final roomId = await FireData().creatRoom(
+                        guide.id!,
+                        guide.name!,
+                      );
+                      GoRouter.of(context).push('/ChatScreen', extra: [
+                        roomId,
+                        guide.name!,
+                      ]);
+                    },
+                    icon: const Icon(Icons.chat_rounded, color: kmaincolor),
                   ),
-                ),
-             
-              );
-            },
-          );
+                  leading: CircleAvatar(
+                      backgroundImage: NetworkImage(guide.photo ?? '')),
+                  title: Text(guide.name ?? 'Unknown Name',
+                      style: TextStyle(
+                          color: kmaincolor, fontWeight: FontWeight.w700)),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Kind: ${guide.kind ?? 'Unknown Kind'} ',
+                            style: TextStyle(
+                                color: ksecondcolor,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              FontAwesomeIcons.solidStar,
+                              size: 16,
+                              color: accentColor1,
+                            ),
+                            Text(' ${guide.rating?.toString() ?? 'No rating'} ',
+                                style: TextStyle(
+                                    color: ksecondcolor,
+                                    fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
         }
-      }
-    },
-  );
+      },
+    );
+  }
 }
 
-
-}
 class RoundedRectangleTabIndicator extends Decoration {
   final BoxPainter _painter;
 
@@ -318,16 +314,15 @@ class _RoundedRectanglePainter extends BoxPainter {
   final double width;
   final double radius;
 
-  _RoundedRectanglePainter(
-      Color color, this.weight, this.width, this.radius)
+  _RoundedRectanglePainter(Color color, this.weight, this.width, this.radius)
       : _paint = Paint()
-         ..color = color
-         ..style = PaintingStyle.fill;
+          ..color = color
+          ..style = PaintingStyle.fill;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
-    final Offset circleOffset =
-        offset + Offset(cfg.size!.width / 2 - width / 2, cfg.size!.height - weight);
+    final Offset circleOffset = offset +
+        Offset(cfg.size!.width / 2 - width / 2, cfg.size!.height - weight);
     final Rect rect = Rect.fromLTWH(
         circleOffset.dx, circleOffset.dy - weight, width, weight * 2);
     final RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(radius));

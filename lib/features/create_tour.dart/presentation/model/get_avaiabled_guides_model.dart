@@ -6,7 +6,13 @@ class GetAvailableGuidesModel {
   dynamic rating;
   int? ratingsQuantity;
 
-  GetAvailableGuidesModel({this.id, this.name, this.photo, this.kind, this.rating, this.ratingsQuantity});
+  GetAvailableGuidesModel(
+      {this.id,
+      this.name,
+      this.photo,
+      this.kind,
+      this.rating,
+      this.ratingsQuantity});
 
   factory GetAvailableGuidesModel.fromJson(Map<String, dynamic> json) {
     return GetAvailableGuidesModel(

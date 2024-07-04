@@ -39,7 +39,10 @@ class _DetectedLandMarkViewState extends State<DetectedLandMarkView> {
               ),
               Text(
                 widget.landMarkDetectionModel.data.gemini.label,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900,color: kmaincolor),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: kmaincolor),
               ),
               SizedBox(
                 height: 10,

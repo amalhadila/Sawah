@@ -6,6 +6,6 @@ class GuideView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  TourListScreen();
+    return TourListScreen();
   }
 }

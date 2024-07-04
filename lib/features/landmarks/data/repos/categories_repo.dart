@@ -11,5 +11,4 @@ abstract class CategoriesRepo {
       {required String categoryId});
   Future<Either<Failure, List<MostVisitedModel>>> fetchmostvisited();
 //  Future<Either<Failure, List<Reviewmodel>>> postreview();
-
 }

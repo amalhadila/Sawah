@@ -19,7 +19,7 @@ class guideCard extends StatelessWidget {
     double cardHeight = screenWidth * 0.55;
 
     return Padding(
-      padding: const EdgeInsets.only(top:15.0),
+      padding: const EdgeInsets.only(top: 15.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -35,21 +35,23 @@ class guideCard extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal:5.0),
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(13),
                   child: Image.asset(
                     imageUrl,
                     width: double.infinity,
-                    height: cardHeight*.67,
+                    height: cardHeight * .67,
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
-              SizedBox(height: 4,),
+              SizedBox(
+                height: 4,
+              ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:18.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -67,25 +69,23 @@ class guideCard extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                        //  const SizedBox(height: 6),
-                          
-                              Text(
-                                date,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: neutralColor2,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                           
+                          //  const SizedBox(height: 6),
+
+                          Text(
+                            date,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: neutralColor2,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
-              
             ],
           ),
         ),

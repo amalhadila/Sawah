@@ -14,11 +14,10 @@ Future cancelTour(BuildContext context, String tourId) async {
     var response = await _dio.patch(
       options: Options(
         headers: {
-          'Authorization':
-              'Bearer ${Token}',
+          'Authorization': 'Bearer ${Token}',
         },
       ),
-      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/cancel',
+      'http://192.168.1.7:8000/api/v1/customizedTour/$tourId/cancel',
     );
     print('Cancel tour request successful');
   } catch (e) {
@@ -47,10 +46,13 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tour Details', style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),
-      ),
+        title: Text(
+          'Tour Details',
+          style: TextStyle(
+              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+        ),
         backgroundColor: kbackgroundcolor,
-         leading: IconButton(
+        leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
             color: kmaincolor,
@@ -66,68 +68,99 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: const Icon(Icons.location_city,color: ksecondcolor,),
-                title: const Text('Governorate',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700),),
-                subtitle: Text(widget.tour.governorate ?? 'No governorate',style: TextStyle(color: kmaincolor)),
+                leading: const Icon(
+                  Icons.location_city,
+                  color: ksecondcolor,
+                ),
+                title: const Text(
+                  'Governorate',
+                  style:
+                      TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
+                ),
+                subtitle: Text(widget.tour.governorate ?? 'No governorate',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.group,color: ksecondcolor),
-                title: Text('Group Size',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.groupSize ?? 'No group size',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.group, color: ksecondcolor),
+                title: Text('Group Size',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.groupSize ?? 'No group size',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.date_range,color: ksecondcolor),
-                title: Text('Start Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(DateFormat('dd/MM/yyyy').format(widget.tour.startDate!.toLocal()) ?? 'No start date',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.date_range, color: ksecondcolor),
+                title: Text('Start Date',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(
+                    DateFormat('dd/MM/yyyy')
+                            .format(widget.tour.startDate!.toLocal()) ??
+                        'No start date',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.date_range,color: ksecondcolor),
-                title: Text('End Date',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(DateFormat('dd/MM/yyyy').format(widget.tour.endDate!.toLocal())?? 'No end date',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.date_range, color: ksecondcolor),
+                title: Text('End Date',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(
+                    DateFormat('dd/MM/yyyy')
+                            .format(widget.tour.endDate!.toLocal()) ??
+                        'No end date',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.comment,color: ksecondcolor),
-                title: Text('Comment for Guide',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.commentForGuide ?? 'No comment',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.comment, color: ksecondcolor),
+                title: Text('Comment for Guide',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.commentForGuide ?? 'No comment',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.flag,color: ksecondcolor),
-                title: Text('Status',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.status ?? 'No status',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.flag, color: ksecondcolor),
+                title: Text('Status',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.status ?? 'No status',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             Card(
-               color: ksecondcolor2,
+              color: ksecondcolor2,
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.payment,color: ksecondcolor),
-                title: Text('Payment Status',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                subtitle: Text(widget.tour.paymentStatus ?? 'No payment status',style: TextStyle(color: kmaincolor)),
+                leading: Icon(Icons.payment, color: ksecondcolor),
+                title: Text('Payment Status',
+                    style: TextStyle(
+                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                subtitle: Text(widget.tour.paymentStatus ?? 'No payment status',
+                    style: TextStyle(color: kmaincolor)),
               ),
             ),
             ListView.builder(
@@ -137,12 +170,15 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               itemBuilder: (context, index) {
                 final landmark = widget.tour.landmarks![index];
                 return Card(
-                   color: ksecondcolor2,
+                  color: ksecondcolor2,
                   margin: EdgeInsets.symmetric(vertical: 8.0),
                   child: ListTile(
-                    leading: Icon(Icons.location_on,color: ksecondcolor),
-                    title: Text(landmark.name ?? 'No name',style: TextStyle(color: kmaincolor,fontWeight: FontWeight.w700)),
-                    subtitle: Text(landmark.category?.name ?? 'No category',style: TextStyle(color: kmaincolor)),
+                    leading: Icon(Icons.location_on, color: ksecondcolor),
+                    title: Text(landmark.name ?? 'No name',
+                        style: TextStyle(
+                            color: kmaincolor, fontWeight: FontWeight.w700)),
+                    subtitle: Text(landmark.category?.name ?? 'No category',
+                        style: TextStyle(color: kmaincolor)),
                   ),
                 );
               },
@@ -151,16 +187,18 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal:26, vertical: 11),
-            backgroundColor:  kmaincolor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),),
+                  padding: EdgeInsets.symmetric(horizontal: 26, vertical: 11),
+                  backgroundColor: kmaincolor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
                 onPressed: () async {
                   print('Cancel tour button pressed');
                   showDialog(
                     context: context,
-                    builder: (context) => Center(child: CircularProgressIndicator()),
+                    builder: (context) =>
+                        Center(child: CircularProgressIndicator()),
                   );
                   await cancelTour(context, widget.tour.id ?? '');
                   print('Tour cancelled successfully');
@@ -174,7 +212,11 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                     ),
                   );
                 },
-                child: Text('Cancel Tour',style:TextStyle(color: kbackgroundcolor,fontWeight: FontWeight.w700) ,),
+                child: Text(
+                  'Cancel Tour',
+                  style: TextStyle(
+                      color: kbackgroundcolor, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
           ],

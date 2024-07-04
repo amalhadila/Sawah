@@ -28,7 +28,8 @@ class Message {
       'fromId': fromId,
       'msg': msg,
       'read': read,
-      'created_at': createdAt is DateTime ? Timestamp.fromDate(createdAt) : createdAt,
+      'created_at':
+          createdAt is DateTime ? Timestamp.fromDate(createdAt) : createdAt,
       'type': type,
       'imageUrl': imageUrl,
     };
@@ -38,7 +39,8 @@ class Message {
     dynamic createdAt = json['created_at'];
     // Check if createdAt is a Timestamp (indicating it was stored as a DateTime)
     if (createdAt is Timestamp) {
-      createdAt = (createdAt as Timestamp).toDate(); // Convert Timestamp to DateTime
+      createdAt =
+          (createdAt as Timestamp).toDate(); // Convert Timestamp to DateTime
     }
     return Message(
       id: json['id'],

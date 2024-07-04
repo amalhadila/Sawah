@@ -8,7 +8,7 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/addto
 class productCard extends StatefulWidget {
   final String imglink;
   final String id;
-   List<Location>? address1;
+  Location? address1;
   final String? address2;
   final dynamic? rating;
   final String text;
@@ -24,7 +24,9 @@ class productCard extends StatefulWidget {
     this.info,
     required this.ontap,
     required this.price,
-    required this.id,   this.address1,  this.address2,
+    required this.id,
+    this.address1,
+    this.address2,
   }) : super(key: key);
 
   @override
@@ -50,27 +52,24 @@ class _productCardState extends State<productCard> {
         clipBehavior: Clip.none,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                 color: kbackgroundcolor,
-                 boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 4,
-                                      offset: Offset(0, 6),
-                                      color: 
-                                      shadow,
-                                      //kCardColor,
-                                      spreadRadius: 1,
-                                      blurStyle: BlurStyle.normal,
-                                    ),
-                                  ],
+                color: kbackgroundcolor,
+                boxShadow: const [
+                  BoxShadow(
+                    blurRadius: 4,
+                    offset: Offset(0, 6),
+                    color: shadow,
+                    //kCardColor,
+                    spreadRadius: 1,
+                    blurStyle: BlurStyle.normal,
+                  ),
+                ],
               ),
-              
               child: Card(
                 shadowColor: ksecondcolor,
-                
                 color: kbackgroundcolor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -126,15 +125,14 @@ class _productCardState extends State<productCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: screenWidth *
-                                0.43, 
+                            width: screenWidth * 0.43,
                             child: Text(
                               widget.text,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                               color: kmaincolor2, 
-                          ///////////////////////      color: ksecondcolor,
+                                color: kmaincolor2,
+                                ///////////////////////      color: ksecondcolor,
                                 fontSize: titleFontSize,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -142,52 +140,32 @@ class _productCardState extends State<productCard> {
                           ),
                           const SizedBox(height: 10),
                           Container(
-                            width: screenWidth *
-                                0.4, 
-                            child: Column(
-                              children: [
-                                Row(
-                                    children: [
-                                      const Icon(
-                                Icons.location_on,
-                                color: accentColor1,
-                                size: 18,
+                            width: screenWidth * 0.4,
+                            child: Column(children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.location_on,
+                                    color: accentColor1,
+                                    size: 18,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    widget.address1!.address!,
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      color: ksecondcolor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                               SizedBox(width: 4,),
-                                      Text(
-                                        widget.address1![0].address!,
-                                        style: const TextStyle(
-                                         
-                                          fontSize: 13,
-                                          color: ksecondcolor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                                if (
-                                    widget.address1!.length >=2)
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                Icons.location_on,
-                                color: accentColor1,
-                                size: 18,
-                              ),
-                               SizedBox(width: 4,),
-                                      Text(
-                                        widget.address1![1].address!,
-                                        style: const TextStyle(
-                                         
-                                          fontSize: 13,
-                                          color: ksecondcolor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                         ] ),),
-                         const SizedBox(height: 9),
+                              
+                            ]),
+                          ),
+                          const SizedBox(height: 9),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -198,14 +176,14 @@ class _productCardState extends State<productCard> {
                                   style: TextStyle(
                                     fontSize: priceFontSize,
                                     color: ksecondcolor,
-                                      fontWeight: FontWeight.bold,
-                                                 
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               SizedBox(width: 50),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   const Icon(
                                     FontAwesomeIcons.solidStar,

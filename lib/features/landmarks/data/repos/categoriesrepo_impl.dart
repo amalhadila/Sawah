@@ -66,10 +66,10 @@ class CategoriesRepoImpl implements CategoriesRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
   Future<Either<Failure, List<MostVisitedModel>>> getreview() async {
     try {
-      var data = await apiService.get(
-          endpoint: 'reviews');
+      var data = await apiService.get(endpoint: 'reviews');
 
       List<MostVisitedModel> mostvisiteddata = [];
       for (var item in data['data']['landmarks']) {

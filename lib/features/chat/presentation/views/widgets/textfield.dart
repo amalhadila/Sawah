@@ -19,31 +19,19 @@ class CustomField extends StatefulWidget {
 }
 
 class _CustomFieldState extends State<CustomField> {
-  bool obscure = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         validator: (value) => value!.isEmpty ? "Requird" : null,
-        obscureText: widget.isPass ? obscure : false,
         controller: widget.controller,
-        decoration: InputDecoration(
-          suffixIcon: widget.isPass
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      obscure = !obscure;
-                    });
-                  },
-                  icon: const Icon(Iconsax.eye))
-              : const SizedBox(),
+        decoration: InputDecoration(         
           contentPadding: const EdgeInsets.all(12),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Color.fromARGB(0, 221, 62, 62))),
           labelText: widget.lable,
-          prefixIcon: Icon(widget.icon),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),

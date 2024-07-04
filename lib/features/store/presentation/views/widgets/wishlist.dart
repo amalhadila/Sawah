@@ -25,10 +25,10 @@ class Wishlist extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'My Wishlist',
-          style:TextStyle(
+          style: TextStyle(
               fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
         ),
-        leading:  IconButton(
+        leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
             color: ksecondcolor,
@@ -64,8 +64,10 @@ class Wishlist extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () async {
                                 await BlocProvider.of<ProductbyidCubit>(context)
-                                    .fetchProductbyId(productId:item.id!);
-                                var productState = BlocProvider.of<ProductbyidCubit>(context).state;
+                                    .fetchProductbyId(productId: item.id!);
+                                var productState =
+                                    BlocProvider.of<ProductbyidCubit>(context)
+                                        .state;
                                 if (productState is productbyiduccess) {
                                   GoRouter.of(context).push(
                                     '/productinfo',
@@ -74,24 +76,24 @@ class Wishlist extends StatelessWidget {
                                 } else if (productState is ProductbyFailure) {
                                   // Handle failure case, show error message for example
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(productState.errMessage)),
+                                    SnackBar(
+                                        content: Text(productState.errMessage)),
                                   );
                                 }
                               },
                               child: Container(
-                                 decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color:
-                                kbackgroundcolor,
-                                boxShadow: const [
-            BoxShadow(
-                blurRadius: 4,
-                offset: Offset(0, 5),
-                color: Color.fromARGB(64, 85, 61, 51),
-                spreadRadius: 0,
-                blurStyle: BlurStyle.normal)
-          ],
-                              ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: kbackgroundcolor,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        blurRadius: 4,
+                                        offset: Offset(0, 5),
+                                        color: Color.fromARGB(64, 85, 61, 51),
+                                        spreadRadius: 0,
+                                        blurStyle: BlurStyle.normal)
+                                  ],
+                                ),
                                 height: screenHeight * .17,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -129,16 +131,18 @@ class Wishlist extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: true,
                                               style: const TextStyle(
-                                                color:ksecondcolor ,
+                                                color: ksecondcolor,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            SizedBox(height: 10,),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
                                             Text(
                                               'price  \$${item.price}',
-                                             style: const TextStyle(
-                                              color:ksecondcolor ,
+                                              style: const TextStyle(
+                                                color: ksecondcolor,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 13,
                                               ),
@@ -147,7 +151,9 @@ class Wishlist extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 20,),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
                                     IconButton(
                                       onPressed: () {
                                         var itemId = item.id;
@@ -158,7 +164,8 @@ class Wishlist extends StatelessWidget {
                                             .deletewishlistitem(Id: itemId);
                                       },
                                       icon: Padding(
-                                        padding: const EdgeInsets.only(right:12.0),
+                                        padding:
+                                            const EdgeInsets.only(right: 12.0),
                                         child: const Icon(
                                           FontAwesomeIcons.solidHeart,
                                           size: 23,
@@ -171,7 +178,7 @@ class Wishlist extends StatelessWidget {
                               ),
                             ),
                           );
-                        },                        
+                        },
                       ),
                     ),
                   ],

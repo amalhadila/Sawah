@@ -14,6 +14,7 @@ class APIFeatures {
             'fields',
             'search',
             'location',
+            'locations',
         ];
         excludedFields.forEach((el) => delete queryObj[el]);
         // Advanced Filtering
@@ -26,10 +27,20 @@ class APIFeatures {
         if (this.queryString.location) {
             const locations = this.queryString.location.split(',');
             this.query = this.query.find({
-                'location.governorate': { $in: locations },
+                'location.governorate': {
+                    $in: locations.map((loc) => new RegExp(loc, 'i')),
+                },
             });
         }
-
+        if (this.queryString.locations) {
+            let locations = this.queryString.locations.split(',');
+            locations = ['Cairo', 'Giza'];
+            this.query = this.query.find({
+                'locations.address': {
+                    $in: locations.map((loc) => new RegExp(loc, 'i')),
+                },
+            });
+        }
         if (this.queryString.search) {
             const searchRegex = new RegExp(
                 '\\b' + this.queryString.search,

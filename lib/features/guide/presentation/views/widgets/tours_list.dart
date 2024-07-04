@@ -12,22 +12,22 @@ class TourListScreen extends StatelessWidget {
         title: Text('Tour List'),
       ),
       body: ListView.builder(
-        itemCount: 10, 
+        itemCount: 10,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal:35.0),
+              padding: EdgeInsets.symmetric(horizontal: 35.0),
               child: guideCard(
-                imageUrl:'assets/img/landmarks/amenemhatIIICover.jpg' ,
+                imageUrl: 'assets/img/landmarks/amenemhatIIICover.jpg',
                 landmarkname: 'pyramids',
                 date: 'start and end date',
               ),
             ),
             onTap: () {
-               Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => TourDetailsScreen()),
-  );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TourDetailsScreen()),
+              );
             },
           );
         },

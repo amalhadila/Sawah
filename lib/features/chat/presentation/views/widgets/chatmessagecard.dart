@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/chat/presentation/models/messagemodel.dart';
 import 'package:graduation/firebase/firedatabase.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,7 +17,8 @@ class ChatMessageCard extends StatelessWidget {
     super.key,
     required this.message,
     required this.roomid,
-    required this.isMe, required this.selected,
+    required this.isMe,
+    required this.selected,
   });
 
   @override
@@ -27,14 +29,18 @@ class ChatMessageCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: selected ? const Color.fromARGB(160, 133, 205, 201) : Colors.transparent,
+        color: selected
+            ? const Color.fromARGB(160, 133, 205, 201)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       margin: EdgeInsets.symmetric(vertical: 1),
       child: Row(
-        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Card(
+            elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(isMe ? 12 : 0),
@@ -43,7 +49,7 @@ class ChatMessageCard extends StatelessWidget {
                 topRight: Radius.circular(12),
               ),
             ),
-            color: isMe ? shadow : Color.fromARGB(255, 247, 227, 227),
+            color: isMe ? const Color.fromARGB(59, 112, 114, 186): const Color.fromARGB(78, 133, 205, 201),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Container(
@@ -56,23 +62,25 @@ class ChatMessageCard extends StatelessWidget {
                     if (message.imageUrl != null)
                       CachedNetworkImage(
                         imageUrl: message.imageUrl!,
-                        placeholder: (context, url) => const CircularProgressIndicator(),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
                       ),
-                    if (message.msg != null) Text(message.msg!),
+                    if (message.msg != null) Text(message.msg!,style: Textstyle.textStyle15.copyWith(fontWeight: FontWeight.w500,color: neutralColor3),),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                       
                         Text(
                           DateFormat('yyyy-MM-dd hh:mm:ss')
                               .format(message.createdAt ?? DateTime.now()),
-                              style: TextStyle(fontSize: 12),
+                          style:  Textstyle.textStyle12.copyWith(fontWeight: FontWeight.w400,color: neutralColor3),
                         ),
                         SizedBox(width: 6),
-                         if (isMe)
+                        if (isMe)
                           Icon(
                             Iconsax.tick_circle,
-                            color: message.read == true ? accentColor3 : Colors.grey,
+                            color: message.read == true
+                                ? accentColor3
+                                : Colors.grey,
                             size: 18,
                           ),
                       ],

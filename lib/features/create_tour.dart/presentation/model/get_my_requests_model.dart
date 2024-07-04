@@ -48,21 +48,18 @@ class GetMyRequestsModel {
           ? List<Landmark>.from(
               json['landmarks'].map((x) => Landmark.fromJson(x)))
           : null,
-      startDate: json['startDate'] != null
-          ? DateTime.parse(json['startDate'])
-          : null,
+      startDate:
+          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       commentForGuide: json['commentForGuide'],
       status: json['status'],
       paymentStatus: json['paymentStatus'],
       sentRequests: json['sentRequests'],
       respondingGuides: json['respondingGuides'],
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : null,
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : null,
+      createdAt:
+          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt:
+          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
       v: json['__v'],
     );
   }
@@ -106,9 +103,8 @@ class Landmark {
     return Landmark(
       id: json['_id'],
       name: json['name'],
-      category: json['category'] != null
-          ? Category.fromJson(json['category'])
-          : null,
+      category:
+          json['category'] != null ? Category.fromJson(json['category']) : null,
     );
   }
 }

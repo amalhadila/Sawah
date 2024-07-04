@@ -64,7 +64,7 @@ class _splachviewbodyState extends State<splachviewbody>
     Future.delayed(
       const Duration(milliseconds: 1500),
       () {
-        GoRouter.of(context).push('/sign');
+        GoRouter.of(context).push('/IntroductionScreenView');
       },
     );
   }

@@ -19,11 +19,10 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.4:8000/api/v1/customizedTour/governorates',
+        'http://192.168.1.7:8000/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer ${Token}',
+            'Authorization': 'Bearer ${Token}',
           },
         ),
       );
@@ -38,7 +37,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
           content: Text("An error happened $e, please try again"),
         ),
       );
-      return GetAllGovernsModel(status: "error", results: 0, data: Data(governorates: []));
+      return GetAllGovernsModel(
+          status: "error", results: 0, data: Data(governorates: []));
     }
   }
 
@@ -49,7 +49,9 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Choose the city',
-         style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),),
+          style: TextStyle(
+              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
@@ -66,7 +68,6 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            
             Expanded(
               child: FutureBuilder<GetAllGovernsModel>(
                 future: getAllGoverns(context),
@@ -75,7 +76,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                     return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.data.governorates.isEmpty) {
+                  } else if (!snapshot.hasData ||
+                      snapshot.data!.data.governorates.isEmpty) {
                     return Center(child: Text('No cities found'));
                   } else {
                     final governorates = snapshot.data!.data.governorates;
@@ -103,18 +105,22 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
               child: ElevatedButton(
                 onPressed: selectedCity != null
                     ? () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LandmarkSelectionScreen(selectedGovernorate: selectedCity!)),
+                          MaterialPageRoute(
+                              builder: (context) => LandmarkSelectionScreen(
+                                  selectedGovernorate: selectedCity!)),
                         );
                       }
                     : () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please, select a city')));
+                            const SnackBar(
+                                content: Text('Please, select a city')));
                       },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kmaincolor,

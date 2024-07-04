@@ -92,7 +92,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Landmark name',
-          style: TextStyle(color: kmaincolor,fontSize: 19,fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -126,8 +127,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 itemCount: languages.length,
                 itemBuilder: (context, index) {
                   final language = languages[index];
-                  final isSelected =
-                      selectedLanguages.contains(language.name);
+                  final isSelected = selectedLanguages.contains(language.name);
                   return ListTile(
                     title: Text(language.name,
                         style: TextStyle(fontWeight: FontWeight.w600)),
@@ -158,8 +158,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => TravelInfo(
-                              selectedGovernorate:
-                                  widget.selectedGovernorate,
+                              selectedGovernorate: widget.selectedGovernorate,
                               selectedLanguages: selectedLanguages,
                               selectedLandmarks: widget.landmarks,
                             ),

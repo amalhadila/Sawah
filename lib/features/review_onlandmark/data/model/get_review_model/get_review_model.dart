@@ -27,7 +27,9 @@ class GetReviewModel {
           : User.fromJson(json['user'] as Map<String, dynamic>),
       reviewType: json['reviewType'] as String?,
       subject: json['subject'] as String?,
-      rating: json['rating'] == null ? null : (json['rating'] as num).toDouble(), // التعامل مع null بشكل صحيح
+      rating: json['rating'] == null
+          ? null
+          : (json['rating'] as num).toDouble(), // التعامل مع null بشكل صحيح
       comment: json['comment'] as String?,
       createdAt: json['createdAt'] == null
           ? null

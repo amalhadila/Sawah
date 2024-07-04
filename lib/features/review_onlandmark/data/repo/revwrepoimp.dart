@@ -29,8 +29,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'landmarks/$landmark/reviews',
         Headers: Options(
           headers: <String, String>{
-            'Authorization':
-                'Bearer ${Token}',
+            'Authorization': 'Bearer ${Token}',
             'Content-Type': 'application/json',
           },
         ),
@@ -43,7 +42,7 @@ class Revwrepoimp implements reviews {
 
       print(data);
 
-        List<ReviewModel> reviewModel = (data['data']['docs'] as List)
+      List<ReviewModel> reviewModel = (data['data']['docs'] as List)
           .map((review) => ReviewModel.fromJson(review))
           .toList();
       return Right([reviewModel.first]);
@@ -53,42 +52,42 @@ class Revwrepoimp implements reviews {
       return Left(ServerFailure(e.toString()));
     }
   }
-   @override
-    Future<Either<Failure, List<ReviewModel>>> postReviewsontour({
-      required double rating,
-      required String comment,
-      required String tourid,
-      String reviewType = 'Tour',
-    }) async {
-      try {
-        var data = await apiService.post(
-          endpoint: 'landmarks/$tourid/reviews',
-          Headers: Options(
-            headers: <String, String>{
-              'Authorization':
-                  'Bearer ${Token}',
-              'Content-Type': 'application/json',
-            },
-          ),
-          body: {
-            'rating': rating,
-            'comment': comment,
-            'reviewType': reviewType,
+
+  @override
+  Future<Either<Failure, List<ReviewModel>>> postReviewsontour({
+    required double rating,
+    required String comment,
+    required String tourid,
+    String reviewType = 'Tour',
+  }) async {
+    try {
+      var data = await apiService.post(
+        endpoint: 'landmarks/$tourid/reviews',
+        Headers: Options(
+          headers: <String, String>{
+            'Authorization': 'Bearer ${Token}',
+            'Content-Type': 'application/json',
           },
-        );
+        ),
+        body: {
+          'rating': rating,
+          'comment': comment,
+          'reviewType': reviewType,
+        },
+      );
 
-        print(data);
+      print(data);
 
-         List<ReviewModel> reviewModel = (data['data']['docs'] as List)
+      List<ReviewModel> reviewModel = (data['data']['docs'] as List)
           .map((review) => ReviewModel.fromJson(review))
           .toList();
-        return Right([reviewModel.first]);
-      } on Failure catch (e) {
-        return Left(ServerFailure(e.message));
-      } catch (e) {
-        return Left(ServerFailure(e.toString()));
-      }
+      return Right([reviewModel.first]);
+    } on Failure catch (e) {
+      return Left(ServerFailure(e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
+  }
 
   @override
   Future<void> deleteReview({required String id}) async {
@@ -98,8 +97,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'reviews/$id',
         headers: Options(
           headers: <String, String>{
-            'Authorization':
-                'Bearer ${Token}',
+            'Authorization': 'Bearer ${Token}',
           },
         ),
       );
@@ -126,8 +124,7 @@ class Revwrepoimp implements reviews {
       var response = await apiService.get(
         endpoint: 'landmarks/$id/reviews',
         Headers: Options(headers: <String, String>{
-          'Authorization':
-              'Bearer ${Token}',
+          'Authorization': 'Bearer ${Token}',
         }),
       );
 
@@ -138,10 +135,11 @@ class Revwrepoimp implements reviews {
       log('www');
       return right(reviews);
     } on DioError catch (e) {
-    return left(ServerFailure.fromDiorError(e));
-  } catch (e) {
-    return left(ServerFailure(e.toString()));
-  }}
+      return left(ServerFailure.fromDiorError(e));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
 
 // @override
 // Future<Either<Failure, List<GetReviewModel>>> getallReviewsonlandmark({
@@ -192,117 +190,113 @@ class Revwrepoimp implements reviews {
 //   }
 // }
 
-    // @override
-    // Future<Either<Failure, List<GetReviewModel>>> getallReviewsontour({
-    //   required String id,
-    // }) async {
-    //   try {
-    //     var response = await apiService.get(
-    //       endpoint: 'tours/$id/reviews',
-    //       Headers: Options(
-    //         headers: <String, String>{
-    //           'Authorization':
-    //               'Bearer ${Token}',
-    //         },
-    //       ),
-    //     );
+  // @override
+  // Future<Either<Failure, List<GetReviewModel>>> getallReviewsontour({
+  //   required String id,
+  // }) async {
+  //   try {
+  //     var response = await apiService.get(
+  //       endpoint: 'tours/$id/reviews',
+  //       Headers: Options(
+  //         headers: <String, String>{
+  //           'Authorization':
+  //               'Bearer ${Token}',
+  //         },
+  //       ),
+  //     );
 
-    //     if (response != null &&
-    //         response['data'] != null &&
-    //         response['data']['docs'] != null) {
-    //       var cartData = response['data']['docs'];
-    //       Getreviewmodel getreviewmodel =
-    //           Getreviewmodel.fromJson(cartData as Map<String, dynamic>);
+  //     if (response != null &&
+  //         response['data'] != null &&
+  //         response['data']['docs'] != null) {
+  //       var cartData = response['data']['docs'];
+  //       Getreviewmodel getreviewmodel =
+  //           Getreviewmodel.fromJson(cartData as Map<String, dynamic>);
 
-    //       return Text('ss');
-    //       // right([GetReviewModel]);
-    //     } else {
-    //       return left(
-    //           ServerFailure("Unexpected response structure or null data"));
-    //     }
-    //   } on Exception catch (e) {
-    //     if (e is DioError) {
-    //       return left(ServerFailure.fromDiorError(e));
-    //     }
-    //     return left(ServerFailure(e.toString()));
-    //   }
-    // }
+  //       return Text('ss');
+  //       // right([GetReviewModel]);
+  //     } else {
+  //       return left(
+  //           ServerFailure("Unexpected response structure or null data"));
+  //     }
+  //   } on Exception catch (e) {
+  //     if (e is DioError) {
+  //       return left(ServerFailure.fromDiorError(e));
+  //     }
+  //     return left(ServerFailure(e.toString()));
+  //   }
+  // }
 
-    @override
-    Future<Either<Failure, List<ReviewModel>>> posttReviewsontour({
-      required double rating,
-      required String comment,
-      required String tourid,
-      String reviewType = 'Tour',
-    }) async {
-      try {
-        var data = await apiService.post(
-          endpoint: 'landmarks/$tourid/reviews',
-          Headers: Options(
-            headers: <String, String>{
-              'Authorization':
-                  'Bearer ${Token}',
-              'Content-Type': 'application/json',
-            },
-          ),
-          body: {
-            'rating': rating,
-            'comment': comment,
-            'reviewType': reviewType,
+  @override
+  Future<Either<Failure, List<ReviewModel>>> posttReviewsontour({
+    required double rating,
+    required String comment,
+    required String tourid,
+    String reviewType = 'Tour',
+  }) async {
+    try {
+      var data = await apiService.post(
+        endpoint: 'landmarks/$tourid/reviews',
+        Headers: Options(
+          headers: <String, String>{
+            'Authorization': 'Bearer ${Token}',
+            'Content-Type': 'application/json',
           },
-        );
+        ),
+        body: {
+          'rating': rating,
+          'comment': comment,
+          'reviewType': reviewType,
+        },
+      );
 
-        print(data);
+      print(data);
 
-        final reviewModel = ReviewModel.fromJson(data);
-        return Right([reviewModel]);
-      } on Failure catch (e) {
-        return Left(ServerFailure(e.message));
-      } catch (e) {
-        return Left(ServerFailure(e.toString()));
-      }
+      final reviewModel = ReviewModel.fromJson(data);
+      return Right([reviewModel]);
+    } on Failure catch (e) {
+      return Left(ServerFailure(e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
+  }
 
-    @override
-    Future<Either<Failure, List<ReviewModel>>> updateRating(
-        {required String id}) {
-      throw UnimplementedError();
-    }
+  @override
+  Future<Either<Failure, List<ReviewModel>>> updateRating(
+      {required String id}) {
+    throw UnimplementedError();
+  }
 
-    @override
-    Future<void> deletereview({required String id}) {
-      // TODO: implement deletereview
-      throw UnimplementedError();
-    }
+  @override
+  Future<void> deletereview({required String id}) {
+    // TODO: implement deletereview
+    throw UnimplementedError();
+  }
 
-    @override
-    Future<Either<Failure, List<ReviewModel>>> getallReviews() {
-      // TODO: implement getallReviews
-      throw UnimplementedError();
-    }
+  @override
+  Future<Either<Failure, List<ReviewModel>>> getallReviews() {
+    // TODO: implement getallReviews
+    throw UnimplementedError();
+  }
 
- 
+  @override
+  Future<Either<Failure, List<ReviewModel>>> updaterating(
+      {required String id}) {
+    // TODO: implement updaterating
+    throw UnimplementedError();
+  }
 
-    @override
-    Future<Either<Failure, List<ReviewModel>>> updaterating(
-        {required String id}) {
-      // TODO: implement updaterating
-      throw UnimplementedError();
-    }
+  @override
+  Future<Either<Failure, List<ReviewModel>>> getReviewbyid(
+      {required String id}) {
+    throw UnimplementedError();
+  }
 
-    @override
-    Future<Either<Failure, List<ReviewModel>>> getReviewbyid(
-        {required String id}) {
-      throw UnimplementedError();
-    }
-
-    @override
-    Future<Either<Failure, List<GetReviewModel>>> getallReviewsontour(
-        {required String id}) {
-      // TODO: implement getallReviewsontour
-      throw UnimplementedError();
-    }
- 
+  @override
+  Future<Either<Failure, List<GetReviewModel>>> getallReviewsontour(
+      {required String id}) {
+    // TODO: implement getallReviewsontour
+    throw UnimplementedError();
+  }
 
   // @override
   // Future<void> deletereview({required String id}) {
@@ -346,5 +340,4 @@ class Revwrepoimp implements reviews {
   //   // TODO: implement updaterating
   //   throw UnimplementedError();
   // }
-
- }
+}

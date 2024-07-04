@@ -10,10 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen(
-      {super.key,
-      required this.roomid,
-      required this.name});
+  ChatScreen({super.key, required this.roomid, required this.name});
   String roomid;
   String name;
   List<String> selectedmsg = [];
@@ -27,7 +24,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
   final ScrollController _scrollController = ScrollController();
-  final ValueNotifier<List<String>> _selectedMessagesNotifier = ValueNotifier<List<String>>([]);
+  final ValueNotifier<List<String>> _selectedMessagesNotifier =
+      ValueNotifier<List<String>>([]);
 
   @override
   void initState() {
@@ -42,7 +40,8 @@ class _ChatScreenState extends State<ChatScreen> {
       if (_imageFile != null) {
         File imageFile = File(_imageFile!.path);
         try {
-          imageUrl = await FireStorage().sendImage(imageFile, widget.roomid, 'Image');
+          imageUrl =
+              await FireStorage().sendImage(imageFile, widget.roomid, 'Image');
           print('Image URL: $imageUrl');
         } catch (e) {
           print('Error uploading image: $e');
@@ -80,7 +79,16 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:PreferredSize(
+  preferredSize: Size.fromHeight(65),
+  child: Material(
+    color: kbackgroundcolor,
+    elevation: 2.5,
+    shadowColor: shadow,
+    child:AppBar(
+        elevation: 0,
+        foregroundColor: kbackgroundcolor,
+        shadowColor: shadow,
         backgroundColor: kbackgroundcolor,
         title: Text(
           widget.name,
@@ -104,16 +112,20 @@ class _ChatScreenState extends State<ChatScreen> {
               return selectedMessages.isNotEmpty
                   ? IconButton(
                       onPressed: () async {
-                        await FireData().deleteMessages(widget.roomid, selectedMessages);
+                        await FireData()
+                            .deleteMessages(widget.roomid, selectedMessages);
                         _selectedMessagesNotifier.value = [];
                       },
-                      icon: const Icon(Iconsax.trash),
+                      icon: const Icon(Iconsax.trash,color: kmaincolor,),
                     )
                   : Container();
             },
           ),
         ],
       ),
+  ),
+),
+ 
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
         child: Column(
@@ -146,7 +158,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemBuilder: (context, index) {
                       final message = messages[index];
                       final isMe = message.fromId == myUid;
-                  
+
                       return GestureDetector(
                         onTap: () {
                           if (_selectedMessagesNotifier.value.isNotEmpty) {
@@ -195,7 +207,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           children: [
                             IconButton(
                               onPressed: _pickImage,
-                              icon: const Icon(Iconsax.camera),
+                              icon: const Icon(Iconsax.camera5,size: 30,color: kmaincolor,)
                             ),
                           ],
                         ),
@@ -211,7 +223,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 IconButton(
                   onPressed: _sendMessage,
-                  icon: const Icon(Iconsax.send_1),
+                  icon: const Icon(Icons.send_rounded,color: kmaincolor,),
                 ),
               ],
             ),

@@ -7,7 +7,6 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/check
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
 class BookingPage extends StatefulWidget {
   BookingPage({super.key, required this.product});
   final Product product;
@@ -64,7 +63,7 @@ class _BookingPageState extends State<BookingPage> {
                     height: 30,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,50 +75,50 @@ class _BookingPageState extends State<BookingPage> {
                               fontWeight: FontWeight.w600,
                               color: kmaincolor),
                         ),
-                       
-                      TableCalendar(
-                            daysOfWeekHeight: 22, 
-                            firstDay: DateTime.now(),
-                            lastDay: DateTime(DateTime.now().year + 1),
-                            focusedDay: _focusedDay,
-                            availableCalendarFormats: const {
-                              CalendarFormat.month: '',
-                            },
-                            calendarStyle: const CalendarStyle(
-                              defaultTextStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),
-                              todayDecoration: BoxDecoration(
-                                color: accentColor3,
-                                 shape: BoxShape.circle,
-                              ),
-                              selectedDecoration: BoxDecoration(
-                                color: ksecondcolor, 
-                                shape: BoxShape.circle,
-                              ),
+                        TableCalendar(
+                          daysOfWeekHeight: 22,
+                          firstDay: DateTime.now(),
+                          lastDay: DateTime(DateTime.now().year + 1),
+                          focusedDay: _focusedDay,
+                          availableCalendarFormats: const {
+                            CalendarFormat.month: '',
+                          },
+                          calendarStyle: const CalendarStyle(
+                            defaultTextStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                            todayDecoration: BoxDecoration(
+                              color: accentColor3,
+                              shape: BoxShape.circle,
                             ),
-                           
-                            headerStyle: const HeaderStyle(
-                              titleTextStyle: TextStyle(color: kmaincolor, fontWeight: FontWeight.w600),
-                              titleCentered: true,
-                              formatButtonVisible: false,
+                            selectedDecoration: BoxDecoration(
+                              color: ksecondcolor,
+                              shape: BoxShape.circle,
                             ),
-                            onDaySelected: (selectedDay, focusedDay) {
-                              setState(() {
-                                _selectedDate = selectedDay;
-                                _focusedDay = focusedDay;
-                              });
-                            },
-                            
-                            selectedDayPredicate: (day) => isSameDay(day, _selectedDate),
-                             enabledDayPredicate: (date) {
-                        return widget.product.startDays!.contains(DateFormat('EEEE').format(date));
-                      },
-                      
                           ),
+                          headerStyle: const HeaderStyle(
+                            titleTextStyle: TextStyle(
+                                color: kmaincolor, fontWeight: FontWeight.w600),
+                            titleCentered: true,
+                            formatButtonVisible: false,
+                          ),
+                          onDaySelected: (selectedDay, focusedDay) {
+                            setState(() {
+                              _selectedDate = selectedDay;
+                              _focusedDay = focusedDay;
+                            });
+                          },
+                          selectedDayPredicate: (day) =>
+                              isSameDay(day, _selectedDate),
+                          enabledDayPredicate: (date) {
+                            return widget.product.startDays!
+                                .contains(DateFormat('EEEE').format(date));
+                          },
+                        ),
                       ],
-                      
                     ),
                   ),
-                  
                   const SizedBox(
                     height: 25,
                   ),
@@ -131,15 +130,15 @@ class _BookingPageState extends State<BookingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                          'Group Size ',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: kmaincolor),
-                        ),
-                        const SizedBox(
-                      height: 20,
-                    ),
+                              'Group Size ',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: kmaincolor),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Text(r'Price: ',
                                 style: const TextStyle(
                                     fontSize: 16,
@@ -147,65 +146,64 @@ class _BookingPageState extends State<BookingPage> {
                                     fontWeight: FontWeight.w700)),
                           ],
                         ),
-                                Spacer(),
-                         Column(
+                        Spacer(),
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                           children: [
+                          children: [
                             Row(children: [
-                          ClipOval(
-                            child: Material(
-                              color: kbackgroundcolor,
-                              child: GestureDetector(
-                                onTap: subtract,
-                                child: const SizedBox(
-                                  height: 27,
-                                  width: 27,
-                                  child: Icon(
-                                    Icons.remove,
-                                    size: 24,
-                                    color: kmaincolor,
+                              ClipOval(
+                                child: Material(
+                                  color: kbackgroundcolor,
+                                  child: GestureDetector(
+                                    onTap: subtract,
+                                    child: const SizedBox(
+                                      height: 27,
+                                      width: 27,
+                                      child: Icon(
+                                        Icons.remove,
+                                        size: 24,
+                                        color: kmaincolor,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          Text(
-                            quantity.toString(),
-                            style: const TextStyle(
-                                fontSize: 25, color: kmaincolor),
-                          ),
-                          ClipOval(
-                            child: Material(
-                              color: kbackgroundcolor,
-                              child: GestureDetector(
-                                onTap: add,
-                                child: const SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 24,
-                                    color: kmaincolor,
+                              Text(
+                                quantity.toString(),
+                                style: const TextStyle(
+                                    fontSize: 25, color: kmaincolor),
+                              ),
+                              ClipOval(
+                                child: Material(
+                                  color: kbackgroundcolor,
+                                  child: GestureDetector(
+                                    onTap: add,
+                                    child: const SizedBox(
+                                      height: 25,
+                                      width: 25,
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 24,
+                                        color: kmaincolor,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
+                            ]),
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                        ]),
-                        const SizedBox(
-                      height: 20,
-                    ),
-                             Text(r'$'' ${widget.product.price.toString()} ',
-                                                   style: const TextStyle(
-                                fontSize: 16,
-                                color: kmaincolor,
-                                fontWeight: FontWeight.w700)),
-                           ],
-                         ),
+                            Text(r'$' ' ${widget.product.price.toString()} ',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: kmaincolor,
+                                    fontWeight: FontWeight.w700)),
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                          
                 ],
               ),
             ),
@@ -213,7 +211,7 @@ class _BookingPageState extends State<BookingPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-             // color: const Color.fromARGB(255, 252, 237, 227),
+              // color: const Color.fromARGB(255, 252, 237, 227),
               padding: const EdgeInsets.only(right: 16.0, left: 16, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -222,34 +220,43 @@ class _BookingPageState extends State<BookingPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_selectedDate != null) {
-
-  var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
-      .checkAvailability(
-        Id: widget.product.id!,
-        groupSize: quantity,
-        tourDate: '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"',
-      );
-     print('"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"');
-  if (isAvailable) {
-    BlocProvider.of<AdditemCubit>(context).addItemToCart(
-      tourId: widget.product.id,
-      Adults: quantity,
-      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-    );
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Added to the cart')),
-    );
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text('${widget.product.name} is not available')),
-    );
-  }
-} else {
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Please select a date.')),
-  );
-};
-
+                          var isAvailable =
+                              await BlocProvider.of<CheckavailabilityCubit>(
+                                      context)
+                                  .checkAvailability(
+                            Id: widget.product.id!,
+                            groupSize: quantity,
+                            tourDate:
+                                '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"',
+                          );
+                          print(
+                              '"${DateFormat('yyyy-MM-dd').format(_selectedDate!)}"');
+                          if (isAvailable) {
+                            BlocProvider.of<AdditemCubit>(context)
+                                .addItemToCart(
+                              tourId: widget.product.id,
+                              Adults: quantity,
+                              tourDate:
+                                  "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Added to the cart')),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      '${widget.product.name} is not available')),
+                            );
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Please select a date.')),
+                          );
+                        }
+                        ;
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kmaincolor,
@@ -264,25 +271,34 @@ class _BookingPageState extends State<BookingPage> {
                   const SizedBox(width: 18),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         if (_selectedDate != null) {
-                          var isAvailable = await BlocProvider.of<CheckavailabilityCubit>(context)
-      .checkAvailability(
-        Id: widget.product.id!,
-        groupSize: quantity,
-        tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-      );
-     print(DateFormat('yyyy-MM-dd').format(_selectedDate!));
-  if (isAvailable) {
-    BlocProvider.of<AdditemCubit>(context).addItemToCart(
-      tourId: widget.product.id,
-      Adults: quantity,
-      tourDate: "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-    ); } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text('${widget.product.name} is not available')),
-    );
-  }
+                          var isAvailable =
+                              await BlocProvider.of<CheckavailabilityCubit>(
+                                      context)
+                                  .checkAvailability(
+                            Id: widget.product.id!,
+                            groupSize: quantity,
+                            tourDate:
+                                "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+                          );
+                          print(
+                              DateFormat('yyyy-MM-dd').format(_selectedDate!));
+                          if (isAvailable) {
+                            BlocProvider.of<AdditemCubit>(context)
+                                .addItemToCart(
+                              tourId: widget.product.id,
+                              Adults: quantity,
+                              tourDate:
+                                  "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      '${widget.product.name} is not available')),
+                            );
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

@@ -15,7 +15,8 @@ class SendPriceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tour name: ', style: TextStyle(fontSize: 24,color: kmaincolor)),
+            Text('Tour name: ',
+                style: TextStyle(fontSize: 24, color: kmaincolor)),
             SizedBox(height: 20),
             TextField(
               controller: priceController,
@@ -30,10 +31,14 @@ class SendPriceScreen extends StatelessWidget {
               onPressed: () {
                 print('Price: ${priceController.text}');
               },
-              child: Text('Send',style:TextStyle(color: kbackgroundcolor,fontWeight: FontWeight.w600),),
-            style: ElevatedButton.styleFrom(
-                        backgroundColor: kmaincolor,
-                      ),
+              child: Text(
+                'Send',
+                style: TextStyle(
+                    color: kbackgroundcolor, fontWeight: FontWeight.w600),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: kmaincolor,
+              ),
             ),
           ],
         ),

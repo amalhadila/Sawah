@@ -25,6 +25,7 @@ class AllproductsCubit extends Cubit<AllproductsState> {
       print('Failed to fetch all product for category: ${Failure.message}');
       if (!_closed) emit(AllproductFailure(Failure.message));
     }, (product_list) {
+      print(product_list);
       print('Successfully fetched all product for category');
       if (!_closed) emit(AllproductSuccess(product_list));
     });

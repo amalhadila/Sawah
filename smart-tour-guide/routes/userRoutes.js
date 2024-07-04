@@ -16,7 +16,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 // protected routes
 router.use(authController.protect);
 
-router.post('/resendVerificationEmail', authController.resendVerificationEmail);
+router.get('/resendVerificationEmail', authController.resendVerificationEmail);
 router.patch('/updateMyPassword', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
 router.patch(
@@ -36,6 +36,10 @@ router
     .route('/:id')
     .patch(authController.restrictTo('admin'), userController.updateUser)
     .delete(authController.restrictTo('admin'), userController.deleteUser);
+
+router
+    .route('/')
+    .post(authController.restrictTo('admin'), userController.createUser);
 
 router.use('/:subjectId/reviews', reviewRouter);
 
