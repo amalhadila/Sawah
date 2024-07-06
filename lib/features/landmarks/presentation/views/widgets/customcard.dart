@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
+import 'package:shimmer/shimmer.dart';
 
 const kCardColor = Color(0xffF2F2F2);
 
@@ -44,18 +46,27 @@ class CustomCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.17,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      imglink,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                    ),
+                    child: 
+                     CachedNetworkImage(
+      imageUrl: imglink,
+width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+    width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    ),
+                  
                   ),
                 ),
                 const Spacer(),
                 Text(
                   text,
                   style: Textstyle.textStyle12.copyWith(color: kmaincolor2),
-                  //copyWith(color: ksecondcolor),///////////
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -1,39 +1,83 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-
+let redisClient;
+if (process.env.redis === 'true') {
+    redisClient = require('./../utils/redisUtil');
+}
 exports.getAll = (Model) =>
     catchAsync(async (req, res, next) => {
-        // To allow for nested GET reviews on Landmark/Tour/Guide (hack)
-        let filter = {};
+        const cacheKey = `getAll-${Model.collection.name}-${JSON.stringify(
+            req.query
+        )}-${JSON.stringify(req.params)}`;
 
-        if (req.params.subjectId) filter = { subject: req.params.subjectId };
-        // To allow for nested GET in categories
-        if (req.params.landmarkId) filter = { subject: req.params.landmarkId };
-        else if (req.params.tourId) filter = { subject: req.params.tourId };
-        else if (req.params.guideId) filter = { subject: req.params.guideId };
+        try {
+            if (process.env.redis === 'true') {
+                const cachedData = await redisClient.get(cacheKey);
+                if (cachedData) {
+                    return res.status(200).json({
+                        status: 'success',
+                        requestedAt: req.requestTime,
+                        results: JSON.parse(cachedData).length,
+                        data: {
+                            docs: JSON.parse(cachedData),
+                        },
+                    });
+                }
+            }
 
-        if (req.params.categoryId) filter = { category: req.params.categoryId };
-        if (req.params.tourCategoryId)
-            filter = { category: req.params.tourCategoryId };
+            // To allow for nested GET reviews on Landmark/Tour/Guide (hack)
+            let filter = {};
 
-        // EXECUTE QUERY
-        const features = new APIFeatures(Model.find(filter), req.query)
-            .filter()
-            .sort()
-            .limitFields()
-            .paginate();
-        const docs = await features.query;
+            if (req.params.subjectId)
+                filter = { subject: req.params.subjectId };
+            // To allow for nested GET in categories
+            if (req.params.landmarkId)
+                filter = { subject: req.params.landmarkId };
+            else if (req.params.tourId) filter = { subject: req.params.tourId };
+            else if (req.params.guideId)
+                filter = { subject: req.params.guideId };
 
-        // SEND RESPONSE
-        res.status(200).json({
-            status: 'success',
-            requestedAt: req.requestTime,
-            results: docs.length,
-            data: {
-                docs,
-            },
-        });
+            if (req.params.categoryId)
+                filter = { category: req.params.categoryId };
+            if (req.params.tourCategoryId)
+                filter = { category: req.params.tourCategoryId };
+
+            // EXECUTE QUERY
+            const features = new APIFeatures(Model.find(filter), req.query)
+                .filter()
+                .sort()
+                .limitFields()
+                .paginate();
+            const docs = await features.query;
+            if (process.env.redis === 'true') {
+                if (
+                    [
+                        'landmarks',
+                        'tours',
+                        'categories',
+                        'tourcategories',
+                    ].includes(Model.collection.name)
+                ) {
+                    await redisClient.setEx(
+                        cacheKey,
+                        3600,
+                        JSON.stringify(docs)
+                    );
+                }
+            }
+            // SEND RESPONSE
+            res.status(200).json({
+                status: 'success',
+                requestedAt: req.requestTime,
+                results: docs.length,
+                data: {
+                    docs,
+                },
+            });
+        } catch (err) {
+            return next(new AppError(err, 500));
+        }
     });
 
 exports.getOne = (Model, popOptions) =>
@@ -57,6 +101,9 @@ exports.getOne = (Model, popOptions) =>
 exports.createOne = (Model) =>
     catchAsync(async (req, res, next) => {
         const newDoc = await Model.create(req.body);
+        if (process.env.redis === 'true') {
+            await redisClient.flushAll();
+        }
         res.status(201).json({
             status: 'success',
             data: {
@@ -75,6 +122,9 @@ exports.updateOne = (Model) =>
         if (!doc) {
             return next(new AppError('No document found with this ID', 404));
         }
+        if (process.env.redis === 'true') {
+            await redisClient.flushAll();
+        }
 
         res.status(200).json({
             status: 'success',
@@ -90,6 +140,9 @@ exports.deleteOne = (Model) =>
 
         if (!doc) {
             return next(new AppError('No document found with this ID', 404));
+        }
+        if (process.env.redis === 'true') {
+            await redisClient.flushAll();
         }
 
         res.status(204).json({

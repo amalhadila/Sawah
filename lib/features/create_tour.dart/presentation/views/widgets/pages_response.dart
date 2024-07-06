@@ -36,7 +36,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.7:8000/api/v1/customizedTour/$tourId/browse-guides',
+        'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/browse-guides',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',
@@ -243,16 +243,18 @@ class _ResponseScreenState extends State<ResponseScreen>
                       final roomId = await FireData().creatRoom(
                         guide.id!,
                         guide.name!,
+                        guide.photo!
                       );
                       GoRouter.of(context).push('/ChatScreen', extra: [
                         roomId,
                         guide.name!,
+                        guide.photo!
                       ]);
                     },
                     icon: const Icon(Icons.chat_rounded, color: kmaincolor),
                   ),
                   leading: CircleAvatar(
-                      backgroundImage: NetworkImage(guide.photo ?? '')),
+                      backgroundImage: NetworkImage(guide.photo!)),
                   title: Text(guide.name ?? 'Unknown Name',
                       style: TextStyle(
                           color: kmaincolor, fontWeight: FontWeight.w700)),

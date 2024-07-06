@@ -130,7 +130,7 @@ exports.getAllGovernorates = catchAsync(async (req, res, next) => {
 exports.getLandmarksByGovernorate = catchAsync(async (req, res, next) => {
     const landmarks = await Landmark.find({
         'location.governorate': req.params.governorate,
-    }).select('name photo description');
+    }).select('name images description');
 
     res.status(200).json({
         status: 'success',
@@ -534,6 +534,50 @@ exports.confirmCompletionUser = catchAsync(async (req, res, next) => {
         message: 'User confirmed tour completion.',
         data: {
             tour,
+        },
+    });
+});
+
+exports.getRespondingGuidesForTour = catchAsync(async (req, res, next) => {
+    const { tourId } = req.params;
+    const tour = await CustomizedTour.findById({
+        _id: tourId,
+        user: req.user.id,
+    });
+
+    if (!tour) return next(new AppError('No tour found with this id.', 404));
+
+    if (!tour.respondingGuides)
+        return next(new AppError('No guide has responded yet.', 404));
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            respondingGuides: tour.respondingGuides,
+        },
+    });
+});
+
+exports.getAcceptedToursForGuide = catchAsync(async (req, res, next) => {
+    const guideId = req.user.id;
+
+    const activeTours = await CustomizedTour.find({
+        acceptedGuide: guideId,
+        status: 'confirmed',
+    });
+
+    const completedTours = await CustomizedTour.find({
+        acceptedGuide: guideId,
+        status: 'completed',
+    });
+    if (!activeTours || !completedTours)
+        return next(new AppError('No tours found.', 404));
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            activeTours,
+            completedTours,
         },
     });
 });

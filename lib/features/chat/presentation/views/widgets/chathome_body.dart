@@ -66,7 +66,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
         child: Column(
           children: [
             Expanded(
@@ -95,7 +95,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                               _toggleSelection(chatroom.id!);
                             } else {
                               GoRouter.of(context).push('/ChatScreen',
-                                  extra: [chatroom.id!, chatroom.name]);
+                                  extra: [chatroom.id!, chatroom.name, chatroom.userphoto!]);
                             }
                           },
                           onLongPress: () {
@@ -114,7 +114,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                     GoRouter.of(context)
                                         .push('/ChatScreen', extra: [
                                       chatroom.id!,
-                                      isMe ? chatroom.name! : chatroom.myname!
+                                      isMe ? chatroom.name! : chatroom.myname!,
+                                      chatroom.userphoto!
+
                                     ]);
                                   }
                                 },

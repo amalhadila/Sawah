@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:graduation/constants.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_state.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductSearchWidget extends StatefulWidget {
   @override
@@ -69,12 +71,26 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                             ),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5),
-                              child: Image.network(
-                                product.images[0],
-                                height: MediaQuery.sizeOf(context).height * .1,
-                                width: MediaQuery.sizeOf(context).width * .2,
-                                fit: BoxFit.cover,
-                              ),
+                              child: 
+                              CachedNetworkImage(
+                                          imageUrl: product.images[0],
+                                          width:
+                                               MediaQuery.sizeOf(context).width * .2,
+                                          height: MediaQuery.sizeOf(context).height * .1,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              width:  MediaQuery.sizeOf(context).width * .2,
+                                              height: MediaQuery.sizeOf(context).height * .1,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
                             ),
                             Expanded(
                               child: Padding(

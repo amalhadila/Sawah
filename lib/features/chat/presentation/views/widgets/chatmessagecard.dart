@@ -49,7 +49,7 @@ class ChatMessageCard extends StatelessWidget {
                 topRight: Radius.circular(12),
               ),
             ),
-            color: isMe ? const Color.fromARGB(59, 112, 114, 186): const Color.fromARGB(78, 133, 205, 201),
+            color: isMe ? const Color.fromARGB(59, 112, 114, 186): const Color.fromARGB(52, 133, 205, 201),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Container(
@@ -66,24 +66,27 @@ class ChatMessageCard extends StatelessWidget {
                             const CircularProgressIndicator(),
                       ),
                     if (message.msg != null) Text(message.msg!,style: Textstyle.textStyle15.copyWith(fontWeight: FontWeight.w500,color: neutralColor3),),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          DateFormat('yyyy-MM-dd hh:mm:ss')
-                              .format(message.createdAt ?? DateTime.now()),
-                          style:  Textstyle.textStyle12.copyWith(fontWeight: FontWeight.w400,color: neutralColor3),
-                        ),
-                        SizedBox(width: 6),
-                        if (isMe)
-                          Icon(
-                            Iconsax.tick_circle,
-                            color: message.read == true
-                                ? accentColor3
-                                : Colors.grey,
-                            size: 18,
+                    Padding(
+                      padding: const EdgeInsets.only(top:2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            DateFormat('yyyy-MM-dd hh:mm:ss')
+                                .format(message.createdAt ?? DateTime.now()),
+                            style:  Textstyle.textStyle12.copyWith(fontWeight: FontWeight.w400,color: neutralColor3),
                           ),
-                      ],
+                          SizedBox(width: 10),
+                          if (isMe)
+                            Icon(
+                              Iconsax.tick_circle,
+                              color: message.read == true
+                                  ? accentColor3
+                                  : Colors.grey,
+                              size: 18,
+                            ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

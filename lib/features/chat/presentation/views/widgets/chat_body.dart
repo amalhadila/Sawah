@@ -10,9 +10,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key, required this.roomid, required this.name});
+  ChatScreen({super.key, required this.roomid, required this.name,required this.photo});
   String roomid;
   String name;
+  String photo;
+
   List<String> selectedmsg = [];
 
   @override
@@ -86,25 +88,47 @@ class _ChatScreenState extends State<ChatScreen> {
     elevation: 2.5,
     shadowColor: shadow,
     child:AppBar(
-        elevation: 0,
-        foregroundColor: kbackgroundcolor,
-        shadowColor: shadow,
-        backgroundColor: kbackgroundcolor,
-        title: Text(
+  elevation: 0,
+  foregroundColor: kbackgroundcolor,
+  shadowColor: shadow,
+  backgroundColor: kbackgroundcolor,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Expanded(
+        child: Text(
           widget.name,
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
             color: kmaincolor,
-            size: 22,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          overflow: TextOverflow.ellipsis,
         ),
+      ),
+    ],
+  ),
+  leading: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: kmaincolor,
+          size: 22,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      CircleAvatar(
+        backgroundImage: NetworkImage(widget.photo),
+        radius: 22, // Adjust the radius to fit better
+      ),
+    ],
+  ),
+  leadingWidth: 100, // Adjust the width to ensure enough space for the leading widget
+
         actions: [
           ValueListenableBuilder<List<String>>(
             valueListenable: _selectedMessagesNotifier,

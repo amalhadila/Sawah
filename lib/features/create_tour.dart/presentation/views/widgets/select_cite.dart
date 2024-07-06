@@ -19,7 +19,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.7:8000/api/v1/customizedTour/governorates',
+        'http://192.168.1.4:8000/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',
@@ -110,6 +110,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
               child: ElevatedButton(
                 onPressed: selectedCity != null
                     ? () {
+                      print(selectedCity);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

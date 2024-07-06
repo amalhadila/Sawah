@@ -1,16 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/store/data/product/location.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:shimmer/shimmer.dart';
 
 class productCard extends StatefulWidget {
-  final String imglink;
+  final dynamic imglink;
   final String id;
   Location? address1;
   final String? address2;
-  final dynamic? rating;
+  final dynamic rating;
   final String text;
   final String? info;
   final dynamic price;
@@ -62,7 +64,6 @@ class _productCardState extends State<productCard> {
                     blurRadius: 4,
                     offset: Offset(0, 6),
                     color: shadow,
-                    //kCardColor,
                     spreadRadius: 1,
                     blurStyle: BlurStyle.normal,
                   ),
@@ -84,12 +85,23 @@ class _productCardState extends State<productCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              widget.imglink,
-                              height: screenHeight * .16,
-                              width: screenWidth * .38,
-                              fit: BoxFit.fill,
-                            ),
+                            child:
+                                CachedNetworkImage(
+      imageUrl:  widget.imglink,
+      width: screenWidth * .38,
+      height:  screenHeight * .16,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: screenWidth * .38,
+          height:  screenHeight * .16,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    ),
+                            
                           ),
                           Positioned(
                             top: 5,
@@ -132,7 +144,6 @@ class _productCardState extends State<productCard> {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: kmaincolor2,
-                                ///////////////////////      color: ksecondcolor,
                                 fontSize: titleFontSize,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -180,7 +191,7 @@ class _productCardState extends State<productCard> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 50),
+                              SizedBox(width: 43),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,

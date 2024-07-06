@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class infoimg extends StatelessWidget {
   const infoimg({
@@ -16,11 +18,21 @@ class infoimg extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .38,
       child: CarouselSlider(
           items: imageslink!.map((image) {
-            return Image.network(
-              image,
-              fit: BoxFit.fill,
-              width: double.infinity,
-            );
+            return 
+            CachedNetworkImage(
+      imageUrl: image ,
+      width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+       
           }).toList(),
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height,

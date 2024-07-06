@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart'; // Ensure this import is correct
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
+import 'package:shimmer/shimmer.dart'; // Ensure this import is correct
 
 class TourDetailsPage extends StatefulWidget {
   final String selectedGovernorate;
@@ -78,13 +80,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             "${selectedDate.toLocal()}".split(' ')[0],
                             style: TextStyle(fontSize: screenWidth * 0.04),
                           ),
-                          Spacer(),
-                          Text(
-                            'Edit',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: screenWidth * 0.04),
-                          ),
+                          
                         ],
                       ),
                     ),
@@ -97,11 +93,22 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 'Your landmarks',
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/Property 1=Frame 6.png',
-                      width: screenWidth * 0.2,
-                      height: screenWidth * 0.2,
-                    ),
+                    CachedNetworkImage(
+      imageUrl: widget.selectedLandmarks.first.images[0] ,
+      width: screenWidth * 0.25,
+      height:  screenWidth * 0.21,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: screenWidth * 0.25,
+          height:  screenWidth * 0.21,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    ),
+                 
                     SizedBox(width: screenWidth * 0.04),
                     Expanded(
                       child: Text(
@@ -112,12 +119,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Spacer(),
-                    Text(
-                      'Edit',
-                      style: TextStyle(
-                          color: Colors.blue, fontSize: screenWidth * 0.04),
-                    ),
+                 
                   ],
                 ),
               ),
@@ -209,11 +211,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
           value,
           style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.black54),
         ),
-        SizedBox(width: screenWidth * 0.02),
-        Text(
-          'Edit',
-          style: TextStyle(color: Colors.blue, fontSize: screenWidth * 0.04),
-        ),
+       
       ],
     );
   }

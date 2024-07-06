@@ -35,7 +35,10 @@ class ChatCard extends StatelessWidget {
           child: ListTile(
             onTap: onTap,
             onLongPress: onLongPress,
-            leading: const CircleAvatar(radius: 40,),
+            leading:  CircleAvatar(
+              backgroundImage: NetworkImage(chatroom.userphoto!),
+
+              radius: 40,),
             trailing: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('rooms')

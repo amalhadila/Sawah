@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +15,7 @@ import 'package:graduation/features/store/presentation/views/widgets/payment_web
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'user_cart_model.dart';
 
@@ -150,7 +152,6 @@ class CartScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: kbackgroundcolor,
-                                  ////////////kCardColor,
                                   boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 4,
@@ -169,15 +170,31 @@ class CartScreen extends StatelessWidget {
                                       const SizedBox(width: 5),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          item.tour?.images[0],
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .13,
+                                        child: CachedNetworkImage(
+                                          imageUrl: item.tour?.images[0],
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   .3,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .13,
                                           fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  .3,
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  .13,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
                                       ),
                                       Expanded(

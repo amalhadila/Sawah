@@ -50,7 +50,7 @@ class _TravelInfoState extends State<TravelInfo> {
       print('Comment for Guide: $commentForGuide');
 
       var response = await _dio.post(
-        'http://192.168.1.7:8000/api/v1/customizedTour',
+        'http://192.168.1.4:8000/api/v1/customizedTour',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',

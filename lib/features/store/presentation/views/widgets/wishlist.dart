@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:graduation/features/store/presentation/manager/cubit/cubit/delet
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Wishlist extends StatelessWidget {
   Wishlist({Key? key}) : super(key: key);
@@ -103,16 +105,32 @@ class Wishlist extends StatelessWidget {
                                     ),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        item.images![0],
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                .13,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
+                                      child:                                      
+                                       CachedNetworkImage(
+                                          imageUrl: item.images![0],
+                                          width:
+                                               MediaQuery.sizeOf(context).width *
                                                 .332,
-                                        fit: BoxFit.fill,
-                                      ),
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .13,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              width:  MediaQuery.sizeOf(context).width *
+                                                .332,
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  .13,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ), 
                                     ),
                                     Expanded(
                                       child: Padding(

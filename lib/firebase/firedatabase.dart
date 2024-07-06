@@ -13,7 +13,7 @@ import 'package:graduation/features/chat/presentation/models/romemodel.dart';
 class FireData {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<String> creatRoom(String userId, String usrname) async {
+  Future<String> creatRoom(String userId, String usrname,String userphoto) async {
     // createUser( token);
     List<String> members = [myUid, userId]..sort((a, b) => a.compareTo(b));
     QuerySnapshot roomExist = await firestore
@@ -24,6 +24,7 @@ class FireData {
     if (roomExist.docs.isEmpty) {
       ChatRoom chatroom = ChatRoom(
         userid: userId,
+        userphoto:userphoto,
         name: usrname,
         myname: myname,
         id: roomId,

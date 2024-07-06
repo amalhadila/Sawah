@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:googleapis/fcm/v1.dart';
+import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/api_service.dart';
 import 'package:graduation/features/chatbot/data/models/conversationmodel/conversationmodel.dart';
 import 'package:graduation/features/chatbot/data/repo/repo.dart';
@@ -91,7 +92,7 @@ Future SendMessageRequest(
         headers: Options(
           headers: <String, String>{
             'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjRlMmY4ZmI4MTRiNTZmYTE4NSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE5NzcwMTM1LCJleHAiOjE3Mjc1NDYxMzV9._bnZKiVF_39sfoYr5-x84DHhXHT8LksMJvalH79_Bzs',
+              'Bearer ${Token}',
           },
         ),
       );

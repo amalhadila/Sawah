@@ -85,15 +85,18 @@ abstract class AppRouter {
             final List<String> extras = state.extra as List<String>;
             final String roomId = extras[0];
             final String name = extras[1];
+           final String photo = extras[2];           
 
-            return ChatScreen(roomid: roomId, name: name);
+
+            return ChatScreen(roomid: roomId, name: name,photo: photo,);
           }),
+                GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
+
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(
           path: '/Createtourview',
           builder: (context, state) => Createtourview()),
 
-      GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
       GoRoute(path: '/Wishlist', builder: (context, state) => Wishlist()),
       GoRoute(
           path: '/profilesrean', builder: (context, state) => ProfileScreen()),

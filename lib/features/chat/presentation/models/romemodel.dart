@@ -1,5 +1,6 @@
 class ChatRoom {
   String? id;
+  String? userphoto;
   String? name;
   String? myname;
   String? pushtoken;
@@ -11,6 +12,7 @@ class ChatRoom {
 
   ChatRoom({
     required this.id,
+    required this.userphoto,
     required this.name,
     required this.myname,
     required this.userid,
@@ -24,6 +26,7 @@ class ChatRoom {
   factory ChatRoom.fromJson(Map<String, dynamic> json) {
     return ChatRoom(
       id: json['id'] ?? "",
+      userphoto:json['userphoto'] ?? "",
       name: json['name'] ?? "",
       myname: json['myname'] ?? "",
       userid: json['userid'] ?? "",
@@ -44,6 +47,7 @@ class ChatRoom {
     return {
       'id': id,
       'name': name,
+      'userphoto':userphoto,
       'myname': myname,
       'userid': userid,
       // 'pushtoken':pushtoken,

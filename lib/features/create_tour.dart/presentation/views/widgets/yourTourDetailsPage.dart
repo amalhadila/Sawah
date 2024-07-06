@@ -17,7 +17,7 @@ Future cancelTour(BuildContext context, String tourId) async {
           'Authorization': 'Bearer ${Token}',
         },
       ),
-      'http://192.168.1.7:8000/api/v1/customizedTour/$tourId/cancel',
+      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/cancel',
     );
     print('Cancel tour request successful');
   } catch (e) {

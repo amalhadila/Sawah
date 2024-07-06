@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 import 'package:graduation/firebase/firedatabase.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductInfo extends StatefulWidget {
   final Product products;
@@ -58,11 +60,21 @@ class _ProductInfoState extends State<ProductInfo>
                 child: CarouselSlider(
                   disableGesture: false,
                   items: widget.products.images.map((image) {
-                    return Image.network(
-                      image,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    );
+                    return 
+                         CachedNetworkImage(
+      imageUrl: image,
+      width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+                    
                   }).toList(),
                   options: CarouselOptions(
                     height: MediaQuery.of(context).size.height,
@@ -302,9 +314,9 @@ class _ProductInfoState extends State<ProductInfo>
                                 children: [
                                   Row(
                                     children: [
-                                      const CircleAvatar(
-                                        backgroundImage: AssetImage(
-                                            'assets/profile_picture.png'),
+                                       CircleAvatar(
+                                        backgroundImage: NetworkImage(widget.products.guide!.photo!),
+
                                         radius: 25,
                                       ),
                                       const SizedBox(width: 20),
@@ -339,11 +351,14 @@ class _ProductInfoState extends State<ProductInfo>
                                       final roomId = await FireData().creatRoom(
                                         widget.products.guide!.id!,
                                         widget.products.guide!.name!,
+                                        widget.products.guide!.photo!
                                       );
                                       GoRouter.of(context)
                                           .push('/ChatScreen', extra: [
                                         roomId,
                                         widget.products.guide!.name!,
+                                       widget.products.guide!.photo!
+
                                       ]);
                                     },
                                     icon: const Icon(Icons.chat_rounded,

@@ -40,7 +40,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.7:8000/api/v1/customizedTour/my-requests',
+        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',
@@ -73,7 +73,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.7:8000/api/v1/customizedTour/my-requests?status=completed',
+        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests?status=completed',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',

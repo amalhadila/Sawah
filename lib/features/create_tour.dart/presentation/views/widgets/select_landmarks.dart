@@ -28,7 +28,7 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-          'http://192.168.1.7:8000/api/v1/customizedTour/landmarks/$governorate',
+          'http://192.168.1.4:8000/api/v1/customizedTour/landmarks/$governorate',
           options: Options(
             headers: {
               'Authorization': 'Bearer ${Token}',
