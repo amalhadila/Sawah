@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/core/utils/style.dart';
+import 'package:sawah/core/utils/style.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({super.key, required this.errMessage});

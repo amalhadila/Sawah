@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/core/utils/assets.dart';
+import 'package:sawah/core/utils/assets.dart';
 
 class splachviewbody extends StatefulWidget {
   const splachviewbody({super.key});

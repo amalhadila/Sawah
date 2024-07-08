@@ -3,16 +3,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
+import 'package:sawah/core/utils/api_service.dart';
+import 'package:sawah/features/home/data/models/most_visited_model/most_visited_model.dart';
 
-import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:sawah/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 
-import 'package:graduation/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
-import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
-import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
+import 'package:sawah/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
+import 'package:sawah/features/review_onlandmark/data/model/getreviewmodel.dart';
+import 'package:sawah/features/review_onlandmark/data/repo/revwrepoimp.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewcubit.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key, this.landmarkmodel, this.mostvistedkmodel})

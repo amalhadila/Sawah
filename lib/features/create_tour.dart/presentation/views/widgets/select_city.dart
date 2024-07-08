@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_all_governs_model.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_governs_model.dart';
 import 'package:dio/dio.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
 
 class CitySelectionScreen extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.4:8000/api/v1/customizedTour/governorates',
+        'https://sawahonline.com/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graduation/main.dart';
+import 'package:sawah/main.dart';
 
 void main() {
   // This is necessary for EasyLocalization to work in tests

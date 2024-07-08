@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
+import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import '../../features/home/pres/views/widget/app_filter.dart';
 import '../../features/search/presentation/views/widgets/gridsearchresult.dart';
 

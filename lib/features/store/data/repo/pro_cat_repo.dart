@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:graduation/core/errors/failures.dart';
-import 'package:graduation/features/store/data/pro_cat.dart';
-import 'package:graduation/features/store/data/product/product.dart';
-import 'package:graduation/features/store/data/usercart/usercart.dart';
-import 'package:graduation/features/store/data/wishlistitem.dart';
+import 'package:sawah/core/errors/failures.dart';
+import 'package:sawah/features/store/data/pro_cat.dart';
+import 'package:sawah/features/store/data/product/product.dart';
+import 'package:sawah/features/store/data/usercart/usercart.dart';
+import 'package:sawah/features/store/data/wishlistitem.dart';
 
 abstract class proCategoriesRepo {
   Future<Either<Failure, List<ProCat>>> fetchProductCat();

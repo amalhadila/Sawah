@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
+import 'package:sawah/features/review_onlandmark/data/repo/revwrepoimp.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewstate.dart';
 
 class ReviewCubit extends Cubit<ReviewState> {
   final Revwrepoimp reviewRepo;

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/features/image_upload/presentation/pages/detected_land_mark_view.dart';
+import 'package:sawah/features/image_upload/presentation/pages/detected_land_mark_view.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/widgets/appbar.dart';
@@ -33,7 +33,7 @@ class _ProcessImagePageState extends State<ProcessImagePage> {
             "GEN_AI_API_KEY": "AIzaSyCG2YD1d94hMUCy-fYI-jTlQ7fG9gMbB0Y"
           },
         ),
-        'http://192.168.1.4:8000/api/v1/detections',
+        'https://sawahonline.com/api/v1/detections',
         data: formData,
       );
       LandMarkDetectionModel landMarkDetectionModel =

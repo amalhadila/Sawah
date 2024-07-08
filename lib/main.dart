@@ -3,8 +3,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
-// import 'package:graduation/auth/cubit/user_cubit.dart';
-// import 'package:graduation/auth/screens/sign_in_screen.dart';
+// import 'package:sawah/auth/cubit/user_cubit.dart';
+// import 'package:sawah/auth/screens/sign_in_screen.dart';
 
 // void main() {
 //   runApp(
@@ -81,35 +81,37 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/core/utils/app_router.dart';
-import 'package:graduation/features/chatbot/data/repo/repo_implementation.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/chatbotmessage_cubit.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/deletechatbot_cubit.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/sendmesage_cubit.dart';
-import 'package:graduation/features/review_onlandmark/data/repo/revwrepoimp.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
-import 'package:graduation/features/search/data/repos/search_repo_imp.dart';
-import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
-import 'package:graduation/firebase/firedatabase.dart';
-import 'package:graduation/firebase_options.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/dio_consumer.dart';
-import 'package:graduation/auth/cubit/user_cubit.dart';
-import 'package:graduation/auth/repos/user_repo.dart';
-import 'package:graduation/auth/screens/sign_in_screen.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/api_service.dart';
+import 'package:sawah/core/utils/app_router.dart';
+import 'package:sawah/features/chatbot/data/repo/repo_implementation.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/chatbotmessage_cubit.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/deletechatbot_cubit.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/sendmesage_cubit.dart';
+import 'package:sawah/features/landmarks/data/repos/categoriesrepo_impl.dart';
+import 'package:sawah/features/landmarks/presentation/manger/cubit/recommendation_cubit.dart';
+import 'package:sawah/features/review_onlandmark/data/repo/revwrepoimp.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewcubit.dart';
+import 'package:sawah/features/search/data/repos/search_repo_imp.dart';
+import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
+import 'package:sawah/firebase/firedatabase.dart';
+import 'package:sawah/firebase_options.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/dio_consumer.dart';
+import 'package:sawah/auth/cubit/user_cubit.dart';
+import 'package:sawah/auth/repos/user_repo.dart';
+import 'package:sawah/auth/screens/sign_in_screen.dart';
 
-import 'package:graduation/features/store/data/repo/procat_repo_imple.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
+import 'package:sawah/features/store/data/repo/procat_repo_imple.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/additem_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 @pragma('vm:entry-point')
@@ -180,6 +182,11 @@ class Sawah extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) =>
+              RecommendationCubit(CategoriesRepoImpl(ApiService(Dio())))
+                ,
+        ),
         BlocProvider<ChatbotmessageCubit>(
             create: (context) =>
                 ChatbotmessageCubit(RepoImple(ApiService(dio)))),
@@ -259,11 +266,11 @@ class Sawah extends StatelessWidget {
 // import 'package:dio/dio.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:graduation/auth/cach/cach_helper.dart';
-// import 'package:graduation/auth/core_login/api/dio_consumer.dart';
-// import 'package:graduation/auth/cubit/user_cubit.dart';
-// import 'package:graduation/auth/repos/user_repo.dart';
-// import 'package:graduation/auth/screens/sign_in_screen.dart';
+// import 'package:sawah/auth/cach/cach_helper.dart';
+// import 'package:sawah/auth/core_login/api/dio_consumer.dart';
+// import 'package:sawah/auth/cubit/user_cubit.dart';
+// import 'package:sawah/auth/repos/user_repo.dart';
+// import 'package:sawah/auth/screens/sign_in_screen.dart';
 
 // void main() {
 //    WidgetsFlutterBinding.ensureInitialized();

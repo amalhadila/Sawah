@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:graduation/features/landmarks/data/model/categories_model.dart';
-import 'package:graduation/features/landmarks/data/repos/categories_repo.dart';
+import 'package:sawah/features/landmarks/data/model/categories_model.dart';
+import 'package:sawah/features/landmarks/data/repos/categories_repo.dart';
 
 part 'categories_cubit_state.dart';
 

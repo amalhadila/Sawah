@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_city.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_city.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 import 'package:intl/intl.dart';
 
 class MyOrdersPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests',
+        'https://sawahonline.com/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',
@@ -71,7 +71,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.1.4:8000/api/v1/customizedTour/my-requests?status=completed',
+        'https://sawahonline.com/api/v1/customizedTour/my-requests?status=completed',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',

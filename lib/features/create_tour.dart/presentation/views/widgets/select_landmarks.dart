@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/landmarkdetails.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/landmarkdetails.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
 import 'package:dio/dio.dart';
 
 class LandmarkSelectionScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-          'http://192.168.1.4:8000/api/v1/customizedTour/landmarks/$governorate',
+          'https://sawahonline.com/api/v1/customizedTour/landmarks/$governorate',
           options: Options(
             headers: {
               'Authorization': 'Bearer ${Token}',

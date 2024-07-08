@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:graduation/auth/forgotpassword/default_button_widget.dart';
-import 'package:graduation/auth/forgotpassword/default_form_field.dart';
-import 'package:graduation/auth/forgotpassword/otp_page.dart';
-import 'package:graduation/constants.dart';
+import 'package:sawah/auth/forgotpassword/default_button_widget.dart';
+import 'package:sawah/auth/forgotpassword/default_form_field.dart';
+import 'package:sawah/auth/forgotpassword/otp_page.dart';
+import 'package:sawah/constants.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});

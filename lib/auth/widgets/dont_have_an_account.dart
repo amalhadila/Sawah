@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/screens/sign_up_screen.dart';
-import 'package:graduation/constants.dart';
+import 'package:sawah/auth/screens/sign_up_screen.dart';
+import 'package:sawah/constants.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({

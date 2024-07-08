@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/features/chatbot/presentation/views/chatbot_view.dart';
-import 'package:graduation/features/home/pres/views/widget/featuredlistview.dart';
-import 'package:graduation/core/utils/slider.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/features/chatbot/presentation/views/chatbot_view.dart';
+import 'package:sawah/features/home/pres/views/widget/featuredlistview.dart';
+import 'package:sawah/core/utils/slider.dart';
 
 class homeviewbody extends StatefulWidget {
   const homeviewbody({super.key});

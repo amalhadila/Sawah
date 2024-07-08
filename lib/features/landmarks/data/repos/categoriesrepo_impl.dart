@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
-import 'package:graduation/core/errors/failures.dart';
-import 'package:graduation/core/utils/api_service.dart';
-import 'package:graduation/features/landmarks/data/model/categories_model.dart';
-import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/landmarks/data/repos/categories_repo.dart';
-import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
+import 'package:sawah/core/errors/failures.dart';
+import 'package:sawah/core/utils/api_service.dart';
+import 'package:sawah/features/landmarks/data/model/categories_model.dart';
+import 'package:sawah/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:sawah/features/landmarks/data/repos/categories_repo.dart';
+import 'package:sawah/features/home/data/models/most_visited_model/most_visited_model.dart';
+import 'package:sawah/features/store/data/product/product.dart';
 
 class CategoriesRepoImpl implements CategoriesRepo {
   final ApiService apiService;
@@ -29,7 +30,27 @@ class CategoriesRepoImpl implements CategoriesRepo {
     }
   }
 
+ @override
+
+Future<Either<Failure, List<Product>>> recommendation({ String? landmarkId}) async {
+  try {
+    var data = await apiService.get(endpoint: 'landmarks/$landmarkId/recommendations');
+    print(data['docs']['tours']);
+
+      List<Product> product = [];
+      for (var item in data['docs']['tours']) {
+        product.add(Product.fromJson(item));
+      }
+      return right(product);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDiorError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
   @override
+
   Future<Either<Failure, List<LandmarkOnCatModel>>> fetchlandmarks(
       {required String categoryId}) async {
     try {

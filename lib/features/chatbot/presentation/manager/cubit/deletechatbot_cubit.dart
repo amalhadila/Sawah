@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:graduation/features/chatbot/data/repo/repo.dart';
+import 'package:sawah/features/chatbot/data/repo/repo.dart';
 
 part 'deletechatbot_state.dart';
 

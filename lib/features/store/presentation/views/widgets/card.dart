@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/store/data/product/location.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/store/data/product/location.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class productCard extends StatefulWidget {

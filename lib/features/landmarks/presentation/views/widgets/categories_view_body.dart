@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/features/landmarks/presentation/views/widgets/cat_grid.dart';
+import 'package:sawah/features/landmarks/presentation/views/widgets/cat_grid.dart';
 
 class CategoriesViewBody extends StatelessWidget {
   const CategoriesViewBody({Key? key});

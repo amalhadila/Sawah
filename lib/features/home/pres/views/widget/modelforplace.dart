@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
 import 'package:shimmer/shimmer.dart';
-//import 'package:graduation/core/utils/style.dart';
+//import 'package:sawah/core/utils/style.dart';
 
 const kCardColor = Color(0xffF2F2F2);
 

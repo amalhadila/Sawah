@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
+import 'package:sawah/constants.dart';
 
 class guideCard extends StatelessWidget {
   final String imageUrl;

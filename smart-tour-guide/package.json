@@ -9,7 +9,7 @@
         "start:docker": "node server.js",
         "seed": "node data/import-data.js --delete && node data/import-data.js --import"
     },
-    "author": "Graduation Members",
+    "author": "sawah Members",
     "license": "ISC",
     "engines": {
         "node": ">=10"

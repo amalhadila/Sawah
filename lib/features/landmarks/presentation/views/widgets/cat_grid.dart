@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/core/widgets/custom_error_msg.dart';
-import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
-import 'package:graduation/features/landmarks/presentation/views/widgets/customcard.dart';
+import 'package:sawah/core/widgets/custom_error_msg.dart';
+import 'package:sawah/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
+import 'package:sawah/features/landmarks/presentation/views/widgets/customcard.dart';
 
 import '../../../../../core/widgets/loading_widget.dart';
 

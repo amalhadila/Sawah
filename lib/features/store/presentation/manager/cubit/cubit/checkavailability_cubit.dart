@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:graduation/auth/core_login/errors/excpetion.dart';
-import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
+import 'package:sawah/auth/core_login/errors/excpetion.dart';
+import 'package:sawah/features/store/data/repo/pro_cat_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

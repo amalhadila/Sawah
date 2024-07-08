@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:graduation/core/errors/failures.dart';
-import 'package:graduation/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
-import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
-import 'package:graduation/features/review_onlandmark/data/model/reviewmodel.dart';
+import 'package:sawah/core/errors/failures.dart';
+import 'package:sawah/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
+import 'package:sawah/features/review_onlandmark/data/model/getreviewmodel.dart';
+import 'package:sawah/features/review_onlandmark/data/model/reviewmodel.dart';
 
 abstract class reviews {
   Future<Either<Failure, List<ReviewModel>>> addReviewonlandmark({

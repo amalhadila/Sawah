@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
 
 class OtherMessage extends StatelessWidget {
   final String message;

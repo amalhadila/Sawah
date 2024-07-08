@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/core/utils/api_service.dart';
+import 'package:sawah/core/utils/api_service.dart';
 import '../../constants.dart';
 import '../store/data/usercart/payment_response.dart';
 import '../store/presentation/views/widgets/payment_web_view.dart';
@@ -13,7 +13,7 @@ import 'presentation/model/get_cancelled_tours_model.dart';
 import 'presentation/model/get_custom_tour_by_id_model.dart';
 import 'presentation/model/get_my_requests_model.dart';
 import 'presentation/model/get_my_tour_request_by_id_model.dart';
-import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart'
+import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
     as ps;
 
 class GuideRequests {

@@ -1,5 +1,5 @@
-import 'package:graduation/auth/models/user_model.dart';
-import 'package:graduation/auth/models/userdatamodel.dart';
+import 'package:sawah/auth/models/user_model.dart';
+import 'package:sawah/auth/models/userdatamodel.dart';
 
 abstract class UserState {}
 

@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

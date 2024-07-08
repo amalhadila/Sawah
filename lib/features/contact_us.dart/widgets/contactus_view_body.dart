@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:flutter/widgets.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/core/widgets/appbar.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/core/widgets/appbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactusViewBody extends StatelessWidget {

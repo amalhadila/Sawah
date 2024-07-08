@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/end_point.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/detailspage.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/detailspage.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TravelInfo extends StatefulWidget {
@@ -51,7 +51,7 @@ class _TravelInfoState extends State<TravelInfo> {
       print('Comment for Guide: $commentForGuide');
 
       var response = await _dio.post(
-        'http://192.168.1.4:8000/api/v1/customizedTour',
+        'https://sawahonline.com/api/v1/customizedTour',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${Token}',

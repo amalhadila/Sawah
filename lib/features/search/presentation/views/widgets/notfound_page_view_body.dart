@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/core/widgets/appbar.dart';
+import 'package:sawah/core/widgets/appbar.dart';
 
 class NotfoundPageBody extends StatelessWidget {
   const NotfoundPageBody({super.key});

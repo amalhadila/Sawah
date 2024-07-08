@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/auth/cubit/user_cubit.dart';
-import 'package:graduation/auth/cubit/user_state.dart';
-import 'package:graduation/auth/widgets/already_have_an_account_widget.dart';
-import 'package:graduation/auth/widgets/custom_form_button.dart';
-import 'package:graduation/auth/widgets/custom_input_field.dart';
-import 'package:graduation/auth/widgets/page_heading.dart';
+import 'package:sawah/auth/cubit/user_cubit.dart';
+import 'package:sawah/auth/cubit/user_state.dart';
+import 'package:sawah/auth/widgets/already_have_an_account_widget.dart';
+import 'package:sawah/auth/widgets/custom_form_button.dart';
+import 'package:sawah/auth/widgets/custom_input_field.dart';
+import 'package:sawah/auth/widgets/page_heading.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);

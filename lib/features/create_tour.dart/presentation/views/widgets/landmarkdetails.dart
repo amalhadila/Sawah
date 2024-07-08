@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/core/widgets/appbar.dart';
-import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/landmarks/presentation/views/widgets/infoimg.dart';
-import 'package:graduation/features/landmarks/presentation/views/widgets/information.dart';
-import 'package:graduation/features/home/data/models/most_visited_model/most_visited_model.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/core/widgets/appbar.dart';
+import 'package:sawah/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:sawah/features/landmarks/presentation/views/widgets/infoimg.dart';
+import 'package:sawah/features/landmarks/presentation/views/widgets/information.dart';
+import 'package:sawah/features/home/data/models/most_visited_model/most_visited_model.dart';
 
 class Landmarkdetails extends StatelessWidget {
   Landmarkdetails({super.key, this.description, this.images, this.name});

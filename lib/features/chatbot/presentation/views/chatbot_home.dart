@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/chatbotmessage_cubit.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/deletechatbot_cubit.dart';
-import 'package:graduation/features/chatbot/presentation/manager/cubit/sendmesage_cubit.dart';
-import 'package:graduation/features/chatbot/presentation/views/widgets/mymessage.dart';
-import 'package:graduation/features/chatbot/presentation/views/widgets/othermessage.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/chatbotmessage_cubit.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/deletechatbot_cubit.dart';
+import 'package:sawah/features/chatbot/presentation/manager/cubit/sendmesage_cubit.dart';
+import 'package:sawah/features/chatbot/presentation/views/widgets/mymessage.dart';
+import 'package:sawah/features/chatbot/presentation/views/widgets/othermessage.dart';
 
 class ChatbotHome extends StatefulWidget {
   @override

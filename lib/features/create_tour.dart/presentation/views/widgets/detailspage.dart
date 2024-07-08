@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:shimmer/shimmer.dart'; 
 
 class TourDetailsPage extends StatefulWidget {

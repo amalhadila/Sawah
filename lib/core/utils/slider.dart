@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/core/utils/assets.dart';
-import 'package:graduation/core/utils/imageprop.dart';
+import 'package:sawah/core/utils/assets.dart';
+import 'package:sawah/core/utils/imageprop.dart';
 
 class ImageSlider extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
-import 'package:graduation/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
-import 'package:graduation/features/review_onlandmark/data/model/getreviewmodel.dart';
+import 'package:sawah/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
+import 'package:sawah/features/review_onlandmark/data/model/getreviewmodel.dart';
 
 class ReviewState {}
 

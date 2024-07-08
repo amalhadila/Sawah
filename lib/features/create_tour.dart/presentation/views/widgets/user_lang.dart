@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/travel_info.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/travel_info.dart';
 
 class Language {
   final String name;

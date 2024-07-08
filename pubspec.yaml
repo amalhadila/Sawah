@@ -1,4 +1,4 @@
-name: graduation
+name: sawah
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -91,7 +91,7 @@ flutter:
     - assets/img/image_upload/
     - assets/img/
     - assets/lang/
-    - assets/ 
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
@@ -108,7 +108,7 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icon.jpg-removebg-preview.png"         
+  image_path: "assets/icon.jpg-removebg-preview.png"
   #  - family: Inter
   #   - family: Schyler
   #     fonts:

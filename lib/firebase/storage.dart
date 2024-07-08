@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:graduation/firebase/firedatabase.dart';
+import 'package:sawah/firebase/firedatabase.dart';
 
 class FireStorage {
   final FirebaseStorage _firestorage = FirebaseStorage.instance;

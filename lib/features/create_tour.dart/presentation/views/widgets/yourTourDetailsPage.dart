@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:intl/intl.dart';
 
 Future cancelTour(BuildContext context, String tourId) async {
@@ -16,7 +16,7 @@ Future cancelTour(BuildContext context, String tourId) async {
           'Authorization': 'Bearer ${Token}',
         },
       ),
-      'http://192.168.1.4:8000/api/v1/customizedTour/$tourId/cancel',
+      'https://sawahonline.com/api/v1/customizedTour/$tourId/cancel',
     );
     print('Cancel tour request successful');
   } catch (e) {

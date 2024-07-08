@@ -2,20 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/core/widgets/custom_error_msg.dart';
-import 'package:graduation/core/widgets/loading_widget.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/core/widgets/custom_error_msg.dart';
+import 'package:sawah/core/widgets/loading_widget.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/deleteitem_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_state.dart';
 import 'package:intl/intl.dart';
-import 'package:graduation/features/store/presentation/views/widgets/payment_web_view.dart';
+import 'package:sawah/features/store/presentation/views/widgets/payment_web_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:graduation/features/store/presentation/views/widgets/payment_response.dart';
+import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'user_cart_model.dart';
@@ -30,7 +30,7 @@ class CartScreen extends StatelessWidget {
               'Authorization': 'Bearer ${Token}',
             },
           ),
-          'http://192.168.1.4:8000/api/v1/carts');
+          'https://sawahonline.com/api/v1/carts');
       UserCartResponse userCartResponse =
           UserCartResponse.fromJson(response.data);
       await pay(context, userCartResponse.data.cart.id);
@@ -55,7 +55,7 @@ class CartScreen extends StatelessWidget {
             'Authorization': 'Bearer ${Token}',
           },
         ),
-        'http://192.168.1.4:8000/api/v1/bookings/cart-checkout-session/$cartId',
+        'https://sawahonline.com/api/v1/bookings/cart-checkout-session/$cartId',
         data: {"firstName": "Amr", "lastName": "Kfr", "phone": 1010101001},
       );
       PaymentResponse paymentResponse = PaymentResponse.fromJson(response.data);

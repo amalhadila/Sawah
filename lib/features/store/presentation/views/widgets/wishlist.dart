@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/core/widgets/custom_error_msg.dart';
-import 'package:graduation/core/widgets/loading_widget.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_cubit.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/core/widgets/custom_error_msg.dart';
+import 'package:sawah/core/widgets/loading_widget.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_state.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Wishlist extends StatelessWidget {

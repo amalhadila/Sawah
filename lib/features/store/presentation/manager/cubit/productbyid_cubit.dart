@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:graduation/features/store/data/repo/pro_cat_repo.dart';
-import 'package:graduation/features/store/presentation/manager/cubit/productbyid_state.dart';
+import 'package:sawah/features/store/data/repo/pro_cat_repo.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/productbyid_state.dart';
 
 class ProductbyidCubit extends Cubit<productbyidState> {
   ProductbyidCubit(this.catrepo) : super(productbyidInitial());

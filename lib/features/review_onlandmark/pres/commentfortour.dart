@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:graduation/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewcubit.dart';
-import 'package:graduation/features/review_onlandmark/pres/cubit/reviewstate.dart';
-import 'package:graduation/features/store/data/product/product.dart';
+import 'package:sawah/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewcubit.dart';
+import 'package:sawah/features/review_onlandmark/pres/cubit/reviewstate.dart';
+import 'package:sawah/features/store/data/product/product.dart';
 
 class Rviewpagefortour extends StatefulWidget {
   const Rviewpagefortour({Key? key, required this.products}) : super(key: key);

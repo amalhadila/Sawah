@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graduation/core/widgets/loading_widget.dart';
-import 'package:graduation/features/landmarks/presentation/views/widgets/customcard.dart';
-import 'package:graduation/features/search/presentation/manager/searh_cubit.dart';
-import 'package:graduation/features/search/presentation/manager/searh_cubit_state.dart';
+import 'package:sawah/core/widgets/loading_widget.dart';
+import 'package:sawah/features/landmarks/presentation/views/widgets/customcard.dart';
+import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
+import 'package:sawah/features/search/presentation/manager/searh_cubit_state.dart';
 
 class SearhResultGrid extends StatelessWidget {
   const SearhResultGrid({super.key});

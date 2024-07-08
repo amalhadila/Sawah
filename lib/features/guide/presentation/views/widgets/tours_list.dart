@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constants.dart';
-import 'package:graduation/features/guide/presentation/views/widgets/toursdetails.dart';
-import 'package:graduation/features/guide/presentation/views/widgets/card.dart';
+import 'package:sawah/constants.dart';
+import 'package:sawah/features/guide/presentation/views/widgets/toursdetails.dart';
+import 'package:sawah/features/guide/presentation/views/widgets/card.dart';
 
 class TourListScreen extends StatelessWidget {
   @override

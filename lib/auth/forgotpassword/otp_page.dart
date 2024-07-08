@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/forgotpassword/default_button_widget.dart';
-import 'package:graduation/auth/forgotpassword/forgot_password_page.dart';
-import 'package:graduation/constants.dart';
+import 'package:sawah/auth/forgotpassword/default_button_widget.dart';
+import 'package:sawah/auth/forgotpassword/forgot_password_page.dart';
+import 'package:sawah/constants.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPPage extends StatefulWidget {

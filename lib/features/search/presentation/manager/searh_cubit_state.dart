@@ -1,5 +1,5 @@
 //part of 'search_cubit.dart';
-import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
+import 'package:sawah/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 
 sealed class SearchStates {
   const SearchStates();
