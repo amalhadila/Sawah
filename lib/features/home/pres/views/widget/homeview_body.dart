@@ -15,7 +15,6 @@ class homeviewbody extends StatefulWidget {
 
 class _homeviewbodyState extends State<homeviewbody> {
   bool _animate = true;
-  Offset _floatingButtonPosition = Offset(300, 600); 
 
   @override
   void initState() {
@@ -44,7 +43,7 @@ class _homeviewbodyState extends State<homeviewbody> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * .028),
                 TweenAnimationBuilder(
-                  curve: Curves.linear,
+                  curve: Curves.easeIn,
                   duration: Duration(seconds: 3),
                   tween: ColorTween(
                     begin: _animate ? kbackgroundcolor : accentColor1,
@@ -78,7 +77,7 @@ class _homeviewbodyState extends State<homeviewbody> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * .015,
+                      height: MediaQuery.of(context).size.height * .01,
                     ),
                     feturedcustemlist(),
                     SizedBox(height: 50,)
@@ -92,9 +91,9 @@ class _homeviewbodyState extends State<homeviewbody> {
   bottom: 1,
   child: FloatingActionButton(
  shape : ShapeBorder.lerp(
-  RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)), // Shape a
-  CircleBorder(), // Shape b
-  0.5, // Factor t (مثال: 0.5 للحصول على تفاضل متوسط بين الأشكال)
+  RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)), 
+  CircleBorder(),
+  0.5, 
 ),
     autofocus: true,
     isExtended: true,

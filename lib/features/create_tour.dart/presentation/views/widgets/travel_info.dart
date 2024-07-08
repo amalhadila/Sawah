@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation/auth/cach/cach_helper.dart';
 import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/detailspage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -89,11 +90,8 @@ class _TravelInfoState extends State<TravelInfo> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'Landmark name',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 19,
-            color: kmaincolor,
-          ),
+          style: Textstyle.textStyle21,
+            
         ),
         centerTitle: true,
         leading: IconButton(
@@ -119,13 +117,10 @@ class _TravelInfoState extends State<TravelInfo> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                       Text(
                         'Enter the start and the end date ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: kmaincolor,
-                        ),
+                        style: 
+                        Textstyle.textStyle18.copyWith(color:neutralColor3)
                       ),
                       const SizedBox(height: 16.0),
                       TableCalendar(
@@ -189,11 +184,7 @@ class _TravelInfoState extends State<TravelInfo> {
                       SizedBox(height: 30),
                       Text(
                         'How many people will be on the tour?',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: kmaincolor,
-                        ),
+                        style: Textstyle.textStyle18.copyWith(color:neutralColor3 )
                       ),
                       SizedBox(height: 8),
                       Row(
@@ -206,12 +197,11 @@ class _TravelInfoState extends State<TravelInfo> {
                             backgroundColor: shadow,
                             label: Text(
                               '1-4',
-                              style: TextStyle(
+                              style: Textstyle.textStyle16.copyWith(
                                 color: groupSize == 1
                                     ? kbackgroundcolor
                                     : kmaincolor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                                
                               ),
                             ),
                             selected: groupSize == 1,
@@ -228,12 +218,11 @@ class _TravelInfoState extends State<TravelInfo> {
                             backgroundColor: shadow,
                             label: Text(
                               '5-10',
-                              style: TextStyle(
+                              style: Textstyle.textStyle16.copyWith(
                                 color: groupSize == 2
                                     ? kbackgroundcolor
                                     : kmaincolor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                                
                               ),
                             ),
                             selected: groupSize == 2,
@@ -250,12 +239,11 @@ class _TravelInfoState extends State<TravelInfo> {
                             backgroundColor: shadow,
                             label: Text(
                               'More than 10',
-                              style: TextStyle(
+                              style: Textstyle.textStyle16.copyWith(
                                 color: groupSize == 3
                                     ? kbackgroundcolor
                                     : kmaincolor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                                
                               ),
                             ),
                             selected: groupSize == 3,
@@ -270,11 +258,7 @@ class _TravelInfoState extends State<TravelInfo> {
                       SizedBox(height: 27),
                       Text(
                         'Comment for the guide',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: kmaincolor,
-                        ),
+                        style: Textstyle.textStyle16.copyWith(color:neutralColor3 )
                       ),
                       SizedBox(height: 10),
                       TextField(
@@ -298,7 +282,7 @@ class _TravelInfoState extends State<TravelInfo> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
               child: ElevatedButton(
                 onPressed: _startDate != null && _endDate != null
                     ? () {
@@ -343,15 +327,11 @@ class _TravelInfoState extends State<TravelInfo> {
                       },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kmaincolor,
-                  minimumSize: const Size.fromHeight(50),
+                  minimumSize: const Size.fromHeight(48),
                 ),
-                child: const Text(
+                child:  Text(
                   'Next',
-                  style: TextStyle(
-                    color: kbackgroundcolor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
+                  style: Textstyle.textStyle16.copyWith( color: Colors.white)
                 ),
               ),
             ),

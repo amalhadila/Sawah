@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/travel_info.dart';
 
@@ -91,9 +92,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
         title: Text(
-          'Landmark name',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          widget.selectedGovernorate,
+          style:  Textstyle.textStyle21,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -111,15 +111,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            const Padding(
+             Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Which languages should the guide speak?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: neutralColor3,
-                ),
+                style: Textstyle.textStyle20.copyWith(color: neutralColor3)
               ),
             ),
             Expanded(
@@ -130,8 +126,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   final isSelected = selectedLanguages.contains(language.name);
                   return ListTile(
                     title: Text(language.name,
-                        style: TextStyle(fontWeight: FontWeight.w600)),
-                    subtitle: Text(language.nativeName),
+                        style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
+                    subtitle: Text(language.nativeName,style: Textstyle.textStyle13.copyWith(color: neutralColor3,fontWeight: FontWeight.w400)),
                     trailing: isSelected
                         ? Icon(Icons.check, color: accentColor3)
                         : null,
@@ -175,11 +171,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text('Next',
-                    style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: Colors.white)),
               ),
             ),
           ],

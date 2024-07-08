@@ -66,7 +66,7 @@ width: double.infinity,
                 const Spacer(),
                 Text(
                   text,
-                  style: Textstyle.textStyle12.copyWith(color: kmaincolor2),
+                  style: Textstyle.textStyle13.copyWith(color: neutralColor3),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

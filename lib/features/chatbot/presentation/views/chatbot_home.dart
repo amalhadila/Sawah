@@ -126,7 +126,7 @@ class _ChatbotHomeState extends State<ChatbotHome> {
         backgroundColor: kbackgroundcolor,
         actions: [
           IconButton(
-            icon: Icon(FontAwesomeIcons.trashArrowUp,color: kmaincolor,),
+            icon: Icon(FontAwesomeIcons.trash,color: kmaincolor,),
             onPressed: () async{
              await BlocProvider.of<DeletechatbotCubit>(context).deletechatbot();
              BlocProvider.of<ChatbotmessageCubit>(context).fetchChatbotMessages();

@@ -4,7 +4,6 @@ import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/chat/presentation/models/messagemodel.dart';
 import 'package:graduation/features/chat/presentation/models/romemodel.dart';
-import 'package:graduation/features/chat/presentation/views/widgets/chat_body.dart';
 
 class ChatCard extends StatelessWidget {
   ChatCard({
@@ -70,15 +69,20 @@ class ChatCard extends StatelessWidget {
             ),
             title: Text(
                 isMe ? chatroom.name.toString() : chatroom.myname.toString(),
-                style: const TextStyle(
-                    color: kmaincolor, fontWeight: FontWeight.bold)),
+                style:  Textstyle.textStyle18.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                )),
             subtitle: Text(
               chatroom.lastMessage == ""
                   ? 'send a message'
                   : chatroom.lastMessage!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Textstyle.textStyle12.copyWith(color: ksecondcolor,fontWeight: FontWeight.w700),
+              style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.4),
             ),
           ),
         ),

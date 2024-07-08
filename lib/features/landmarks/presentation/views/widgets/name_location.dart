@@ -24,21 +24,22 @@ class LocationWidget extends StatelessWidget {
               Flexible(
                 child: Text(
                   name,
-                  style: Textstyle.textStyle16.copyWith(color: kmaincolor),
+                  style: Textstyle.textStyle16.copyWith(color: neutralColor3),
                   softWrap: true,
                 ),
               ),
+              SizedBox(width: 60,),
               Row(
                 children: [
                   const Icon(
                     Icons.location_on,
                     color: accentColor1,
-                    size: 18,
+                    size: 19,
                   ),
                   const SizedBox(width: 7),
                   Text(
                     location,
-                    style: Textstyle.textStyle16.copyWith(color: kmaincolor),
+                    style: Textstyle.textStyle16.copyWith(color: neutralColor3),
                   ),
                 ],
               ),

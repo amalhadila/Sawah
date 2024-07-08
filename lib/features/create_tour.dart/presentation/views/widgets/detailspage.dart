@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
-import 'package:shimmer/shimmer.dart'; // Ensure this import is correct
+import 'package:shimmer/shimmer.dart'; 
 
 class TourDetailsPage extends StatefulWidget {
   final String selectedGovernorate;
@@ -38,9 +37,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
   @override
   void initState() {
     super.initState();
-    destinationController.text = 'Paris'; // Set initial value
-    peopleController.text = '5-10'; // Set initial value
-    selectedDate = widget.startDate; // Set selected date from widget.startDate
+    destinationController.text = 'Paris'; 
+    peopleController.text = '5-10'; 
+    selectedDate = widget.startDate;
   }
 
   @override
@@ -49,7 +48,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Let's check the details"),
+        title:const Text("Let's check the details",style: Textstyle.textStyle21,),
         backgroundColor: kbackgroundcolor,
       ),
       body: Padding(
@@ -65,9 +64,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   children: [
                     Text(
                       destinationController.text,
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.05,
-                          fontWeight: FontWeight.bold),
+                      style: Textstyle.textStyle16.copyWith(color: neutralColor3),
                     ),
                     SizedBox(height: screenWidth * 0.02),
                     GestureDetector(
@@ -78,9 +75,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                           SizedBox(width: screenWidth * 0.02),
                           Text(
                             "${selectedDate.toLocal()}".split(' ')[0],
-                            style: TextStyle(fontSize: screenWidth * 0.04),
-                          ),
-                          
+                            style: Textstyle.textStyle16.copyWith(color: neutralColor3),
+                          ),                          
                         ],
                       ),
                     ),
@@ -90,7 +86,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               SizedBox(height: screenWidth * 0.04),
               _buildCard(
                 context,
-                'Your landmarks',
+                'Your landmark',
                 Row(
                   children: [
                     CachedNetworkImage(
@@ -115,7 +111,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                         widget.selectedLandmarks.isNotEmpty
                             ? widget.selectedLandmarks.first.name
                             : '',
-                        style: TextStyle(fontSize: screenWidth * 0.04),
+                        style:Textstyle.textStyle16.copyWith(color: neutralColor3),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -138,7 +134,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             : '',
                         screenWidth),
                     SizedBox(height: screenWidth * 0.02),
-                    Text('How many people will be on the tour?'),
+                    Text('How many people will be on the tour?',style:Textstyle.textStyle16.copyWith(color: neutralColor3),),
                     _buildRowWithEdit(
                         context,
                         widget.groupSize == 1
@@ -152,22 +148,24 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 ),
               ),
               SizedBox(height: screenWidth * 0.08),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kmaincolor,
-                    padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 80),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                      );
+                    },
+                   style: ElevatedButton.styleFrom(
+                  backgroundColor: kmaincolor,
+                  minimumSize: Size.fromHeight(48),
+                ),
+                    child: Text('create',
+                        style:Textstyle.textStyle16.copyWith( color: Colors.white)),
                   ),
-                  child: Text('create',
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.04, color: Colors.white)),
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/additem_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
@@ -37,8 +38,7 @@ class _BookingPageState extends State<BookingPage> {
         ),
         title: const Text(
           'Booking',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
+          style:  Textstyle.textStyle21
         ),
       ),
       body: Stack(
@@ -53,11 +53,9 @@ class _BookingPageState extends State<BookingPage> {
                 children: [
                   Text(
                     widget.product.name!,
-                    style: const TextStyle(
-                      color: kmaincolor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style:  Textstyle.textStyle18.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                   ),
                   const SizedBox(
                     height: 30,
@@ -68,12 +66,11 @@ class _BookingPageState extends State<BookingPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                         Text(
                           'Select available date',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: kmaincolor),
+                          style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3
+                                )
                         ),
                         TableCalendar(
                           daysOfWeekHeight: 22,
@@ -129,21 +126,19 @@ class _BookingPageState extends State<BookingPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                             Text(
                               'Group Size ',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: kmaincolor),
+                              style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )
                             ),
                             const SizedBox(
                               height: 20,
                             ),
                             Text(r'Price: ',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: kmaincolor,
-                                    fontWeight: FontWeight.w700)),
+                                style: Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )),
                           ],
                         ),
                         Spacer(),
@@ -162,7 +157,7 @@ class _BookingPageState extends State<BookingPage> {
                                       child: Icon(
                                         Icons.remove,
                                         size: 24,
-                                        color: kmaincolor,
+                                        color: neutralColor3,
                                       ),
                                     ),
                                   ),
@@ -170,8 +165,10 @@ class _BookingPageState extends State<BookingPage> {
                               ),
                               Text(
                                 quantity.toString(),
-                                style: const TextStyle(
-                                    fontSize: 25, color: kmaincolor),
+                                style:  Textstyle.textStyle25.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w400
+                                )
                               ),
                               ClipOval(
                                 child: Material(
@@ -184,7 +181,7 @@ class _BookingPageState extends State<BookingPage> {
                                       child: Icon(
                                         Icons.add,
                                         size: 24,
-                                        color: kmaincolor,
+                                        color: neutralColor3,
                                       ),
                                     ),
                                   ),
@@ -194,11 +191,10 @@ class _BookingPageState extends State<BookingPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Text(r'$' ' ${widget.product.price.toString()} ',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: kmaincolor,
-                                    fontWeight: FontWeight.w700)),
+                            Text(r'$' ' ${widget.product.price.toString()}   ',
+                                style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )),
                           ],
                         ),
                       ],

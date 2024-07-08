@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 
 class MyMessage extends StatelessWidget {
   final String message;
@@ -25,7 +26,7 @@ class MyMessage extends StatelessWidget {
                     color: const Color.fromARGB(78, 133, 205, 201),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Text(message),
+                  child: Text(message,style:Textstyle.textStyle14.copyWith(color:neutralColor3,fontWeight: FontWeight.w400 )),
                 ),
               ],
             ),

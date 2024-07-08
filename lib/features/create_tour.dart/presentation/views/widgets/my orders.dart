@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
-import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_cite.dart';
+import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_city.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 import 'package:intl/intl.dart';
 
@@ -107,15 +105,14 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: kbackgroundcolor,
-          title: Text(
+                  backgroundColor: kbackgroundcolor,
+          title: const Text(
             'My orders',
-            style: TextStyle(
-                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+            style: Textstyle.textStyle21,
           ),
           centerTitle: true,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(50),
+            preferredSize: const Size.fromHeight(45),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TabBar(
@@ -129,8 +126,8 @@ class _MyOrdersPageState extends State<MyOrdersPage>
                 dividerColor: kbackgroundcolor,
                 labelPadding:
                     const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                tabs: [
-                  Expanded(
+                tabs:const [
+                   Expanded(
                     child: Tab(
                       text: 'Active',
                     ),
@@ -167,11 +164,11 @@ class _MyOrdersPageState extends State<MyOrdersPage>
             future: _mycompleteRequestsFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No completed orders'));
+                return const Center(child: Text('No completed orders'));
               }
 
               return OrdersList(orders: snapshot.data!);
@@ -190,7 +187,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
         },
         label: Text(
           'Create order',
-          style: TextStyle(color: kbackgroundcolor),
+          style: Textstyle.textStyle15.copyWith(color: kbackgroundcolor),
         ),
         icon: Icon(
           Icons.add,
@@ -267,25 +264,10 @@ class OrderCard extends StatelessWidget {
           );
         },
         leading: null,
-        // CachedNetworkImage(
-        //   imageUrl: imageUrl!,
-        //   placeholder: (context, url) => CircularProgressIndicator(),
-        //   errorWidget: (context, url, error) => Icon(Icons.error),
-        //   imageBuilder: (context, imageProvider) => Container(
-        //     width: 50,
-        //     height: 50,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(8),
-        //       image: DecorationImage(
-        //         image: imageProvider,
-        //         fit: BoxFit.cover,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+   
         title: Text(
           location!,
-          style: TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle16.copyWith(color:neutralColor3 ),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
@@ -295,12 +277,12 @@ class OrderCard extends StatelessWidget {
               Text(
                 formattedDate,
                 style:
-                    TextStyle(color: kmaincolor, fontWeight: FontWeight.w600),
+                   Textstyle.textStyle15.copyWith(color:neutralColor3 ),
               ),
               Text(
                 status!,
                 style:
-                    TextStyle(color: accentColor3, fontWeight: FontWeight.w600),
+                    Textstyle.textStyle15.copyWith(color:accentColor3),
               ),
             ],
           ),
@@ -328,10 +310,8 @@ class OrderCard extends StatelessWidget {
           ),
           child: Text(
             'View Guides',
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: status == 'canceled' ? Colors.black : Colors.white),
+            style: Textstyle.textStyle13.copyWith(
+                color: kbackgroundcolor),
           ),
         ),
       ),

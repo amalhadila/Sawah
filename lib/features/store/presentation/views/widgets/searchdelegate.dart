@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_cubit.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/searchproduct_state.dart';
@@ -105,11 +106,10 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: true,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: kmaincolor2,
-                                      ),
+                                      style:Textstyle.textStyle15.copyWith(
+                                color: neutralColor3,
+                                 fontWeight: FontWeight.w700,
+                                )
                                     ),
                                     Column(children: [
                                       Row(
@@ -121,11 +121,10 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                           ),
                                           Text(
                                             product.location!.address!,
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              color: ksecondcolor,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                            style:Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                 fontWeight: FontWeight.w600,
+                                )
                                           ),
                                         ],
                                       ),
@@ -133,11 +132,10 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                     ]),
                                     Text(
                                       'price  \$${product.price}',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: ksecondcolor,
-                                        fontSize: 13,
-                                      ),
+                                      style: Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                 fontWeight: FontWeight.w600,
+                                )
                                     ),
                                   ],
                                 ),

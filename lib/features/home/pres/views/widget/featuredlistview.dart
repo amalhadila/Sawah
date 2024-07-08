@@ -15,7 +15,7 @@ class feturedcustemlist extends StatelessWidget {
       builder: (context, state) {
         if (state is MostVisitedSuccess) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * .25,
+            height: MediaQuery.of(context).size.height * .24,
             child: ListView.builder(
               itemCount: state.MostVisitedlist.length,
               scrollDirection: Axis.horizontal,

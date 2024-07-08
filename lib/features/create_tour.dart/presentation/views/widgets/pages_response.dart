@@ -71,13 +71,9 @@ class _ResponseScreenState extends State<ResponseScreen>
           ),
           title: Text(
             widget.tourname,
-            style: TextStyle(
-                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
-          ),
+            style: Textstyle.textStyle21),
           centerTitle: true,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(60),
-            child: PreferredSize(
               preferredSize: Size.fromHeight(50),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -102,7 +98,7 @@ class _ResponseScreenState extends State<ResponseScreen>
               ),
             ),
           ),
-        ),
+        
         body: TabBarView(
           controller: _tabController,
           children: [
@@ -254,19 +250,17 @@ class _ResponseScreenState extends State<ResponseScreen>
                     icon: const Icon(Icons.chat_rounded, color: kmaincolor),
                   ),
                   leading: CircleAvatar(
+                    radius: 25,
                       backgroundImage: NetworkImage(guide.photo!)),
                   title: Text(guide.name ?? 'Unknown Name',
-                      style: TextStyle(
-                          color: kmaincolor, fontWeight: FontWeight.w700)),
+                      style:Textstyle.textStyle16.copyWith(color:neutralColor3 )),
                   subtitle: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Kind: ${guide.kind ?? 'Unknown Kind'} ',
-                            style: TextStyle(
-                                color: ksecondcolor,
-                                fontWeight: FontWeight.w600)),
+                            style: Textstyle.textStyle13.copyWith(color:neutralColor3 ,fontWeight: FontWeight.w600)),
                         SizedBox(
                           height: 3,
                         ),
@@ -278,10 +272,11 @@ class _ResponseScreenState extends State<ResponseScreen>
                               color: accentColor1,
                             ),
                             Text(' ${guide.rating?.toString() ?? 'No rating'} ',
-                                style: TextStyle(
-                                    color: ksecondcolor,
-                                    fontWeight: FontWeight.w600)),
+                                style:Textstyle.textStyle13.copyWith(color:neutralColor3,fontWeight: FontWeight.w600 )),
                           ],
+                        ),
+                        SizedBox(
+                          height: 3,
                         ),
                       ],
                     ),

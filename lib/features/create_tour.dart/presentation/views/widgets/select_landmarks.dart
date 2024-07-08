@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/landmarkdetails.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
 import 'package:dio/dio.dart';
-import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-import 'package:graduation/features/landmarks/presentation/views/info_view.dart';
 
 class LandmarkSelectionScreen extends StatefulWidget {
   final String selectedGovernorate;
@@ -65,10 +62,9 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title:const Text(
           'What do you want to see?',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          style:  Textstyle.textStyle21,
         ),
         backgroundColor: kbackgroundcolor,
         leading: IconButton(
@@ -121,7 +117,6 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
                                       name: landmark.name,
                                       description: landmark.description,
                                       images: landmark.images
-                                      // Add other necessary fields here
                                       ),
                                 ),
                               );
@@ -132,13 +127,13 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
                                   Icon(Icons.location_on, color: Colors.white),
                             ),
                             title: Text(landmark.name,
-                                style: TextStyle(color: ksecondcolor)),
+                                style: Textstyle.textStyle16.copyWith(color:neutralColor3 )),
                             subtitle: Text(
                               landmark.description.length > 100
                                   ? landmark.description.substring(0, 100) +
                                       '...'
                                   : landmark.description,
-                              style: TextStyle(color: neutralColor2),
+                              style:  Textstyle.textStyle14.copyWith(color:neutralColor3 ),
                             ),
                             trailing: IconButton(
                               icon: ValueListenableBuilder(
@@ -197,11 +192,8 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text('Next',
-                    style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: Colors.white)),
               ),
             ),
           ],
@@ -250,8 +242,7 @@ class _SelectedLandmarksScreenState extends State<SelectedLandmarksScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           'This is what you chose',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle21,
         ),
       ),
       body: Padding(
@@ -277,10 +268,7 @@ class _SelectedLandmarksScreenState extends State<SelectedLandmarksScreen> {
                       ),
                       title: Text(
                         landmark.name,
-                        style: TextStyle(
-                            color: kmaincolor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                        style:  Textstyle.textStyle16.copyWith(color: neutralColor3),
                       ),
                       trailing: TextButton(
                         onPressed: () {
@@ -316,11 +304,8 @@ class _SelectedLandmarksScreenState extends State<SelectedLandmarksScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text('Next',
-                    style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: Colors.white)),
               ),
             ),
           ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
@@ -34,11 +35,6 @@ class CartScreen extends StatelessWidget {
           UserCartResponse.fromJson(response.data);
       await pay(context, userCartResponse.data.cart.id);
 
-      // Navigator.of(context).push(CupertinoPageRoute(
-      //   builder: (context) =>
-      //       PaymentWebView(
-      //       paymentResponse: paymentResponse),
-      // ));
     } catch (e) {
       showDialog(
         context: context,
@@ -91,9 +87,7 @@ class CartScreen extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'My Cart',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
-        ),
+          style:  Textstyle.textStyle21  ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -213,11 +207,9 @@ class CartScreen extends StatelessWidget {
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: true,
-                                                style: const TextStyle(
-                                                  color: ksecondcolor,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                                style: Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -230,12 +222,9 @@ class CartScreen extends StatelessWidget {
                                                   const SizedBox(width: 2),
                                                   Text(
                                                     ' ${DateFormat('yyyy-MM-dd').format(item.tourDate)} ',
-                                                    style: const TextStyle(
-                                                      color: ksecondcolor,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                    style: Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                )
                                                   ),
                                                 ],
                                               ),
@@ -249,32 +238,24 @@ class CartScreen extends StatelessWidget {
                                                   const SizedBox(width: 2),
                                                   Text(
                                                     ' ${item.groupSize} ',
-                                                    style: const TextStyle(
-                                                      color: ksecondcolor,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                    style:Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                )
                                                   ),
                                                   const SizedBox(width: 2),
-                                                  const Text(
+                                                   Text(
                                                     'people',
-                                                    style: TextStyle(
-                                                      color: ksecondcolor,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                    style: Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                )
                                                   ),
                                                 ],
                                               ),
                                               Text(
                                                 'price \$${item.itemPrice}',
-                                                style: const TextStyle(
-                                                  color: ksecondcolor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 13,
-                                                ),
+                                                style: Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                )
                                               ),
                                             ],
                                           ),

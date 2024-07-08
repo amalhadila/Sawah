@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/core/utils/style.dart';
-import 'package:graduation/features/review_onlandmark/pres/comment.dart';
 import 'package:graduation/features/review_onlandmark/pres/commentfortour.dart';
 import 'package:graduation/features/store/data/product/product.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/getcartitems_cubit.dart';
@@ -172,13 +171,9 @@ class _ProductInfoState extends State<ProductInfo>
                       children: [
                         Text(
                           widget.products.name!,
-                          style: const TextStyle(
-                            wordSpacing: .02,
-                            letterSpacing: .01,
-                            fontSize: 16,
-                            color: ksecondcolor,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Textstyle.textStyle18.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                         ),
                         const SizedBox(height: 9),
                         Row(
@@ -191,11 +186,9 @@ class _ProductInfoState extends State<ProductInfo>
                             const SizedBox(width: 5),
                             Text(
                               widget.products.location!.address!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: ksecondcolor,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                             ),
                           ],
                         ),
@@ -208,13 +201,9 @@ class _ProductInfoState extends State<ProductInfo>
                     children: [
                       Text(
                         '\$${widget.products.price.toString()}/Person',
-                        style: const TextStyle(
-                          wordSpacing: .02,
-                          letterSpacing: .01,
-                          fontSize: 14,
-                          color: ksecondcolor,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style:  Textstyle.textStyle15.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                       ),
                       const SizedBox(height: 9),
                       Row(
@@ -229,11 +218,9 @@ class _ProductInfoState extends State<ProductInfo>
                           Text(
                             textAlign: TextAlign.center,
                             widget.products.rating.toString(),
-                            style: const TextStyle(
-                              color: ksecondcolor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style:  Textstyle.textStyle15.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                           ),
                           const SizedBox(width: 23),
                         ],
@@ -289,11 +276,10 @@ class _ProductInfoState extends State<ProductInfo>
                             ),
                             Text(
                               widget.products.description!,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: ksecondcolor,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                             ),
                           ],
                         ),
@@ -328,19 +314,17 @@ class _ProductInfoState extends State<ProductInfo>
                                         children: [
                                           Text(
                                             widget.products.guide!.name!,
-                                            style: const TextStyle(
-                                              color: ksecondcolor,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 16,
-                                            ),
+                                            style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w700,
+                                height: 1.4)
                                           ),
                                           Text(
                                             widget.products.guide!.email!,
-                                            style: const TextStyle(
-                                              color: ksecondcolor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
+                                            style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                                           ),
                                         ],
                                       ),
@@ -378,20 +362,20 @@ class _ProductInfoState extends State<ProductInfo>
                                     children: [
                                       const Icon(Icons.schedule,
                                           color: kmaincolor),
-                                      const Text(
+                                       Text(
                                         'Duration',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kmaincolor,
-                                        ),
+                                        style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w600,
+                                height: 1.4)
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
                                         '${widget.products.duration} Days',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: ksecondcolor,
-                                        ),
+                                        style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                                       ),
                                     ],
                                   ),
@@ -407,20 +391,20 @@ class _ProductInfoState extends State<ProductInfo>
                                     children: [
                                       const Icon(Icons.group_outlined,
                                           color: kmaincolor),
-                                      const Text(
+                                       Text(
                                         'Group Size',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kmaincolor,
-                                        ),
+                                        style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w600,
+                                height: 1.4)
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
                                         widget.products.maxGroupSize.toString(),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: ksecondcolor,
-                                        ),
+                                        style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                                       ),
                                     ],
                                   ),
@@ -436,21 +420,21 @@ class _ProductInfoState extends State<ProductInfo>
                                     children: [
                                       const Icon(Icons.calendar_month_outlined,
                                           color: kmaincolor),
-                                      const Text(
+                                       Text(
                                         'Days',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kmaincolor,
-                                        ),
+                                        style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w600,
+                                height: 1.4)
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
                                         widget.products.startDays![0]
                                             .toString(),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: ksecondcolor,
-                                        ),
+                                        style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                                       ),
                                       if (widget.products.startDays != null &&
                                           widget.products.startDays!.length >=
@@ -458,10 +442,10 @@ class _ProductInfoState extends State<ProductInfo>
                                         Text(
                                           widget.products.startDays![1]
                                               .toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: ksecondcolor,
-                                          ),
+                                          style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7)
                                         ),
                                     ],
                                   ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_all_governs_model.dart';
-import 'package:graduation/features/create_tour.dart/guide_requests.dart';
 import 'package:dio/dio.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
 
@@ -47,10 +45,9 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: Text(
+        title:const Text(
           'Choose the city',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle21,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -88,7 +85,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                         final isSelected = selectedCity == city;
                         return ListTile(
                           title: Text(city,
-                              style: TextStyle(fontWeight: FontWeight.w600)),
+                              style:Textstyle.textStyle16.copyWith(color:neutralColor3 ),),
                           trailing: isSelected
                               ? Icon(Icons.check, color: accentColor3)
                               : null,
@@ -127,11 +124,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text('Next',
-                    style: TextStyle(
-                        color: kbackgroundcolor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: kbackgroundcolor)),
               ),
             ),
           ],

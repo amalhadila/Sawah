@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/chat/presentation/models/romemodel.dart';
 import 'package:graduation/features/chat/presentation/views/widgets/chatcard.dart';
 import 'package:graduation/firebase/firedatabase.dart';
@@ -36,8 +37,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
         title: const Text("Chats",
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w800, color: kmaincolor)),
+            style: Textstyle.textStyle21),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,

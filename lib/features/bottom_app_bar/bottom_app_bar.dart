@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/createtourview.dart';
 import 'package:graduation/features/landmarks/presentation/manger/categories_cubit/categories_cubit_cubit.dart';
@@ -103,7 +104,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     width: size.width * .128,
                     height: index == _selectedTab ? size.width * .014 : 0,
                     decoration: BoxDecoration(
-                      color: accentColor3,
+                      color: accentColor1,
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(10),
                       ),
@@ -126,11 +127,10 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
   }
 
   final List<IconData> listOfIcons = [
-    Icons.home_rounded,
-    Icons.favorite_rounded,
-    Icons.add,
-    Icons.shopping_bag_outlined,
-    Icons.settings_rounded,
-    // Adjust your icons based on the number of pages and the items in your bottom navigation bar
+    Icons.landscape,
+    Icons.home_rounded,    
+    FontAwesomeIcons.solidSquarePlus,
+    Icons.shopping_bag,
+    Icons.camera_alt,
   ];
 }

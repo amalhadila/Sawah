@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/auth/cach/cach_helper.dart';
-import 'package:graduation/auth/core_login/api/end_point.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
 import 'package:graduation/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:intl/intl.dart';
@@ -46,10 +45,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tour Details',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle21,
         ),
         backgroundColor: kbackgroundcolor,
         leading: IconButton(
@@ -79,22 +77,21 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 title: const Text(
                   'Governorate',
                   style:
-                      TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
+                      Textstyle.textStyle16,
                 ),
                 subtitle: Text(widget.tour.governorate ?? 'No governorate',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
               color: ksecondcolor2,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.group, color: ksecondcolor),
-                title: Text('Group Size',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                leading: const Icon(Icons.group, color: ksecondcolor),
+                title: const Text('Group Size',
+                    style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.groupSize ?? 'No group size',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
@@ -103,13 +100,12 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               child: ListTile(
                 leading: Icon(Icons.date_range, color: ksecondcolor),
                 title: Text('Start Date',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                    style: Textstyle.textStyle16),
                 subtitle: Text(
                     DateFormat('dd/MM/yyyy')
                             .format(widget.tour.startDate!.toLocal()) ??
                         'No start date',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
@@ -118,49 +114,45 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               child: ListTile(
                 leading: Icon(Icons.date_range, color: ksecondcolor),
                 title: Text('End Date',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                    style: Textstyle.textStyle16),
                 subtitle: Text(
                     DateFormat('dd/MM/yyyy')
                             .format(widget.tour.endDate!.toLocal()) ??
                         'No end date',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
               color: ksecondcolor2,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.comment, color: ksecondcolor),
-                title: Text('Comment for Guide',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                leading: const Icon(Icons.comment, color: ksecondcolor),
+                title: const Text('Comment for Guide',
+                    style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.commentForGuide ?? 'No comment',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
               color: ksecondcolor2,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.flag, color: ksecondcolor),
-                title: Text('Status',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                leading: const Icon(Icons.flag, color: ksecondcolor),
+                title: const Text('Status',
+                    style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.status ?? 'No status',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             Card(
               color: ksecondcolor2,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: Icon(Icons.payment, color: ksecondcolor),
                 title: Text('Payment Status',
-                    style: TextStyle(
-                        color: kmaincolor, fontWeight: FontWeight.w700)),
+                    style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.paymentStatus ?? 'No payment status',
-                    style: TextStyle(color: kmaincolor)),
+                    style: Textstyle.textStyle13),
               ),
             ),
             ListView.builder(
@@ -175,10 +167,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   child: ListTile(
                     leading: Icon(Icons.location_on, color: ksecondcolor),
                     title: Text(landmark.name ?? 'No name',
-                        style: TextStyle(
-                            color: kmaincolor, fontWeight: FontWeight.w700)),
+                        style: Textstyle.textStyle16),
                     subtitle: Text(landmark.category?.name ?? 'No category',
-                        style: TextStyle(color: kmaincolor)),
+                        style: Textstyle.textStyle13),
                   ),
                 );
               },
@@ -214,8 +205,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 },
                 child: Text(
                   'Cancel Tour',
-                  style: TextStyle(
-                      color: kbackgroundcolor, fontWeight: FontWeight.w700),
+                  style: Textstyle.textStyle16.copyWith( color: kbackgroundcolor),
                 ),
               ),
             ),

@@ -81,7 +81,7 @@ class SignUpScreen extends StatelessWidget {
                       state is SignUpLoading
                           ? const CircularProgressIndicator()
                           : CustomFormButton(
-                              innerText: 'Signup',
+                              innerText: 'Sign up',
                               onPressed: () {
                                 context.read<UserCubit>().signUp();
                               },

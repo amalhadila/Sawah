@@ -39,34 +39,35 @@ class _InformationState extends State<Information>
 
   @override
   Widget build(BuildContext context) {
-    final infoTextStyle = Textstyle.textStyle15.copyWith(color: kmaincolor);
-    final reviewTextStyle = Textstyle.textStyle15.copyWith(color: kmaincolor);
     return Column(
       mainAxisSize: MainAxisSize.min, // Set to take only the required space
       children: [
-        TabBar(
-          controller: _tabController,
-          indicatorWeight: 1,
-          dividerColor: kbackgroundcolor,
-          indicatorColor: kmaincolor,
-          isScrollable: true,
-          onTap: (value) {
-            setState(() {});
-          },
-          tabs: [
-            Tab(
-              child: Text(
-                '   Information  ',
-                style: Textstyle.textStyle15.copyWith(color: kmaincolor),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical:10.0),
+          child: TabBar(
+            controller: _tabController,
+            indicatorWeight: 1,
+            dividerColor: kbackgroundcolor,
+            indicatorColor: kmaincolor,
+            isScrollable: true,
+            onTap: (value) {
+              setState(() {});
+            },
+            tabs: [
+              Tab(
+                child: Text(
+                  '     Information    ',
+                  style: Textstyle.textStyle15.copyWith(color: kmaincolor),
+                ),
               ),
-            ),
-            Tab(
-              child: Text(
-                '     Reviews    ',
-                style: Textstyle.textStyle15.copyWith(color: kmaincolor),
+              Tab(
+                child: Text(
+                  '     Reviews    ',
+                  style: Textstyle.textStyle15.copyWith(color: kmaincolor),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         // Add a SizedBox to constrain the height of the TabBarView
         SizedBox(
@@ -101,9 +102,9 @@ class _InformationState extends State<Information>
                           },
                           child: Text(
                             '${BlocProvider.of<MoreInfoCubit>(context).Text}',
-                            style: Textstyle.textStyle12.copyWith(
+                            style: Textstyle.textStyle13.copyWith(
                                 color: neutralColor3,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 height: 1.7),
                           ),
                         ),

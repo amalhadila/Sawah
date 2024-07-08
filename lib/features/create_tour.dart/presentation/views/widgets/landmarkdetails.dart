@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/appbar.dart';
 import 'package:graduation/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
 import 'package:graduation/features/landmarks/presentation/views/widgets/infoimg.dart';
@@ -36,17 +37,19 @@ class Landmarkdetails extends StatelessWidget {
                       ),
                       Text(
                         name!,
-                        style: TextStyle(
-                            color: kmaincolor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700),
+                        style: Textstyle.textStyle20.copyWith(color: neutralColor3),
+                                          softWrap: true,
+
                       ),
                       SizedBox(
                         height: 3,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Text(description!),
+                        child: Text(description!,style:  Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w500,
+                                height: 1.7),),
                       )
                     ],
                   ),

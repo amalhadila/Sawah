@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/features/store/data/product/location.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
 import 'package:shimmer/shimmer.dart';
@@ -43,10 +44,7 @@ class _productCardState extends State<productCard> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // Define your responsive font sizes here
-    double titleFontSize = screenWidth * 0.036;
-    double priceFontSize = screenWidth * 0.034;
-    double ratingFontSize = screenWidth * 0.034;
+
 
     return GestureDetector(
       onTap: widget.ontap,
@@ -131,7 +129,7 @@ class _productCardState extends State<productCard> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,11 +140,7 @@ class _productCardState extends State<productCard> {
                               widget.text,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: kmaincolor2,
-                                fontSize: titleFontSize,
-                                fontWeight: FontWeight.w900,
-                              ),
+                              style: Textstyle.textStyle15.copyWith(color: neutralColor3,fontWeight: FontWeight.w800)
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -165,11 +159,7 @@ class _productCardState extends State<productCard> {
                                   ),
                                   Text(
                                     widget.address1!.address!,
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      color: ksecondcolor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
                                   ),
                                 ],
                               ),
@@ -184,11 +174,7 @@ class _productCardState extends State<productCard> {
                                 width: 90,
                                 child: Text(
                                   r'price $' '${widget.price.toString()}',
-                                  style: TextStyle(
-                                    fontSize: priceFontSize,
-                                    color: ksecondcolor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
                                 ),
                               ),
                               SizedBox(width: 43),
@@ -206,10 +192,7 @@ class _productCardState extends State<productCard> {
                                   ),
                                   Text(
                                     widget.rating.toString(),
-                                    style: TextStyle(
-                                      color: ksecondcolor,
-                                      fontSize: ratingFontSize,
-                                    ),
+                                    style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
                                   ),
                                 ],
                               ),

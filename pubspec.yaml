@@ -45,6 +45,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
+  flutter_launcher_icons: ^0.13.1
   flutter_rating_bar: ^4.0.0
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
@@ -90,7 +91,7 @@ flutter:
     - assets/img/image_upload/
     - assets/img/
     - assets/lang/
-    - assets/
+    - assets/ 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
@@ -104,6 +105,10 @@ flutter:
     - family: Pacifico
       fonts:
         - asset: assets/Pacifico-Regular.ttf
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.jpg-removebg-preview.png"         
   #  - family: Inter
   #   - family: Schyler
   #     fonts:

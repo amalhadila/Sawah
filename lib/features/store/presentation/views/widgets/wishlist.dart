@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:graduation/core/widgets/custom_error_msg.dart';
 import 'package:graduation/core/widgets/loading_widget.dart';
 import 'package:graduation/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
@@ -27,9 +28,7 @@ class Wishlist extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'My Wishlist',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kmaincolor),
-        ),
+          style: Textstyle.textStyle21),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -76,7 +75,6 @@ class Wishlist extends StatelessWidget {
                                     extra: productState.product,
                                   );
                                 } else if (productState is ProductbyFailure) {
-                                  // Handle failure case, show error message for example
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text(productState.errMessage)),
@@ -148,22 +146,18 @@ class Wishlist extends StatelessWidget {
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: true,
-                                              style: const TextStyle(
-                                                color: ksecondcolor,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 8,
                                             ),
                                             Text(
                                               'price  \$${item.price}',
-                                              style: const TextStyle(
-                                                color: ksecondcolor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
+                                              style: Textstyle.textStyle14.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
                                             ),
                                           ],
                                         ),

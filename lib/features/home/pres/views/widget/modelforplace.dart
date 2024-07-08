@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/constants.dart';
+import 'package:graduation/core/utils/style.dart';
 import 'package:shimmer/shimmer.dart';
 //import 'package:graduation/core/utils/style.dart';
 
@@ -37,6 +38,7 @@ class CustomCard extends StatelessWidget {
               offset: Offset(0, 2))
         ]),
         child: Card(
+          
           elevation: 10,
           color: secondaryColor1,
           child: Padding(
@@ -70,18 +72,11 @@ class CustomCard extends StatelessWidget {
                     text,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
-                        color: kmaincolor2,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600),
+                    style: Textstyle.textStyle13,
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 1),
-                  child: Row(
+                Spacer(),
+                Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Icon(
@@ -89,19 +84,13 @@ class CustomCard extends StatelessWidget {
                         color: accentColor1,
                         size: 18,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 5, top: 5),
-                        child: Text(
+                       Text(
                           '$location',
-                          style: TextStyle(
-                              color: ksecondcolor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      )
+                          style: Textstyle.textStyle12,                        
+                      ),
                     ],
                   ),
-                )
+                Spacer()
               ],
             ),
           ),
