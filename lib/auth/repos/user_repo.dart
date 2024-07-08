@@ -12,6 +12,8 @@ import 'package:sawah/auth/models/user_model.dart';
 import 'package:sawah/auth/models/userdatamodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../models/reset_password_mode.dart';
+
 class UserRepository {
   final Diocosumer diocosumer;
 
@@ -70,6 +72,24 @@ class UserRepository {
       return Right(userdatamodel.fromJson(response));
     } on Failure catch (e) {
       log('GetUser Error: ${e.toString()}');
+      return Left(e.toString());
+    }
+  }
+  Future<Either<String, ResetPasswordModel>> resetPassword({
+    required String password,
+    required String confirmPassword,
+  }) async {
+    try {
+      final response = await diocosumer.patch(
+        endPoint.resetpassword,
+        data: {
+          apikey.password: password,
+          apikey.confrimpassword: confirmPassword,
+        },
+      );
+      final resetPassword = ResetPasswordModel.fromJson(response);
+      return Right(resetPassword);
+    } on Failure catch (e) {
       return Left(e.toString());
     }
   }
