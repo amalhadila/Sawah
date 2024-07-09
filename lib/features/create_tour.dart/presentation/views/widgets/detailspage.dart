@@ -6,6 +6,11 @@ import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landm
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:shimmer/shimmer.dart'; 
 
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+import '../../../../../constants.dart'; // Ensure this import is correct
+
 class TourDetailsPage extends StatefulWidget {
   final String selectedGovernorate;
   final List<String> selectedLanguages;
@@ -37,9 +42,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
   @override
   void initState() {
     super.initState();
-    destinationController.text = 'Paris'; 
-    peopleController.text = '5-10'; 
-    selectedDate = widget.startDate;
+    destinationController.text = 'Paris'; // Set initial value
+    peopleController.text = '5-10'; // Set initial value
+    selectedDate = widget.startDate; // Set selected date from widget.startDate
   }
 
   @override
@@ -48,12 +53,13 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:const Text("Let's check the details",style: Textstyle.textStyle21,),
+        title: Text("Let's check the details"),
         backgroundColor: kbackgroundcolor,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(screenWidth * 0.04),
-        child: SingleChildScrollView(
+      body: 
+      SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(screenWidth * 0.04),
           child: Column(
             children: [
               _buildCard(
@@ -64,19 +70,39 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   children: [
                     Text(
                       destinationController.text,
-                      style: Textstyle.textStyle16.copyWith(color: neutralColor3),
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.05,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: screenWidth * 0.02),
                     GestureDetector(
-                      onTap: () => _selectDate(context),
+                      onTap: () {},
                       child: Row(
                         children: [
                           Icon(Icons.calendar_today, size: screenWidth * 0.05),
                           SizedBox(width: screenWidth * 0.02),
+                          Row(
+                            children: [
+                              Text(
+                                "${selectedDate.toLocal()}".split(' ')[0],
+                                style: TextStyle(fontSize: screenWidth * 0.04),
+                              ),
+                              Text(
+                                ' - ',
+                              ),
+                              Text(
+                                "${widget.endDate}".split(' ')[0],
+                                style: TextStyle(fontSize: screenWidth * 0.04),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
                           Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
-                            style: Textstyle.textStyle16.copyWith(color: neutralColor3),
-                          ),                          
+                            'Edit',
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: screenWidth * 0.04),
+                          ),
                         ],
                       ),
                     ),
@@ -86,36 +112,26 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               SizedBox(height: screenWidth * 0.04),
               _buildCard(
                 context,
-                'Your landmark',
+                'Your landmarks',
                 Row(
                   children: [
-                    CachedNetworkImage(
-      imageUrl: widget.selectedLandmarks.first.images[0] ,
-      width: screenWidth * 0.25,
-      height:  screenWidth * 0.21,
-      fit: BoxFit.fill,
-      placeholder: (context, url) => Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        child: Container(
-          width: screenWidth * 0.25,
-          height:  screenWidth * 0.21,
-          color: Colors.white,
-        ),
-      ),errorWidget: (context, url, error) => Icon(Icons.error),
-    ),
-                 
+                  
                     SizedBox(width: screenWidth * 0.04),
                     Expanded(
                       child: Text(
                         widget.selectedLandmarks.isNotEmpty
                             ? widget.selectedLandmarks.first.name
                             : '',
-                        style:Textstyle.textStyle16.copyWith(color: neutralColor3),
+                        style: TextStyle(fontSize: screenWidth * 0.04),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                 
+                    Spacer(),
+                    Text(
+                      'Edit',
+                      style: TextStyle(
+                          color: Colors.blue, fontSize: screenWidth * 0.04),
+                    ),
                   ],
                 ),
               ),
@@ -134,7 +150,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             : '',
                         screenWidth),
                     SizedBox(height: screenWidth * 0.02),
-                    Text('How many people will be on the tour?',style:Textstyle.textStyle16.copyWith(color: neutralColor3),),
+                    Text('How many people will be on the tour?'),
                     _buildRowWithEdit(
                         context,
                         widget.groupSize == 1
@@ -148,24 +164,22 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 ),
               ),
               SizedBox(height: screenWidth * 0.08),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 80),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyOrdersPage()),
-                      );
-                    },
-                   style: ElevatedButton.styleFrom(
-                  backgroundColor: kmaincolor,
-                  minimumSize: Size.fromHeight(48),
-                ),
-                    child: Text('create',
-                        style:Textstyle.textStyle16.copyWith( color: Colors.white)),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kmaincolor,
+                    padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
+                  child: Text('create',
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.04, color: Colors.white)),
                 ),
               ),
             ],
@@ -204,11 +218,12 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     return Row(
       children: [
         Text(title, style: TextStyle(fontSize: screenWidth * 0.04)),
-        Spacer(),
+       SizedBox(width: screenWidth * 0.035),
         Text(
           value,
           style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.black54),
         ),
+        SizedBox(width: screenWidth * 0.01),
        
       ],
     );

@@ -3,26 +3,27 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sawah/main.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:mockito/mockito.dart';
+
+class MockCacheHelper extends Mock implements CacheHelper {}
 
 void main() {
-  // This is necessary for EasyLocalization to work in tests
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Create a Dio instance for testing
   final Dio dio = Dio();
+  final mockCacheHelper = MockCacheHelper();
 
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Initialize the localization
     await EasyLocalization.ensureInitialized();
 
-    // Build our app and trigger a frame with localization
     await tester.pumpWidget(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         saveLocale: false,
         path: 'assets/lang',
         fallbackLocale: const Locale('en'),
-        child: Sawah(dio: dio),
+        child: Sawah(dio: dio, cacheHelper: mockCacheHelper),
       ),
     );
 

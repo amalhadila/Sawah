@@ -111,7 +111,7 @@ class _InformationState extends State<Information>
                           } else if (state is RecommendationSuccess) {
                             final productList = state.product_list;
                             return Container(
-                              height: MediaQuery.of(context).size.height * 0.19,
+                              height: MediaQuery.of(context).size.height * 0.22,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: const [

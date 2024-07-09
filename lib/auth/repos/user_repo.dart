@@ -13,6 +13,7 @@ import 'package:sawah/auth/models/userdatamodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../models/reset_password_mode.dart';
+import '../models/signupguidemodel.dart';
 
 class UserRepository {
   final Diocosumer diocosumer;
@@ -35,7 +36,7 @@ class UserRepository {
       final decodedToken = JwtDecoder.decode(user.token);
       log(decodedToken['id']);
       CacheHelper().saveData(key: apikey.token, value: user.token);
-      CacheHelper().saveData(key: apikey.id, value: decodedToken[apikey.id]);
+      CacheHelper().saveData(key: apikey.id, value:user.id);
       return Right(user);
     } on Failure catch (e) {
       return Left(e.toString());
@@ -59,6 +60,30 @@ class UserRepository {
         },
       );
       final signUPModel = SignUpModel.fromJson(response);
+      return Right(signUPModel);
+    } on Failure catch (e) {
+      return Left(e.toString());
+    }
+  }
+ Future<Either<String, SignUpGuideModel>> signUpguide({
+    required String password,
+    required String name,
+    required String confirmPassword,
+    required String email,
+    required String role, // Make sure role is required
+  }) async {
+    try {
+      final response = await diocosumer.post(
+        endPoint.signup,
+        data: {
+          apikey.name: name,
+          apikey.password: password,
+          apikey.confrimpassword: confirmPassword,
+          apikey.email: email,
+          'role': role, // Ensure role is provided
+        },
+      );
+      final signUPModel = SignUpGuideModel.fromJson(response.data);
       return Right(signUPModel);
     } on Failure catch (e) {
       return Left(e.toString());

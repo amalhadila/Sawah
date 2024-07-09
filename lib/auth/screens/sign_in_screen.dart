@@ -16,6 +16,12 @@ import 'package:sawah/features/bottom_app_bar/bottom_app_bar.dart';
 import 'package:sawah/features/home/pres/views/widget/homeview_body.dart';
 import 'package:sawah/firebase/firedatabase.dart';
 
+import 'dart:math';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -24,8 +30,7 @@ class SignInScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<UserCubit, UserState>(listener: (context, state) {
       if (state is SignInSuccess) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('success')));
+       
         context.read<UserCubit>().getUserProfile();
 
         Navigator.push(

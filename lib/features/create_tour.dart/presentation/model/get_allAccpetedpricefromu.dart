@@ -1,5 +1,47 @@
-class GetAllCustomToursModel {
-  String?id;
+class GetAllAcceptedToursResponse {
+  String? status;
+  TourData? data;
+
+  GetAllAcceptedToursResponse({this.status, this.data});
+
+  factory GetAllAcceptedToursResponse.fromJson(Map<String, dynamic> json) {
+    return GetAllAcceptedToursResponse(
+      status: json["status"] as String?,
+      data: json["data"] != null ? TourData.fromJson(json["data"] as Map<String, dynamic>) : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "data": data?.toJson(),
+      };
+}
+
+class TourData {
+  List<Tour>? activeTours;
+  List<Tour>? completedTours;
+
+  TourData({this.activeTours, this.completedTours});
+
+  factory TourData.fromJson(Map<String, dynamic> json) {
+    return TourData(
+      activeTours: json["activeTours"] != null
+          ? List<Tour>.from(json["activeTours"].map((x) => Tour.fromJson(x as Map<String, dynamic>)))
+          : null,
+      completedTours: json["completedTours"] != null
+          ? List<Tour>.from(json["completedTours"].map((x) => Tour.fromJson(x as Map<String, dynamic>)))
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "activeTours": activeTours != null ? List<dynamic>.from(activeTours!.map((x) => x.toJson())) : null,
+        "completedTours": completedTours != null ? List<dynamic>.from(completedTours!.map((x) => x.toJson())) : null,
+      };
+}
+
+class Tour {
+  String? id;
   User? user;
   String? governorate;
   List<String>? spokenLanguages;
@@ -14,8 +56,10 @@ class GetAllCustomToursModel {
   List<dynamic>? respondingGuides;
   DateTime? createdAt;
   DateTime? updatedAt;
+  Guide? acceptedGuide;
+  int? price;
 
-  GetAllCustomToursModel({
+  Tour({
     this.id,
     this.user,
     this.governorate,
@@ -31,25 +75,37 @@ class GetAllCustomToursModel {
     this.respondingGuides,
     this.createdAt,
     this.updatedAt,
+    this.acceptedGuide,
+    this.price,
   });
 
-  factory GetAllCustomToursModel.fromJson(Map<String, dynamic> json) {
-    return GetAllCustomToursModel(
+  factory Tour.fromJson(Map<String, dynamic> json) {
+    return Tour(
       id: json["_id"] as String?,
       user: json["user"] != null ? User.fromJson(json["user"] as Map<String, dynamic>) : null,
       governorate: json["governorate"] as String?,
-      spokenLanguages: json["spokenLanguages"] != null ? List<String>.from(json["spokenLanguages"].map((x) => x as String)) : null,
+      spokenLanguages: json["spokenLanguages"] != null
+          ? List<String>.from(json["spokenLanguages"].map((x) => x as String))
+          : null,
       groupSize: json["groupSize"] as String?,
-      landmarks: json["landmarks"] != null ? List<Landmark>.from(json["landmarks"].map((x) => Landmark.fromJson(x as Map<String, dynamic>))) : null,
+      landmarks: json["landmarks"] != null
+          ? List<Landmark>.from(json["landmarks"].map((x) => Landmark.fromJson(x as Map<String, dynamic>)))
+          : null,
       startDate: json["startDate"] != null ? DateTime.parse(json["startDate"] as String) : null,
       endDate: json["endDate"] != null ? DateTime.parse(json["endDate"] as String) : null,
       commentForGuide: json["commentForGuide"] as String?,
       status: json["status"] as String?,
       paymentStatus: json["paymentStatus"] as String?,
-      sentRequests: json["sentRequests"] != null ? List<dynamic>.from(json["sentRequests"].map((x) => x as dynamic)) : null,
-      respondingGuides: json["respondingGuides"] != null ? List<dynamic>.from(json["respondingGuides"].map((x) => x as dynamic)) : null,
+      sentRequests: json["sentRequests"] != null
+          ? List<dynamic>.from(json["sentRequests"].map((x) => x as dynamic))
+          : null,
+      respondingGuides: json["respondingGuides"] != null
+          ? List<dynamic>.from(json["respondingGuides"].map((x) => x as dynamic))
+          : null,
       createdAt: json["createdAt"] != null ? DateTime.parse(json["createdAt"] as String) : null,
       updatedAt: json["updatedAt"] != null ? DateTime.parse(json["updatedAt"] as String) : null,
+      acceptedGuide: json["acceptedGuide"] != null ? Guide.fromJson(json["acceptedGuide"] as Map<String, dynamic>) : null,
+      price: json["price"] as int?,
     );
   }
 
@@ -69,6 +125,8 @@ class GetAllCustomToursModel {
         "respondingGuides": respondingGuides != null ? List<dynamic>.from(respondingGuides!.map((x) => x)) : null,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
+        "acceptedGuide": acceptedGuide?.toJson(),
+        "price": price,
       };
 }
 
@@ -78,12 +136,7 @@ class User {
   String? photo;
   String? kind;
 
-  User({
-    this.id,
-    this.name,
-    this.photo,
-    this.kind,
-  });
+  User({this.id, this.name, this.photo, this.kind});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -105,18 +158,18 @@ class User {
 class Landmark {
   String? id;
   String? name;
+  List<String>? images;
   Category? category;
 
-  Landmark({
-    this.id,
-    this.name,
-    this.category,
-  });
+  Landmark({this.id, this.name, this.images, this.category});
 
   factory Landmark.fromJson(Map<String, dynamic> json) {
     return Landmark(
       id: json["_id"] as String?,
       name: json["name"] as String?,
+      images: json["images"] != null
+          ? List<String>.from(json["images"].map((x) => x as String))
+          : null,
       category: json["category"] != null ? Category.fromJson(json["category"] as Map<String, dynamic>) : null,
     );
   }
@@ -124,6 +177,7 @@ class Landmark {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
+        "images": images != null ? List<dynamic>.from(images!.map((x) => x)) : null,
         "category": category?.toJson(),
       };
 }
@@ -132,10 +186,7 @@ class Category {
   String? id;
   String? name;
 
-  Category({
-    this.id,
-    this.name,
-  });
+  Category({this.id, this.name});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
@@ -147,5 +198,36 @@ class Category {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
+      };
+}
+
+class Guide {
+  String? id;
+  String? name;
+  String? photo;
+  String? kind;
+  double? rating;
+  int? ratingsQuantity;
+
+  Guide({this.id, this.name, this.photo, this.kind, this.rating, this.ratingsQuantity});
+
+  factory Guide.fromJson(Map<String, dynamic> json) {
+    return Guide(
+      id: json["_id"] as String?,
+      name: json["name"] as String?,
+      photo: json["photo"] as String?,
+      kind: json["kind"] as String?,
+      rating: json["rating"] != null ? (json["rating"] as num).toDouble() : null,
+      ratingsQuantity: json["ratingsQuantity"] as int?,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "photo": photo,
+        "kind": kind,
+        "rating": rating,
+        "ratingsQuantity": ratingsQuantity,
       };
 }

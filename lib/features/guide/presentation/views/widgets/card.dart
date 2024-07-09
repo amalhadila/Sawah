@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:sawah/constants.dart';
 
-class guideCard extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+
+class GuideCard extends StatelessWidget {
   final String imageUrl;
+  final String username;
   final String landmarkname;
   final String date;
-
-  const guideCard({
+  final String lang;
+  final String gov;
+  final String? groubsize; // Make groubsize optional
+final int? price;
+  const GuideCard({
     Key? key,
     required this.imageUrl,
+    required this.username,
     required this.landmarkname,
     required this.date,
+    required this.lang,
+    required this.gov,
+    this.groubsize,
+     this.price, // Optional parameter
   }) : super(key: key);
 
   @override
@@ -21,6 +33,7 @@ class guideCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: Card(
+        color: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -34,54 +47,36 @@ class guideCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(13),
-                  child: Image.asset(
-                    imageUrl,
-                    width: double.infinity,
-                    height: cardHeight * .67,
-                    fit: BoxFit.fill,
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/default_avatar.png'), // Replace with actual image if available
                   ),
-                ),
+                  SizedBox(width: 10),
+                  Text(
+                    username,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: 7),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            landmarkname,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: ksecondcolor,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          //  const SizedBox(height: 6),
-
-                          Text(
-                            date,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: neutralColor2,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                      buildInfoRow(Icons.location_on, gov),
+                      SizedBox(height: 10),
+                      buildInfoRow(Icons.calendar_today, date),
+                      SizedBox(height: 10),
+                      buildInfoRow(Icons.language, lang),
+                      SizedBox(height: 10),
+                      if (groubsize != null) // Conditionally render the group size row
+                        buildInfoRow(Icons.people, groubsize!),
+                      if (price != null) // Conditionally render the group size row
+                        buildInfoRow(Icons.money, price.toString()),
                     ],
                   ),
                 ),
@@ -90,6 +85,31 @@ class guideCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row buildInfoRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 16,
+          color: ksecondcolor,
+        ),
+        SizedBox(width: 7),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: ksecondcolor,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }

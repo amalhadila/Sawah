@@ -18,7 +18,7 @@ class SearchViewBody extends StatelessWidget {
       body: BlocProvider(
           create: (context) => SearchCubit(SearchRepoImp(ApiService(Dio())))
             ..fetchSearchResult(name: name),
-          child: const SearhResultGrid()),
+          child: const SearchResultGrid()),
     );
   }
 }

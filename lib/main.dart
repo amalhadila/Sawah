@@ -75,6 +75,7 @@
 //     );
 //   }
 // }
+import 'package:sawah/auth/cach/cach_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -154,7 +155,7 @@ void main() async {
       startLocale: const Locale('en'),
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: Sawah(dio: dio),
+      child: Sawah(dio: dio,cacheHelper: CacheHelper()),
     ),
   );
 }
@@ -175,8 +176,9 @@ Future<void> requestNotificationPermission() async {
 
 class Sawah extends StatelessWidget {
   final Dio dio;
+    final CacheHelper cacheHelper;
 
-  Sawah({super.key, required this.dio});
+  Sawah({super.key, required this.dio, required this.cacheHelper});
 
   @override
   Widget build(BuildContext context) {
@@ -244,9 +246,8 @@ class Sawah extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 SearchproductCubit(ProcatRepoImple(ApiService(Dio())))),
-        BlocProvider(
-          create: (context) =>
-              UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio))),
+         BlocProvider<UserCubit>(
+          create: (context) => UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio)), cacheHelper),
         ),
       ],
       child: MaterialApp.router(

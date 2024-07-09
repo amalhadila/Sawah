@@ -177,7 +177,7 @@ class _productCardState extends State<productCard> {
                                   style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
                                 ),
                               ),
-                              SizedBox(width: 43),
+                              SizedBox(width: 33),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,

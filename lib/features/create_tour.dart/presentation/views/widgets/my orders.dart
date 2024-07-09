@@ -8,6 +8,10 @@ import 'package:sawah/features/create_tour.dart/presentation/views/widgets/selec
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
 import 'package:intl/intl.dart';
 
+import 'dart:async';
+import 'dart:core';
+
+
 class MyOrdersPage extends StatefulWidget {
   @override
   _MyOrdersPageState createState() => _MyOrdersPageState();
@@ -17,8 +21,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<List<GetMyRequestsModel>> _myRequestsFuture;
-    late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
-
+  late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
 
   @override
   void initState() {
@@ -66,7 +69,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       throw e; // rethrowing the exception to handle it further if needed
     }
   }
-  
+
   Future<List<GetMyRequestsModel>> getMycompleteRequests() async {
     final Dio _dio = Dio();
     try {
@@ -80,7 +83,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       );
 
       dynamic responseData = response.data;
-       print('complete');
+      print('complete');
       print(responseData);
 
       List<GetMyRequestsModel> requests =
@@ -105,44 +108,60 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                  backgroundColor: kbackgroundcolor,
-          title: const Text(
-            'My orders',
-            style: Textstyle.textStyle21,
-          ),
-          centerTitle: true,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(45),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TabBar(
-                labelStyle: Textstyle.textStyle15,
-                controller: _tabController,
-                indicator: BoxDecoration(
-                  color: kmaincolor,
-                  borderRadius: BorderRadius.circular(10),
+         automaticallyImplyLeading: false,
+        backgroundColor: kbackgroundcolor,
+        title: Text(
+          'My orders',
+          style: TextStyle(
+              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add, color: kmaincolor),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CitySelectionScreen(),
                 ),
-                indicatorSize: TabBarIndicatorSize.tab,
-                dividerColor: kbackgroundcolor,
-                labelPadding:
-                    const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                tabs:const [
-                   Expanded(
-                    child: Tab(
-                      text: 'Active',
-                    ),
-                  ),
-                  Expanded(
-                    child: Tab(
-                      text: 'Completed',
-                    ),
-                  ),
-                ],
-                labelColor: kbackgroundcolor,
-                unselectedLabelColor: kmaincolor,
+              );
+            },
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TabBar(
+              labelStyle: Textstyle.textStyle15,
+              controller: _tabController,
+              indicator: BoxDecoration(
+                color: kmaincolor,
+                borderRadius: BorderRadius.circular(10),
               ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: kbackgroundcolor,
+              labelPadding:
+                  const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              tabs: [
+                Expanded(
+                  child: Tab(
+                    text: 'Active',
+                  ),
+                ),
+                Expanded(
+                  child: Tab(
+                    text: 'Completed',
+                  ),
+                ),
+              ],
+              labelColor: kbackgroundcolor,
+              unselectedLabelColor: kmaincolor,
             ),
-          )),
+          ),
+        ),
+      ),
       body: TabBarView(
         controller: _tabController,
         children: [
@@ -160,15 +179,15 @@ class _MyOrdersPageState extends State<MyOrdersPage>
               return OrdersList(orders: snapshot.data!);
             },
           ),
-             FutureBuilder<List<GetMyRequestsModel>>(
+          FutureBuilder<List<GetMyRequestsModel>>(
             future: _mycompleteRequestsFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No completed orders'));
+                return Center(child: Text('No completed orders'));
               }
 
               return OrdersList(orders: snapshot.data!);
@@ -176,26 +195,6 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CitySelectionScreen(),
-            ),
-          );
-        },
-        label: Text(
-          'Create order',
-          style: Textstyle.textStyle15.copyWith(color: kbackgroundcolor),
-        ),
-        icon: Icon(
-          Icons.add,
-          color: kbackgroundcolor,
-        ),
-        backgroundColor: kmaincolor,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -264,10 +263,9 @@ class OrderCard extends StatelessWidget {
           );
         },
         leading: null,
-   
         title: Text(
           location!,
-          style: Textstyle.textStyle16.copyWith(color:neutralColor3 ),
+          style: TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
@@ -277,12 +275,12 @@ class OrderCard extends StatelessWidget {
               Text(
                 formattedDate,
                 style:
-                   Textstyle.textStyle15.copyWith(color:neutralColor3 ),
+                    TextStyle(color: kmaincolor, fontWeight: FontWeight.w600),
               ),
               Text(
                 status!,
                 style:
-                    Textstyle.textStyle15.copyWith(color:accentColor3),
+                    TextStyle(color: accentColor3, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -310,8 +308,10 @@ class OrderCard extends StatelessWidget {
           ),
           child: Text(
             'View Guides',
-            style: Textstyle.textStyle13.copyWith(
-                color: kbackgroundcolor),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: status == 'canceled' ? Colors.black : Colors.white),
           ),
         ),
       ),

@@ -8,6 +8,8 @@ import 'package:sawah/features/search/data/repos/search_repo_imp.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/store/presentation/views/store_view.dart';
 import '../../core/widgets/appbar.dart';
+import '../guide/presentation/views/guide_view.dart';
+import '../guide/presentation/views/widgets/toursdetails.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
 import '../landmarks/presentation/views/categories_view.dart';
 import '../home/pres/views/homeview.dart';
@@ -33,7 +35,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     Homepage(),
     Createtourview(),
     StoreView(),
-    ImagesUploadPage(),
+    GuideView(),
   ];
 
   void _changeTab(int index) {

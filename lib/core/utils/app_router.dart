@@ -22,7 +22,7 @@ import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/search/presentation/views/notfound_page_view.dart';
 import 'package:sawah/features/search/presentation/views/searchpage.dart';
 import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
-import 'package:sawah/features/search/splahview.dart';
+
 import 'package:sawah/features/store/data/product/product.dart';
 import 'package:sawah/features/store/data/wishlistitem.dart';
 import 'package:sawah/features/store/presentation/views/product_info_view.dart';
@@ -35,6 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
 import '../../features/home/pres/views/homeview.dart';
 import '../../features/search/data/repos/search_repo_imp.dart';
+import '../../features/splachview/preslayer/views/splahview.dart';
 import '../widgets/loading_widget.dart';
 
 Future<bool> loadShowOnboarding() async {
