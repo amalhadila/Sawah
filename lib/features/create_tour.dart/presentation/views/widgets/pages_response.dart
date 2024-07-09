@@ -41,7 +41,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.100.71:8000/api/v1/customizedTour/$tourId/browse-guides',
+        'https://sawahonline.com/api/v1/customizedTour/$tourId/browse-guides',
         options: Options(
           headers: {
             'Authorization':
@@ -67,7 +67,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
-        'http://192.168.100.71:8000/api/v1/customizedTour/$tourId/responding-guides',
+        'https://sawahonline.com/api/v1/customizedTour/$tourId/responding-guides',
         options: Options(
           headers: {
             'Authorization':
