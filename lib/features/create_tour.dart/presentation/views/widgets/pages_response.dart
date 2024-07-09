@@ -305,8 +305,10 @@ class GuideCardrespond extends StatelessWidget {
         'http://192.168.100.71:8000/api/v1/customizedTour/$tourId/respond/guide/$guideId',
         options: Options(
           headers: {
+            'Content-Type': 'application/json',
+
             'Authorization':
-                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+                'Bearer ${Token}',
           },
         ),
         data: {"response": "accept"},
