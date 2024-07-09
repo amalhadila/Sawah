@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +9,9 @@ import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 import 'package:sawah/firebase/firedatabase.dart';
-
+import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
+as ps;
+import '../../../../store/presentation/views/widgets/payment_web_view.dart';
 import '../../model/getallrespondingguide.dart';
 import 'cardofguideresponse.dart';
 
@@ -308,7 +311,9 @@ class GuideCardrespond extends StatelessWidget {
         ),
         data: {"response": "accept"},
       );
+      await payCustomTour(context, tourId);
       print('Response: ${response.data}');
+
     } catch (e) {
       print(e.toString());
       showDialog(
@@ -320,7 +325,35 @@ class GuideCardrespond extends StatelessWidget {
       );
     }
   }
+  Future<void> payCustomTour(BuildContext context, tourId) async {
+    final Dio _dio = Dio();
 
+    try {
+      var response = await _dio.post(
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${Token}',
+          },
+        ),
+        'http://192.168.1.4:8000/api/v1/bookings/custom-checkout-session/:$tourId',
+        data: {"firstName": "Amr", "lastName": "Kfr", "phone": 1010101001},
+      );
+      ps.PaymentResponse paymentResponse =
+      ps.PaymentResponse.fromJson(response.data);
+      Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => PaymentWebView(paymentResponse: paymentResponse),
+      ));
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened $e, please try again"),
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
