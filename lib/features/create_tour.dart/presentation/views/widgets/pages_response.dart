@@ -319,8 +319,10 @@ class GuideCardrespond extends StatelessWidget {
         apiUrl,
         options: Options(
           headers: {
+            'Content-Type': 'application/json',
+
             'Authorization':
-                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+                'Bearer ${Token}',
           },
         ),
         data: {"response": "accept"},
