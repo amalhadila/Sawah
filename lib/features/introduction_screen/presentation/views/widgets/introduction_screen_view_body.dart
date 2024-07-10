@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroductionScreenViewBody extends StatelessWidget {
@@ -21,8 +21,9 @@ class IntroductionScreenViewBody extends StatelessWidget {
       ),
       title: '',
       bodyWidget: Text(
-    'Welcome aboard! Dive into a world of wonder as you explore detailed info on tourist hotspots. ',
-    style: Textstyle.textStyle16.copyWith(color: neutralColor3)),),
+          'Welcome aboard! Dive into a world of wonder as you explore detailed info on tourist hotspots. ',
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
+    ),
     PageViewModel(
       decoration: const PageDecoration(
           pageColor: kbackgroundcolor, bodyTextStyle: Textstyle.textStyle16),
@@ -33,8 +34,9 @@ class IntroductionScreenViewBody extends StatelessWidget {
         fit: BoxFit.fill,
       ),
       title: '',
-      bodyWidget:Text( 'Your adventure, your way! Pick from expertly curated tours or design your own unique journey tailored just for you.',
-       style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
+      bodyWidget: Text(
+          'Your adventure, your way! Pick from expertly curated tours or design your own unique journey tailored just for you.',
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
     ),
     PageViewModel(
       decoration: const PageDecoration(
@@ -46,8 +48,9 @@ class IntroductionScreenViewBody extends StatelessWidget {
         fit: BoxFit.fill,
       ),
       title: '',
-      bodyWidget: Text('Need a hand? Chat with our expert guides for tailored tips and guidance to make your trip unforgettable.',
-      style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
+      bodyWidget: Text(
+          'Need a hand? Chat with our expert guides for tailored tips and guidance to make your trip unforgettable.',
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
     ),
   ];
 
@@ -56,7 +59,6 @@ class IntroductionScreenViewBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: kbackgroundcolor,
       appBar: AppBar(
-     
         backgroundColor: kbackgroundcolor,
       ),
       body: Padding(
@@ -73,12 +75,14 @@ class IntroductionScreenViewBody extends StatelessWidget {
           showDoneButton: true,
           done: Text(
             'onBoarding.done'.tr(),
-            style: TextStyle(fontSize: 20, color: kmaincolor,fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontSize: 20, color: kmaincolor, fontWeight: FontWeight.w700),
           ),
           showSkipButton: true,
           skip: Text(
             'onBoarding.skip'.tr(),
-            style: TextStyle(fontSize: 20, color: kmaincolor,fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontSize: 20, color: kmaincolor, fontWeight: FontWeight.w700),
           ),
           showNextButton: true,
           next: const Icon(
@@ -86,7 +90,7 @@ class IntroductionScreenViewBody extends StatelessWidget {
             size: 25,
           ),
           onDone: () => onDone(context),
-          curve: Curves.bounceOut,
+          curve: Curves.linear,
         ),
       ),
     );

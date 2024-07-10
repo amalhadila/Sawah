@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/features/guide/presentation/views/widgets/toursdetails.dart';
 import 'package:sawah/features/guide/presentation/views/widgets/card.dart';
-
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sawah/auth/cach/cach_helper.dart';
-import 'package:sawah/constants.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_all_custom_tours_model.dart';
 import 'package:sawah/features/guide/presentation/views/widgets/toursdetails.dart';
 import 'package:sawah/features/guide/presentation/views/widgets/card.dart';
-
 import '../../../../../auth/core_login/api/end_point.dart';
 import '../../../../../core/utils/style.dart';
 import '../../../../create_tour.dart/presentation/model/get_allAccpetedpricefromu.dart';
@@ -151,11 +147,10 @@ class _TourListScreenState extends State<TourListScreen>
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: kbackgroundcolor,
-              labelPadding:
-                  const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
               tabs: [
-                Expanded(child: Tab(text: 'Active')),
-                Expanded(child: Tab(text: 'Accepted')),
+                Tab(text: 'Active'),
+                Tab(text: 'Accepted'),
               ],
               labelColor: kbackgroundcolor,
               unselectedLabelColor: Colors.grey,
@@ -173,8 +168,7 @@ class _TourListScreenState extends State<TourListScreen>
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(
-                    child: Text('An error occurred: ${snapshot.error}'));
+                return Center(child: Text('An error occurred: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(child: Text('No data available'));
               } else {
@@ -194,20 +188,17 @@ class _TourListScreenState extends State<TourListScreen>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (tours.landmarks != null &&
-                              tours.landmarks!.isNotEmpty)
+                          if (tours.landmarks != null && tours.landmarks!.isNotEmpty)
                             ...tours.landmarks!.map((landmark) {
                               return GestureDetector(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 35.0, vertical: 5.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 5.0),
                                   child: GuideCard(
                                     imageUrl: tours.user?.photo ?? '',
                                     landmarkname: landmark.name ?? '',
                                     date: '$startDate - $endDate',
                                     username: tours.user?.name ?? '',
-                                    lang:
-                                        tours.spokenLanguages?.join(', ') ?? '',
+                                    lang: tours.spokenLanguages?.join(', ') ?? '',
                                     gov: tours.governorate ?? '',
                                     groubsize: tours.groupSize,
                                     price: null,
@@ -217,10 +208,10 @@ class _TourListScreenState extends State<TourListScreen>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TourDetailsScreen(
-                                              tourId: tours.id ??
-                                                  '', // Pass tour ID to TourDetailsScreen
-                                            )),
+                                      builder: (context) => TourDetailsScreen(
+                                        tourId: tours.id ?? '', // Pass tour ID to TourDetailsScreen
+                                      ),
+                                    ),
                                   );
                                 },
                               );
@@ -239,8 +230,7 @@ class _TourListScreenState extends State<TourListScreen>
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(
-                    child: Text('An error occurred: ${snapshot.error}'));
+                return Center(child: Text('An error occurred: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(child: Text('No data available'));
               } else {
@@ -260,20 +250,17 @@ class _TourListScreenState extends State<TourListScreen>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (tours.landmarks != null &&
-                              tours.landmarks!.isNotEmpty)
+                          if (tours.landmarks != null && tours.landmarks!.isNotEmpty)
                             ...tours.landmarks!.map((landmark) {
                               return GestureDetector(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 35.0, vertical: 5.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 5.0),
                                   child: GuideCard(
                                     imageUrl: tours.user?.photo ?? '',
                                     landmarkname: landmark.name ?? '',
                                     date: '$startDate - $endDate',
                                     username: tours.user?.name ?? '',
-                                    lang:
-                                        tours.spokenLanguages?.join(', ') ?? '',
+                                    lang: tours.spokenLanguages?.join(', ') ?? '',
                                     gov: tours.governorate ?? '',
                                     price: tours.price,
                                     groubsize: null,
@@ -283,10 +270,10 @@ class _TourListScreenState extends State<TourListScreen>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TourDetailsScreen(
-                                              tourId: tours.id ??
-                                                  '', // Pass tour ID to TourDetailsScreen
-                                            )),
+                                      builder: (context) => TourDetailsScreen(
+                                        tourId: tours.id ?? '', // Pass tour ID to TourDetailsScreen
+                                      ),
+                                    ),
                                   );
                                 },
                               );
@@ -304,4 +291,3 @@ class _TourListScreenState extends State<TourListScreen>
     );
   }
 }
-

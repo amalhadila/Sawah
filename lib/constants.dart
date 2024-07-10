@@ -4,8 +4,8 @@ import 'package:sawah/auth/core_login/api/end_point.dart';
 
 String myUid = CacheHelper().getData(key: apikey.id);
 String Token = CacheHelper().getData(key: apikey.token);
-String myname = 'amal';
-//CacheHelper().getData(key:apikey.name );
+ String myname = 
+CacheHelper().getData(key:apikey.name );
 
 const shadow = Color(0xFFF2F2F2);
 //const kbackgroundcolor = Color(0xffFFFFFF);

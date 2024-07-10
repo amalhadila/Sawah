@@ -41,7 +41,7 @@ class SignInScreen extends StatelessWidget {
         );
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('fail')));
+            .showSnackBar(SnackBar(content: Text('uncorrect email or password')));
       }
     }, builder: (context, State) {
       return Scaffold(

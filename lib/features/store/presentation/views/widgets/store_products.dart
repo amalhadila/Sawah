@@ -7,7 +7,7 @@ import 'package:sawah/features/store/presentation/manager/cubit/product_cat_cubi
 import 'package:sawah/features/store/presentation/views/widgets/listview.dart';
 
 class store_product extends StatefulWidget {
-  store_product({Key? key}) : super(key: key);
+  const store_product({Key? key}) : super(key: key);
 
   @override
   State<store_product> createState() => _store_productState();
@@ -32,13 +32,11 @@ class _store_productState extends State<store_product> {
                   bottom: TabBar(
                     indicator: BoxDecoration(
                       color: kmaincolor,
-                      //  Color.fromARGB(255, 247, 227, 227),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: kbackgroundcolor,
-                    labelPadding:
-                        const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
                     isScrollable: true,
                     onTap: (value) {
                       setState(() {
@@ -46,17 +44,16 @@ class _store_productState extends State<store_product> {
                       });
                     },
                     tabs: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: Text(
-                            'All',
-                            style: Textstyle.textStyle15,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Text(
+                          'All',
+                          style: Textstyle.textStyle15,
                         ),
                       ),
                       ...state.pro_cat_list.map((cat) {
-                        return Expanded(
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
                           child: Text(
                             cat.name!,
                             style: Textstyle.textStyle15,
@@ -64,8 +61,7 @@ class _store_productState extends State<store_product> {
                         );
                       }).toList(),
                     ],
-                    labelColor:
-                        kbackgroundcolor, // لون النص عندما يكون التبويب محدد
+                    labelColor: kbackgroundcolor,
                     unselectedLabelColor: kmaincolor,
                   ),
                 ),

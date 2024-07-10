@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   backgroundColor: Colors.grey.shade200,
                                   backgroundImage: NetworkImage(
                                       user.data.photo ??
-                                          'assets/default_avatar.png'),
+                                          'assets/default_avatar.png',),
                                   child: Stack(
                                     children: [
                                       Positioned(

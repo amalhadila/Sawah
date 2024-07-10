@@ -37,6 +37,8 @@ class UserRepository {
       log(decodedToken['id']);
       CacheHelper().saveData(key: apikey.token, value: user.token);
       CacheHelper().saveData(key: apikey.id, value:user.id);
+      CacheHelper().saveData(key: apikey.name, value:user.name);
+      CacheHelper().saveData(key: apikey.role, value:user.role);
       return Right(user);
     } on Failure catch (e) {
       return Left(e.toString());

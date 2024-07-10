@@ -33,9 +33,7 @@ class Storeviewbody extends StatelessWidget {
                     size: 28,
                   ),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+                SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
                     BlocProvider.of<FetchwishlistCubit>(context)
@@ -69,30 +67,30 @@ class Storeviewbody extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.search,
-                              size: 20,
-                              color: ksecondcolor, /////////////
-                            ),
-                            hintText: "Search",
-                            hintStyle: TextStyle(
-                                fontSize: 14,
-                                ////////////
-                                color: ksecondcolor),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            filled: true,
-                            fillColor: shadow //////////////////
-                            //kCardColor,
-                            //Color.fromARGB(255, 255, 248, 241),
-                            ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            size: 20,
+                            color: ksecondcolor,
+                          ),
+                          hintText: "Search",
+                          hintStyle: TextStyle(
+                            fontSize: 14,
+                            color: ksecondcolor,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: shadow,
+                        ),
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProductSearchWidget()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductSearchWidget(),
+                            ),
+                          );
                         },
                       ),
                     ),

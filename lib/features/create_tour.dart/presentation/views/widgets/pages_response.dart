@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -8,9 +10,10 @@ import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:sawah/firebase/firedatabase.dart';
 import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
-as ps;
+    as ps;
 import '../../../../store/presentation/views/widgets/payment_web_view.dart';
 import '../../model/getallrespondingguide.dart';
 import 'cardofguideresponse.dart';
@@ -212,7 +215,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     );
   }
 
-  Widget _buildAllGuidesTab() {
+ Widget _buildAllGuidesTab() {
     return FutureBuilder<List<GetAvailableGuidesModel>>(
       future: getAvailableGuides(widget.tourId),
       builder: (context, snapshot) {
@@ -232,29 +235,34 @@ class _ResponseScreenState extends State<ResponseScreen>
                 return ListTile(
                   trailing: IconButton(
                     onPressed: () async {
-                      final roomId =
-                          await FireData().creatRoom(guide.id!, guide.name!,
-                        guide.photo!);
-                      GoRouter.of(context)
-                          .push('/ChatScreen', extra: [roomId, guide.name!]);
+                      final roomId = await FireData().creatRoom(
+                        guide.id!,
+                        guide.name!,
+                        guide.photo!
+                      );
+                      GoRouter.of(context).push('/ChatScreen', extra: [
+                        roomId,
+                        guide.name!,
+                        guide.photo!
+                      ]);
                     },
                     icon: const Icon(Icons.chat_rounded, color: kmaincolor),
                   ),
                   leading: CircleAvatar(
-                      backgroundImage: NetworkImage(guide.photo ?? '')),
+                    radius: 25,
+                      backgroundImage: NetworkImage(guide.photo!)),
                   title: Text(guide.name ?? 'Unknown Name',
-                      style: TextStyle(
-                          color: kmaincolor, fontWeight: FontWeight.w700)),
+                      style:Textstyle.textStyle16.copyWith(color:neutralColor3 )),
                   subtitle: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Kind: ${guide.kind ?? 'Unknown Kind'} ',
-                            style: TextStyle(
-                                color: ksecondcolor,
-                                fontWeight: FontWeight.w600)),
-                        SizedBox(height: 3),
+                            style: Textstyle.textStyle13.copyWith(color:neutralColor3 ,fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 3,
+                        ),
                         Row(
                           children: [
                             const Icon(
@@ -263,10 +271,11 @@ class _ResponseScreenState extends State<ResponseScreen>
                               color: accentColor1,
                             ),
                             Text(' ${guide.rating?.toString() ?? 'No rating'} ',
-                                style: TextStyle(
-                                    color: ksecondcolor,
-                                    fontWeight: FontWeight.w600)),
+                                style:Textstyle.textStyle13.copyWith(color:neutralColor3,fontWeight: FontWeight.w600 )),
                           ],
+                        ),
+                        SizedBox(
+                          height: 3,
                         ),
                       ],
                     ),
@@ -280,6 +289,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     );
   }
 }
+
 
 class GuideCardrespond extends StatelessWidget {
   final String imageUrl;
@@ -301,8 +311,12 @@ class GuideCardrespond extends StatelessWidget {
       BuildContext context, String tourId, String guideId) async {
     final Dio _dio = Dio();
     try {
+      // Construct the correct API URL
+      final String apiUrl =
+          'https://sawahonline.com/api/v1/customizedTour/$tourId/respond/guide/$guideId';
+
       var response = await _dio.patch(
-        'http://192.168.100.71:8000/api/v1/customizedTour/$tourId/respond/guide/$guideId',
+        apiUrl,
         options: Options(
           headers: {
             'Authorization':
@@ -311,20 +325,49 @@ class GuideCardrespond extends StatelessWidget {
         ),
         data: {"response": "accept"},
       );
-      await payCustomTour(context, tourId);
-      print('Response: ${response.data}');
+      log('hhhh');
+      print(tourId);
+      print(guideId);
+      // Check if the request was successful
+      if (response.statusCode == 200) {
+        // Success! Handle the response as needed.
+         await payCustomTour(context, tourId);
+        print('Price accepted successfully!');
+        log('scuusfully');
+        // You might want to navigate to a different screen or update the UI here.
+      } else {
+        // Request failed - Handle the error
+        print('Error accepting price: ${response.data}');
+          Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyOrdersPage(),
+                ),
+              );
 
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Operation Failed"),
+            content: Text(
+                "An error occurred while accepting the price. Please try again later."),
+          ),
+        ); 
+
+      }
     } catch (e) {
-      print(e.toString());
+      print('Error: ${e.toString()}');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("Operation Failed"),
-          content: Text("An error happened $e, please try again"),
+          content: Text(
+              "An error occurred while accepting the price. Please try again later."),
         ),
       );
     }
   }
+
   Future<void> payCustomTour(BuildContext context, tourId) async {
     final Dio _dio = Dio();
 
@@ -336,11 +379,11 @@ class GuideCardrespond extends StatelessWidget {
             'Authorization': 'Bearer ${Token}',
           },
         ),
-        'http://192.168.1.4:8000/api/v1/bookings/custom-checkout-session/:$tourId',
+        'https://sawahonline.com/api/v1/bookings/custom-checkout-session/$tourId',
         data: {"firstName": "Amr", "lastName": "Kfr", "phone": 1010101001},
       );
       ps.PaymentResponse paymentResponse =
-      ps.PaymentResponse.fromJson(response.data);
+          ps.PaymentResponse.fromJson(response.data);
       Navigator.of(context).push(CupertinoPageRoute(
         builder: (context) => PaymentWebView(paymentResponse: paymentResponse),
       ));
@@ -354,6 +397,7 @@ class GuideCardrespond extends StatelessWidget {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

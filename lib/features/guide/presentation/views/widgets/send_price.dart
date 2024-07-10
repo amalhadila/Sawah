@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sawah/constants.dart';
+import 'package:sawah/features/guide/presentation/views/widgets/tours_list.dart';
 import '../../../../../auth/cach/cach_helper.dart';
 import '../../../../../auth/core_login/api/end_point.dart';
 
@@ -17,7 +18,8 @@ class SendPriceScreen extends StatelessWidget {
         'https://sawahonline.com/api/v1/customizedTour/respond/$tourId',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
         data: {"price": int.parse(price)}, // Ensure price is sent as an integer
@@ -30,6 +32,10 @@ class SendPriceScreen extends StatelessWidget {
           title: const Text("Success"),
           content: Text("Price sent successfully"),
         ),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TourListScreen()),
       );
     } catch (e) {
       print(e.toString());

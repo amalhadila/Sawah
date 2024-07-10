@@ -7,6 +7,9 @@ import 'package:sawah/features/landmarks/presentation/manger/categories_cubit/ca
 import 'package:sawah/features/search/data/repos/search_repo_imp.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/store/presentation/views/store_view.dart';
+import '../../auth/cach/cach_helper.dart';
+import '../../auth/core_login/api/end_point.dart';
+import '../../auth/cubit/user_cubit.dart';
 import '../../core/widgets/appbar.dart';
 import '../guide/presentation/views/guide_view.dart';
 import '../guide/presentation/views/widgets/toursdetails.dart';
@@ -27,6 +30,7 @@ class BottomNavigation extends StatefulWidget {
       _BottomNavigationExampleState();
 }
 
+
 class _BottomNavigationExampleState extends State<BottomNavigation> {
   int _selectedTab = 1;
 
@@ -35,6 +39,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     Homepage(),
     Createtourview(),
     StoreView(),
+    CacheHelper().getData(key:apikey.role )=='user'?ImagesUploadPage():
     GuideView(),
   ];
 
@@ -42,6 +47,10 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     setState(() {
       _selectedTab = index;
     });
+  }
+   void initState() {
+    super.initState();
+    BlocProvider.of<UserCubit>(context).getUserProfile();
   }
 
   @override

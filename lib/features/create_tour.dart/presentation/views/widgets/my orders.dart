@@ -1,28 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_city.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
-import 'package:intl/intl.dart';
-
-import 'dart:async';
-import 'dart:core';
-
-
+ 
 class MyOrdersPage extends StatefulWidget {
   @override
   _MyOrdersPageState createState() => _MyOrdersPageState();
 }
-
+ 
 class _MyOrdersPageState extends State<MyOrdersPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<List<GetMyRequestsModel>> _myRequestsFuture;
   late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
-
+ 
   @override
   void initState() {
     super.initState();
@@ -30,13 +26,13 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     _myRequestsFuture = getMyRequests();
     _mycompleteRequestsFuture = getMycompleteRequests();
   }
-
+ 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
-
+ 
   Future<List<GetMyRequestsModel>> getMyRequests() async {
     final Dio _dio = Dio();
     try {
@@ -48,15 +44,15 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           },
         ),
       );
-
+ 
       dynamic responseData = response.data;
       print(responseData);
-
+ 
       List<GetMyRequestsModel> requests =
           (responseData['data']['requests'] as List)
               .map((json) => GetMyRequestsModel.fromJson(json))
               .toList();
-
+ 
       return requests;
     } catch (e) {
       showDialog(
@@ -69,7 +65,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       throw e; // rethrowing the exception to handle it further if needed
     }
   }
-
+ 
   Future<List<GetMyRequestsModel>> getMycompleteRequests() async {
     final Dio _dio = Dio();
     try {
@@ -81,16 +77,16 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           },
         ),
       );
-
+ 
       dynamic responseData = response.data;
       print('complete');
       print(responseData);
-
+ 
       List<GetMyRequestsModel> requests =
           (responseData['data']['requests'] as List)
               .map((json) => GetMyRequestsModel.fromJson(json))
               .toList();
-
+ 
       return requests;
     } catch (e) {
       showDialog(
@@ -103,34 +99,19 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       throw e; // rethrowing the exception to handle it further if needed
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         automaticallyImplyLeading: false,
         backgroundColor: kbackgroundcolor,
-        title: Text(
+        title: const Text(
           'My orders',
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle21,
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add, color: kmaincolor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CitySelectionScreen(),
-                ),
-              );
-            },
-          ),
-        ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(45),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: TabBar(
@@ -142,19 +123,10 @@ class _MyOrdersPageState extends State<MyOrdersPage>
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: kbackgroundcolor,
-              labelPadding:
-                  const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-              tabs: [
-                Expanded(
-                  child: Tab(
-                    text: 'Active',
-                  ),
-                ),
-                Expanded(
-                  child: Tab(
-                    text: 'Completed',
-                  ),
-                ),
+              labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              tabs: const [
+                Tab(text: 'Active'),
+                Tab(text: 'Completed'),
               ],
               labelColor: kbackgroundcolor,
               unselectedLabelColor: kmaincolor,
@@ -162,48 +134,76 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           ),
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          FutureBuilder<List<GetMyRequestsModel>>(
-            future: _myRequestsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No active orders'));
-              }
-
-              return OrdersList(orders: snapshot.data!);
-            },
-          ),
-          FutureBuilder<List<GetMyRequestsModel>>(
-            future: _mycompleteRequestsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No completed orders'));
-              }
-
-              return OrdersList(orders: snapshot.data!);
-            },
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  FutureBuilder<List<GetMyRequestsModel>>(
+                    future: _myRequestsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text('No active orders'));
+                      }
+ 
+                      return OrdersList(orders: snapshot.data!);
+                    },
+                  ),
+                  FutureBuilder<List<GetMyRequestsModel>>(
+                    future: _mycompleteRequestsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(child: Text('No completed orders'));
+                      }
+ 
+                      return OrdersList(orders: snapshot.data!);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CitySelectionScreen(),
+            ),
+          );
+        },
+        label: Text(
+          'Create order',
+          style: Textstyle.textStyle15.copyWith(color: kbackgroundcolor),
+        ),
+        icon: Icon(
+          Icons.add,
+          color: kbackgroundcolor,
+        ),
+        backgroundColor: kmaincolor,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
-
+ 
 class OrdersList extends StatelessWidget {
   final List<GetMyRequestsModel> orders;
-
+ 
   OrdersList({required this.orders});
-
+ 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -213,8 +213,7 @@ class OrdersList extends StatelessWidget {
         final order = orders[index];
         return OrderCard(
           name: order.landmarks![0].name,
-          location:
-              order.governorate, // Assuming you have a location in your model
+          location: order.governorate, // Assuming you have a location in your model
           date: order.startDate,
           status: order.status,
           id: order.id,
@@ -224,24 +223,25 @@ class OrdersList extends StatelessWidget {
     );
   }
 }
-
+ 
 class OrderCard extends StatelessWidget {
   final String? name;
-  GetMyRequestsModel? tour;
+  final GetMyRequestsModel? tour;
   final String? id;
   final String? location;
   final DateTime? date;
   final String? status;
-
-  OrderCard(
-      {super.key,
-      this.name,
-      this.tour,
-      this.location,
-      this.date,
-      this.status,
-      this.id});
-
+ 
+  OrderCard({
+    Key? key,
+    this.name,
+    this.tour,
+    this.location,
+    this.date,
+    this.status,
+    this.id,
+  }) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(date!);
@@ -256,16 +256,14 @@ class OrderCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TourDetailsPage(
-                tour: tour!,
-              ),
+              builder: (context) => TourDetailsPage(tour: tour!),
             ),
           );
         },
         leading: null,
         title: Text(
           location!,
-          style: TextStyle(color: kmaincolor, fontWeight: FontWeight.w700),
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
@@ -274,19 +272,17 @@ class OrderCard extends StatelessWidget {
             children: [
               Text(
                 formattedDate,
-                style:
-                    TextStyle(color: kmaincolor, fontWeight: FontWeight.w600),
+                style: Textstyle.textStyle15.copyWith(color: neutralColor3),
               ),
               Text(
                 status!,
-                style:
-                    TextStyle(color: accentColor3, fontWeight: FontWeight.w600),
+                style: Textstyle.textStyle15.copyWith(color: accentColor3),
               ),
             ],
           ),
         ),
         trailing: ElevatedButton(
-          onPressed: status == 'cancelled'
+          onPressed: status == 'cancelled ' || status == 'confirmed'
               ? null
               : () {
                   Navigator.push(
@@ -301,17 +297,16 @@ class OrderCard extends StatelessWidget {
                 },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-            backgroundColor: status == 'canceled' ? neutralColor : kmaincolor,
+            backgroundColor: status == 'cancelled' || status == 'confirmed'
+                ? neutralColor
+                : kmaincolor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Text(
             'View Guides',
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: status == 'canceled' ? Colors.black : Colors.white),
+            style: Textstyle.textStyle13.copyWith(color: kbackgroundcolor),
           ),
         ),
       ),

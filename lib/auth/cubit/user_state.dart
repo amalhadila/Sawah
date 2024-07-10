@@ -2,7 +2,9 @@ import 'package:sawah/auth/models/user_model.dart';
 import 'package:sawah/auth/models/userdatamodel.dart';
 
 
-abstract class UserState {}
+abstract class UserState {
+  get user => null;
+}
 
 class UserInitial extends UserState {}
 

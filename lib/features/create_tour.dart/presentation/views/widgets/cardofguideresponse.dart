@@ -10,7 +10,7 @@ class GuideCardrespond extends StatelessWidget {
     Key? key,
     required this.imageUrl,
     required this.username,
-    required this.price,
+    required this.price, 
   }) : super(key: key);
 
   @override
