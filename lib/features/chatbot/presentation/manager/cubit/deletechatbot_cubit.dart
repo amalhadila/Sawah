@@ -6,7 +6,7 @@ part 'deletechatbot_state.dart';
 
 class DeletechatbotCubit extends Cubit<DeletechatbotState> {
   DeletechatbotCubit(this.repo) : super(DeletechatbotInitial());
-final Repo repo;
+  final Repo repo;
 
   Future<void> deletechatbot() async {
     emit(DeletechatbotLoading());

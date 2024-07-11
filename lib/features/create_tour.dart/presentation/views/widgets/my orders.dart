@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
+import 'package:sawah/features/bottom_app_bar/bottom_app_bar.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_city.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
-import 'package:intl/intl.dart';
 
 class MyOrdersPage extends StatefulWidget {
   @override
@@ -17,8 +20,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<List<GetMyRequestsModel>> _myRequestsFuture;
-    late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
-
+  late Future<List<GetMyRequestsModel>> _mycompleteRequestsFuture;
 
   @override
   void initState() {
@@ -41,7 +43,8 @@ class _MyOrdersPageState extends State<MyOrdersPage>
         'https://sawahonline.com/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${Token}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -66,7 +69,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       throw e; // rethrowing the exception to handle it further if needed
     }
   }
-  
+
   Future<List<GetMyRequestsModel>> getMycompleteRequests() async {
     final Dio _dio = Dio();
     try {
@@ -74,13 +77,14 @@ class _MyOrdersPageState extends State<MyOrdersPage>
         'https://sawahonline.com/api/v1/customizedTour/my-requests?status=completed',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${Token}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
 
       dynamic responseData = response.data;
-       print('complete');
+      print('complete');
       print(responseData);
 
       List<GetMyRequestsModel> requests =
@@ -105,76 +109,86 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                  backgroundColor: kbackgroundcolor,
-          title: const Text(
-            'My orders',
-            style: Textstyle.textStyle21,
+        backgroundColor: kbackgroundcolor,
+        title: const Text(
+          'My orders',
+          style: Textstyle.textStyle21,
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: kmaincolor),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavigation()),
+            );
+          },
+        ),
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(45),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TabBar(
+              labelStyle: Textstyle.textStyle15,
+              controller: _tabController,
+              indicator: BoxDecoration(
+                color: kmaincolor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: kbackgroundcolor,
+              labelPadding:
+                  const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              tabs: const [
+                Tab(text: 'Active'),
+                Tab(text: 'Completed'),
+              ],
+              labelColor: kbackgroundcolor,
+              unselectedLabelColor: kmaincolor,
+            ),
           ),
-          centerTitle: true,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(45),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TabBar(
-                labelStyle: Textstyle.textStyle15,
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
                 controller: _tabController,
-                indicator: BoxDecoration(
-                  color: kmaincolor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                indicatorSize: TabBarIndicatorSize.tab,
-                dividerColor: kbackgroundcolor,
-                labelPadding:
-                    const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                tabs:const [
-                   Expanded(
-                    child: Tab(
-                      text: 'Active',
-                    ),
+                children: [
+                  FutureBuilder<List<GetMyRequestsModel>>(
+                    future: _myRequestsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text('No active orders'));
+                      }
+
+                      return OrdersList(orders: snapshot.data!);
+                    },
                   ),
-                  Expanded(
-                    child: Tab(
-                      text: 'Completed',
-                    ),
+                  FutureBuilder<List<GetMyRequestsModel>>(
+                    future: _mycompleteRequestsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(child: Text('No completed orders'));
+                      }
+
+                      return OrdersList(orders: snapshot.data!);
+                    },
                   ),
                 ],
-                labelColor: kbackgroundcolor,
-                unselectedLabelColor: kmaincolor,
               ),
             ),
-          )),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          FutureBuilder<List<GetMyRequestsModel>>(
-            future: _myRequestsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No active orders'));
-              }
-
-              return OrdersList(orders: snapshot.data!);
-            },
-          ),
-             FutureBuilder<List<GetMyRequestsModel>>(
-            future: _mycompleteRequestsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No completed orders'));
-              }
-
-              return OrdersList(orders: snapshot.data!);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -228,20 +242,21 @@ class OrdersList extends StatelessWidget {
 
 class OrderCard extends StatelessWidget {
   final String? name;
-  GetMyRequestsModel? tour;
+  final GetMyRequestsModel? tour;
   final String? id;
   final String? location;
   final DateTime? date;
   final String? status;
 
-  OrderCard(
-      {super.key,
-      this.name,
-      this.tour,
-      this.location,
-      this.date,
-      this.status,
-      this.id});
+  OrderCard({
+    Key? key,
+    this.name,
+    this.tour,
+    this.location,
+    this.date,
+    this.status,
+    this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -257,17 +272,14 @@ class OrderCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TourDetailsPage(
-                tour: tour!,
-              ),
+              builder: (context) => TourDetailsPage(tour: tour!),
             ),
           );
         },
         leading: null,
-   
         title: Text(
           location!,
-          style: Textstyle.textStyle16.copyWith(color:neutralColor3 ),
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
@@ -276,19 +288,17 @@ class OrderCard extends StatelessWidget {
             children: [
               Text(
                 formattedDate,
-                style:
-                   Textstyle.textStyle15.copyWith(color:neutralColor3 ),
+                style: Textstyle.textStyle15.copyWith(color: neutralColor3),
               ),
               Text(
                 status!,
-                style:
-                    Textstyle.textStyle15.copyWith(color:accentColor3),
+                style: Textstyle.textStyle15.copyWith(color: accentColor3),
               ),
             ],
           ),
         ),
         trailing: ElevatedButton(
-          onPressed: status == 'cancelled'
+          onPressed: status == 'cancelled ' || status == 'confirmed'
               ? null
               : () {
                   Navigator.push(
@@ -303,15 +313,16 @@ class OrderCard extends StatelessWidget {
                 },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-            backgroundColor: status == 'canceled' ? neutralColor : kmaincolor,
+            backgroundColor: status == 'cancelled' || status == 'confirmed'
+                ? neutralColor
+                : kmaincolor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Text(
             'View Guides',
-            style: Textstyle.textStyle13.copyWith(
-                color: kbackgroundcolor),
+            style: Textstyle.textStyle13.copyWith(color: kbackgroundcolor),
           ),
         ),
       ),

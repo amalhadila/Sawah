@@ -12,6 +12,9 @@ import 'package:sawah/auth/models/user_model.dart';
 import 'package:sawah/auth/models/userdatamodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../models/reset_password_mode.dart';
+import '../models/signupguidemodel.dart';
+
 class UserRepository {
   final Diocosumer diocosumer;
 
@@ -32,8 +35,12 @@ class UserRepository {
       final user = SignInModel.fromJson(response);
       final decodedToken = JwtDecoder.decode(user.token);
       log(decodedToken['id']);
-      CacheHelper().saveData(key: apikey.token, value: user.token);
-      CacheHelper().saveData(key: apikey.id, value: decodedToken[apikey.id]);
+      await CacheHelper().saveData(key: apikey.token, value: user.token);
+      await CacheHelper().saveData(key: apikey.id, value: user.id);
+      await CacheHelper().saveData(key: apikey.name, value: user.name);
+      await CacheHelper().saveData(key: apikey.role, value: user.role);
+      print(
+          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd ${CacheHelper().getData(key: apikey.id)}');
       return Right(user);
     } on Failure catch (e) {
       return Left(e.toString());
@@ -63,6 +70,31 @@ class UserRepository {
     }
   }
 
+  Future<Either<String, SignUpGuideModel>> signUpguide({
+    required String password,
+    required String name,
+    required String confirmPassword,
+    required String email,
+    required String role, // Make sure role is required
+  }) async {
+    try {
+      final response = await diocosumer.post(
+        endPoint.signup,
+        data: {
+          apikey.name: name,
+          apikey.password: password,
+          apikey.confrimpassword: confirmPassword,
+          apikey.email: email,
+          'role': role, // Ensure role is provided
+        },
+      );
+      final signUPModel = SignUpGuideModel.fromJson(response.data);
+      return Right(signUPModel);
+    } on Failure catch (e) {
+      return Left(e.toString());
+    }
+  }
+
   Future<Either<String, userdatamodel>> getUser() async {
     try {
       final response = await diocosumer.get(
@@ -70,6 +102,25 @@ class UserRepository {
       return Right(userdatamodel.fromJson(response));
     } on Failure catch (e) {
       log('GetUser Error: ${e.toString()}');
+      return Left(e.toString());
+    }
+  }
+
+  Future<Either<String, ResetPasswordModel>> resetPassword({
+    required String password,
+    required String confirmPassword,
+  }) async {
+    try {
+      final response = await diocosumer.patch(
+        endPoint.resetpassword,
+        data: {
+          apikey.password: password,
+          apikey.confrimpassword: confirmPassword,
+        },
+      );
+      final resetPassword = ResetPasswordModel.fromJson(response);
+      return Right(resetPassword);
+    } on Failure catch (e) {
       return Left(e.toString());
     }
   }

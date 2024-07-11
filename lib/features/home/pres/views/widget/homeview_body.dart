@@ -25,7 +25,7 @@ class _homeviewbodyState extends State<homeviewbody> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    final double buttonSize = 56.0; 
+    final double buttonSize = 56.0;
     final double bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
@@ -80,40 +80,40 @@ class _homeviewbodyState extends State<homeviewbody> {
                       height: MediaQuery.of(context).size.height * .01,
                     ),
                     feturedcustemlist(),
-                    SizedBox(height: 50,)
+                    SizedBox(
+                      height: 50,
+                    )
                   ],
                 ),
               ],
             ),
           ),
-         Positioned(
-  right: 15,
-  bottom: 1,
-  child: FloatingActionButton(
- shape : ShapeBorder.lerp(
-  RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)), 
-  CircleBorder(),
-  0.5, 
-),
-    autofocus: true,
-    isExtended: true,
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ChatbotView()),
-      );
-    },
-    
-        child: Padding(
-          padding: const EdgeInsets.only(right:8.0,bottom: 2),
-          child: Icon(FontAwesomeIcons.bots,size: 33, color: kbackgroundcolor),
-        ),
-      
-    
-    backgroundColor: ksecondcolor,
-  ),
-),
-
+          Positioned(
+            right: 15,
+            bottom: 1,
+            child: FloatingActionButton(
+              shape: ShapeBorder.lerp(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60.0)),
+                CircleBorder(),
+                0.5,
+              ),
+              autofocus: true,
+              isExtended: true,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatbotView()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0, bottom: 2),
+                child: Icon(FontAwesomeIcons.bots,
+                    size: 33, color: kbackgroundcolor),
+              ),
+              backgroundColor: ksecondcolor,
+            ),
+          ),
         ],
       ),
     );

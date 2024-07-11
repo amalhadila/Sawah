@@ -13,9 +13,11 @@ import 'package:sawah/features/chat/presentation/models/romemodel.dart';
 class FireData {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<String> creatRoom(String userId, String usrname,String userphoto) async {
+  Future<String> creatRoom(
+      String userId, String usrname, String userphoto) async {
     // createUser( token);
-    List<String> members = [myUid, userId]..sort((a, b) => a.compareTo(b));
+    List<String> members = [CacheHelper().getData(key: apikey.id), userId]
+      ..sort((a, b) => a.compareTo(b));
     QuerySnapshot roomExist = await firestore
         .collection('rooms')
         .where('members', arrayContains: members)
@@ -24,9 +26,9 @@ class FireData {
     if (roomExist.docs.isEmpty) {
       ChatRoom chatroom = ChatRoom(
         userid: userId,
-        userphoto:userphoto,
+        userphoto: userphoto,
         name: usrname,
-        myname: myname,
+        myname: CacheHelper().getData(key: apikey.name),
         id: roomId,
         createdAt: DateTime.now(),
         lastMessage: "",
@@ -44,27 +46,34 @@ class FireData {
   Future<String> createUser(String? token) async {
     QuerySnapshot userExist = await firestore
         .collection('User')
-        .where('id', isEqualTo: myUid)
+        .where('id', isEqualTo: CacheHelper().getData(key: apikey.id))
         .where('pushtoken', isEqualTo: token)
         .get();
 
     User user = User(
-      id: myUid,
+      id: CacheHelper().getData(key: apikey.id),
       pushtoken: token,
     );
 
     if (userExist.docs.isEmpty) {
       await firestore
           .collection('User')
-          .doc(myUid.toString())
+          .doc(CacheHelper().getData(key: apikey.id).toString())
           .set(user.toJson());
     } else {
       await firestore
           .collection('User')
-          .doc(myUid.toString())
+          .doc(CacheHelper().getData(key: apikey.id).toString())
           .update(user.toJson());
     }
     return token ?? '';
+  }
+
+  Future<void> deleteUser() async {
+    await firestore
+        .collection('User')
+        .doc(CacheHelper().getData(key: apikey.id).toString())
+        .delete();
   }
 
   Future<String?> getPushToken(String userId) async {
@@ -221,11 +230,12 @@ class FireData {
     List<String> members = List<String>.from(roomData['members']);
 
     // Determine the correct toId
-    String toId = members.firstWhere((member) => member != myUid);
+    String toId = members.firstWhere(
+        (member) => member != CacheHelper().getData(key: apikey.id));
 
     final message = Message(
       toId: toId,
-      fromId: myUid,
+      fromId: CacheHelper().getData(key: apikey.id),
       msg: msg,
       read: false,
       createdAt: FieldValue.serverTimestamp(),

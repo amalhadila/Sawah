@@ -42,7 +42,9 @@ class UserData {
       email: jsonData['email'],
       photo: jsonData['photo'],
       role: jsonData['role'],
-      interests: List<String>.from(jsonData['interests']),
+      interests: jsonData['interests'] != null
+          ? List<String>.from(jsonData['interests'])
+          : [],
     );
   }
 }

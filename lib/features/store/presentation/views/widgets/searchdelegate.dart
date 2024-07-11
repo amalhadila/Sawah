@@ -72,26 +72,26 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                             ),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5),
-                              child: 
-                              CachedNetworkImage(
-                                          imageUrl: product.images[0],
-                                          width:
-                                               MediaQuery.sizeOf(context).width * .2,
-                                          height: MediaQuery.sizeOf(context).height * .1,
-                                          fit: BoxFit.fill,
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                            baseColor: Colors.grey[300]!,
-                                            highlightColor: Colors.grey[100]!,
-                                            child: Container(
-                                              width:  MediaQuery.sizeOf(context).width * .2,
-                                              height: MediaQuery.sizeOf(context).height * .1,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
-                                        ),
+                              child: CachedNetworkImage(
+                                imageUrl: product.images[0],
+                                width: MediaQuery.sizeOf(context).width * .2,
+                                height: MediaQuery.sizeOf(context).height * .1,
+                                fit: BoxFit.fill,
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * .2,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * .1,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
                             Expanded(
                               child: Padding(
@@ -100,17 +100,15 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      product.name ?? '',
-                                      textAlign: TextAlign.start,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style:Textstyle.textStyle15.copyWith(
-                                color: neutralColor3,
-                                 fontWeight: FontWeight.w700,
-                                )
-                                    ),
+                                    Text(product.name ?? '',
+                                        textAlign: TextAlign.start,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        style: Textstyle.textStyle15.copyWith(
+                                          color: neutralColor3,
+                                          fontWeight: FontWeight.w700,
+                                        )),
                                     Column(children: [
                                       Row(
                                         children: [
@@ -119,24 +117,20 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                             color: accentColor1,
                                             size: 18,
                                           ),
-                                          Text(
-                                            product.location!.address!,
-                                            style:Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                 fontWeight: FontWeight.w600,
-                                )
-                                          ),
+                                          Text(product.location!.address!,
+                                              style: Textstyle.textStyle13
+                                                  .copyWith(
+                                                color: neutralColor3,
+                                                fontWeight: FontWeight.w600,
+                                              )),
                                         ],
                                       ),
-                                     
                                     ]),
-                                    Text(
-                                      'price  \$${product.price}',
-                                      style: Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                 fontWeight: FontWeight.w600,
-                                )
-                                    ),
+                                    Text('price  \$${product.price}',
+                                        style: Textstyle.textStyle13.copyWith(
+                                          color: neutralColor3,
+                                          fontWeight: FontWeight.w600,
+                                        )),
                                   ],
                                 ),
                               ),

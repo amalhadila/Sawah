@@ -7,7 +7,12 @@ import 'package:sawah/features/landmarks/presentation/manger/categories_cubit/ca
 import 'package:sawah/features/search/data/repos/search_repo_imp.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/store/presentation/views/store_view.dart';
+import '../../auth/cach/cach_helper.dart';
+import '../../auth/core_login/api/end_point.dart';
+import '../../auth/cubit/user_cubit.dart';
 import '../../core/widgets/appbar.dart';
+import '../guide/presentation/views/guide_view.dart';
+import '../guide/presentation/views/widgets/toursdetails.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
 import '../landmarks/presentation/views/categories_view.dart';
 import '../home/pres/views/homeview.dart';
@@ -33,13 +38,20 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
     Homepage(),
     Createtourview(),
     StoreView(),
-    ImagesUploadPage(),
+    CacheHelper().getData(key: apikey.role) == 'user'
+        ? ImagesUploadPage()
+        : GuideView(),
   ];
 
   void _changeTab(int index) {
     setState(() {
       _selectedTab = index;
     });
+  }
+
+  void initState() {
+    super.initState();
+    BlocProvider.of<UserCubit>(context).getUserProfile();
   }
 
   @override
@@ -67,7 +79,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         drawer: CustomDrawer(),
         body: _pages[_selectedTab],
         bottomNavigationBar: Container(
-          margin: EdgeInsets.only(right:20,left: 20,bottom: 15,top: 5),
+          margin: EdgeInsets.only(right: 20, left: 20, bottom: 15, top: 5),
           height: size.width * .155,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -128,7 +140,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
 
   final List<IconData> listOfIcons = [
     Icons.landscape,
-    Icons.home_rounded,    
+    Icons.home_rounded,
     FontAwesomeIcons.solidSquarePlus,
     Icons.shopping_bag,
     Icons.camera_alt,

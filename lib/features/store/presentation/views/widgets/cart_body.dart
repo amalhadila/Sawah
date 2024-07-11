@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/core/widgets/custom_error_msg.dart';
@@ -27,14 +29,14 @@ class CartScreen extends StatelessWidget {
       var response = await _dio.get(
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${Token}',
+              'Authorization':
+                  'Bearer ${CacheHelper().getData(key: apikey.token)}',
             },
           ),
           'https://sawahonline.com/api/v1/carts');
       UserCartResponse userCartResponse =
           UserCartResponse.fromJson(response.data);
       await pay(context, userCartResponse.data.cart.id);
-
     } catch (e) {
       showDialog(
         context: context,
@@ -52,7 +54,8 @@ class CartScreen extends StatelessWidget {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${Token}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
         'https://sawahonline.com/api/v1/bookings/cart-checkout-session/$cartId',
@@ -85,9 +88,7 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
         elevation: 0,
-        title: const Text(
-          'My Cart',
-          style:  Textstyle.textStyle21  ),
+        title: const Text('My Cart', style: Textstyle.textStyle21),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -201,16 +202,16 @@ class CartScreen extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                item.tour?.name ?? '',
-                                                textAlign: TextAlign.start,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: true,
-                                                style: Textstyle.textStyle16.copyWith(
-                                color: neutralColor3,
-                                )
-                                              ),
+                                              Text(item.tour?.name ?? '',
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                  style: Textstyle.textStyle16
+                                                      .copyWith(
+                                                    color: neutralColor3,
+                                                  )),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -221,11 +222,12 @@ class CartScreen extends StatelessWidget {
                                                       color: kmaincolor),
                                                   const SizedBox(width: 2),
                                                   Text(
-                                                    ' ${DateFormat('yyyy-MM-dd').format(item.tourDate)} ',
-                                                    style: Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                )
-                                                  ),
+                                                      ' ${DateFormat('yyyy-MM-dd').format(item.tourDate)} ',
+                                                      style: Textstyle
+                                                          .textStyle13
+                                                          .copyWith(
+                                                        color: neutralColor3,
+                                                      )),
                                                 ],
                                               ),
                                               Row(
@@ -236,27 +238,26 @@ class CartScreen extends StatelessWidget {
                                                       Icons.group_outlined,
                                                       color: kmaincolor),
                                                   const SizedBox(width: 2),
-                                                  Text(
-                                                    ' ${item.groupSize} ',
-                                                    style:Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                )
-                                                  ),
+                                                  Text(' ${item.groupSize} ',
+                                                      style: Textstyle
+                                                          .textStyle13
+                                                          .copyWith(
+                                                        color: neutralColor3,
+                                                      )),
                                                   const SizedBox(width: 2),
-                                                   Text(
-                                                    'people',
-                                                    style: Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                )
-                                                  ),
+                                                  Text('people',
+                                                      style: Textstyle
+                                                          .textStyle13
+                                                          .copyWith(
+                                                        color: neutralColor3,
+                                                      )),
                                                 ],
                                               ),
-                                              Text(
-                                                'price \$${item.itemPrice}',
-                                                style: Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                )
-                                              ),
+                                              Text('price \$${item.itemPrice}',
+                                                  style: Textstyle.textStyle13
+                                                      .copyWith(
+                                                    color: neutralColor3,
+                                                  )),
                                             ],
                                           ),
                                         ),

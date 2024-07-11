@@ -20,6 +20,14 @@ import 'package:sawah/features/search/presentation/manager/searh_cubit_state.dar
 import 'package:sawah/features/search/presentation/views/widgets/gridsearchresult.dart';
 import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
 
+import 'dart:developer';
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({super.key});
   String? name;

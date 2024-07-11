@@ -4,6 +4,8 @@ import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/auth/core_login/errors/excpetion.dart';
 import 'package:sawah/auth/cach/cach_helper.dart'; // Ensure this import for token retrieval
 
+import 'package:dio/dio.dart';
+
 class Diocosumer {
   final Dio dio;
 

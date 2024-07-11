@@ -6,8 +6,7 @@ part 'sendmesage_state.dart';
 
 class SendmesageCubit extends Cubit<SendmesageState> {
   SendmesageCubit(this.SendmesageRepo) : super(SendmesageInitial());
-final Repo SendmesageRepo;
-
+  final Repo SendmesageRepo;
 
   Future<void> SendMessageRequest({required var messsagetext}) async {
     emit(SendmesageLoading());

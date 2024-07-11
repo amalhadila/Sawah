@@ -22,12 +22,13 @@ import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/search/presentation/views/notfound_page_view.dart';
 import 'package:sawah/features/search/presentation/views/searchpage.dart';
 import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
-import 'package:sawah/features/search/splahview.dart';
+
 import 'package:sawah/features/store/data/product/product.dart';
 import 'package:sawah/features/store/data/wishlistitem.dart';
 import 'package:sawah/features/store/presentation/views/product_info_view.dart';
 import 'package:sawah/features/store/presentation/views/store_view.dart';
 import 'package:sawah/features/store/presentation/views/widgets/booking_body.dart';
+import 'package:sawah/features/store/presentation/views/widgets/bookingtours.dart';
 import 'package:sawah/features/store/presentation/views/widgets/cart_body.dart';
 import 'package:sawah/features/store/presentation/views/widgets/listview.dart';
 import 'package:sawah/features/store/presentation/views/widgets/wishlist.dart';
@@ -35,6 +36,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
 import '../../features/home/pres/views/homeview.dart';
 import '../../features/search/data/repos/search_repo_imp.dart';
+import '../../features/splachview/preslayer/views/splahview.dart';
 import '../widgets/loading_widget.dart';
 
 Future<bool> loadShowOnboarding() async {
@@ -69,6 +71,8 @@ abstract class AppRouter {
       //     IntroductionScreenView()
       // ),
       GoRoute(path: '/StoreView', builder: (context, state) => StoreView()),
+      GoRoute(
+          path: '/Bookingtours', builder: (context, state) => Bookingtours()),
       GoRoute(path: '/ChatbotView', builder: (context, state) => ChatbotView()),
       GoRoute(path: '/homepage', builder: (context, state) => Homepage()),
       GoRoute(path: '/', builder: (context, state) => SplashView()),
@@ -85,12 +89,15 @@ abstract class AppRouter {
             final List<String> extras = state.extra as List<String>;
             final String roomId = extras[0];
             final String name = extras[1];
-           final String photo = extras[2];           
+            final String photo = extras[2];
 
-
-            return ChatScreen(roomid: roomId, name: name,photo: photo,);
+            return ChatScreen(
+              roomid: roomId,
+              name: name,
+              photo: photo,
+            );
           }),
-                GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
+      GoRoute(path: '/CartScreen', builder: (context, state) => CartScreen()),
 
       GoRoute(path: '/sign', builder: (context, state) => SignInScreen()),
       GoRoute(

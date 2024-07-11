@@ -37,19 +37,22 @@ class Landmarkdetails extends StatelessWidget {
                       ),
                       Text(
                         name!,
-                        style: Textstyle.textStyle20.copyWith(color: neutralColor3),
-                                          softWrap: true,
-
+                        style: Textstyle.textStyle20
+                            .copyWith(color: neutralColor3),
+                        softWrap: true,
                       ),
                       SizedBox(
                         height: 3,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Text(description!,style:  Textstyle.textStyle13.copyWith(
-                                color: neutralColor3,
-                                fontWeight: FontWeight.w500,
-                                height: 1.7),),
+                        child: Text(
+                          description!,
+                          style: Textstyle.textStyle13.copyWith(
+                              color: neutralColor3,
+                              fontWeight: FontWeight.w500,
+                              height: 1.7),
+                        ),
                       )
                     ],
                   ),

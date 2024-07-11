@@ -12,6 +12,7 @@ class endPoint {
 
 class apikey {
   static String status = "statusCode";
+  static String role = "role";
   static String email = "email";
   static String name = "name";
   static String photo = "photo";

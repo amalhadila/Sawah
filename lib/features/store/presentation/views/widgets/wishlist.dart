@@ -26,9 +26,7 @@ class Wishlist extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
         elevation: 0,
-        title: const Text(
-          'My Wishlist',
-          style: Textstyle.textStyle21),
+        title: const Text('My Wishlist', style: Textstyle.textStyle21),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -103,32 +101,32 @@ class Wishlist extends StatelessWidget {
                                     ),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child:                                      
-                                       CachedNetworkImage(
-                                          imageUrl: item.images![0],
-                                          width:
-                                               MediaQuery.sizeOf(context).width *
+                                      child: CachedNetworkImage(
+                                        imageUrl: item.images![0],
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
                                                 .332,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .13,
-                                          fit: BoxFit.fill,
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                            baseColor: Colors.grey[300]!,
-                                            highlightColor: Colors.grey[100]!,
-                                            child: Container(
-                                              width:  MediaQuery.sizeOf(context).width *
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                .13,
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) =>
+                                            Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
                                                 .332,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  .13,
-                                              color: Colors.white,
-                                            ),
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                .13,
+                                            color: Colors.white,
                                           ),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
-                                        ), 
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -140,25 +138,24 @@ class Wishlist extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              item.name ?? '',
-                                              textAlign: TextAlign.start,
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                              softWrap: true,
-                                              style: Textstyle.textStyle16.copyWith(
-                                color: neutralColor3,
-                                )
-                                            ),
+                                            Text(item.name ?? '',
+                                                textAlign: TextAlign.start,
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
+                                                style: Textstyle.textStyle16
+                                                    .copyWith(
+                                                  color: neutralColor3,
+                                                )),
                                             SizedBox(
                                               height: 8,
                                             ),
-                                            Text(
-                                              'price  \$${item.price}',
-                                              style: Textstyle.textStyle14.copyWith(
-                                color: neutralColor3,fontWeight: FontWeight.w600
-                                )
-                                            ),
+                                            Text('price  \$${item.price}',
+                                                style: Textstyle.textStyle14
+                                                    .copyWith(
+                                                        color: neutralColor3,
+                                                        fontWeight:
+                                                            FontWeight.w600)),
                                           ],
                                         ),
                                       ),

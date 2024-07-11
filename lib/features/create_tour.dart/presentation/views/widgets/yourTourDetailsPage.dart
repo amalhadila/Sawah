@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_my_requests_model.dart';
@@ -13,7 +15,7 @@ Future cancelTour(BuildContext context, String tourId) async {
     var response = await _dio.patch(
       options: Options(
         headers: {
-          'Authorization': 'Bearer ${Token}',
+          'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
         },
       ),
       'https://sawahonline.com/api/v1/customizedTour/$tourId/cancel',
@@ -76,8 +78,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 ),
                 title: const Text(
                   'Governorate',
-                  style:
-                      Textstyle.textStyle16,
+                  style: Textstyle.textStyle16,
                 ),
                 subtitle: Text(widget.tour.governorate ?? 'No governorate',
                     style: Textstyle.textStyle13),
@@ -88,8 +89,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: const Icon(Icons.group, color: ksecondcolor),
-                title: const Text('Group Size',
-                    style: Textstyle.textStyle16),
+                title: const Text('Group Size', style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.groupSize ?? 'No group size',
                     style: Textstyle.textStyle13),
               ),
@@ -99,8 +99,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: Icon(Icons.date_range, color: ksecondcolor),
-                title: Text('Start Date',
-                    style: Textstyle.textStyle16),
+                title: Text('Start Date', style: Textstyle.textStyle16),
                 subtitle: Text(
                     DateFormat('dd/MM/yyyy')
                             .format(widget.tour.startDate!.toLocal()) ??
@@ -113,8 +112,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: Icon(Icons.date_range, color: ksecondcolor),
-                title: Text('End Date',
-                    style: Textstyle.textStyle16),
+                title: Text('End Date', style: Textstyle.textStyle16),
                 subtitle: Text(
                     DateFormat('dd/MM/yyyy')
                             .format(widget.tour.endDate!.toLocal()) ??
@@ -138,8 +136,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: const Icon(Icons.flag, color: ksecondcolor),
-                title: const Text('Status',
-                    style: Textstyle.textStyle16),
+                title: const Text('Status', style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.status ?? 'No status',
                     style: Textstyle.textStyle13),
               ),
@@ -149,8 +146,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
                 leading: Icon(Icons.payment, color: ksecondcolor),
-                title: Text('Payment Status',
-                    style: Textstyle.textStyle16),
+                title: Text('Payment Status', style: Textstyle.textStyle16),
                 subtitle: Text(widget.tour.paymentStatus ?? 'No payment status',
                     style: Textstyle.textStyle13),
               ),
@@ -205,7 +201,8 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                 },
                 child: Text(
                   'Cancel Tour',
-                  style: Textstyle.textStyle16.copyWith( color: kbackgroundcolor),
+                  style:
+                      Textstyle.textStyle16.copyWith(color: kbackgroundcolor),
                 ),
               ),
             ),

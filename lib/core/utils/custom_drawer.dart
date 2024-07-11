@@ -38,8 +38,8 @@ class CustomDrawer extends StatelessWidget {
                       radius: 45,
                       backgroundColor: Colors.white,
                       child: ClipOval(
-                        child: Image.asset(
-                          'assets/egypt-pyramid_8330589.png',
+                        child: Image.network(
+                          'https://lh3.googleusercontent.com/drive-viewer/AKGpihb8oMW19B9ZQtzR6au3mbwuDSF2r__m91EhTA5qgNE04XxfUszKozCQIOTuZgj7cONdbGaBEVVTMPJ2H2ysWHXPLYT5eQdmJJs=s2560',
                           width: 90,
                           height: 90,
                           fit: BoxFit.cover,

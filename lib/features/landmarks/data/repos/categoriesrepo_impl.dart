@@ -30,12 +30,13 @@ class CategoriesRepoImpl implements CategoriesRepo {
     }
   }
 
- @override
-
-Future<Either<Failure, List<Product>>> recommendation({ String? landmarkId}) async {
-  try {
-    var data = await apiService.get(endpoint: 'landmarks/$landmarkId/recommendations');
-    print(data['docs']['tours']);
+  @override
+  Future<Either<Failure, List<Product>>> recommendation(
+      {String? landmarkId}) async {
+    try {
+      var data = await apiService.get(
+          endpoint: 'landmarks/$landmarkId/recommendations');
+      print(data['docs']['tours']);
 
       List<Product> product = [];
       for (var item in data['docs']['tours']) {
@@ -49,8 +50,8 @@ Future<Either<Failure, List<Product>>> recommendation({ String? landmarkId}) asy
       return left(ServerFailure(e.toString()));
     }
   }
-  @override
 
+  @override
   Future<Either<Failure, List<LandmarkOnCatModel>>> fetchlandmarks(
       {required String categoryId}) async {
     try {
