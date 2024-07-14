@@ -5,6 +5,7 @@ class SignInModel {
   final String photo;
   final String role;
   final String id;
+  final String id;
 
   SignInModel(
       {required this.email,

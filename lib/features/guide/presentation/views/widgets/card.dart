@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class GuideCard extends StatelessWidget {
   final String imageUrl;
   final String username;
+  final String username;
   final String landmarkname;
   final String date;
   final String lang;
@@ -15,6 +16,7 @@ class GuideCard extends StatelessWidget {
   const GuideCard({
     Key? key,
     required this.imageUrl,
+    required this.username,
     required this.username,
     required this.landmarkname,
     required this.date,
@@ -32,6 +34,7 @@ class GuideCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: Card(
+        color: Colors.black,
         color: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -58,11 +61,15 @@ class GuideCard extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
+                ],
               ),
+              SizedBox(height: 7),
               SizedBox(height: 7),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -87,6 +94,31 @@ class GuideCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row buildInfoRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 16,
+          color: ksecondcolor,
+        ),
+        SizedBox(width: 7),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: ksecondcolor,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 

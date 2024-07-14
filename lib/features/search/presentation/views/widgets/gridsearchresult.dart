@@ -8,6 +8,8 @@ import 'package:sawah/features/search/presentation/manager/searh_cubit_state.dar
 
 class SearchResultGrid extends StatelessWidget {
   const SearchResultGrid({super.key});
+class SearchResultGrid extends StatelessWidget {
+  const SearchResultGrid({super.key});
 
   @override
   Widget build(BuildContext context) {

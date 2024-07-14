@@ -10,7 +10,12 @@ import 'package:sawah/features/store/presentation/views/store_view.dart';
 import '../../auth/cach/cach_helper.dart';
 import '../../auth/core_login/api/end_point.dart';
 import '../../auth/cubit/user_cubit.dart';
+import '../../auth/cach/cach_helper.dart';
+import '../../auth/core_login/api/end_point.dart';
+import '../../auth/cubit/user_cubit.dart';
 import '../../core/widgets/appbar.dart';
+import '../guide/presentation/views/guide_view.dart';
+import '../guide/presentation/views/widgets/toursdetails.dart';
 import '../guide/presentation/views/guide_view.dart';
 import '../guide/presentation/views/widgets/toursdetails.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
@@ -29,6 +34,7 @@ class BottomNavigation extends StatefulWidget {
   _BottomNavigationExampleState createState() =>
       _BottomNavigationExampleState();
 }
+
 
 class _BottomNavigationExampleState extends State<BottomNavigation> {
   int _selectedTab = 1;

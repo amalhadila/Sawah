@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +14,13 @@ import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
+import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:sawah/firebase/firedatabase.dart';
+import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
+    as ps;
+import '../../../../store/presentation/views/widgets/payment_web_view.dart';
+import '../../model/getallrespondingguide.dart';
+import 'cardofguideresponse.dart';
 import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
     as ps;
 import '../../../../store/presentation/views/widgets/payment_web_view.dart';
@@ -49,6 +58,8 @@ class _ResponseScreenState extends State<ResponseScreen>
           headers: {
             'Authorization':
                 'Bearer ${CacheHelper().getData(key: apikey.token)}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -59,6 +70,31 @@ class _ResponseScreenState extends State<ResponseScreen>
       List<GetAvailableGuidesModel> guides = responseData
           .map((json) => GetAvailableGuidesModel.fromJson(json))
           .toList();
+
+      return guides;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List<RespondingGuide>> getRespondingGuides(String tourId) async {
+    final Dio _dio = Dio();
+    try {
+      var response = await _dio.get(
+        'https://sawahonline.com/api/v1/customizedTour/$tourId/responding-guides',
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+          },
+        ),
+      );
+
+      List<dynamic> responseData = response.data['data']['respondingGuides'];
+      print(responseData);
+
+      List<RespondingGuide> guides =
+          responseData.map((json) => RespondingGuide.fromJson(json)).toList();
 
       return guides;
     } catch (e) {
@@ -108,8 +144,13 @@ class _ResponseScreenState extends State<ResponseScreen>
             style: TextStyle(
                 color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
           ),
+            style: TextStyle(
+                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+          ),
           centerTitle: true,
           bottom: PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: PreferredSize(
               preferredSize: Size.fromHeight(50),
@@ -128,6 +169,7 @@ class _ResponseScreenState extends State<ResponseScreen>
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                   tabs: [
                     Tab(text: 'Responses'),
+                    Tab(text: 'Responses'),
                     Tab(text: 'All guides'),
                   ],
                   labelColor: kbackgroundcolor,
@@ -137,9 +179,11 @@ class _ResponseScreenState extends State<ResponseScreen>
             ),
           ),
         ),
+        ),
         body: TabBarView(
           controller: _tabController,
           children: [
+            _buildResponsesTab(),
             _buildResponsesTab(),
             _buildAllGuidesTab(),
           ],
@@ -211,11 +255,76 @@ class _ResponseScreenState extends State<ResponseScreen>
             );
           }
         }
+  Widget _buildResponsesTab() {
+    return FutureBuilder<List<RespondingGuide>>(
+      future: getRespondingGuides(widget.tourId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          final guides = snapshot.data ?? [];
+          if (guides.isEmpty) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.chat_bubble_outline,
+                        size: 100, color: Colors.grey),
+                    SizedBox(height: 10),
+                    Text(
+                      'Wait for responses from specialists',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "You don't have any responses yet. You can wait or contact a guide by yourself",
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kmaincolor,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      ),
+                      child: Text(
+                        'Contact a guide',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: guides.length,
+              itemBuilder: (context, index) {
+                final guide = guides[index];
+                return GuideCardrespond(
+                  imageUrl: guide.guide?.photo ?? '',
+                  username: guide.guide?.name ?? 'Unknown Name',
+                  price: guide.price?.toString() ?? 'Unknown Price',
+                  tourId: widget.tourId,
+                  guideId: guide.guide?.id ?? '',
+                );
+              },
+            );
+          }
+        }
       },
     );
   }
 
-  Widget _buildAllGuidesTab() {
+ Widget _buildAllGuidesTab() {
     return FutureBuilder<List<GetAvailableGuidesModel>>(
       future: getAvailableGuides(widget.tourId),
       builder: (context, snapshot) {
@@ -396,6 +505,73 @@ class GuideCardrespond extends StatelessWidget {
   }
 
   @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double cardHeight = screenWidth * 0.48; // Adjusted card height
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 15.0),
+      child: Card(
+        color: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        elevation: 2,
+        child: Container(
+          height: cardHeight,
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: secondaryColor1,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(imageUrl),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    username,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: kmaincolor),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10), // Adjusted height
+              Text(
+                'Price: \$$price',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: kmaincolor,
+                    fontSize: 18),
+              ),
+              // Adds space to push the button to the bottom
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await acceptPrice(context, tourId, guideId);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kmaincolor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(
+                    'Accept',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardHeight = screenWidth * 0.48; // Adjusted card height

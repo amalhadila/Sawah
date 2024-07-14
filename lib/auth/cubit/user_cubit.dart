@@ -12,10 +12,17 @@ import 'package:image_picker/image_picker.dart';
 import '../cach/cach_helper.dart';
 import '../core_login/api/end_point.dart';
 
+// user_cubit.dart
+
+import '../cach/cach_helper.dart';
+import '../core_login/api/end_point.dart';
+
 class UserCubit extends Cubit<UserState> {
   final UserRepository userRepository;
   final CacheHelper cacheHelper;
+  final CacheHelper cacheHelper;
 
+  UserCubit(this.userRepository, this.cacheHelper) : super(UserInitial());
   UserCubit(this.userRepository, this.cacheHelper) : super(UserInitial());
 
   // Sign in email and password controllers
@@ -32,10 +39,16 @@ class UserCubit extends Cubit<UserState> {
   final TextEditingController signUpPasswordguide = TextEditingController();
   final TextEditingController confirmPasswordguide = TextEditingController();
 
+  final TextEditingController signUpNameguide = TextEditingController();
+  final TextEditingController signUpEmailguide = TextEditingController();
+  final TextEditingController signUpPasswordguide = TextEditingController();
+  final TextEditingController confirmPasswordguide = TextEditingController();
+
   uploadprofilepict(XFile image) {
     profilepic = image;
     emit(Updatephotoloading());
   }
+
 
   Future<void> signIn() async {
     emit(SignInLoading());

@@ -36,8 +36,7 @@ class _store_productState extends State<store_product> {
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: kbackgroundcolor,
-                    labelPadding:
-                        const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
                     isScrollable: true,
                     onTap: (value) {
                       setState(() {

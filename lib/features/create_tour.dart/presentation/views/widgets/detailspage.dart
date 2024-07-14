@@ -45,6 +45,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     destinationController.text = 'Paris'; // Set initial value
     peopleController.text = '5-10'; // Set initial value
     selectedDate = widget.startDate; // Set selected date from widget.startDate
+    destinationController.text = 'Paris'; // Set initial value
+    peopleController.text = '5-10'; // Set initial value
+    selectedDate = widget.startDate; // Set selected date from widget.startDate
   }
 
   @override
@@ -53,6 +56,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text("Let's check the details"),
         title: Text("Let's check the details"),
         backgroundColor: kbackgroundcolor,
       ),
@@ -72,9 +76,13 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                       style: TextStyle(
                           fontSize: screenWidth * 0.05,
                           fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.05,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: screenWidth * 0.02),
                     GestureDetector(
+                      onTap: () {},
                       onTap: () {},
                       child: Row(
                         children: [
@@ -106,6 +114,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               _buildCard(
                 context,
                 'Your landmarks',
+                'Your landmarks',
                 Row(
                   children: [
                     SizedBox(width: screenWidth * 0.04),
@@ -114,6 +123,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                         widget.selectedLandmarks.isNotEmpty
                             ? widget.selectedLandmarks.first.name
                             : '',
+                        style: TextStyle(fontSize: screenWidth * 0.04),
                         style: TextStyle(fontSize: screenWidth * 0.04),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -137,6 +147,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             : '',
                         screenWidth),
                     SizedBox(height: screenWidth * 0.02),
+                    Text('How many people will be on the tour?'),
                     Text('How many people will be on the tour?'),
                     _buildRowWithEdit(
                         context,
@@ -163,7 +174,22 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor,
                     padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kmaincolor,
+                    padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
+                  child: Text('create',
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.04, color: Colors.white)),
                   child: Text('create',
                       style: TextStyle(
                           fontSize: screenWidth * 0.04, color: Colors.white)),

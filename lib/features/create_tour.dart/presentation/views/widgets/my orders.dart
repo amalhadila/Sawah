@@ -15,7 +15,7 @@ class MyOrdersPage extends StatefulWidget {
   @override
   _MyOrdersPageState createState() => _MyOrdersPageState();
 }
-
+ 
 class _MyOrdersPageState extends State<MyOrdersPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
@@ -29,13 +29,13 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     _myRequestsFuture = getMyRequests();
     _mycompleteRequestsFuture = getMycompleteRequests();
   }
-
+ 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
-
+ 
   Future<List<GetMyRequestsModel>> getMyRequests() async {
     final Dio _dio = Dio();
     try {
@@ -48,15 +48,15 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           },
         ),
       );
-
+ 
       dynamic responseData = response.data;
       print(responseData);
-
+ 
       List<GetMyRequestsModel> requests =
           (responseData['data']['requests'] as List)
               .map((json) => GetMyRequestsModel.fromJson(json))
               .toList();
-
+ 
       return requests;
     } catch (e) {
       showDialog(
@@ -82,16 +82,17 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           },
         ),
       );
-
+ 
       dynamic responseData = response.data;
       print('complete');
+      print('complete');
       print(responseData);
-
+ 
       List<GetMyRequestsModel> requests =
           (responseData['data']['requests'] as List)
               .map((json) => GetMyRequestsModel.fromJson(json))
               .toList();
-
+ 
       return requests;
     } catch (e) {
       showDialog(
@@ -104,7 +105,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       throw e; // rethrowing the exception to handle it further if needed
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,12 +214,12 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     );
   }
 }
-
+ 
 class OrdersList extends StatelessWidget {
   final List<GetMyRequestsModel> orders;
-
+ 
   OrdersList({required this.orders});
-
+ 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -228,8 +229,7 @@ class OrdersList extends StatelessWidget {
         final order = orders[index];
         return OrderCard(
           name: order.landmarks![0].name,
-          location:
-              order.governorate, // Assuming you have a location in your model
+          location: order.governorate, // Assuming you have a location in your model
           date: order.startDate,
           status: order.status,
           id: order.id,
@@ -239,9 +239,10 @@ class OrdersList extends StatelessWidget {
     );
   }
 }
-
+ 
 class OrderCard extends StatelessWidget {
   final String? name;
+  final GetMyRequestsModel? tour;
   final GetMyRequestsModel? tour;
   final String? id;
   final String? location;
@@ -273,12 +274,14 @@ class OrderCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => TourDetailsPage(tour: tour!),
+              builder: (context) => TourDetailsPage(tour: tour!),
             ),
           );
         },
         leading: null,
         title: Text(
           location!,
+          style: Textstyle.textStyle16.copyWith(color: neutralColor3),
           style: Textstyle.textStyle16.copyWith(color: neutralColor3),
         ),
         subtitle: Padding(
@@ -289,15 +292,18 @@ class OrderCard extends StatelessWidget {
               Text(
                 formattedDate,
                 style: Textstyle.textStyle15.copyWith(color: neutralColor3),
+                style: Textstyle.textStyle15.copyWith(color: neutralColor3),
               ),
               Text(
                 status!,
+                style: Textstyle.textStyle15.copyWith(color: accentColor3),
                 style: Textstyle.textStyle15.copyWith(color: accentColor3),
               ),
             ],
           ),
         ),
         trailing: ElevatedButton(
+          onPressed: status == 'cancelled ' || status == 'confirmed'
           onPressed: status == 'cancelled ' || status == 'confirmed'
               ? null
               : () {
@@ -316,12 +322,16 @@ class OrderCard extends StatelessWidget {
             backgroundColor: status == 'cancelled' || status == 'confirmed'
                 ? neutralColor
                 : kmaincolor,
+            backgroundColor: status == 'cancelled' || status == 'confirmed'
+                ? neutralColor
+                : kmaincolor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Text(
             'View Guides',
+            style: Textstyle.textStyle13.copyWith(color: kbackgroundcolor),
             style: Textstyle.textStyle13.copyWith(color: kbackgroundcolor),
           ),
         ),

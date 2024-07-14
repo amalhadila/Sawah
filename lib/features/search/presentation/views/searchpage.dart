@@ -1,6 +1,13 @@
 import 'dart:developer';
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
+import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
+
+import '../../../image_upload/presentation/pages/image_upload_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
@@ -12,6 +19,11 @@ class CustomSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'Search Page',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xFF4B4E89),
         title: Text(
           'Search Page',
           style: TextStyle(color: Colors.white),

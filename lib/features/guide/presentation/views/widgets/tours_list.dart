@@ -122,6 +122,126 @@ class _TourListScreenState extends State<TourListScreen>
     super.dispose();
   }
 
+import 'dart:developer';
+import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/features/create_tour.dart/presentation/model/get_all_custom_tours_model.dart';
+import 'package:sawah/features/guide/presentation/views/widgets/toursdetails.dart';
+import 'package:sawah/features/guide/presentation/views/widgets/card.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+import '../../../../../core/utils/style.dart';
+import '../../../../create_tour.dart/presentation/model/get_allAccpetedpricefromu.dart';
+
+class TourListScreen extends StatefulWidget {
+  @override
+  _TourListScreenState createState() => _TourListScreenState();
+}
+
+class _TourListScreenState extends State<TourListScreen>
+    with SingleTickerProviderStateMixin {
+  late Future<List<GetAllCustomToursModel>> _futureCustomTours;
+  late Future<List<Tour>> _myAcceptedTours;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _futureCustomTours = getAllCustomTours();
+    _myAcceptedTours = getAllAccepted();
+  }
+
+  Future<List<GetAllCustomToursModel>> getAllCustomTours() async {
+    final Dio _dio = Dio();
+    try {
+      var response = await _dio.get(
+        'https://sawahonline.com/api/v1/customizedTour',
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}'
+          },
+        ),
+      );
+      dynamic responseData = response.data;
+      log('Data fetched successfully');
+      print(response.data); // Print the response data to debug
+
+      if (responseData['data'] != null &&
+          responseData['data']['docs'] != null) {
+        List<GetAllCustomToursModel> getAllCustomToursModel =
+            (responseData['data']['docs'] as List)
+                .map((json) => GetAllCustomToursModel.fromJson(json))
+                .toList();
+
+        return getAllCustomToursModel;
+      } else {
+        // Handle the case where the expected data is not available
+        return [];
+      }
+    } catch (e) {
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened: $e, please try again"),
+        ),
+      );
+      // Re-throw the error to propagate it further if needed
+      throw e;
+    }
+  }
+
+  Future<List<Tour>> getAllAccepted() async {
+    final Dio _dio = Dio();
+    try {
+      var response = await _dio.get(
+        'https://sawahonline.com/api/v1/customizedTour/accepted-tours',
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}'
+          },
+        ),
+      );
+      dynamic responseData = response.data;
+      log('Data fetched successfully');
+      print(response.data); // Print the response data to debug
+
+      if (responseData['data'] != null &&
+          responseData['data']['completedTours'] != null) {
+        List<Tour> getAllAccCustomToursModel =
+            (responseData['data']['completedTours'] as List)
+                .map((json) => Tour.fromJson(json))
+                .toList();
+
+        return getAllAccCustomToursModel;
+      } else {
+        // Handle the case where the expected data is not available
+        return [];
+      }
+    } catch (e) {
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Operation Failed"),
+          content: Text("An error happened: $e, please try again"),
+        ),
+      );
+      // Re-throw the error to propagate it further if needed
+      throw e;
+    }
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

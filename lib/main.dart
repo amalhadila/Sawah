@@ -76,6 +76,7 @@
 //   }
 // }
 import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -179,6 +180,7 @@ class Sawah extends StatelessWidget {
   final Dio dio;
   final CacheHelper cacheHelper;
 
+  Sawah({super.key, required this.dio, required this.cacheHelper});
   Sawah({super.key, required this.dio, required this.cacheHelper});
 
   @override

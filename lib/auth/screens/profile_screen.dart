@@ -95,6 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           width: 50,
                           height: MediaQuery.of(context).size.height * .2,
+                          height: MediaQuery.of(context).size.height * .2,
                           child: context.read<UserCubit>().profilepic == null
                               ? CircleAvatar(
                                   backgroundColor: Colors.grey.shade200,
@@ -111,8 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           onTap: () async {
                                             XFile? image = await ImagePicker()
                                                 .pickImage(
-                                                    source:
-                                                        ImageSource.gallery);
+                                                    source: ImageSource.gallery);
                                             if (image != null) {
                                               context
                                                   .read<UserCubit>()
@@ -125,10 +125,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             decoration: BoxDecoration(
                                               color: Colors.blue.shade400,
                                               border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 3),
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
+                                                  color: Colors.white, width: 3),
+                                              borderRadius: BorderRadius.circular(25),
                                             ),
                                             child: const Icon(
                                               Icons.camera_alt_sharp,
@@ -153,22 +151,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             ProfileMenu(
                               text: user.data.name ?? 'name',
-                              icon:
-                                  const Icon(Icons.person, color: ksecondcolor),
+                              icon: const Icon(Icons.person, color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: user.data.email ?? 'email',
-                              icon:
-                                  const Icon(Icons.email, color: ksecondcolor),
+                              icon: const Icon(Icons.email, color: ksecondcolor),
                               press: () => {},
                             ),
                             ProfileMenu(
                               text: 'wishlist',
-                              icon: const Icon(Icons.favorite,
-                                  color: ksecondcolor),
-                              press: () =>
-                                  {GoRouter.of(context).push('/wishlist')},
+                              icon: const Icon(Icons.favorite, color: ksecondcolor),
+                              press: () => {GoRouter.of(context).push('/wishlist')},
                             ),
                             ProfileMenu(
                               text: 'my tours',
@@ -221,8 +215,7 @@ class ProfileMenu extends StatelessWidget {
         style: TextButton.styleFrom(
           foregroundColor: kmaincolor,
           padding: const EdgeInsets.all(20),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor: const Color(0xFFF5F6F9),
         ),
         onPressed: press,
