@@ -58,7 +58,7 @@ class _InformationState extends State<Information>
             onTap: (value) {
               setState(() {});
             },
-            tabs: [
+            tabs:const [
               Tab(
                 child: Text(
                   '     Information    ',
@@ -80,8 +80,7 @@ class _InformationState extends State<Information>
             controller: _tabController,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,21 +88,24 @@ class _InformationState extends State<Information>
                       Text(
                         widget.text,
                         style: Textstyle.textStyle13.copyWith(
-                          color: neutralColor3,
-                          fontWeight: FontWeight.w500,
-                          height: 1.7,
-                        ),
+    color: neutralColor3,
+    fontWeight: FontWeight.w500,
+    height: 1.7,
+  ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                         'Recommended tours',
-                        style: Textstyle.textStyle18
-                            .copyWith(color: neutralColor3, height: 1.7),
-                      ),
+                         style: Textstyle.textStyle18.copyWith(
+                                color: neutralColor3,
+                             
+                                height: 1.7),
+                          ),
+                      
                       BlocBuilder<RecommendationCubit, RecommendationState>(
                         builder: (context, state) {
                           if (state is RecommendationLoading) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           } else if (state is RecommendationSuccess) {
@@ -129,8 +131,8 @@ class _InformationState extends State<Information>
                                 itemBuilder: (context, index) {
                                   final product = productList[index];
                                   return GestureDetector(
-                                    onTap: () => GoRouter.of(context)
-                                        .push('/productinfo', extra: product),
+                                    onTap: () =>
+                  GoRouter.of(context).push('/productinfo', extra: product),
                                     child: Card(
                                       color: secondaryColor1,
                                       elevation: 0,
@@ -139,69 +141,50 @@ class _InformationState extends State<Information>
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.11,
+                                                height: MediaQuery.of(context).size.height * 0.11,
                                                 child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(6),
+                                                  borderRadius: BorderRadius.circular(6),
                                                   child: CachedNetworkImage(
-                                                    imageUrl: product
-                                                            .images.isNotEmpty
-                                                        ? product.images[0]
-                                                        : '',
+                                                    imageUrl: product.images.isNotEmpty ? product.images[0] : '',
                                                     width: double.infinity,
                                                     fit: BoxFit.fill,
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            Shimmer.fromColors(
-                                                      baseColor:
-                                                          Colors.grey[300]!,
-                                                      highlightColor:
-                                                          Colors.grey[100]!,
+                                                    placeholder: (context, url) => Shimmer.fromColors(
+                                                      baseColor: Colors.grey[300]!,
+                                                      highlightColor: Colors.grey[100]!,
                                                       child: Container(
                                                         width: double.infinity,
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Icon(Icons.error),
+                                                    errorWidget: (context, url, error) => const Icon(Icons.error),
                                                   ),
                                                 ),
                                               ),
+                                              Spacer(),
                                               Text(
                                                 product.name ?? '',
-                                                style: Textstyle.textStyle13
-                                                    .copyWith(
-                                                        color: neutralColor3),
+                                                style: Textstyle.textStyle13.copyWith(color: neutralColor3),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
+                                              const Spacer(),
                                               Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 10.0),
+                                                padding: const EdgeInsets.only(right: 10.0),
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
-                                                    Icon(Icons.star,
-                                                        color: Colors.yellow),
+                                                    const Icon(Icons.star, color: accentColor1),
                                                     Text(
-                                                      product.rating
-                                                              ?.toString() ??
-                                                          '',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
+                                                      product.rating?.toString() ?? '',
+                                                      style: const TextStyle(fontSize: 14),
                                                     ),
                                                   ],
                                                 ),
                                               ),
+                                              const Spacer(),
                                             ],
                                           ),
                                         ),

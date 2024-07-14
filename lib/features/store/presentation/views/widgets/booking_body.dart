@@ -36,7 +36,10 @@ class _BookingPageState extends State<BookingPage> {
             Navigator.pop(context);
           },
         ),
-        title: const Text('Booking', style: Textstyle.textStyle21),
+        title: const Text(
+          'Booking',
+          style:  Textstyle.textStyle21
+        ),
       ),
       body: Stack(
         children: [
@@ -48,9 +51,12 @@ class _BookingPageState extends State<BookingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.product.name!,
-                      style: Textstyle.textStyle18.copyWith(
-                          color: neutralColor3, fontWeight: FontWeight.w600)),
+                  Text(
+                    widget.product.name!,
+                    style:  Textstyle.textStyle18.copyWith(
+                                color: neutralColor3,fontWeight: FontWeight.w600
+                                )
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -60,9 +66,12 @@ class _BookingPageState extends State<BookingPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Select available date',
-                            style: Textstyle.textStyle16
-                                .copyWith(color: neutralColor3)),
+                         Text(
+                          'Select available date',
+                          style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3
+                                )
+                        ),
                         TableCalendar(
                           daysOfWeekHeight: 22,
                           firstDay: DateTime.now(),
@@ -117,16 +126,18 @@ class _BookingPageState extends State<BookingPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Group Size ',
-                                style: Textstyle.textStyle16.copyWith(
-                                  color: neutralColor3,
-                                )),
+                             Text(
+                              'Group Size ',
+                              style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
+                                )
+                            ),
                             const SizedBox(
                               height: 20,
                             ),
                             Text(r'Price: ',
                                 style: Textstyle.textStyle16.copyWith(
-                                  color: neutralColor3,
+                                color: neutralColor3,
                                 )),
                           ],
                         ),
@@ -152,10 +163,13 @@ class _BookingPageState extends State<BookingPage> {
                                   ),
                                 ),
                               ),
-                              Text(quantity.toString(),
-                                  style: Textstyle.textStyle25.copyWith(
-                                      color: neutralColor3,
-                                      fontWeight: FontWeight.w400)),
+                              Text(
+                                quantity.toString(),
+                                style:  Textstyle.textStyle25.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w400
+                                )
+                              ),
                               ClipOval(
                                 child: Material(
                                   color: kbackgroundcolor,
@@ -178,8 +192,8 @@ class _BookingPageState extends State<BookingPage> {
                               height: 20,
                             ),
                             Text(r'$' ' ${widget.product.price.toString()}   ',
-                                style: Textstyle.textStyle16.copyWith(
-                                  color: neutralColor3,
+                                style:  Textstyle.textStyle16.copyWith(
+                                color: neutralColor3,
                                 )),
                           ],
                         ),
@@ -251,53 +265,7 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                   ),
                   const SizedBox(width: 18),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (_selectedDate != null) {
-                          var isAvailable =
-                              await BlocProvider.of<CheckavailabilityCubit>(
-                                      context)
-                                  .checkAvailability(
-                            Id: widget.product.id!,
-                            groupSize: quantity,
-                            tourDate:
-                                "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-                          );
-                          print(
-                              DateFormat('yyyy-MM-dd').format(_selectedDate!));
-                          if (isAvailable) {
-                            BlocProvider.of<AdditemCubit>(context)
-                                .addItemToCart(
-                              tourId: widget.product.id,
-                              Adults: quantity,
-                              tourDate:
-                                  "${DateFormat('yyyy-MM-dd').format(_selectedDate!)}",
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      '${widget.product.name} is not available')),
-                            );
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Please select a date.')),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kmaincolor,
-                      ),
-                      child: const Text('Go to payment',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: kbackgroundcolor,
-                              fontWeight: FontWeight.w700)),
-                    ),
-                  ),
+                 
                 ],
               ),
             ),

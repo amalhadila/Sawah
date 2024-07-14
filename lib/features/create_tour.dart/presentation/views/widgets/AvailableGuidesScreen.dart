@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+import '../../../../../constants.dart';
+
 class AvailableGuidesScreen extends StatefulWidget {
   final String tourId;
 
-  const AvailableGuidesScreen({Key? key, required this.tourId})
-      : super(key: key);
+  const AvailableGuidesScreen({Key? key, required this.tourId}) : super(key: key);
 
   @override
   _AvailableGuidesScreenState createState() => _AvailableGuidesScreenState();
@@ -15,8 +18,7 @@ class AvailableGuidesScreen extends StatefulWidget {
 class _AvailableGuidesScreenState extends State<AvailableGuidesScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future<List<GetAvailableGuidesModel>> getAvailableGuides(
-      String tourId) async {
+  Future<List<GetAvailableGuidesModel>> getAvailableGuides(String tourId) async {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
@@ -24,7 +26,7 @@ class _AvailableGuidesScreenState extends State<AvailableGuidesScreen> {
         options: Options(
           headers: {
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -44,8 +46,7 @@ class _AvailableGuidesScreenState extends State<AvailableGuidesScreen> {
       return guides;
     } catch (e) {
       if (_scaffoldKey.currentContext != null) {
-        _showErrorDialog(
-            _scaffoldKey.currentContext!, 'An error occurred: ${e.toString()}');
+        _showErrorDialog(_scaffoldKey.currentContext!, 'An error occurred: ${e.toString()}');
       }
       await Future.delayed(Duration(seconds: 3)); // Delay before retrying
       return await getAvailableGuides(tourId); // Retry the request

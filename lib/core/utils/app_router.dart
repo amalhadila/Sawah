@@ -28,15 +28,18 @@ import 'package:sawah/features/store/data/wishlistitem.dart';
 import 'package:sawah/features/store/presentation/views/product_info_view.dart';
 import 'package:sawah/features/store/presentation/views/store_view.dart';
 import 'package:sawah/features/store/presentation/views/widgets/booking_body.dart';
-import 'package:sawah/features/store/presentation/views/widgets/bookingtours.dart';
+
 import 'package:sawah/features/store/presentation/views/widgets/cart_body.dart';
 import 'package:sawah/features/store/presentation/views/widgets/listview.dart';
 import 'package:sawah/features/store/presentation/views/widgets/wishlist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../auth/screens/editme_screan.dart';
+import '../../auth/screens/profileofguide.dart';
 import '../../features/bottom_app_bar/bottom_app_bar.dart';
 import '../../features/home/pres/views/homeview.dart';
 import '../../features/search/data/repos/search_repo_imp.dart';
 import '../../features/splachview/preslayer/views/splahview.dart';
+import '../../features/store/presentation/views/widgets/bookingtours.dart';
 import '../widgets/loading_widget.dart';
 
 Future<bool> loadShowOnboarding() async {
@@ -60,7 +63,7 @@ abstract class AppRouter {
                   bool showOnboarding = snapshot.data ?? true;
                   return showOnboarding
                       ? const IntroductionScreenView()
-                      : const SignInScreen();
+                      : const BottomNavigation();
                 }
               },
             );
@@ -83,6 +86,12 @@ abstract class AppRouter {
       GoRoute(
           path: '/TourListScreen',
           builder: (context, state) => TourListScreen()),
+      GoRoute(
+          path: '/update',
+          builder: (context, state) => UpdateProfileScreen()),
+      GoRoute(
+          path: '/profileguide',
+          builder: (context, state) => ProfileCard()),
       GoRoute(
           path: '/ChatScreen',
           builder: (context, state) {

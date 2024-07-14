@@ -4,7 +4,8 @@ import 'package:sawah/features/chatbot/data/models/conversationmodel/conversatio
 
 abstract class Repo {
   Future<Either<Failure, List<Conversationmodel>>> fetchChatbotmessage();
-
-  Future SendMessageRequest({required var text});
-  Future Deletechatbot();
+  
+Future SendMessageRequest(
+      {required var text});
+ Future  Deletechatbot();
 }

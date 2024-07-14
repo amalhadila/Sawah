@@ -6,7 +6,7 @@ import 'package:sawah/features/home/data/models/most_visited_model/most_visited_
 import 'package:sawah/features/store/data/product/product.dart';
 
 abstract class CategoriesRepo {
-  Future<Either<Failure, List<Product>>> recommendation({String? landmarkId});
+    Future<Either<Failure, List<Product>>> recommendation({ String? landmarkId});
 
   Future<Either<Failure, List<CategoriesModel>>> fetchCategories();
   Future<Either<Failure, List<LandmarkOnCatModel>>> fetchlandmarks(

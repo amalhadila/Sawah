@@ -46,20 +46,21 @@ class CustomCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.17,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: CachedNetworkImage(
-                      imageUrl: imglink,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: double.infinity,
-                          color: Colors.white,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
+                    child: 
+                     CachedNetworkImage(
+      imageUrl: imglink,
+width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+    width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => const Icon(Icons.error),
+    ),
+                  
                   ),
                 ),
                 const Spacer(),

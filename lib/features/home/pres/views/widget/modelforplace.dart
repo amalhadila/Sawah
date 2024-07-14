@@ -38,6 +38,7 @@ class CustomCard extends StatelessWidget {
               offset: Offset(0, 2))
         ]),
         child: Card(
+          
           elevation: 10,
           color: secondaryColor1,
           child: Padding(
@@ -50,20 +51,20 @@ class CustomCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * .13,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: img,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            width: double.infinity,
-                            color: Colors.white,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      )),
+                      child: 
+                       CachedNetworkImage(
+      imageUrl: img ,
+      width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    )),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 3),
@@ -76,19 +77,19 @@ class CustomCard extends StatelessWidget {
                 ),
                 Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.locationDot,
-                      color: accentColor1,
-                      size: 18,
-                    ),
-                    Text(
-                      '$location',
-                      style: Textstyle.textStyle12,
-                    ),
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.locationDot,
+                        color: accentColor1,
+                        size: 18,
+                      ),
+                       Text(
+                          '$location',
+                          style: Textstyle.textStyle12,                        
+                      ),
+                    ],
+                  ),
                 Spacer()
               ],
             ),

@@ -16,22 +16,13 @@ class OtherMessage extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-                child: Text(
-                  'B',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700, color: kbackgroundcolor),
-                ),
-                backgroundColor: ksecondcolor),
+            child: CircleAvatar(child: Text('B', style: TextStyle(fontWeight: FontWeight.w700,color:kbackgroundcolor),), backgroundColor: ksecondcolor),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Bot",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade700)),
+                Text("Bot", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   padding: const EdgeInsets.all(10.0),
@@ -39,11 +30,7 @@ class OtherMessage extends StatelessWidget {
                     color: const Color.fromARGB(59, 112, 114, 186),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Text(
-                    message,
-                    style: Textstyle.textStyle14.copyWith(
-                        color: neutralColor3, fontWeight: FontWeight.w400),
-                  ),
+                  child: Text(message,style: Textstyle.textStyle14.copyWith(color:neutralColor3,fontWeight: FontWeight.w400 ),),
                 ),
               ],
             ),

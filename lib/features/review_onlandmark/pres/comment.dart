@@ -1,18 +1,14 @@
 import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:sawah/core/utils/api_service.dart';
 import 'package:sawah/features/home/data/models/most_visited_model/most_visited_model.dart';
-
 import 'package:sawah/features/landmarks/data/model/landmark_on_cat_model/landmark_on_cat_model.dart';
-
 import 'package:sawah/features/review_onlandmark/data/model/get_review_model/get_review_model.dart';
-import 'package:sawah/features/review_onlandmark/data/model/getreviewmodel.dart';
-import 'package:sawah/features/review_onlandmark/data/repo/revwrepoimp.dart';
 import 'package:sawah/features/review_onlandmark/pres/cubit/reviewcubit.dart';
 import 'package:sawah/features/review_onlandmark/pres/cubit/reviewstate.dart';
+import '../../../auth/cach/cach_helper.dart';
+import '../../../auth/core_login/api/end_point.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key, this.landmarkmodel, this.mostvistedkmodel})
@@ -28,10 +24,13 @@ class ReviewPage extends StatefulWidget {
 class _ReviewPageState extends State<ReviewPage> {
   final TextEditingController _commentController = TextEditingController();
   double _rating = 0.0;
+final  role = CacheHelper().getData(key: apikey.role);
 
   @override
   void initState() {
     super.initState();
+    // Fetch role from cache when the widget initializes
+   
     context.read<ReviewCubit>().getallReviewsonlandmark(
           id: (widget.landmarkmodel?.id ?? widget.mostvistedkmodel?.id)!,
         );
@@ -44,53 +43,61 @@ class _ReviewPageState extends State<ReviewPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Container(
-              height: 80,
-              child: TextField(
-                controller: _commentController,
-                decoration: InputDecoration(
-                  labelText: "Enter your comment",
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
+            if (role == 'user') ...[
+              Column(
+                children: [
+                  Container(
+                    height: 80,
+                    child: TextField(
+                      controller: _commentController,
+                      decoration: InputDecoration(
+                        labelText: "Enter your comment",
+                        border: OutlineInputBorder(),
+                      ),
+                      maxLines: 3,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    height: 40,
+                    child: RatingBar.builder(
+                      initialRating: 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 20,
+                      ),
+                      onRatingUpdate: (rating) {
+                        setState(() {
+                          _rating = rating;
+                        });
+                        context.read<ReviewCubit>().updateRating(rating);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<ReviewCubit>().addReviewonlandmark(
+                        landmarkid: (widget.landmarkmodel?.id ??
+                            widget.mostvistedkmodel?.id)!,
+                        reviewType: 'Landmark',
+                        comment: _commentController.text,
+                      );
+                    },
+                    child: Text("Submit Review"),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 40,
-              child: RatingBar.builder(
-                initialRating: 0,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20,
-                ),
-                onRatingUpdate: (rating) {
-                  setState(() {
-                    _rating = rating;
-                  });
-                  context.read<ReviewCubit>().updateRating(rating);
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                context.read<ReviewCubit>().addReviewonlandmark(
-                      landmarkid: (widget.landmarkmodel?.id ??
-                          widget.mostvistedkmodel?.id)!,
-                      reviewType: 'Landmark',
-                      comment: _commentController.text,
-                    );
-              },
-              child: Text("Submit Review"),
-            ),
-            SizedBox(height: 20),
+            ] else ...[
+              SizedBox.shrink(), // Return an empty widget if role is not 'user'
+            ],
             Expanded(
               child: BlocBuilder<ReviewCubit, ReviewState>(
                 builder: (context, state) {
@@ -105,8 +112,8 @@ class _ReviewPageState extends State<ReviewPage> {
                   } else if (state is GetReviewFailure) {
                     log('GetReviewFailure state: ${state.errorMessage}');
                     return Center(
-                        child: Text(
-                            'Error fetching reviews: ${state.errorMessage}'));
+                        child:
+                            Text('Error fetching reviews: ${state.errorMessage}'));
                   } else {
                     log('Loading state');
                     return Center(child: CircularProgressIndicator());

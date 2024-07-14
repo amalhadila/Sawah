@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sawah/auth/cach/cach_helper.dart';
-import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_all_governs_model.dart';
 import 'package:dio/dio.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
+
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
 
 class CitySelectionScreen extends StatefulWidget {
   @override
@@ -22,8 +23,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         'https://sawahonline.com/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -48,7 +48,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: const Text(
+        title:const Text(
           'Choose the city',
           style: Textstyle.textStyle21,
         ),
@@ -87,11 +87,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                         final city = governorates[index];
                         final isSelected = selectedCity == city;
                         return ListTile(
-                          title: Text(
-                            city,
-                            style: Textstyle.textStyle16
-                                .copyWith(color: neutralColor3),
-                          ),
+                          title: Text(city,
+                              style:Textstyle.textStyle16.copyWith(color:neutralColor3 ),),
                           trailing: isSelected
                               ? Icon(Icons.check, color: accentColor3)
                               : null,
@@ -113,7 +110,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
               child: ElevatedButton(
                 onPressed: selectedCity != null
                     ? () {
-                        print(selectedCity);
+                      print(selectedCity);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -130,9 +127,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: Text('Next',
-                    style: Textstyle.textStyle16
-                        .copyWith(color: kbackgroundcolor)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: kbackgroundcolor)),
               ),
             ),
           ],

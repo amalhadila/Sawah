@@ -44,7 +44,7 @@ class _ChatbotHomeState extends State<ChatbotHome> {
           children: [
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal:15.0),
                 child: TextField(
                   controller: _textController,
                   decoration: InputDecoration.collapsed(
@@ -89,14 +89,14 @@ class _ChatbotHomeState extends State<ChatbotHome> {
     for (var conversation in state.chatbotconversation) {
       if (conversation != null && conversation.history != null) {
         for (var message in conversation.history!) {
-          if (message != null &&
-              message.parts != null &&
-              message.parts!.isNotEmpty) {
+          if (message != null && message.parts != null && message.parts!.isNotEmpty) {
             var text = message.parts![0].text;
             if (text != null) {
-              messages.add(message.role == 'user'
+              messages.add(
+                message.role == 'user'
                   ? MyMessage(message: text)
-                  : OtherMessage(message: text));
+                  : OtherMessage(message: text)
+              );
             }
           }
         }
@@ -110,12 +110,11 @@ class _ChatbotHomeState extends State<ChatbotHome> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Sawah",
-          style: TextStyle(
-              color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
-        ),
-        leading: IconButton(
+        title: const Text("Sawah",style: TextStyle(
+                color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
+                
+          ),
+            leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
             color: kmaincolor,
@@ -123,20 +122,14 @@ class _ChatbotHomeState extends State<ChatbotHome> {
           ),
           onPressed: () {
             Navigator.pop(context);
-          },
-        ),
+          },),
         backgroundColor: kbackgroundcolor,
         actions: [
           IconButton(
-            icon: Icon(
-              FontAwesomeIcons.trash,
-              color: kmaincolor,
-            ),
-            onPressed: () async {
-              await BlocProvider.of<DeletechatbotCubit>(context)
-                  .deletechatbot();
-              BlocProvider.of<ChatbotmessageCubit>(context)
-                  .fetchChatbotMessages();
+            icon: Icon(FontAwesomeIcons.trash,color: kmaincolor,),
+            onPressed: () async{
+             await BlocProvider.of<DeletechatbotCubit>(context).deletechatbot();
+             BlocProvider.of<ChatbotmessageCubit>(context).fetchChatbotMessages();
             },
           ),
         ],
@@ -174,7 +167,7 @@ class _ChatbotHomeState extends State<ChatbotHome> {
             ),
             Divider(height: 1.0),
             Container(
-              decoration: BoxDecoration(color: ksecondcolor2),
+              decoration: BoxDecoration(color:ksecondcolor2),
               child: _buildTextComposer(),
             ),
           ],

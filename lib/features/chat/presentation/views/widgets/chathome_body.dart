@@ -21,7 +21,7 @@ class ChatHomeScreen extends StatefulWidget {
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
   TextEditingController emailCon = TextEditingController();
   final ValueNotifier<List<String>> _selectedRoomsNotifier =
-      ValueNotifier<List<String>>([]);
+  ValueNotifier<List<String>>([]);
 
   void _toggleSelection(String roomId) {
     List<String> selectedRooms = List.from(_selectedRoomsNotifier.value);
@@ -58,12 +58,12 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
             builder: (context, selectedRooms, child) {
               return selectedRooms.isNotEmpty
                   ? IconButton(
-                      onPressed: () async {
-                        await FireData().deleteRooms(selectedRooms);
-                        _selectedRoomsNotifier.value = [];
-                      },
-                      icon: const Icon(Iconsax.trash),
-                    )
+                onPressed: () async {
+                  await FireData().deleteRooms(selectedRooms);
+                  _selectedRoomsNotifier.value = [];
+                },
+                icon: const Icon(Iconsax.trash),
+              )
                   : Container();
             },
           ),
@@ -77,14 +77,13 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('rooms')
-                    .where('members',
-                        arrayContains: CacheHelper().getData(key: apikey.id))
+                    .where('members', arrayContains: CacheHelper().getData(key: apikey.id))
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<ChatRoom> chatrooms = snapshot.data!.docs
                         .map((e) =>
-                            ChatRoom.fromJson(e.data() as Map<String, dynamic>))
+                        ChatRoom.fromJson(e.data() as Map<String, dynamic>))
                         .toList()
                       ..sort((a, b) =>
                           b.lastMessageTime!.compareTo(a.lastMessageTime!));
@@ -93,8 +92,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       itemCount: chatrooms.length,
                       itemBuilder: (context, index) {
                         final chatroom = chatrooms[index];
-                        final isMe = chatroom.userid !=
-                            CacheHelper().getData(key: apikey.id);
+                        final isMe = chatroom.userid != CacheHelper().getData(key: apikey.id);
                         return GestureDetector(
                           onTap: () {
                             if (_selectedRoomsNotifier.value.isNotEmpty) {

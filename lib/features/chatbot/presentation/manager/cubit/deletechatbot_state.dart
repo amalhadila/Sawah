@@ -8,7 +8,6 @@ sealed class DeletechatbotState extends Equatable {
 }
 
 final class DeletechatbotInitial extends DeletechatbotState {}
-
 class DeletechatbotLoading extends DeletechatbotState {}
 
 class DeletechatbotFailure extends DeletechatbotState {

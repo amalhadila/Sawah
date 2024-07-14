@@ -11,9 +11,7 @@ class RespondingGuide {
 
   factory RespondingGuide.fromJson(Map<String, dynamic> json) {
     return RespondingGuide(
-      guide: json["guide"] != null
-          ? Guide.fromJson(json["guide"] as Map<String, dynamic>)
-          : null,
+      guide: json["guide"] != null ? Guide.fromJson(json["guide"] as Map<String, dynamic>) : null,
       price: json["price"] as int?,
       id: json["_id"] as String?,
     );
@@ -49,8 +47,7 @@ class Guide {
       name: json["name"] as String?,
       photo: json["photo"] as String?,
       kind: json["kind"] as String?,
-      rating:
-          json["rating"] != null ? (json["rating"] as num).toDouble() : null,
+      rating: json["rating"] != null ? (json["rating"] as num).toDouble() : null,
       ratingsQuantity: json["ratingsQuantity"] as int?,
     );
   }

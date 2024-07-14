@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sawah/auth/screens/sign_up_screen.dart';
 import 'package:sawah/constants.dart';
 
+import '../screens/choicesignupscrean.dart';
+
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({
     super.key,
@@ -29,7 +31,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SignUpScreen(),
+                  builder: (context) =>  SignupChoicePage(),
                 ),
               )
             },

@@ -21,12 +21,10 @@ class Infoview extends StatelessWidget {
         BlocProvider(
           create: (context) => MoreInfoCubit(),
         ),
-        BlocProvider(
+       BlocProvider(
           create: (context) =>
-              RecommendationCubit(CategoriesRepoImpl(ApiService(Dio())))
-                ..recommendation(
-                    landmarkId:
-                        (landmaroncatkmodel?.id ?? mostVisitedModel?.id)!),
+              RecommendationCubit(CategoriesRepoImpl(ApiService(Dio())))..recommendation(landmarkId: (landmaroncatkmodel?.id??mostVisitedModel?.id)!)
+                ,
         ),
       ],
       child: Scaffold(

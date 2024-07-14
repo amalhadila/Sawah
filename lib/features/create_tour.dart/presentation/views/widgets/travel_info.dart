@@ -54,8 +54,7 @@ class _TravelInfoState extends State<TravelInfo> {
         'https://sawahonline.com/api/v1/customizedTour',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
             'Content-Type': 'application/json'
           },
         ),
@@ -92,6 +91,7 @@ class _TravelInfoState extends State<TravelInfo> {
         title: Text(
           'Landmark name',
           style: Textstyle.textStyle21,
+            
         ),
         centerTitle: true,
         leading: IconButton(
@@ -117,9 +117,11 @@ class _TravelInfoState extends State<TravelInfo> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Enter the start and the end date ',
-                          style: Textstyle.textStyle18
-                              .copyWith(color: neutralColor3)),
+                       Text(
+                        'Enter the start and the end date ',
+                        style: 
+                        Textstyle.textStyle18.copyWith(color:neutralColor3)
+                      ),
                       const SizedBox(height: 16.0),
                       TableCalendar(
                         daysOfWeekHeight: 22,
@@ -180,9 +182,10 @@ class _TravelInfoState extends State<TravelInfo> {
                         },
                       ),
                       SizedBox(height: 30),
-                      Text('How many people will be on the tour?',
-                          style: Textstyle.textStyle18
-                              .copyWith(color: neutralColor3)),
+                      Text(
+                        'How many people will be on the tour?',
+                        style: Textstyle.textStyle18.copyWith(color:neutralColor3 )
+                      ),
                       SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -198,6 +201,7 @@ class _TravelInfoState extends State<TravelInfo> {
                                 color: groupSize == 1
                                     ? kbackgroundcolor
                                     : kmaincolor,
+                                
                               ),
                             ),
                             selected: groupSize == 1,
@@ -218,6 +222,7 @@ class _TravelInfoState extends State<TravelInfo> {
                                 color: groupSize == 2
                                     ? kbackgroundcolor
                                     : kmaincolor,
+                                
                               ),
                             ),
                             selected: groupSize == 2,
@@ -238,6 +243,7 @@ class _TravelInfoState extends State<TravelInfo> {
                                 color: groupSize == 3
                                     ? kbackgroundcolor
                                     : kmaincolor,
+                                
                               ),
                             ),
                             selected: groupSize == 3,
@@ -250,9 +256,10 @@ class _TravelInfoState extends State<TravelInfo> {
                         ],
                       ),
                       SizedBox(height: 27),
-                      Text('Comment for the guide',
-                          style: Textstyle.textStyle16
-                              .copyWith(color: neutralColor3)),
+                      Text(
+                        'Comment for the guide',
+                        style: Textstyle.textStyle16.copyWith(color:neutralColor3 )
+                      ),
                       SizedBox(height: 10),
                       TextField(
                         controller: commentController,
@@ -322,8 +329,10 @@ class _TravelInfoState extends State<TravelInfo> {
                   backgroundColor: kmaincolor,
                   minimumSize: const Size.fromHeight(48),
                 ),
-                child: Text('Next',
-                    style: Textstyle.textStyle16.copyWith(color: Colors.white)),
+                child:  Text(
+                  'Next',
+                  style: Textstyle.textStyle16.copyWith( color: Colors.white)
+                ),
               ),
             ),
           ],

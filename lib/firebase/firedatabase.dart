@@ -13,11 +13,9 @@ import 'package:sawah/features/chat/presentation/models/romemodel.dart';
 class FireData {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<String> creatRoom(
-      String userId, String usrname, String userphoto) async {
+  Future<String> creatRoom(String userId, String usrname,String userphoto) async {
     // createUser( token);
-    List<String> members = [CacheHelper().getData(key: apikey.id), userId]
-      ..sort((a, b) => a.compareTo(b));
+    List<String> members = [CacheHelper().getData(key: apikey.id), userId]..sort((a, b) => a.compareTo(b));
     QuerySnapshot roomExist = await firestore
         .collection('rooms')
         .where('members', arrayContains: members)
@@ -26,9 +24,9 @@ class FireData {
     if (roomExist.docs.isEmpty) {
       ChatRoom chatroom = ChatRoom(
         userid: userId,
-        userphoto: userphoto,
+        userphoto:userphoto,
         name: usrname,
-        myname: CacheHelper().getData(key: apikey.name),
+        myname: CacheHelper().getData(key:apikey.name ),
         id: roomId,
         createdAt: DateTime.now(),
         lastMessage: "",
@@ -70,11 +68,8 @@ class FireData {
   }
 
   Future<void> deleteUser() async {
-    await firestore
-        .collection('User')
-        .doc(CacheHelper().getData(key: apikey.id).toString())
-        .delete();
-  }
+  await firestore.collection('User').doc(CacheHelper().getData(key: apikey.id).toString()).delete();
+}
 
   Future<String?> getPushToken(String userId) async {
     try {
@@ -230,8 +225,7 @@ class FireData {
     List<String> members = List<String>.from(roomData['members']);
 
     // Determine the correct toId
-    String toId = members.firstWhere(
-        (member) => member != CacheHelper().getData(key: apikey.id));
+    String toId = members.firstWhere((member) => member != CacheHelper().getData(key: apikey.id));
 
     final message = Message(
       toId: toId,

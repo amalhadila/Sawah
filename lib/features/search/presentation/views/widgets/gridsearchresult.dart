@@ -8,8 +8,6 @@ import 'package:sawah/features/search/presentation/manager/searh_cubit_state.dar
 
 class SearchResultGrid extends StatelessWidget {
   const SearchResultGrid({super.key});
-class SearchResultGrid extends StatelessWidget {
-  const SearchResultGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +33,14 @@ class SearchResultGrid extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, x) {
               final landmark = state.landmark[x];
-              final imageCover = landmark.images![0]! ??
-                  'https://example.com/default_image.png'; // Provide a default image URL
+              final imageCover = landmark.images![0]! ?? 'https://example.com/default_image.png'; // Provide a default image URL
               final name = landmark.name ?? 'Unknown'; // Provide a default name
 
               return CustomCard(
                 imglink: imageCover,
                 text: name,
-                onTap: () =>
-                    GoRouter.of(context).push('/Information', extra: landmark),
+                onTap: () => GoRouter.of(context)
+                    .push('/Information', extra: landmark),
               );
             },
           );

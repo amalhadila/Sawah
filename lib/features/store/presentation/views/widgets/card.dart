@@ -44,6 +44,8 @@ class _productCardState extends State<productCard> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+
+
     return GestureDetector(
       onTap: widget.ontap,
       child: Stack(
@@ -81,23 +83,23 @@ class _productCardState extends State<productCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.imglink,
-                              width: screenWidth * .38,
-                              height: screenHeight * .16,
-                              fit: BoxFit.fill,
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: screenWidth * .38,
-                                  height: screenHeight * .16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            ),
+                            child:
+                                CachedNetworkImage(
+      imageUrl:  widget.imglink,
+      width: screenWidth * .38,
+      height:  screenHeight * .16,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: screenWidth * .38,
+          height:  screenHeight * .16,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    ),
+                            
                           ),
                           Positioned(
                             top: 5,
@@ -134,12 +136,12 @@ class _productCardState extends State<productCard> {
                         children: [
                           Container(
                             width: screenWidth * 0.43,
-                            child: Text(widget.text,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: Textstyle.textStyle15.copyWith(
-                                    color: neutralColor3,
-                                    fontWeight: FontWeight.w800)),
+                            child: Text(
+                              widget.text,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: Textstyle.textStyle15.copyWith(color: neutralColor3,fontWeight: FontWeight.w800)
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Container(
@@ -155,12 +157,13 @@ class _productCardState extends State<productCard> {
                                   SizedBox(
                                     width: 4,
                                   ),
-                                  Text(widget.address1!.address!,
-                                      style: Textstyle.textStyle14.copyWith(
-                                          color: neutralColor3,
-                                          fontWeight: FontWeight.w700)),
+                                  Text(
+                                    widget.address1!.address!,
+                                    style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
+                                  ),
                                 ],
                               ),
+                              
                             ]),
                           ),
                           const SizedBox(height: 9),
@@ -170,10 +173,9 @@ class _productCardState extends State<productCard> {
                               Container(
                                 width: 90,
                                 child: Text(
-                                    r'price $' '${widget.price.toString()}',
-                                    style: Textstyle.textStyle14.copyWith(
-                                        color: neutralColor3,
-                                        fontWeight: FontWeight.w700)),
+                                  r'price $' '${widget.price.toString()}',
+                                  style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
+                                ),
                               ),
                               SizedBox(width: 33),
                               Row(
@@ -188,10 +190,10 @@ class _productCardState extends State<productCard> {
                                   const SizedBox(
                                     width: 6.3,
                                   ),
-                                  Text(widget.rating.toString(),
-                                      style: Textstyle.textStyle14.copyWith(
-                                          color: neutralColor3,
-                                          fontWeight: FontWeight.w700)),
+                                  Text(
+                                    widget.rating.toString(),
+                                    style: Textstyle.textStyle14.copyWith(color: neutralColor3,fontWeight: FontWeight.w700)
+                                  ),
                                 ],
                               ),
                             ],

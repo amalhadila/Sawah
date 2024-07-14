@@ -12,9 +12,7 @@ import 'package:sawah/auth/models/user_model.dart';
 import 'package:sawah/auth/models/userdatamodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../models/reset_password_mode.dart';
-import '../models/signupguidemodel.dart';
-
+import '../../constants.dart';
 import '../models/reset_password_mode.dart';
 import '../models/signupguidemodel.dart';
 
@@ -38,12 +36,16 @@ class UserRepository {
       final user = SignInModel.fromJson(response);
       final decodedToken = JwtDecoder.decode(user.token);
       log(decodedToken['id']);
-      await CacheHelper().saveData(key: apikey.token, value: user.token);
-      await CacheHelper().saveData(key: apikey.id, value: user.id);
-      await CacheHelper().saveData(key: apikey.name, value: user.name);
-      await CacheHelper().saveData(key: apikey.role, value: user.role);
-      print(
-          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd ${CacheHelper().getData(key: apikey.id)}');
+      CacheHelper().saveData(key: apikey.token, value: user.token);
+      print(apikey.token);
+      log('tokem');
+      CacheHelper().saveData(key: apikey.id, value: user.id);
+      print(user.id);
+      log('id');
+      log('rrrrrrrrrr');
+      CacheHelper().saveData(key: apikey.name, value: user.name);
+      CacheHelper().saveData(key: apikey.role, value: user.role);
+      CacheHelper().saveData(key: apikey.emailverify, value: user.emailverfy);
       return Right(user);
     } on Failure catch (e) {
       return Left(e.toString());
@@ -73,30 +75,47 @@ class UserRepository {
     }
   }
 
-  Future<Either<String, SignUpGuideModel>> signUpguide({
-    required String password,
-    required String name,
-    required String confirmPassword,
-    required String email,
-    required String role, // Make sure role is required
-  }) async {
-    try {
-      final response = await diocosumer.post(
-        endPoint.signup,
-        data: {
-          apikey.name: name,
-          apikey.password: password,
-          apikey.confrimpassword: confirmPassword,
-          apikey.email: email,
-          'role': role, // Ensure role is provided
-        },
-      );
-      final signUPModel = SignUpGuideModel.fromJson(response.data);
-      return Right(signUPModel);
-    } on Failure catch (e) {
-      return Left(e.toString());
+Future<Either<String, SignUpGuideModel>> signUpguide({
+  required String password,
+  required String name,
+  required String confirmPassword,
+  required String email,
+  required String role,
+}) async {
+  try {
+    final response = await diocosumer.post(
+      endPoint.signup,
+      data: {
+        apikey.name: name,
+        apikey.password: password,
+        apikey.confrimpassword: confirmPassword,
+        apikey.email: email,
+        'role': role,
+      },
+    );
+
+    // Print the response data to understand its structure
+    print('Response data: ${response.data}');
+
+    // Check and parse the response data
+    if (response.data is Map<String, dynamic>) {
+      final data = response.data as Map<String, dynamic>;
+
+      if (data['status'] == 'success' && data['data'] != null && data['data']['user'] != null) {
+        final signUPModel = SignUpGuideModel.fromJson(data['data']['user']);
+        return Right(signUPModel);
+      } else {
+        return Left("Unexpected response structure or missing data");
+      }
+    } else {
+      return Left("Response data is not a valid JSON");
     }
+  } on Failure catch (e) {
+    return Left(e.toString());
+  } catch (e) {
+    return Left("An unexpected error occurred: ${e.toString()}");
   }
+}
 
   Future<Either<String, userdatamodel>> getUser() async {
     try {

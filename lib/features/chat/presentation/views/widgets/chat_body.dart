@@ -12,11 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen(
-      {super.key,
-      required this.roomid,
-      required this.name,
-      required this.photo});
+  ChatScreen({super.key, required this.roomid, required this.name,required this.photo});
   String roomid;
   String name;
   String photo;
@@ -87,78 +83,75 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65),
-        child: Material(
-          color: kbackgroundcolor,
-          elevation: 2.5,
-          shadowColor: shadow,
-          child: AppBar(
-            elevation: 0,
-            foregroundColor: kbackgroundcolor,
-            shadowColor: shadow,
-            backgroundColor: kbackgroundcolor,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.name,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: kmaincolor,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-            leading: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: kmaincolor,
-                    size: 22,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(widget.photo),
-                  radius: 22, // Adjust the radius to fit better
-                ),
-              ],
-            ),
-            leadingWidth:
-                100, // Adjust the width to ensure enough space for the leading widget
-
-            actions: [
-              ValueListenableBuilder<List<String>>(
-                valueListenable: _selectedMessagesNotifier,
-                builder: (context, selectedMessages, child) {
-                  return selectedMessages.isNotEmpty
-                      ? IconButton(
-                          onPressed: () async {
-                            await FireData().deleteMessages(
-                                widget.roomid, selectedMessages);
-                            _selectedMessagesNotifier.value = [];
-                          },
-                          icon: const Icon(
-                            Iconsax.trash,
-                            color: kmaincolor,
-                          ),
-                        )
-                      : Container();
-                },
-              ),
-            ],
+      appBar:PreferredSize(
+  preferredSize: Size.fromHeight(65),
+  child: Material(
+    color: kbackgroundcolor,
+    elevation: 2.5,
+    shadowColor: shadow,
+    child:AppBar(
+  elevation: 0,
+  foregroundColor: kbackgroundcolor,
+  shadowColor: shadow,
+  backgroundColor: kbackgroundcolor,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Expanded(
+        child: Text(
+          widget.name,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: kmaincolor,
           ),
+          overflow: TextOverflow.ellipsis,
         ),
       ),
+    ],
+  ),
+  leading: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: kmaincolor,
+          size: 22,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      CircleAvatar(
+        backgroundImage: NetworkImage(widget.photo),
+        radius: 22, // Adjust the radius to fit better
+      ),
+    ],
+  ),
+  leadingWidth: 100, // Adjust the width to ensure enough space for the leading widget
+
+        actions: [
+          ValueListenableBuilder<List<String>>(
+            valueListenable: _selectedMessagesNotifier,
+            builder: (context, selectedMessages, child) {
+              return selectedMessages.isNotEmpty
+                  ? IconButton(
+                      onPressed: () async {
+                        await FireData()
+                            .deleteMessages(widget.roomid, selectedMessages);
+                        _selectedMessagesNotifier.value = [];
+                      },
+                      icon: const Icon(Iconsax.trash,color: kmaincolor,),
+                    )
+                  : Container();
+            },
+          ),
+        ],
+      ),
+  ),
+),
+ 
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
         child: Column(
@@ -190,8 +183,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[index];
-                      final isMe = message.fromId ==
-                          CacheHelper().getData(key: apikey.id);
+                      final isMe = message.fromId == CacheHelper().getData(key: apikey.id);
 
                       return GestureDetector(
                         onTap: () {
@@ -240,12 +232,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                                onPressed: _pickImage,
-                                icon: const Icon(
-                                  Iconsax.camera5,
-                                  size: 30,
-                                  color: kmaincolor,
-                                )),
+                              onPressed: _pickImage,
+                              icon: const Icon(Iconsax.camera5,size: 30,color: kmaincolor,)
+                            ),
                           ],
                         ),
                         border: InputBorder.none,
@@ -260,10 +249,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 IconButton(
                   onPressed: _sendMessage,
-                  icon: const Icon(
-                    Icons.send_rounded,
-                    color: kmaincolor,
-                  ),
+                  icon: const Icon(Icons.send_rounded,color: kmaincolor,),
                 ),
               ],
             ),

@@ -7,8 +7,7 @@ class GetMyRequestTourByIdModel {
     required this.data,
   });
 
-  factory GetMyRequestTourByIdModel.fromJson(Map<String, dynamic> json) =>
-      GetMyRequestTourByIdModel(
+  factory GetMyRequestTourByIdModel.fromJson(Map<String, dynamic> json) => GetMyRequestTourByIdModel(
         status: json["status"],
         data: Data.fromJson(json["data"]),
       );
@@ -76,19 +75,16 @@ class Request {
         id: json["_id"],
         user: User.fromJson(json["user"]),
         governorate: json["governorate"],
-        spokenLanguages:
-            List<String>.from(json["spokenLanguages"].map((x) => x)),
+        spokenLanguages: List<String>.from(json["spokenLanguages"].map((x) => x)),
         groupSize: json["groupSize"],
-        landmarks: List<Landmark>.from(
-            json["landmarks"].map((x) => Landmark.fromJson(x))),
+        landmarks: List<Landmark>.from(json["landmarks"].map((x) => Landmark.fromJson(x))),
         startDate: DateTime.parse(json["startDate"]),
         endDate: DateTime.parse(json["endDate"]),
         commentForGuide: json["commentForGuide"],
         status: json["status"],
         paymentStatus: json["paymentStatus"],
         sentRequests: List<dynamic>.from(json["sentRequests"].map((x) => x)),
-        respondingGuides:
-            List<dynamic>.from(json["respondingGuides"].map((x) => x)),
+        respondingGuides: List<dynamic>.from(json["respondingGuides"].map((x) => x)),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],

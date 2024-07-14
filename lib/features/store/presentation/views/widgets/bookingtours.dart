@@ -103,13 +103,13 @@ class _BookingtoursState extends State<Bookingtours> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 7,
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
                                     child: CachedNetworkImage(
-                                      imageUrl: state.booking_list[0].images?[0] ??'',
+                                      imageUrl: state.booking_list[index].images?[0] ??'',
                                       width: MediaQuery.sizeOf(context).width *
                                           .332,
                                       height:
@@ -143,7 +143,7 @@ class _BookingtoursState extends State<Bookingtours> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(state.booking_list[0].name?? '',
+                                          Text(state.booking_list[index].name?? '',
                                               textAlign: TextAlign.start,
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
@@ -152,7 +152,7 @@ class _BookingtoursState extends State<Bookingtours> {
                                                   .copyWith(
                                                 color: neutralColor3,
                                               )),
-                                               SizedBox(
+                                               const SizedBox(
                                             height: 3,
                                           ),
                                               Text('groupSize ${booking.groupSize ?? 0}',
@@ -161,7 +161,7 @@ class _BookingtoursState extends State<Bookingtours> {
                                                       color: neutralColor3,
                                                       fontWeight:
                                                           FontWeight.w600)),
-                                                           SizedBox(
+                                                           const SizedBox(
                                             height: 3,
                                           ),
                                               Text('Date ${DateFormat('yyyy-MM-dd').format(booking.tourDate) ?? 0}',
@@ -170,7 +170,7 @@ class _BookingtoursState extends State<Bookingtours> {
                                                       color: neutralColor3,
                                                       fontWeight:
                                                           FontWeight.w600)),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 3,
                                           ),
                                           Text('price  \$${booking.price ?? 0}',
@@ -201,7 +201,7 @@ class _BookingtoursState extends State<Bookingtours> {
                     statusBarHeight,
                 child: const Center(
                   child: Text(
-                    'The wishlist is empty',
+                    'No Tours Here',
                     style: TextStyle(color: kmaincolor),
                   ),
                 ),

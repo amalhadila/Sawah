@@ -8,7 +8,6 @@ sealed class SendmesageState extends Equatable {
 }
 
 final class SendmesageInitial extends SendmesageState {}
-
 class SendmesageLoading extends SendmesageState {}
 
 class SendmesageFailure extends SendmesageState {

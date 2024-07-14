@@ -8,7 +8,6 @@ sealed class RecommendationState extends Equatable {
 }
 
 final class RecommendationInitial extends RecommendationState {}
-
 class RecommendationLoading extends RecommendationState {}
 
 class RecommendationFailure extends RecommendationState {

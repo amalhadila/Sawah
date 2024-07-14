@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawah/constants.dart';
 
+import '../../auth/cach/cach_helper.dart';
+import '../../auth/core_login/api/end_point.dart';
+
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double drawerHeight = MediaQuery.of(context).size.height;
     double headerHeight = drawerHeight * 0.34;
-
+    final role = CacheHelper().getData(key: apikey.role);
     return Drawer(
       child: ListView(
         dragStartBehavior: DragStartBehavior.start,
@@ -33,7 +36,13 @@ class CustomDrawer extends StatelessWidget {
                   bottom: 10,
                   left: 16,
                   child: GestureDetector(
-                    onTap: () => GoRouter.of(context).push('/profilesrean'),
+                    onTap: () {
+                      if (role == 'user') {
+                        GoRouter.of(context).push('/profilesrean');
+                      } else {
+                        GoRouter.of(context).push('/profileguide');
+                      }
+                    },
                     child: CircleAvatar(
                       radius: 45,
                       backgroundColor: Colors.white,

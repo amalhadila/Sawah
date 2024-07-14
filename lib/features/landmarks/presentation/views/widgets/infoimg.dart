@@ -18,20 +18,21 @@ class infoimg extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .38,
       child: CarouselSlider(
           items: imageslink!.map((image) {
-            return CachedNetworkImage(
-              imageUrl: image,
-              width: double.infinity,
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  width: double.infinity,
-                  color: Colors.white,
-                ),
-              ),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            );
+            return 
+            CachedNetworkImage(
+      imageUrl: image ,
+      width: double.infinity,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: double.infinity,
+          color: Colors.white,
+        ),
+      ),errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+       
           }).toList(),
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height,

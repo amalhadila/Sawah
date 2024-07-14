@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
               .showSnackBar(const SnackBar(content: Text('success')));
         } else if (state is SignUpFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Incorrect email or password')));
+              SnackBar(content: Text('fail')));
         }
       },
       builder: (context, state) {

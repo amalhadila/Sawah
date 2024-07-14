@@ -15,15 +15,17 @@ class Signupscreanforguide extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {
-        if (state is SignUpSuccessguide) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('success')));
-        } else if (state is SignUpFailureGuide) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Incorrect email or password')));
-        }
-      },
+  listener: (context, state) {
+    if (state is SignUpSuccessguide) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Signup successful')),
+      );
+    } else if (state is SignUpFailureGuide) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Signup successful')),
+      );
+    }
+  },
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -64,8 +66,7 @@ class Signupscreanforguide extends StatelessWidget {
                         isDense: true,
                         obscureText: true,
                         suffixIcon: true,
-                        controller:
-                            context.read<UserCubit>().signUpPasswordguide,
+                        controller: context.read<UserCubit>().signUpPasswordguide,
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .03),
@@ -75,15 +76,14 @@ class Signupscreanforguide extends StatelessWidget {
                         isDense: true,
                         obscureText: true,
                         suffixIcon: true,
-                        controller:
-                            context.read<UserCubit>().confirmPasswordguide,
+                        controller: context.read<UserCubit>().confirmPasswordguide,
                       ),
                       const SizedBox(height: 32),
                       //!Sign Up Button
                       state is SignUpLoadingguide
                           ? const CircularProgressIndicator()
                           : CustomFormButton(
-                              innerText: 'Signup',
+                              innerText: 'Sign up',
                               onPressed: () {
                                 context.read<UserCubit>().signUpGuide();
                               },

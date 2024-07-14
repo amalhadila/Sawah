@@ -27,7 +27,7 @@ class Storeviewbody extends StatelessWidget {
                         .fetchcartitems();
                     GoRouter.of(context).push('/CartScreen');
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.shopping_cart_outlined,
                     color: kmaincolor,
                     size: 28,
@@ -40,7 +40,7 @@ class Storeviewbody extends StatelessWidget {
                         .fetchwishlist();
                     GoRouter.of(context).push('/Wishlist');
                   },
-                  child: Icon(
+                  child: const Icon(
                     FontAwesomeIcons.heart,
                     color: kmaincolor,
                   ),
@@ -60,20 +60,20 @@ class Storeviewbody extends StatelessWidget {
               child: Container(
                 height: 45,
                 width: 220,
-                margin: EdgeInsets.only(top: 4),
+                margin: const EdgeInsets.only(top: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.search,
                             size: 20,
                             color: ksecondcolor,
                           ),
                           hintText: "Search",
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontSize: 14,
                             color: ksecondcolor,
                           ),
@@ -101,7 +101,7 @@ class Storeviewbody extends StatelessWidget {
           ],
         ),
       ),
-      body: store_product(),
+      body: const store_product(),
     );
   }
 }

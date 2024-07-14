@@ -52,6 +52,23 @@ class _DetectedLandMarkViewState extends State<DetectedLandMarkView> {
                 child:
                     Text(widget.landMarkDetectionModel.data.gemini.description),
               ),
+               SizedBox(
+                height: 20,
+              ),
+               Padding(
+                padding: const EdgeInsets.all(10.0),
+                child:
+                    Text(widget.landMarkDetectionModel.data.result.first.label!,
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: kmaincolor),),
+              ),
+        //    widget.landMarkDetectionModel.data.result.isEmpty?
+        // Text('Landmark Detection'):Text('nulllllllllllllllllllll')
+        
+       
+   
             ],
           ),
         ),

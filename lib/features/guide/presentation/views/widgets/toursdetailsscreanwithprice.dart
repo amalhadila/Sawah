@@ -13,18 +13,18 @@ import 'package:sawah/features/create_tour.dart/presentation/model/get_custom_to
 
 import '../../../../../auth/core_login/api/end_point.dart';
 
-class TourDetailsScreen extends StatefulWidget {
+class tourdetailswithoutprice extends StatefulWidget {
   final String tourId; // Define a tourId property
 
-  TourDetailsScreen({
+  tourdetailswithoutprice({
     required this.tourId, // Constructor to receive tourId
   });
 
   @override
-  _TourDetailsScreenState createState() => _TourDetailsScreenState();
+  _tourdetailswithoutpriceState createState() => _tourdetailswithoutpriceState();
 }
 
-class _TourDetailsScreenState extends State<TourDetailsScreen> {
+class _tourdetailswithoutpriceState extends State<tourdetailswithoutprice> {
   late Future<GetCustomTourByIdModel> _futureTourDetails;
 
   @override
@@ -206,30 +206,7 @@ class _TourDetailsScreenState extends State<TourDetailsScreen> {
                       ),
                     ),
                     SizedBox(height: screenWidth * 0.08),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SendPriceScreen( tourId: widget.tourId??'')),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: kmaincolor,
-                          padding: EdgeInsets.symmetric(
-                              vertical: screenWidth * 0.04), // Adjust the vertical padding to make the button smaller
-                        ),
-                        child: Text(
-                          'Send Price',
-                          style: TextStyle(
-                              fontSize: screenWidth * 0.04,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ]
                 ),
               ),
             );

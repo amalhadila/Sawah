@@ -28,9 +28,7 @@ class LocationWidget extends StatelessWidget {
                   softWrap: true,
                 ),
               ),
-              SizedBox(
-                width: 60,
-              ),
+              const SizedBox(width: 60,),
               Row(
                 children: [
                   const Icon(

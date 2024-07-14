@@ -26,7 +26,7 @@ class _CustomFieldState extends State<CustomField> {
       child: TextFormField(
         validator: (value) => value!.isEmpty ? "Requird" : null,
         controller: widget.controller,
-        decoration: InputDecoration(
+        decoration: InputDecoration(         
           contentPadding: const EdgeInsets.all(12),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

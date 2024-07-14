@@ -4,7 +4,7 @@ import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_all_landmarks_by_govern_model.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shimmer/shimmer.dart'; 
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -45,9 +45,6 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     destinationController.text = 'Paris'; // Set initial value
     peopleController.text = '5-10'; // Set initial value
     selectedDate = widget.startDate; // Set selected date from widget.startDate
-    destinationController.text = 'Paris'; // Set initial value
-    peopleController.text = '5-10'; // Set initial value
-    selectedDate = widget.startDate; // Set selected date from widget.startDate
   }
 
   @override
@@ -57,10 +54,10 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Let's check the details"),
-        title: Text("Let's check the details"),
         backgroundColor: kbackgroundcolor,
       ),
-      body: SingleChildScrollView(
+      body: 
+      SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.04),
           child: Column(
@@ -76,13 +73,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                       style: TextStyle(
                           fontSize: screenWidth * 0.05,
                           fontWeight: FontWeight.bold),
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.05,
-                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: screenWidth * 0.02),
                     GestureDetector(
-                      onTap: () {},
                       onTap: () {},
                       child: Row(
                         children: [
@@ -104,6 +97,12 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             ],
                           ),
                           Spacer(),
+                          // Text(
+                          //   'Edit',
+                          //   style: TextStyle(
+                          //       color: Colors.blue,
+                          //       fontSize: screenWidth * 0.04),
+                          // ),
                         ],
                       ),
                     ),
@@ -114,9 +113,9 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
               _buildCard(
                 context,
                 'Your landmarks',
-                'Your landmarks',
                 Row(
                   children: [
+                  
                     SizedBox(width: screenWidth * 0.04),
                     Expanded(
                       child: Text(
@@ -124,11 +123,15 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             ? widget.selectedLandmarks.first.name
                             : '',
                         style: TextStyle(fontSize: screenWidth * 0.04),
-                        style: TextStyle(fontSize: screenWidth * 0.04),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Spacer(),
+                    // Text(
+                    //   'Edit',
+                    //   style: TextStyle(
+                    //       color: Colors.blue, fontSize: screenWidth * 0.04),
+                    // ),
                   ],
                 ),
               ),
@@ -147,7 +150,6 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             : '',
                         screenWidth),
                     SizedBox(height: screenWidth * 0.02),
-                    Text('How many people will be on the tour?'),
                     Text('How many people will be on the tour?'),
                     _buildRowWithEdit(
                         context,
@@ -174,22 +176,7 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor,
                     padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kmaincolor,
-                    padding: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
                   ),
-                  child: Text('create',
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.04, color: Colors.white)),
                   child: Text('create',
                       style: TextStyle(
                           fontSize: screenWidth * 0.04, color: Colors.white)),
@@ -231,12 +218,13 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
     return Row(
       children: [
         Text(title, style: TextStyle(fontSize: screenWidth * 0.04)),
-        SizedBox(width: screenWidth * 0.035),
+       SizedBox(width: screenWidth * 0.035),
         Text(
           value,
           style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.black54),
         ),
         SizedBox(width: screenWidth * 0.01),
+       
       ],
     );
   }

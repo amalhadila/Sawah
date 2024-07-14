@@ -93,7 +93,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         backgroundColor: kbackgroundcolor,
         title: Text(
           widget.selectedGovernorate,
-          style: Textstyle.textStyle21,
+          style:  Textstyle.textStyle21,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -111,10 +111,12 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            Padding(
+             Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text('Which languages should the guide speak?',
-                  style: Textstyle.textStyle20.copyWith(color: neutralColor3)),
+              child: Text(
+                'Which languages should the guide speak?',
+                style: Textstyle.textStyle20.copyWith(color: neutralColor3)
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -124,11 +126,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   final isSelected = selectedLanguages.contains(language.name);
                   return ListTile(
                     title: Text(language.name,
-                        style: Textstyle.textStyle16
-                            .copyWith(color: neutralColor3)),
-                    subtitle: Text(language.nativeName,
-                        style: Textstyle.textStyle13.copyWith(
-                            color: neutralColor3, fontWeight: FontWeight.w400)),
+                        style: Textstyle.textStyle16.copyWith(color: neutralColor3)),
+                    subtitle: Text(language.nativeName,style: Textstyle.textStyle13.copyWith(color: neutralColor3,fontWeight: FontWeight.w400)),
                     trailing: isSelected
                         ? Icon(Icons.check, color: accentColor3)
                         : null,
@@ -172,8 +171,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   backgroundColor: kmaincolor,
                   minimumSize: Size.fromHeight(48),
                 ),
-                child: Text('Next',
-                    style: Textstyle.textStyle16.copyWith(color: Colors.white)),
+                child:  Text('Next',
+                    style: Textstyle.textStyle16.copyWith( color: Colors.white)),
               ),
             ),
           ],

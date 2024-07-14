@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sawah/auth/cach/cach_helper.dart';
-import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/core/utils/api_service.dart';
+import '../../auth/cach/cach_helper.dart';
+import '../../auth/core_login/api/end_point.dart';
 import '../../constants.dart';
 import '../store/data/usercart/payment_response.dart';
 import '../store/presentation/views/widgets/payment_web_view.dart';
@@ -431,8 +431,7 @@ class GuideRequests {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization':
-                'Bearer ${CacheHelper().getData(key: apikey.token)}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
         'http://192.168.1.4:8000/api/v1/bookings/custom-checkout-session/:$tourId',

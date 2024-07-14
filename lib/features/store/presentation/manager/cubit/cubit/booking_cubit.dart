@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sawah/features/landmarks/presentation/views/widgets/landmark_grid.dart';
-import 'package:sawah/features/store/data/booking/booking.dart';
-import 'package:sawah/features/store/data/booking/tour.dart';
+
 import 'package:sawah/features/store/data/repo/pro_cat_repo.dart';
 import 'package:sawah/features/store/data/usercart/tour.dart';
+
+import '../../../../data/booking/booking/tour.dart';
 
 part 'booking_state.dart';
 

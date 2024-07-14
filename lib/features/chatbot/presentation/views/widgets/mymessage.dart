@@ -18,10 +18,7 @@ class MyMessage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text("Me",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade700)),
+                Text("Me", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   padding: const EdgeInsets.all(10.0),
@@ -29,9 +26,7 @@ class MyMessage extends StatelessWidget {
                     color: const Color.fromARGB(78, 133, 205, 201),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Text(message,
-                      style: Textstyle.textStyle14.copyWith(
-                          color: neutralColor3, fontWeight: FontWeight.w400)),
+                  child: Text(message,style:Textstyle.textStyle14.copyWith(color:neutralColor3,fontWeight: FontWeight.w400 )),
                 ),
               ],
             ),

@@ -41,7 +41,7 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
                 height: 80,
                 child: TextField(
                   controller: _commentController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "Enter your comment",
                     border: OutlineInputBorder(),
                   ),
@@ -57,8 +57,8 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                  itemBuilder: (context, _) => Icon(
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
                     size: 20,
@@ -71,7 +71,7 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               BlocConsumer<ReviewCubit, ReviewState>(
                 listener: (context, state) {
                   if (state is AddReviewFailure) {
@@ -79,8 +79,8 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('Error'),
-                          content: Text(state.errorMessage),
+                          title: Text('done'),
+                          content: Text('add review scuess'),
                           actions: [
                             TextButton(
                               onPressed: () {

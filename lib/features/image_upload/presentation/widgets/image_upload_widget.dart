@@ -9,15 +9,19 @@ import '../pages/process_selected_image_page.dart';
 
 class ImageUploadWidget extends StatefulWidget {
   final ImageUploadSource source;
+  
   const ImageUploadWidget({super.key, required this.source});
 
   @override
+  
   State<ImageUploadWidget> createState() => _ImageUploadWidgetState();
 }
 
 class _ImageUploadWidgetState extends State<ImageUploadWidget> {
   final ImagePicker _picker = ImagePicker();
   XFile? _selectedImage;
+    Position? _currentPosition;
+
   Future<void> pickImage(BuildContext context) async {
     _selectedImage = await _picker.pickImage(
         source: widget.source == ImageUploadSource.camera
@@ -25,12 +29,13 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
             : ImageSource.gallery);
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) =>
-            ProcessImagePage(selectedImage: _selectedImage!)));
+            ProcessImagePage(selectedImage: _selectedImage!,currentPosition: _currentPosition,)));
   }
 
   Future<Position> _determinePosition() async {
     try {
       bool serviceEnabled;
+
       LocationPermission permission;
 
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -84,6 +89,11 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
         GestureDetector(
           onTap: () async {
             await _determinePosition().then((value) async {
+              setState(() {
+                _currentPosition = value;
+                print(_currentPosition?.latitude.toString());
+                print(_currentPosition?.longitude.toString());
+              });
               await pickImage(context);
             });
           },
@@ -120,3 +130,4 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
     );
   }
 }
+

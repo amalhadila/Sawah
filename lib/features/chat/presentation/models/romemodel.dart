@@ -26,7 +26,7 @@ class ChatRoom {
   factory ChatRoom.fromJson(Map<String, dynamic> json) {
     return ChatRoom(
       id: json['id'] ?? "",
-      userphoto: json['userphoto'] ?? "",
+      userphoto:json['userphoto'] ?? "",
       name: json['name'] ?? "",
       myname: json['myname'] ?? "",
       userid: json['userid'] ?? "",
@@ -47,7 +47,7 @@ class ChatRoom {
     return {
       'id': id,
       'name': name,
-      'userphoto': userphoto,
+      'userphoto':userphoto,
       'myname': myname,
       'userid': userid,
       // 'pushtoken':pushtoken,

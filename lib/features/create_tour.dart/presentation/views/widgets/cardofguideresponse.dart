@@ -5,12 +5,12 @@ class GuideCardrespond extends StatelessWidget {
   final String imageUrl;
   final String username;
   final String price;
-
+  
   const GuideCardrespond({
     Key? key,
     required this.imageUrl,
     required this.username,
-    required this.price,
+    required this.price, 
   }) : super(key: key);
 
   @override
@@ -44,20 +44,16 @@ class GuideCardrespond extends StatelessWidget {
                   SizedBox(width: 10),
                   Text(
                     username,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kmaincolor),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: kmaincolor),
                   ),
                 ],
               ),
               SizedBox(height: 10), // Adjusted height
               Text(
                 'Price: \$$price',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kmaincolor,
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, color: kmaincolor, fontSize: 18),
               ),
-              // Adds space to push the button to the bottom
+            // Adds space to push the button to the bottom
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(

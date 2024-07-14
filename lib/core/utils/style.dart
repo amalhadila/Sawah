@@ -9,7 +9,7 @@ abstract class Textstyle {
     height: 1.25,
     letterSpacing: 0,
   );
-  static const textStyle12 = TextStyle(
+   static const textStyle12 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: FontWeight.w700,
@@ -23,14 +23,14 @@ abstract class Textstyle {
     height: 1.2632,
     letterSpacing: 0,
   );
-  static const textStyle18 = TextStyle(
+   static const textStyle18 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18,
     fontWeight: FontWeight.w700,
     height: 1.2632,
     letterSpacing: 0,
   );
-  static const textStyle14 = TextStyle(
+    static const textStyle14 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -41,8 +41,8 @@ abstract class Textstyle {
     fontFamily: 'Inter',
     fontSize: 15,
     fontWeight: FontWeight.w500,
-    // height: 1.2632,
-    // letterSpacing: .2,
+   // height: 1.2632,
+   // letterSpacing: .2,
   );
   static const textStyle25 = TextStyle(
     color: Colors.white,
@@ -50,13 +50,13 @@ abstract class Textstyle {
     fontWeight: FontWeight.w700,
     fontFamily: 'Inter',
   );
-  static const textStyle21 = TextStyle(
+   static const textStyle21 = TextStyle(
     color: kmaincolor,
     fontSize: 21,
     fontWeight: FontWeight.w700,
     fontFamily: 'Inter',
   );
-  static const textStyle20 = TextStyle(
+     static const textStyle20 = TextStyle(
     color: kmaincolor,
     fontSize: 20,
     fontWeight: FontWeight.w600,

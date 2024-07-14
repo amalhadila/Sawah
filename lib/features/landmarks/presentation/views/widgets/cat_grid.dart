@@ -47,13 +47,13 @@ class CategoriesGrid extends StatelessWidget {
         } else if (state is CategoriesCubitFailure) {
           return CustomErrorWidget(errMessage: state.errMessage);
         } else {
-          return Center(child: LoadingWidget());
+          return const Center(child: LoadingWidget());
         }
       },
     );
   }
 
   Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
   }
 }

@@ -6,11 +6,7 @@ import 'package:sawah/auth/repos/user_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawah/auth/repos/user_repo.dart';
 import 'package:image_picker/image_picker.dart';
-
-// user_cubit.dart
-
-import '../cach/cach_helper.dart';
-import '../core_login/api/end_point.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // user_cubit.dart
 
@@ -20,9 +16,7 @@ import '../core_login/api/end_point.dart';
 class UserCubit extends Cubit<UserState> {
   final UserRepository userRepository;
   final CacheHelper cacheHelper;
-  final CacheHelper cacheHelper;
 
-  UserCubit(this.userRepository, this.cacheHelper) : super(UserInitial());
   UserCubit(this.userRepository, this.cacheHelper) : super(UserInitial());
 
   // Sign in email and password controllers
@@ -34,11 +28,6 @@ class UserCubit extends Cubit<UserState> {
   final TextEditingController signUpEmail = TextEditingController();
   final TextEditingController signUpPassword = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-  final TextEditingController signUpNameguide = TextEditingController();
-  final TextEditingController signUpEmailguide = TextEditingController();
-  final TextEditingController signUpPasswordguide = TextEditingController();
-  final TextEditingController confirmPasswordguide = TextEditingController();
-
   final TextEditingController signUpNameguide = TextEditingController();
   final TextEditingController signUpEmailguide = TextEditingController();
   final TextEditingController signUpPasswordguide = TextEditingController();
@@ -83,25 +72,25 @@ class UserCubit extends Cubit<UserState> {
       },
     );
   }
+Future<void> signUpGuide() async {
+  emit(SignUpLoadingguide());
+  final response = await userRepository.signUpguide(
+    name: signUpNameguide.text,
+    email: signUpEmailguide.text,
+    password: signUpPasswordguide.text,
+    confirmPassword: confirmPasswordguide.text,
+    role: 'guide',
+  );
+  response.fold(
+    (errorMessage) {
+      emit(SignUpFailureGuide(errorMessage));
+    },
+    (signUpModel) {
+      emit(SignUpSuccessguide(signUpModel));
+    },
+  );
+}
 
-  Future<void> signUpGuide() async {
-    emit(SignUpLoadingguide());
-    final response = await userRepository.signUpguide(
-      name: signUpNameguide.text,
-      email: signUpEmailguide.text,
-      password: signUpPasswordguide.text,
-      confirmPassword: confirmPasswordguide.text,
-      role: 'guide',
-    );
-    response.fold(
-      (errorMessage) {
-        emit(SignUpFailureGuide(errorMessage));
-      },
-      (signUpModel) {
-        emit(SignUpSuccessguide());
-      },
-    );
-  }
 
   Future<void> getUserProfile() async {
     emit(GetUserLoading());
@@ -134,8 +123,9 @@ class UserCubit extends Cubit<UserState> {
   void logout() async {
     try {
       // Use the instance method to remove the token
-      await cacheHelper.removeData(
-          key: CacheHelper().getData(key: apikey.token));
+  final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(apikey.token); // Remove the token
+      await prefs.remove(apikey.id); 
       emit(UserLoggedOut());
     } catch (e) {
       emit(UserLogoutFailed(e.toString()));

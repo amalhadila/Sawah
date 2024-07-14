@@ -1,13 +1,6 @@
 import 'dart:developer';
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
-import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
-
-import '../../../image_upload/presentation/pages/image_upload_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/search/presentation/views/widgets/search_view_body.dart';
@@ -24,14 +17,8 @@ class CustomSearchField extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color(0xFF4B4E89),
-        title: Text(
-          'Search Page',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Color(0xFF4B4E89),
         elevation: 0,
-        iconTheme: IconThemeData(
-            color: Colors.white), // Sets the color of the back arrow icon
+        iconTheme: IconThemeData(color: Colors.white), // Sets the color of the back arrow icon
       ),
       body: Center(
         child: Padding(
@@ -92,8 +79,7 @@ class CustomSearchField extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ImagesUploadPage(), // Push to ChatScreen when camera icon is pressed
+                        builder: (context) => ImagesUploadPage(), // Push to ChatScreen when camera icon is pressed
                       ),
                     );
                   },

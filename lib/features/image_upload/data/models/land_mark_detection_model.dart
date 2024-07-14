@@ -20,18 +20,43 @@ class LandMarkDetectionModel {
 }
 
 class Data {
+  List<Result> result;
   Gemini gemini;
 
   Data({
+    required this.result,
     required this.gemini,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        result:
+            List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
         gemini: Gemini.fromJson(json["gemini"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "result": List<dynamic>.from(result.map((x) => x.toJson())),
         "gemini": gemini.toJson(),
+      };
+}
+
+class Result {
+  String? label;
+ // double? score;
+
+  Result({
+     this.label,
+    //required this.score,
+  });
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        label: json["label"],
+        //score: json["score"].toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "label": label,
+       // "score": score,
       };
 }
 
@@ -44,7 +69,7 @@ class Gemini {
     required this.description,
   });
 
-  factory Gemini.fromJson(Map<String, dynamic> json) => Gemini(
+  factory Gemini.fromJson(Map<dynamic, dynamic> json) => Gemini(
         label: json["label"],
         description: json["description"],
       );

@@ -1,6 +1,9 @@
 import 'package:sawah/auth/models/user_model.dart';
 import 'package:sawah/auth/models/userdatamodel.dart';
 
+import '../models/signupguidemodel.dart';
+
+
 abstract class UserState {
   get user => null;
 }
@@ -26,10 +29,13 @@ class SignUpFailure extends UserState {
   final String errorMessage;
   SignUpFailure(this.errorMessage);
 }
-
 class SignUpLoadingguide extends UserState {}
 
-class SignUpSuccessguide extends UserState {}
+class SignUpSuccessguide extends UserState {
+  final SignUpGuideModel signUpModel;
+  SignUpSuccessguide(this.signUpModel);
+}
+
 
 class SignUpFailureGuide extends UserState {
   final String errorMessage;
@@ -59,10 +65,11 @@ class Updatephotofailure extends UserState {
   final String errorMessage;
   Updatephotofailure(this.errorMessage);
 }
-
-class UserLoggedOut extends UserState {}
+class UserLoggedOut extends UserState {
+ 
+}
 
 class UserLogoutFailed extends UserState {
   final String errorMessage;
-  UserLogoutFailed(this.errorMessage);
+  UserLogoutFailed(  this.errorMessage);
 }
