@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/chat/presentation/models/messagemodel.dart';
@@ -21,7 +23,7 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMe = chatroom.userid != myUid;
+    final isMe = chatroom.userid != CacheHelper().getData(key: apikey.id);
 
     return Padding(
       padding: const EdgeInsets.only(bottom:10.0),
@@ -49,7 +51,7 @@ class ChatCard extends StatelessWidget {
                   final unreadmessglist = snapshot.data!.docs
                       .map((e) => Message.fromJson(e.data()))
                       .where((element) => element.read != null && !element.read!)
-                      .where((element) => element.fromId != myUid)
+                      .where((element) => element.fromId != CacheHelper().getData(key: apikey.id))
                       .toList();
       
                   if (unreadmessglist.isNotEmpty) {

@@ -22,6 +22,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/contact_us.dart/widgets/contactus_view_body.dart';
+import '../cach/cach_helper.dart';
+import '../core_login/api/end_point.dart';
+import 'verifyemail.dart';
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -32,13 +37,15 @@ class SignInScreen extends StatelessWidget {
       if (state is SignInSuccess) {
        
         context.read<UserCubit>().getUserProfile();
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BottomNavigation(),
-          ),
-        );
+CacheHelper().getData(key: apikey.emailverify) == true
+    ? Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavigation()),
+      )
+    : Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => VerifyPage()),
+      );
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('uncorrect email or password')));
@@ -75,7 +82,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * .04),
                     //! Forget password?
-                    ForgetPasswordWidget(size: size),
+                    // ForgetPasswordWidget(size: size),
                     const SizedBox(height: 20),
                     //!Sign In Button
                     BlocBuilder<UserCubit, UserState>(

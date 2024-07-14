@@ -6,6 +6,9 @@ import 'package:sawah/features/create_tour.dart/presentation/views/widgets/landm
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/user_lang.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+
 class LandmarkSelectionScreen extends StatefulWidget {
   final String selectedGovernorate;
 
@@ -28,7 +31,7 @@ class _LandmarkSelectionScreenState extends State<LandmarkSelectionScreen> {
           'https://sawahonline.com/api/v1/customizedTour/landmarks/$governorate',
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${Token}',
+              'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
             },
           ));
       GetAllLandmarksByGovernModel getAllGovernsModel =

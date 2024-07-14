@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_avaiabled_guides_model.dart';
 
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+import '../../../../../constants.dart';
+
 class AvailableGuidesScreen extends StatefulWidget {
   final String tourId;
 
@@ -22,7 +26,7 @@ class _AvailableGuidesScreenState extends State<AvailableGuidesScreen> {
         options: Options(
           headers: {
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZjI5MmY4ZmI4MTRiNTZmYTE4NCIsImlhdCI6MTcxOTM2NzE5MCwiZXhwIjoxNzI3MTQzMTkwfQ.tS7RqEwaramU40EOYYOmXhfvRmNGuYrKq9DD21RK7_E',
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );

@@ -23,6 +23,13 @@ class UserData {
   final String photo;
   final String role;
   final List<String> interests;
+  final List<String>? languages;
+  final List<String>? governorates;
+  final double? rating;
+  final int? ratingsQuantity;
+  final List<String>? tourRequests;
+  final String? bio;
+  final String? photoId;
 
   UserData({
     required this.emailVerified,
@@ -32,6 +39,13 @@ class UserData {
     required this.photo,
     required this.role,
     required this.interests,
+    this.languages,
+    this.governorates,
+    this.rating,
+    this.ratingsQuantity,
+    this.tourRequests,
+    this.bio,
+    this.photoId,
   });
 
   factory UserData.fromJson(Map<String, dynamic> jsonData) {
@@ -45,6 +59,19 @@ class UserData {
       interests: jsonData['interests'] != null
           ? List<String>.from(jsonData['interests'])
           : [],
+      languages: jsonData['languages'] != null
+          ? List<String>.from(jsonData['languages'])
+          : null,
+      governorates: jsonData['governorates'] != null
+          ? List<String>.from(jsonData['governorates'])
+          : null,
+      rating: jsonData['rating'] != null ? (jsonData['rating'] as num).toDouble() : null,
+      ratingsQuantity: jsonData['ratingsQuantity'] != null ? jsonData['ratingsQuantity'] : null,
+      tourRequests: jsonData['tourRequests'] != null
+          ? List<String>.from(jsonData['tourRequests'])
+          : null,
+      bio: jsonData['bio'],
+      photoId: jsonData['photoId'],
     );
   }
 }

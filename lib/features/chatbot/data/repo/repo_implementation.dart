@@ -8,6 +8,8 @@ import 'package:sawah/core/utils/api_service.dart';
 import 'package:sawah/features/chatbot/data/models/conversationmodel/conversationmodel.dart';
 import 'package:sawah/features/chatbot/data/repo/repo.dart';
 
+import '../../../../auth/cach/cach_helper.dart';
+import '../../../../auth/core_login/api/end_point.dart';
 import '../../../../auth/core_login/errors/excpetion.dart';
 
 class RepoImple implements Repo {
@@ -92,7 +94,7 @@ Future SendMessageRequest(
         headers: Options(
           headers: <String, String>{
             'Authorization':
-              'Bearer ${Token}',
+              'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );

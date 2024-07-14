@@ -3,7 +3,7 @@ import 'package:sawah/auth/cach/cach_helper.dart';
 import 'package:sawah/auth/core_login/api/end_point.dart';
 
 String myUid = CacheHelper().getData(key: apikey.id);
-String Token = CacheHelper().getData(key: apikey.token);
+// String Token =
  String myname = 
 CacheHelper().getData(key:apikey.name );
 

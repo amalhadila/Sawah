@@ -7,10 +7,7 @@ import 'package:sawah/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
 
-import 'dart:io';
-import 'package:flutter/material.dart';
-
-import 'package:go_router/go_router.dart';
+import '../../firebase/firedatabase.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -68,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: BlocConsumer<UserCubit, UserState>(
                 listener: (context, state) {
                   if (state is UserLoggedOut) {
@@ -88,65 +85,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final user = state.user;
                     return ListView(
                       children: [
-                        SizedBox(
-                          width: 50,
-                          height: MediaQuery.of(context).size.height * .2,
-                          child: context.read<UserCubit>().profilepic == null
-                              ? CircleAvatar(
-                                  backgroundColor: Colors.grey.shade200,
-                                  backgroundImage: NetworkImage(
-                                      user.data.photo ??
-                                          'assets/default_avatar.png',),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        bottom: 5,
-                                        right: 75,
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            XFile? image = await ImagePicker()
-                                                .pickImage(
-                                                    source: ImageSource.gallery);
-                                            if (image != null) {
-                                              context
-                                                  .read<UserCubit>()
-                                                  .uploadprofilepict(image);
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue.shade400,
-                                              border: Border.all(
-                                                  color: Colors.white, width: 3),
-                                              borderRadius: BorderRadius.circular(25),
-                                            ),
-                                            child: const Icon(
-                                              Icons.camera_alt_sharp,
-                                              color: Colors.white,
-                                              size: 25,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : CircleAvatar(
-                                  backgroundImage: FileImage(File(context
-                                      .read<UserCubit>()
-                                      .profilepic!
-                                      .path)),
-                                ),
-                        ),
+                        context.read<UserCubit>().profilepic == null
+                            ? CircleAvatar(
+                              radius: 60,
+                                backgroundColor: Colors.grey.shade200,
+                                backgroundImage: NetworkImage(
+                                    user.data.photo ??
+                                        'assets/default_avatar.png',),
+                                // هنا تم إزالة الأيقونة
+                              )
+                            : CircleAvatar(
+                                backgroundImage: FileImage(File(context
+                                    .read<UserCubit>()
+                                    .profilepic!
+                                    .path)),
+                              ),
                         const SizedBox(height: 16),
                         Column(
                           children: [
                             ProfileMenu(
                               text: user.data.name ?? 'name',
                               icon: const Icon(Icons.person, color: ksecondcolor),
-                              press: () => {},
+                              press: () => {GoRouter.of(context).push('/update')},
                             ),
                             ProfileMenu(
                               text: user.data.email ?? 'email',
@@ -158,14 +118,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               icon: const Icon(Icons.favorite, color: ksecondcolor),
                               press: () => {GoRouter.of(context).push('/wishlist')},
                             ),
-                           
+                            ProfileMenu(
+                              text: 'my tours',
+                              icon: const Icon(Icons.favorite, color: ksecondcolor),
+                              press: () => {GoRouter.of(context).push('/Bookingtours')},
+                            ),
                             ProfileMenu(
                               text: 'logout',
                               icon: Icon(Icons.logout, color: ksecondcolor),
-                              press: () => {context.read<UserCubit>().logout()},
+                              press: () async {
+                                await FireData().deleteUser();
+                                context.read<UserCubit>().logout();
+                              },
                             ),
                           ],
-                        ),
+                        )
                       ],
                     );
                   }

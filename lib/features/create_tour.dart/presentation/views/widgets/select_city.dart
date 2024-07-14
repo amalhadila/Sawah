@@ -5,6 +5,9 @@ import 'package:sawah/features/create_tour.dart/presentation/model/get_all_gover
 import 'package:dio/dio.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_landmarks.dart';
 
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+
 class CitySelectionScreen extends StatefulWidget {
   @override
   State<CitySelectionScreen> createState() => _CitySelectionScreenState();
@@ -20,7 +23,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         'https://sawahonline.com/api/v1/customizedTour/governorates',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );

@@ -4,6 +4,7 @@ import 'package:sawah/constants.dart';
 import 'package:sawah/features/guide/presentation/views/widgets/tours_list.dart';
 import '../../../../../auth/cach/cach_helper.dart';
 import '../../../../../auth/core_login/api/end_point.dart';
+import '../../../../bottom_app_bar/bottom_app_bar.dart';
 
 class SendPriceScreen extends StatelessWidget {
   final String tourId;
@@ -35,7 +36,7 @@ class SendPriceScreen extends StatelessWidget {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => TourListScreen()),
+        MaterialPageRoute(builder: (context) => BottomNavigation()),
       );
     } catch (e) {
       print(e.toString());

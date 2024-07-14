@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'package:sawah/constants.dart';
 import 'package:sawah/core/utils/style.dart';
 import 'package:sawah/features/chat/presentation/models/romemodel.dart';
@@ -19,7 +21,7 @@ class ChatHomeScreen extends StatefulWidget {
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
   TextEditingController emailCon = TextEditingController();
   final ValueNotifier<List<String>> _selectedRoomsNotifier =
-      ValueNotifier<List<String>>([]);
+  ValueNotifier<List<String>>([]);
 
   void _toggleSelection(String roomId) {
     List<String> selectedRooms = List.from(_selectedRoomsNotifier.value);
@@ -36,8 +38,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
-        title: const Text("Chats",
-            style: Textstyle.textStyle21),
+        title: const Text(
+          "Chats",
+          style: Textstyle.textStyle21,
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -54,32 +58,32 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
             builder: (context, selectedRooms, child) {
               return selectedRooms.isNotEmpty
                   ? IconButton(
-                      onPressed: () async {
-                        await FireData().deleteRooms(selectedRooms);
-                        _selectedRoomsNotifier.value = [];
-                      },
-                      icon: const Icon(Iconsax.trash),
-                    )
+                onPressed: () async {
+                  await FireData().deleteRooms(selectedRooms);
+                  _selectedRoomsNotifier.value = [];
+                },
+                icon: const Icon(Iconsax.trash),
+              )
                   : Container();
             },
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
         child: Column(
           children: [
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('rooms')
-                    .where('members', arrayContains: myUid)
+                    .where('members', arrayContains: CacheHelper().getData(key: apikey.id))
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<ChatRoom> chatrooms = snapshot.data!.docs
                         .map((e) =>
-                            ChatRoom.fromJson(e.data() as Map<String, dynamic>))
+                        ChatRoom.fromJson(e.data() as Map<String, dynamic>))
                         .toList()
                       ..sort((a, b) =>
                           b.lastMessageTime!.compareTo(a.lastMessageTime!));
@@ -88,14 +92,17 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       itemCount: chatrooms.length,
                       itemBuilder: (context, index) {
                         final chatroom = chatrooms[index];
-                        final isMe = chatroom.userid != myUid;
+                        final isMe = chatroom.userid != CacheHelper().getData(key: apikey.id);
                         return GestureDetector(
                           onTap: () {
                             if (_selectedRoomsNotifier.value.isNotEmpty) {
                               _toggleSelection(chatroom.id!);
                             } else {
-                              GoRouter.of(context).push('/ChatScreen',
-                                  extra: [chatroom.id!, chatroom.name, chatroom.userphoto!]);
+                              GoRouter.of(context).push('/ChatScreen', extra: [
+                                chatroom.id!,
+                                chatroom.name!,
+                                chatroom.userphoto!
+                              ]);
                             }
                           },
                           onLongPress: () {
@@ -116,7 +123,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                       chatroom.id!,
                                       isMe ? chatroom.name! : chatroom.myname!,
                                       chatroom.userphoto!
-
                                     ]);
                                   }
                                 },

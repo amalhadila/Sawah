@@ -54,7 +54,7 @@ class _TravelInfoState extends State<TravelInfo> {
         'https://sawahonline.com/api/v1/customizedTour',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
             'Content-Type': 'application/json'
           },
         ),

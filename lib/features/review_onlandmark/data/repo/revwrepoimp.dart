@@ -12,6 +12,9 @@ import 'package:sawah/features/review_onlandmark/data/model/reviewmodel.dart';
 import 'package:sawah/core/errors/failures.dart';
 import 'package:sawah/features/review_onlandmark/data/repo/revrepo.dart';
 
+import '../../../../auth/cach/cach_helper.dart';
+import '../../../../auth/core_login/api/end_point.dart';
+
 class Revwrepoimp implements reviews {
   final ApiService apiService;
 
@@ -29,7 +32,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'landmarks/$landmark/reviews',
         Headers: Options(
           headers: <String, String>{
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer${CacheHelper().getData(key: apikey.token)}',
             'Content-Type': 'application/json',
           },
         ),
@@ -65,7 +68,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'landmarks/$tourid/reviews',
         Headers: Options(
           headers: <String, String>{
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
             'Content-Type': 'application/json',
           },
         ),
@@ -97,7 +100,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'reviews/$id',
         headers: Options(
           headers: <String, String>{
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -124,7 +127,7 @@ class Revwrepoimp implements reviews {
       var response = await apiService.get(
         endpoint: 'landmarks/$id/reviews',
         Headers: Options(headers: <String, String>{
-          'Authorization': 'Bearer ${Token}',
+          'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
         }),
       );
 
@@ -238,7 +241,7 @@ class Revwrepoimp implements reviews {
         endpoint: 'landmarks/$tourid/reviews',
         Headers: Options(
           headers: <String, String>{
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
             'Content-Type': 'application/json',
           },
         ),

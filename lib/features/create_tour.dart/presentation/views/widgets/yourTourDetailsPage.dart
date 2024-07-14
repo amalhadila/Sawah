@@ -6,6 +6,9 @@ import 'package:sawah/features/create_tour.dart/presentation/model/get_my_reques
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20orders.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+
 Future cancelTour(BuildContext context, String tourId) async {
   final Dio _dio = Dio();
   try {
@@ -13,7 +16,7 @@ Future cancelTour(BuildContext context, String tourId) async {
     var response = await _dio.patch(
       options: Options(
         headers: {
-          'Authorization': 'Bearer ${Token}',
+          'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
         },
       ),
       'https://sawahonline.com/api/v1/customizedTour/$tourId/cancel',

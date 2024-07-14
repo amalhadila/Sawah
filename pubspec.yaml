@@ -69,12 +69,13 @@ dependencies:
   url_launcher: ^6.2.6
   uuid: ^4.4.0
   webview_flutter: ^4.8.0
-
+  flutter_image_compress: ^2.3.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   mockito: ^5.0.16 
+  restart_app: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -87,8 +88,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/img/categories/
-    - assets/img/landmarks/
+   
     - assets/img/image_upload/
     - assets/img/
     - assets/lang/

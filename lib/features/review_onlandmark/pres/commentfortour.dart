@@ -79,8 +79,8 @@ class _RviewpagefortourState extends State<Rviewpagefortour> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('Error'),
-                          content: Text(state.errorMessage),
+                          title: Text('done'),
+                          content: Text('add review scuess'),
                           actions: [
                             TextButton(
                               onPressed: () {

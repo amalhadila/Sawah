@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/core_login/api/end_point.dart';
 import 'dart:io';
 import 'package:sawah/constants.dart';
 import 'package:sawah/features/chat/presentation/models/messagemodel.dart';
@@ -181,7 +183,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[index];
-                      final isMe = message.fromId == myUid;
+                      final isMe = message.fromId == CacheHelper().getData(key: apikey.id);
 
                       return GestureDetector(
                         onTap: () {

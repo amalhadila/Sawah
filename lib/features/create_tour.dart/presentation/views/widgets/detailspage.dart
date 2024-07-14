@@ -97,12 +97,12 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                             ],
                           ),
                           Spacer(),
-                          Text(
-                            'Edit',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: screenWidth * 0.04),
-                          ),
+                          // Text(
+                          //   'Edit',
+                          //   style: TextStyle(
+                          //       color: Colors.blue,
+                          //       fontSize: screenWidth * 0.04),
+                          // ),
                         ],
                       ),
                     ),
@@ -127,11 +127,11 @@ class _TourDetailsPageState extends State<TourDetailsPage> {
                       ),
                     ),
                     Spacer(),
-                    Text(
-                      'Edit',
-                      style: TextStyle(
-                          color: Colors.blue, fontSize: screenWidth * 0.04),
-                    ),
+                    // Text(
+                    //   'Edit',
+                    //   style: TextStyle(
+                    //       color: Colors.blue, fontSize: screenWidth * 0.04),
+                    // ),
                   ],
                 ),
               ),

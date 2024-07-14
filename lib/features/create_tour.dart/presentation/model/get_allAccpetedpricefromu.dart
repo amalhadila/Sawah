@@ -18,25 +18,20 @@ class GetAllAcceptedToursResponse {
 }
 
 class TourData {
-  List<Tour>? activeTours;
-  List<Tour>? completedTours;
+  List<Tour>? acceptedTours;
 
-  TourData({this.activeTours, this.completedTours});
+  TourData({this.acceptedTours});
 
   factory TourData.fromJson(Map<String, dynamic> json) {
     return TourData(
-      activeTours: json["activeTours"] != null
-          ? List<Tour>.from(json["activeTours"].map((x) => Tour.fromJson(x as Map<String, dynamic>)))
-          : null,
-      completedTours: json["completedTours"] != null
-          ? List<Tour>.from(json["completedTours"].map((x) => Tour.fromJson(x as Map<String, dynamic>)))
+      acceptedTours: json["acceptedTours"] != null
+          ? List<Tour>.from(json["acceptedTours"].map((x) => Tour.fromJson(x as Map<String, dynamic>)))
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "activeTours": activeTours != null ? List<dynamic>.from(activeTours!.map((x) => x.toJson())) : null,
-        "completedTours": completedTours != null ? List<dynamic>.from(completedTours!.map((x) => x.toJson())) : null,
+        "acceptedTours": acceptedTours != null ? List<dynamic>.from(acceptedTours!.map((x) => x.toJson())) : null,
       };
 }
 
@@ -52,12 +47,14 @@ class Tour {
   String? commentForGuide;
   String? status;
   String? paymentStatus;
-  List<dynamic>? sentRequests;
-  List<dynamic>? respondingGuides;
+  bool? guideConfirmCompletion;
+  bool? userConfirmCompletion;
   DateTime? createdAt;
   DateTime? updatedAt;
   Guide? acceptedGuide;
   int? price;
+  List<dynamic>? sentRequests;
+  List<dynamic>? respondingGuides;
 
   Tour({
     this.id,
@@ -71,12 +68,14 @@ class Tour {
     this.commentForGuide,
     this.status,
     this.paymentStatus,
-    this.sentRequests,
-    this.respondingGuides,
+    this.guideConfirmCompletion,
+    this.userConfirmCompletion,
     this.createdAt,
     this.updatedAt,
     this.acceptedGuide,
     this.price,
+    this.sentRequests,
+    this.respondingGuides,
   });
 
   factory Tour.fromJson(Map<String, dynamic> json) {
@@ -96,16 +95,18 @@ class Tour {
       commentForGuide: json["commentForGuide"] as String?,
       status: json["status"] as String?,
       paymentStatus: json["paymentStatus"] as String?,
+      guideConfirmCompletion: json["guideConfirmCompletion"] as bool?,
+      userConfirmCompletion: json["userConfirmCompletion"] as bool?,
+      createdAt: json["createdAt"] != null ? DateTime.parse(json["createdAt"] as String) : null,
+      updatedAt: json["updatedAt"] != null ? DateTime.parse(json["updatedAt"] as String) : null,
+      acceptedGuide: json["acceptedGuide"] != null ? Guide.fromJson(json["acceptedGuide"] as Map<String, dynamic>) : null,
+      price: json["price"] as int?,
       sentRequests: json["sentRequests"] != null
           ? List<dynamic>.from(json["sentRequests"].map((x) => x as dynamic))
           : null,
       respondingGuides: json["respondingGuides"] != null
           ? List<dynamic>.from(json["respondingGuides"].map((x) => x as dynamic))
           : null,
-      createdAt: json["createdAt"] != null ? DateTime.parse(json["createdAt"] as String) : null,
-      updatedAt: json["updatedAt"] != null ? DateTime.parse(json["updatedAt"] as String) : null,
-      acceptedGuide: json["acceptedGuide"] != null ? Guide.fromJson(json["acceptedGuide"] as Map<String, dynamic>) : null,
-      price: json["price"] as int?,
     );
   }
 
@@ -121,12 +122,14 @@ class Tour {
         "commentForGuide": commentForGuide,
         "status": status,
         "paymentStatus": paymentStatus,
-        "sentRequests": sentRequests != null ? List<dynamic>.from(sentRequests!.map((x) => x)) : null,
-        "respondingGuides": respondingGuides != null ? List<dynamic>.from(respondingGuides!.map((x) => x)) : null,
+        "guideConfirmCompletion": guideConfirmCompletion,
+        "userConfirmCompletion": userConfirmCompletion,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "acceptedGuide": acceptedGuide?.toJson(),
         "price": price,
+        "sentRequests": sentRequests != null ? List<dynamic>.from(sentRequests!.map((x) => x)) : null,
+        "respondingGuides": respondingGuides != null ? List<dynamic>.from(respondingGuides!.map((x) => x)) : null,
       };
 }
 

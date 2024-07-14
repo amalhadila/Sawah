@@ -7,6 +7,10 @@ import 'package:sawah/features/create_tour.dart/presentation/model/get_my_reques
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/pages_response.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/select_city.dart';
 import 'package:sawah/features/create_tour.dart/presentation/views/widgets/yourTourDetailsPage.dart';
+
+import '../../../../../auth/cach/cach_helper.dart';
+import '../../../../../auth/core_login/api/end_point.dart';
+import '../../../../bottom_app_bar/bottom_app_bar.dart';
  
 class MyOrdersPage extends StatefulWidget {
   @override
@@ -23,8 +27,8 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _myRequestsFuture = getMyRequests();
-    _mycompleteRequestsFuture = getMycompleteRequests();
+    _myRequestsFuture = getMyRequests(context);
+    _mycompleteRequestsFuture = getMycompleteRequests(context);
   }
  
   @override
@@ -33,14 +37,14 @@ class _MyOrdersPageState extends State<MyOrdersPage>
     super.dispose();
   }
  
-  Future<List<GetMyRequestsModel>> getMyRequests() async {
+  Future<List<GetMyRequestsModel>> getMyRequests(BuildContext context) async {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
         'https://sawahonline.com/api/v1/customizedTour/my-requests',
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${Token}',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
       );
@@ -55,50 +59,66 @@ class _MyOrdersPageState extends State<MyOrdersPage>
  
       return requests;
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Operation Failed"),
-          content: Text("An error happened $e, please try again"),
-        ),
-      );
-      throw e; // rethrowing the exception to handle it further if needed
-    }
+        await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Operation Failed"),
+        content: const Text("An error happened. Please try again."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+    return []; // Return an empty list in case of error
   }
+}
  
-  Future<List<GetMyRequestsModel>> getMycompleteRequests() async {
-    final Dio _dio = Dio();
-    try {
-      var response = await _dio.get(
-        'https://sawahonline.com/api/v1/customizedTour/my-requests?status=completed',
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${Token}',
-          },
-        ),
-      );
- 
-      dynamic responseData = response.data;
-      print('complete');
-      print(responseData);
- 
-      List<GetMyRequestsModel> requests =
-          (responseData['data']['requests'] as List)
-              .map((json) => GetMyRequestsModel.fromJson(json))
-              .toList();
- 
-      return requests;
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Operation Failed"),
-          content: Text("An error happened $e, please try again"),
-        ),
-      );
-      throw e; // rethrowing the exception to handle it further if needed
-    }
+ Future<List<GetMyRequestsModel>> getMycompleteRequests(BuildContext context) async {
+  final Dio _dio = Dio();
+  try {
+    var response = await _dio.get(
+      'https://sawahonline.com/api/v1/customizedTour/my-requests?status=completed',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ${CacheHelper().getData(key: apikey.token)}',
+        },
+      ),
+    );
+
+    dynamic responseData = response.data;
+    print('complete');
+    print(responseData);
+
+    List<GetMyRequestsModel> requests =
+        (responseData['data']['requests'] as List)
+            .map((json) => GetMyRequestsModel.fromJson(json))
+            .toList();
+
+    return requests;
+  } catch (e) {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Operation Failed"),
+        content: const Text("An error happened. Please try again."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+    return []; // Return an empty list in case of error
   }
+}
  
   @override
   Widget build(BuildContext context) {
@@ -109,6 +129,14 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           'My orders',
           style: Textstyle.textStyle21,
         ),
+       leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: kmaincolor),
+            onPressed: () {
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>BottomNavigation()),
+                        );}),
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(45),
@@ -282,7 +310,7 @@ class OrderCard extends StatelessWidget {
           ),
         ),
         trailing: ElevatedButton(
-          onPressed: status == 'cancelled ' || status == 'confirmed'
+          onPressed: status == 'cancelled ' || status == 'confirmed'|| status == 'completed'
               ? null
               : () {
                   Navigator.push(

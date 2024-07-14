@@ -14,6 +14,7 @@ import 'package:sawah/features/create_tour.dart/presentation/views/widgets/my%20
 import 'package:sawah/firebase/firedatabase.dart';
 import 'package:sawah/features/store/presentation/views/widgets/payment_response.dart'
     as ps;
+import '../../../../bottom_app_bar/bottom_app_bar.dart';
 import '../../../../store/presentation/views/widgets/payment_web_view.dart';
 import '../../model/getallrespondingguide.dart';
 import 'cardofguideresponse.dart';
@@ -61,10 +62,25 @@ class _ResponseScreenState extends State<ResponseScreen>
           .toList();
 
       return guides;
-    } catch (e) {
-      throw e;
-    }
+    }catch (e) {
+        await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Operation Failed"),
+        content: const Text("An error happened. Please try again."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+    return []; // Return an empty list in case of error
   }
+}
 
   Future<List<RespondingGuide>> getRespondingGuides(String tourId) async {
     final Dio _dio = Dio();
@@ -87,9 +103,24 @@ class _ResponseScreenState extends State<ResponseScreen>
 
       return guides;
     } catch (e) {
-      throw e;
-    }
+        await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Operation Failed"),
+        content: const Text("An error happened. Please try again."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+    return []; // Return an empty list in case of error
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +246,7 @@ class _ResponseScreenState extends State<ResponseScreen>
     );
   }
 
- Widget _buildAllGuidesTab() {
+  Widget _buildAllGuidesTab() {
     return FutureBuilder<List<GetAvailableGuidesModel>>(
       future: getAvailableGuides(widget.tourId),
       builder: (context, snapshot) {
@@ -235,31 +266,27 @@ class _ResponseScreenState extends State<ResponseScreen>
                 return ListTile(
                   trailing: IconButton(
                     onPressed: () async {
-                      final roomId = await FireData().creatRoom(
-                        guide.id!,
-                        guide.name!,
-                        guide.photo!
-                      );
-                      GoRouter.of(context).push('/ChatScreen', extra: [
-                        roomId,
-                        guide.name!,
-                        guide.photo!
-                      ]);
+                      final roomId = await FireData()
+                          .creatRoom(guide.id!, guide.name!, guide.photo!);
+                      GoRouter.of(context).push('/ChatScreen',
+                          extra: [roomId, guide.name!, guide.photo!]);
                     },
                     icon: const Icon(Icons.chat_rounded, color: kmaincolor),
                   ),
                   leading: CircleAvatar(
-                    radius: 25,
-                      backgroundImage: NetworkImage(guide.photo!)),
+                      radius: 25, backgroundImage: NetworkImage(guide.photo!)),
                   title: Text(guide.name ?? 'Unknown Name',
-                      style:Textstyle.textStyle16.copyWith(color:neutralColor3 )),
+                      style:
+                          Textstyle.textStyle16.copyWith(color: neutralColor3)),
                   subtitle: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Kind: ${guide.kind ?? 'Unknown Kind'} ',
-                            style: Textstyle.textStyle13.copyWith(color:neutralColor3 ,fontWeight: FontWeight.w600)),
+                            style: Textstyle.textStyle13.copyWith(
+                                color: neutralColor3,
+                                fontWeight: FontWeight.w600)),
                         SizedBox(
                           height: 3,
                         ),
@@ -271,7 +298,9 @@ class _ResponseScreenState extends State<ResponseScreen>
                               color: accentColor1,
                             ),
                             Text(' ${guide.rating?.toString() ?? 'No rating'} ',
-                                style:Textstyle.textStyle13.copyWith(color:neutralColor3,fontWeight: FontWeight.w600 )),
+                                style: Textstyle.textStyle13.copyWith(
+                                    color: neutralColor3,
+                                    fontWeight: FontWeight.w600)),
                           ],
                         ),
                         SizedBox(
@@ -289,7 +318,6 @@ class _ResponseScreenState extends State<ResponseScreen>
     );
   }
 }
-
 
 class GuideCardrespond extends StatelessWidget {
   final String imageUrl;
@@ -320,9 +348,8 @@ class GuideCardrespond extends StatelessWidget {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-
             'Authorization':
-                'Bearer ${Token}',
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
         data: {"response": "accept"},
@@ -333,19 +360,19 @@ class GuideCardrespond extends StatelessWidget {
       // Check if the request was successful
       if (response.statusCode == 200) {
         // Success! Handle the response as needed.
-         await payCustomTour(context, tourId);
+        await payCustomTour(context, tourId);
         print('Price accepted successfully!');
         log('scuusfully');
         // You might want to navigate to a different screen or update the UI here.
       } else {
         // Request failed - Handle the error
         print('Error accepting price: ${response.data}');
-          Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyOrdersPage(),
-                ),
-              );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyOrdersPage(),
+          ),
+        );
 
         showDialog(
           context: context,
@@ -354,8 +381,7 @@ class GuideCardrespond extends StatelessWidget {
             content: Text(
                 "An error occurred while accepting the price. Please try again later."),
           ),
-        ); 
-
+        );
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -378,7 +404,8 @@ class GuideCardrespond extends StatelessWidget {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${Token}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: apikey.token)}',
           },
         ),
         'https://sawahonline.com/api/v1/bookings/custom-checkout-session/$tourId',
@@ -450,6 +477,7 @@ class GuideCardrespond extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     await acceptPrice(context, tourId, guideId);
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kmaincolor,

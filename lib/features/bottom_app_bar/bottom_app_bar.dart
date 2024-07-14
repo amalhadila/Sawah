@@ -12,7 +12,6 @@ import '../../auth/core_login/api/end_point.dart';
 import '../../auth/cubit/user_cubit.dart';
 import '../../core/widgets/appbar.dart';
 import '../guide/presentation/views/guide_view.dart';
-import '../guide/presentation/views/widgets/toursdetails.dart';
 import '../image_upload/presentation/pages/image_upload_page.dart';
 import '../landmarks/presentation/views/categories_view.dart';
 import '../home/pres/views/homeview.dart';
@@ -30,27 +29,56 @@ class BottomNavigation extends StatefulWidget {
       _BottomNavigationExampleState();
 }
 
-
 class _BottomNavigationExampleState extends State<BottomNavigation> {
   int _selectedTab = 1;
+  List<Widget> _pages = [];
+  List<IconData> _listOfIcons = [];
 
-  final List<Widget> _pages = [
-    CategoriesView(),
-    Homepage(),
-    Createtourview(),
-    StoreView(),
-    CacheHelper().getData(key:apikey.role )=='user'?ImagesUploadPage():
-    GuideView(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<UserCubit>(context).getUserProfile();
+    _initializePagesAndIcons();
+  }
+
+  void _initializePagesAndIcons() {
+    final role = CacheHelper().getData(key: apikey.role);
+
+    if (role == 'user') {
+      _pages = [
+        CategoriesView(),
+        Homepage(),
+        Createtourview(),
+        StoreView(),
+        ImagesUploadPage(),
+      ];
+      _listOfIcons = [
+        Icons.landscape,
+        Icons.home_rounded,
+        FontAwesomeIcons.solidSquarePlus,
+        Icons.shopping_bag,
+        Icons.camera_alt,
+      ];
+    } else {
+      _pages = [
+        CategoriesView(),
+        Homepage(),
+        GuideView(),
+        ImagesUploadPage(),
+      ];
+      _listOfIcons = [
+        Icons.landscape,
+        Icons.home_rounded,
+        Icons.archive_rounded,
+        Icons.camera_alt_rounded,
+      ];
+    }
+  }
 
   void _changeTab(int index) {
     setState(() {
       _selectedTab = index;
     });
-  }
-   void initState() {
-    super.initState();
-    BlocProvider.of<UserCubit>(context).getUserProfile();
   }
 
   @override
@@ -78,7 +106,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
         drawer: CustomDrawer(),
         body: _pages[_selectedTab],
         bottomNavigationBar: Container(
-          margin: EdgeInsets.only(right:20,left: 20,bottom: 15,top: 5),
+          margin: EdgeInsets.only(right: 20, left: 20, bottom: 15, top: 5),
           height: size.width * .155,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -92,7 +120,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: ListView.builder(
-            itemCount: 5, // Changed to 3 to match the number of pages
+            itemCount: _listOfIcons.length,
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: size.width * .024),
             itemBuilder: (context, index) => InkWell(
@@ -122,7 +150,7 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
                     ),
                   ),
                   Icon(
-                    listOfIcons[index],
+                    _listOfIcons[index],
                     size: size.width * .076,
                     color:
                         index == _selectedTab ? ksecondcolor : Colors.black38,
@@ -136,12 +164,4 @@ class _BottomNavigationExampleState extends State<BottomNavigation> {
       ),
     );
   }
-
-  final List<IconData> listOfIcons = [
-    Icons.landscape,
-    Icons.home_rounded,    
-    FontAwesomeIcons.solidSquarePlus,
-    Icons.shopping_bag,
-    Icons.camera_alt,
-  ];
 }

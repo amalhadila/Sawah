@@ -7,11 +7,10 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:sawah/auth/cach/cach_helper.dart';
 import 'package:sawah/features/create_tour.dart/presentation/model/get_all_custom_tours_model.dart';
-import 'package:sawah/features/guide/presentation/views/widgets/toursdetails.dart';
-import 'package:sawah/features/guide/presentation/views/widgets/card.dart';
 import '../../../../../auth/core_login/api/end_point.dart';
 import '../../../../../core/utils/style.dart';
 import '../../../../create_tour.dart/presentation/model/get_allAccpetedpricefromu.dart';
+import 'toursdetailsscreanwithprice.dart';
 
 class TourListScreen extends StatefulWidget {
   @override
@@ -29,7 +28,7 @@ class _TourListScreenState extends State<TourListScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _futureCustomTours = getAllCustomTours();
-    _myAcceptedTours = getAllAccepted();
+    _myAcceptedTours = getAllAccepted(context); // Pass context here
   }
 
   Future<List<GetAllCustomToursModel>> getAllCustomTours() async {
@@ -74,7 +73,7 @@ class _TourListScreenState extends State<TourListScreen>
     }
   }
 
-  Future<List<Tour>> getAllAccepted() async {
+  Future<List<Tour>> getAllAccepted(BuildContext context) async {
     final Dio _dio = Dio();
     try {
       var response = await _dio.get(
@@ -91,9 +90,9 @@ class _TourListScreenState extends State<TourListScreen>
       print(response.data); // Print the response data to debug
 
       if (responseData['data'] != null &&
-          responseData['data']['completedTours'] != null) {
+          responseData['data']['acceptedTours'] != null) {
         List<Tour> getAllAccCustomToursModel =
-            (responseData['data']['completedTours'] as List)
+            (responseData['data']['acceptedTours'] as List)
                 .map((json) => Tour.fromJson(json))
                 .toList();
 
@@ -128,7 +127,7 @@ class _TourListScreenState extends State<TourListScreen>
       appBar: AppBar(
         backgroundColor: kbackgroundcolor,
         title: Text(
-          'My orders',
+          'Coming Orders',
           style: TextStyle(
               color: kmaincolor, fontSize: 19, fontWeight: FontWeight.w700),
         ),
@@ -162,70 +161,73 @@ class _TourListScreenState extends State<TourListScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          FutureBuilder<List<GetAllCustomToursModel>>(
-            future: _futureCustomTours,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('An error occurred: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No data available'));
-              } else {
-                final toursList = snapshot.data!;
-                return ListView.builder(
-                  itemCount: toursList.length,
-                  itemBuilder: (context, index) {
-                    final tours = toursList[index];
-                    final startDate = tours.startDate != null
-                        ? DateFormat('yyyy-MM-dd').format(tours.startDate!)
-                        : '';
-                    final endDate = tours.endDate != null
-                        ? DateFormat('yyyy-MM-dd').format(tours.endDate!)
-                        : '';
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (tours.landmarks != null && tours.landmarks!.isNotEmpty)
-                            ...tours.landmarks!.map((landmark) {
-                              return GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 5.0),
-                                  child: GuideCard(
-                                    imageUrl: tours.user?.photo ?? '',
-                                    landmarkname: landmark.name ?? '',
-                                    date: '$startDate - $endDate',
-                                    username: tours.user?.name ?? '',
-                                    lang: tours.spokenLanguages?.join(', ') ?? '',
-                                    gov: tours.governorate ?? '',
-                                    groubsize: tours.groupSize,
-                                    price: null,
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TourDetailsScreen(
-                                        tourId: tours.id ?? '', // Pass tour ID to TourDetailsScreen
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            }).toList()
-                        ],
+        FutureBuilder<List<GetAllCustomToursModel>>(
+  future: _futureCustomTours,
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+      return Center(child: Text('An error occurred: ${snapshot.error}'));
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return Center(child: Text('No data available'));
+    } else {
+      final toursList = snapshot.data!;
+      final filteredToursList = toursList.where((tour) => tour.paymentStatus != 'paid').toList();
+      
+      return ListView.builder(
+        itemCount: filteredToursList.length,
+        itemBuilder: (context, index) {
+          final tours = filteredToursList[index];
+          final startDate = tours.startDate != null
+              ? DateFormat('yyyy-MM-dd').format(tours.startDate!)
+              : '';
+          final endDate = tours.endDate != null
+              ? DateFormat('yyyy-MM-dd').format(tours.endDate!)
+              : '';
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (tours.landmarks != null && tours.landmarks!.isNotEmpty)
+                  ...tours.landmarks!.map((landmark) {
+                    return GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 5.0),
+                        child: GuideCard(
+                          imageUrl: tours.user?.photo ?? '',
+                          landmarkname: landmark.name ?? '',
+                          date: '$startDate - $endDate',
+                          username: tours.user?.name ?? '',
+                          lang: tours.spokenLanguages?.join(', ') ?? '',
+                          gov: tours.governorate ?? '',
+                          groubsize: tours.groupSize,
+                          price: null,
+                        ),
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TourDetailsScreen(
+                              tourId: tours.id ?? '', // Pass tour ID to TourDetailsScreen
+                            ),
+                          ),
+                        );
+                      },
                     );
-                  },
-                );
-              }
-            },
-          ),
+                  }).toList()
+              ],
+            ),
+          );
+        },
+      );
+    }
+  },
+)
+,
           FutureBuilder<List<Tour>>(
-            future: _myAcceptedTours,
+            future: _myAcceptedTours, // Use the instance variable
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -238,40 +240,40 @@ class _TourListScreenState extends State<TourListScreen>
                 return ListView.builder(
                   itemCount: toursList.length,
                   itemBuilder: (context, index) {
-                    final tours = toursList[index];
-                    final startDate = tours.startDate != null
-                        ? DateFormat('yyyy-MM-dd').format(tours.startDate!)
+                    final tour = toursList[index];
+                    final startDate = tour.startDate != null
+                        ? DateFormat('yyyy-MM-dd').format(tour.startDate!)
                         : '';
-                    final endDate = tours.endDate != null
-                        ? DateFormat('yyyy-MM-dd').format(tours.endDate!)
+                    final endDate = tour.endDate != null
+                        ? DateFormat('yyyy-MM-dd').format(tour.endDate!)
                         : '';
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (tours.landmarks != null && tours.landmarks!.isNotEmpty)
-                            ...tours.landmarks!.map((landmark) {
+                          if (tour.landmarks != null && tour.landmarks!.isNotEmpty)
+                            ...tour.landmarks!.map((landmark) {
                               return GestureDetector(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 5.0),
                                   child: GuideCard(
-                                    imageUrl: tours.user?.photo ?? '',
+                                    imageUrl: tour.user?.photo ?? '',
                                     landmarkname: landmark.name ?? '',
                                     date: '$startDate - $endDate',
-                                    username: tours.user?.name ?? '',
-                                    lang: tours.spokenLanguages?.join(', ') ?? '',
-                                    gov: tours.governorate ?? '',
-                                    price: tours.price,
-                                    groubsize: null,
+                                    username: tour.user?.name ?? '',
+                                    lang: tour.spokenLanguages?.join(', ') ?? '',
+                                    gov: tour.governorate ?? '',
+                                    price: tour.price,
+                                    groubsize: tour.groupSize,
                                   ),
                                 ),
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => TourDetailsScreen(
-                                        tourId: tours.id ?? '', // Pass tour ID to TourDetailsScreen
+                                      builder: (context) => tourdetailswithoutprice(
+                                        tourId: tour.id ?? '', // Pass tour ID to TourDetailsScreen
                                       ),
                                     ),
                                   );

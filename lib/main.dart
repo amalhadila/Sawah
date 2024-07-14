@@ -76,6 +76,7 @@
 //   }
 // }
 import 'package:sawah/auth/cach/cach_helper.dart';
+import 'package:sawah/auth/cach/cach_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -96,6 +97,7 @@ import 'package:sawah/features/review_onlandmark/pres/cubit/reviewcubit.dart';
 import 'package:sawah/features/search/data/repos/search_repo_imp.dart';
 import 'package:sawah/features/search/presentation/manager/searh_cubit.dart';
 import 'package:sawah/features/store/presentation/manager/cubit/cubit/addtowishlist_cubit.dart';
+import 'package:sawah/features/store/presentation/manager/cubit/cubit/booking_cubit.dart';
 import 'package:sawah/features/store/presentation/manager/cubit/cubit/checkavailability_cubit.dart';
 import 'package:sawah/features/store/presentation/manager/cubit/cubit/deletewishlistitem_cubit.dart';
 import 'package:sawah/features/store/presentation/manager/cubit/cubit/fetchwishlist_cubit.dart';
@@ -155,7 +157,7 @@ void main() async {
       startLocale: const Locale('en'),
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: Sawah(dio: dio,cacheHelper: CacheHelper()),
+      child: Sawah(dio: dio, cacheHelper: CacheHelper()),
     ),
   );
 }
@@ -176,7 +178,7 @@ Future<void> requestNotificationPermission() async {
 
 class Sawah extends StatelessWidget {
   final Dio dio;
-    final CacheHelper cacheHelper;
+  final CacheHelper cacheHelper;
 
   Sawah({super.key, required this.dio, required this.cacheHelper});
 
@@ -186,22 +188,22 @@ class Sawah extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              RecommendationCubit(CategoriesRepoImpl(ApiService(Dio())))
-                ,
+              RecommendationCubit(CategoriesRepoImpl(ApiService(Dio()))),
         ),
         BlocProvider<ChatbotmessageCubit>(
             create: (context) =>
                 ChatbotmessageCubit(RepoImple(ApiService(dio)))),
-                BlocProvider<DeletechatbotCubit>(
+        BlocProvider<DeletechatbotCubit>(
             create: (context) =>
                 DeletechatbotCubit(RepoImple(ApiService(dio)))),
-
-                BlocProvider<SendmesageCubit>(
-            create: (context) =>
-                SendmesageCubit(RepoImple(ApiService(dio)))),
+        BlocProvider<SendmesageCubit>(
+            create: (context) => SendmesageCubit(RepoImple(ApiService(dio)))),
         BlocProvider(
             create: (context) =>
                 CheckavailabilityCubit(ProcatRepoImple(ApiService(dio)))),
+        BlocProvider(
+            create: (context) =>
+                BookingCubit(ProcatRepoImple(ApiService(dio)))),
         BlocProvider(
           create: (context) =>
               DeletewishlistitemCubit(ProcatRepoImple(ApiService(dio))),
@@ -246,8 +248,9 @@ class Sawah extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 SearchproductCubit(ProcatRepoImple(ApiService(Dio())))),
-         BlocProvider<UserCubit>(
-          create: (context) => UserCubit(UserRepository(diocosumer: Diocosumer(dio: dio)), cacheHelper),
+        BlocProvider<UserCubit>(
+          create: (context) => UserCubit(
+              UserRepository(diocosumer: Diocosumer(dio: dio)), cacheHelper),
         ),
       ],
       child: MaterialApp.router(
